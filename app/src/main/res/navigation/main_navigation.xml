@@ -16,21 +16,7 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/main_navigation">
 
-	<fragment
-		android:id="@+id/mainFlowFragment"
-		android:name="androidx.navigation.fragment.NavHostFragment"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		app:defaultNavHost="true"
-		app:navGraph="@navigation/main_navigation"
-		tools:ignore="FragmentTagUsage" />
-
-</FrameLayout>
+</navigation>
