@@ -15,5 +15,10 @@
  * limitations under the License.
  */
 
-rootProject.name='Kudago-App'
-include ':app'
+package com.mmdev.kudago.app.presentation.ui.favourites
+
+/**
+ * This is the documentation block about the class
+ */
+
+class FavouritesPresenter {}

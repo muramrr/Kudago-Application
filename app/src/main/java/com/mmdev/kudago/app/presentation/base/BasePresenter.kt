@@ -15,5 +15,36 @@
  * limitations under the License.
  */
 
-rootProject.name='Kudago-App'
-include ':app'
+package com.mmdev.kudago.app.presentation.base
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+
+/**
+ * generic presenter class
+ */
+
+abstract class BasePresenter<V : MVPView> : IBasePresenter<V>,
+                                            CoroutineScope by CoroutineScope(Dispatchers.Main) {
+
+	override fun attachView(view: V) {
+	}
+
+	override fun getView(): V? = view
+
+	override fun detachView() {
+		cancel()
+	}
+
+}
+
+interface IBasePresenter<V : MVPView> {
+
+	fun attachView(view: V)
+
+	fun detachView()
+
+	fun getView(): V?
+
+}

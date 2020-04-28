@@ -16,22 +16,16 @@
   ~ limitations under the License.
   -->
 
-<navigation
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/main_navigation"
-	app:startDestination="@id/favourites">
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".presentation.ui.favourites.FavouritesFragment">
 
-	<action
-		android:id="@+id/action_global_favourites"
-		app:destination="@id/favourites"/>
+	<!-- TODO: Update blank fragment layout -->
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:text="@string/hello_blank_fragment" />
 
-	<fragment
-		android:id="@+id/favourites"
-		android:name="com.mmdev.kudago.app.presentation.ui.favourites.FavouritesFragment"
-		android:label="fragment_favourites"
-		tools:layout="@layout/fragment_favourites" />
-
-
-</navigation>
+</FrameLayout>

@@ -15,5 +15,12 @@
  * limitations under the License.
  */
 
-rootProject.name='Kudago-App'
-include ':app'
+package com.mmdev.kudago.app.domain.core.mapping
+
+/**
+ * This is the documentation block about the class
+ */
+
+interface IMapper<I, O> {
+	fun map(input: I): O
+}
