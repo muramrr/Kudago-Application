@@ -69,3 +69,9 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 	abstract fun setupViews()
 
 }
+
+interface IBaseView<out T : IBasePresenter<*>> {
+
+	val presenter: T
+
+}

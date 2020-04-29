@@ -55,6 +55,7 @@ dependencies {
 
 	//network
 	implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+	implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
 	//coroutines
 	implementation 'androidx.room:room-coroutines:2.1.0-alpha04'

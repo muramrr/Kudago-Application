@@ -17,34 +17,39 @@
 
 package com.mmdev.kudago.app.presentation.base
 
+import androidx.annotation.CallSuper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 
 /**
- * generic presenter class
+ * Base Presenter feature - for Rx Jobs
+ *
+ * launch() - launch a Rx request
+ * clear all request on stop
  */
 
-abstract class BasePresenter<V : MVPView> : IBasePresenter<V>,
-                                            CoroutineScope by CoroutineScope(Dispatchers.Main) {
+abstract class BasePresenter<V : IBaseView<P>, out P : IBasePresenter<V>> :
+		IBasePresenter<V>,
+		CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
-	override fun attachView(view: V) {
+	override lateinit var view: V
+
+	fun launch(job: () -> Unit) {
+
 	}
 
-	override fun getView(): V? = view
-
-	override fun detachView() {
+	@CallSuper
+	override fun stop() {
 		cancel()
 	}
 
+
 }
 
-interface IBasePresenter<V : MVPView> {
+interface IBasePresenter<T> {
 
-	fun attachView(view: V)
+	fun stop()
 
-	fun detachView()
-
-	fun getView(): V?
-
+	var view: T
 }
