@@ -17,10 +17,7 @@
 
 package com.mmdev.kudago.app.domain.places
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.domain.places.PlacesResponse
 import com.mmdev.kudago.app.domain.core.UseCaseResult
-import com.mmdev.kudago.app.domain.places.PlaceEntity
 
 /**
  * Places commands interface

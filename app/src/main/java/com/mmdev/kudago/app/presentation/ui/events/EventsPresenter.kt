@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.core.mapping
+package com.mmdev.kudago.app.presentation.ui.events
 
 /**
- * mapper interface used to map entity to display in ui
+ * This is the documentation block about the class
  */
 
-interface IMapper<I, O> {
-	fun map(input: I): O
-}
+class EventsPresenter

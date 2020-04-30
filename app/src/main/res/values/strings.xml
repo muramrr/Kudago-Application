@@ -16,8 +16,13 @@
   -->
 
 <resources>
-	<string name="app_name">Kudago-Moscow</string>
 
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="app_name">Kudago-App</string>
+
+	<string name="bottom_navigation_places">Places</string>
+	<string name="bottom_navigation_events">Events</string>
+	<string name="bottom_navigation_favourites">Favourites</string>
+	<string name="bottom_navigation_settings">Settings</string>
+
+
 </resources>

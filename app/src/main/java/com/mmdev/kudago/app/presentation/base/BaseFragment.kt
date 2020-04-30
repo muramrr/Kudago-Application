@@ -18,7 +18,6 @@
 package com.mmdev.kudago.app.presentation.base
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -42,11 +41,6 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 		setBackButtonDispatcher()
 		initializeDependencies()
 		super.onCreate(savedInstanceState)
-	}
-
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		setupViews()
 	}
 
 	/**

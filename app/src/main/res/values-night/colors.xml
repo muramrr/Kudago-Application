@@ -19,34 +19,34 @@
 <resources>
 
 	<!-- primary -->
-	<color name="colorPrimary">#ea6227</color>
-	<color name="colorPrimaryDark">#b13100</color>
-	<color name="colorPrimaryLight">#ff9355</color>
+	<color name="colorPrimary">#202060</color>
+	<color name="colorPrimaryDark">#000036</color>
+	<color name="colorPrimaryLight">#4f488e</color>
 
 
 	<!-- secondary -->
-	<color name="colorSecondary">#342ead</color>
-	<color name="colorSecondaryDark">#00067c</color>
-	<color name="colorSecondaryLight">#6d59e0</color>
+	<color name="colorSecondary">#9c5518</color>
+	<color name="colorSecondaryDark">#692b00</color>
+	<color name="colorSecondaryLight">#d18244</color>
 
 	<!-- other -->
 	<color name="colorError">#C62828</color>
 
 	<!-- backgrounds -->
-	<color name="colorBackground">#FFFFFF</color>
-	<color name="colorSurface">#FFFFFF</color>
+	<color name="colorBackground">#121212</color>
+	<color name="colorSurface">#121212</color>
 
 	<!-- "On" colors-->
-	<color name="colorOnPrimary">#000000</color>
-	<color name="colorOnSecondary">#000000</color>
-	<color name="colorOnBackground">#000000</color>
+	<color name="colorOnPrimary">#FFFFFF</color>
+	<color name="colorOnSecondary">#FFFFFF</color>
+	<color name="colorOnBackground">#FFFFFF</color>
 	<color name="colorOnError">#FFFFFF</color>
-	<color name="colorOnSurface">#000000</color>
+	<color name="colorOnSurface">#FFFFFF</color>
 
-	<color name="fullEmphasisText">#000000</color>
-	<color name="highEmphasisText">#DE000000</color>
-	<color name="lowEmphasisText">#99000000</color>
-	<color name="disabledText">#61000000</color>
+	<color name="fullEmphasisText">#FFFFFF</color>
+	<color name="highEmphasisText">#DEFFFFFF</color>
+	<color name="lowEmphasisText">#99FFFFFF</color>
+	<color name="disabledText">#61FFFFFF</color>
 
 
 

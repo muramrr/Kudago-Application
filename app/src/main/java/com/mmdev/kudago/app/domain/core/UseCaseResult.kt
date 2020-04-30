@@ -18,7 +18,7 @@
 package com.mmdev.kudago.app.domain.core
 
 /**
- * Possible result in usecase
+ * Possible results in usecase
  */
 
 sealed class UseCaseResult<out T : Any> {

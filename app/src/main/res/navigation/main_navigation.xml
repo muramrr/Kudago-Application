@@ -21,17 +21,53 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/main_navigation"
-	app:startDestination="@id/favourites">
+	app:startDestination="@id/favouritesFragment">
+
+	<action android:id="@+id/action_global_placesFragment"
+		app:destination="@id/placesFragment"/>
+
+	<action android:id="@+id/action_global_eventsFragment"
+		app:destination="@id/eventsFragment" />
 
 	<action
 		android:id="@+id/action_global_favourites"
-		app:destination="@id/favourites"/>
+		app:destination="@id/favouritesFragment"/>
+
+	<action android:id="@+id/action_global_settingsFragment"
+		app:destination="@id/settingsFragment" />
+
+
+
 
 	<fragment
-		android:id="@+id/favourites"
+		android:id="@+id/placesFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.places.PlacesFragment"
+		android:label="PlacesFragment"
+		tools:layout="@layout/fragment_places"
+		/>
+
+	<fragment
+		android:id="@+id/eventsFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.events.EventsFragment"
+		android:label="EventsFragment"
+		tools:layout="@layout/fragment_events"
+		/>
+
+	<fragment
+		android:id="@+id/favouritesFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.favourites.FavouritesFragment"
 		android:label="fragment_favourites"
-		tools:layout="@layout/fragment_favourites" />
+		tools:layout="@layout/fragment_favourites"
+		/>
+
+
+	<fragment
+		android:id="@+id/settingsFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.settings.SettingsFragment"
+		android:label="SettingsFragment"
+		tools:layout="@layout/fragment_settings"
+		/>
+
 
 
 </navigation>
