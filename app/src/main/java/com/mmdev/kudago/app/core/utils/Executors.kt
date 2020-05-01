@@ -15,19 +15,31 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.base
+package com.mmdev.kudago.app.core.utils
 
-import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlin.coroutines.CoroutineContext
 
 /**
- * generic fragment class
+ * This is the documentation block about the class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
+abstract class Executors : CoroutineScope {
 
-	protected val TAG = "mylogs_" + javaClass.simpleName
 
-	abstract fun setupViews()
+	override val coroutineContext: CoroutineContext
+		get() = Main
+
+	val uiScope = CoroutineScope(Main)
+
+	val bgScope = CoroutineScope(IO)
+
+	val bgDispatcher: CoroutineDispatcher = IO
+
+	val uiDispatcher: CoroutineDispatcher = Main
+
 
 }
-

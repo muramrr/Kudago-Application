@@ -17,39 +17,50 @@
 
 package com.mmdev.kudago.app.presentation.base
 
-import androidx.annotation.CallSuper
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlin.coroutines.CoroutineContext
 
 /**
- * Base Presenter feature - for Rx Jobs
+ * Base Presenter feature - for coroutines jobs
  *
- * launch() - launch a Rx request
- * clear all request on stop
+ * do job on subscribe()
+ * clear all jobs on unsubscribe()
  */
 
-abstract class BasePresenter<V : IBaseView<P>, out P : IBasePresenter<V>> :
+abstract class BasePresenter<V : IBaseView<IBasePresenter<V>>> :
 		IBasePresenter<V>,
 		CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
-	override lateinit var view: V
+	override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
 
-	fun launch(job: () -> Unit) {
+	override var attachedView: V? = null
 
+
+	override fun attach(view: V) {
+		this.attachedView = view
 	}
 
-	@CallSuper
-	override fun stop() {
+
+	override fun detach() {
+		attachedView = null
 		cancel()
 	}
 
-
 }
+
+/**
+ * Base commands for presenter
+ */
 
 interface IBasePresenter<T> {
 
-	fun stop()
+	fun attach(view: T)
 
-	var view: T
+	fun detach()
+
+	var attachedView: T?
 }

@@ -17,17 +17,12 @@
 
 package com.mmdev.kudago.app.presentation.base
 
-import androidx.fragment.app.Fragment
-
 /**
- * generic fragment class
+ * This is the documentation block about the class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
+interface IBaseView<out T : IBasePresenter<*>> {
 
-	protected val TAG = "mylogs_" + javaClass.simpleName
-
-	abstract fun setupViews()
+	val presenter: T
 
 }
-

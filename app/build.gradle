@@ -42,6 +42,12 @@ android {
 }
 
 dependencies {
+
+	def navigation_version = "2.3.0-alpha05"
+	def retrofit2_version = "2.8.1"
+	def kotlinCoroutines_version = "1.3.0"
+	
+
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 	//core
@@ -49,24 +55,29 @@ dependencies {
 	implementation 'androidx.core:core-ktx:1.3.0-rc01'
 	implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
 
+	//di
+	implementation "org.koin:koin-android:2.1.5"
+
+	//picasso
+	implementation 'com.squareup.picasso:picasso:2.71828'
+
 	//ui
 	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 	implementation 'com.google.android.material:material:1.2.0-alpha06'
 
 	//network
-	implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-	implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+	implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+	implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
 	//Kotlin Coroutines
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version"
+	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines_version"
 
 	//navigation
-	implementation 'androidx.navigation:navigation-ui-ktx:2.3.0-alpha05'
-	implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0-alpha05'
+	implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+	implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
 
-	//di
-	implementation "org.koin:koin-android:2.1.5"
+
 //	testImplementation 'junit:junit:4.12'
 //	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 //	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

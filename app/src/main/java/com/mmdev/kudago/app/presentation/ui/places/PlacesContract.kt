@@ -17,44 +17,32 @@
 
 package com.mmdev.kudago.app.presentation.ui.places
 
-
-import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.presentation.base.BasePresenter
-
+import com.mmdev.kudago.app.presentation.base.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.IBaseView
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesPresenter(val repository: IPlacesRepository) :
-		BasePresenter<PlacesContract.View>(), PlacesContract.Presenter {
+interface PlacesContract {
 
+	interface View : IBaseView<Presenter> {
 
-	override fun loadPlaces() {
-		//repository.loadFirstPlaces("msk")
+		fun updateData()
+
+		fun showLoading()
+
+		fun hideLoading()
+
 	}
 
-	override fun loadMorePlaces() {
-		TODO("Not yet implemented")
+	interface Presenter : IBasePresenter<View> {
+
+		fun loadPlaces()
+
+		fun loadMorePlaces()
+
 	}
-
-
-	//	fun load(){
-//
-//		GlobalScope.launch(Dispatchers.Main) {
-//
-//			val result = ResultState<PlacesResponse>()
-//			when (result){
-//				is ResultState.Success {
-//					val example = result.data
-//					mainView?.showData(example.user)
-//				}
-//				is ResultState.Error {
-//					result.exception.printStackTrace()
-//				}
-//			}
-//
-//		}
-//	}
 
 }
+

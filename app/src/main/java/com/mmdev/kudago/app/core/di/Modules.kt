@@ -20,6 +20,7 @@ package com.mmdev.kudago.app.core.di
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
+import com.mmdev.kudago.app.presentation.ui.places.PlacesPresenter
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,8 +32,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val KUDAGO_BASE_URL = "https://kudago.com/public-api/v1.4/"
 
 
+//presenters
+val PresentersModule = module {
+	factory { PlacesPresenter(repository = get()) }
+}
+
+
+
+
 //repos
 val RepositoryModules = module {
+
+	single<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
 
 	//presenters
 //	factory<AbstractActivityPresenter> {
@@ -51,26 +62,24 @@ val RepositoryModules = module {
 
 
 //	single<PlayerDao> { get<MyDatabase>().playerDao() }
-	factory<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
+	//factory<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
 
 }
 
 //network
 val NetworkModule = module {
 
-	single { provideGson() }
-	single { provideRetrofit(gson = get()) }
+	single { provideRetrofit() }
 	factory { providePlacesApi(retrofit = get()) }
 }
 
-val applicationModules = listOf(NetworkModule, RepositoryModules)
+val applicationModules = listOf(PresentersModule, RepositoryModules, NetworkModule)
 
-fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 
-fun provideRetrofit(gson: GsonConverterFactory): Retrofit =
+fun provideRetrofit(): Retrofit =
 	Retrofit.Builder()
 		.baseUrl(KUDAGO_BASE_URL)
-		.addConverterFactory(gson)
+		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 
 fun providePlacesApi(retrofit: Retrofit): PlacesApi = retrofit.create(PlacesApi::class.java)

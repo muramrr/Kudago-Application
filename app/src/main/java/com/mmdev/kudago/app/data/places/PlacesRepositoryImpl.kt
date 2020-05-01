@@ -17,6 +17,7 @@
 
 package com.mmdev.kudago.app.data.places
 
+import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
@@ -28,8 +29,7 @@ import com.mmdev.kudago.app.domain.places.PlacesResponse
  * This is the documentation block about the class
  */
 
-class PlacesRepositoryImpl (private val placesApi: PlacesApi) :
-		IPlacesRepository {
+class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository(), IPlacesRepository {
 
 	//current time
 	private val unixTime = System.currentTimeMillis() / 1000L
@@ -41,6 +41,13 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) :
 	}
 
 	override suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse> {
+		//another approach
+//		val placesResponse = safeApiCall(
+//				call = { placesApi.getPlacesListAsync(unixTime, category, "msk").await() },
+//				errorMessage = "Error Loading Places"
+//		)
+//
+//		return placesResponse.results.toMutableList()
 		return try {
 			page = 0
 
