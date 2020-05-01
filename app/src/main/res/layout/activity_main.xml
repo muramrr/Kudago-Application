@@ -46,6 +46,7 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 
+		app:itemIconTint="@color/bottom_navigation_tint"
 		app:menu="@menu/main_bottom_navigation"
 		app:labelVisibilityMode="labeled"
 

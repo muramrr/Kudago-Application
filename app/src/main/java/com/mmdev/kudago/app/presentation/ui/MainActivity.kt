@@ -29,11 +29,15 @@ class MainActivity: AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 
-
-		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+
+		if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_places_night_24dp)
+			mainBottomNavigation.menu.getItem(1).setIcon(R.drawable.ic_events_night_24dp)
+			mainBottomNavigation.menu.getItem(2).setIcon(R.drawable.ic_favourites_night_24dp)
+			mainBottomNavigation.menu.getItem(3).setIcon(R.drawable.ic_settings_night_24dp)
+		}
 
 		val navController = findNavController(R.id.mainFlowFragment)
 		mainBottomNavigation.setupWithNavController(navController)

@@ -18,9 +18,11 @@
 package com.mmdev.kudago.app.core
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.mmdev.kudago.app.core.di.applicationModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import kotlin.random.Random
 
 /**
  * This is the documentation block about the class
@@ -29,10 +31,20 @@ import org.koin.core.context.startKoin
 class App: Application() {
 
 	override fun onCreate() {
+
+//		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
 		super.onCreate()
 		startKoin {
 			androidContext(this@App)
 			modules(applicationModules)
 		}
+
+		// Random nightMode to aware of day/night themes
+		val nightMode = when (Random.nextBoolean()) {
+			true -> AppCompatDelegate.MODE_NIGHT_YES
+			false -> AppCompatDelegate.MODE_NIGHT_NO
+		}
+		AppCompatDelegate.setDefaultNightMode(nightMode)
 	}
 }
