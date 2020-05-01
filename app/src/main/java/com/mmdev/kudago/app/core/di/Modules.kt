@@ -30,7 +30,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val KUDAGO_BASE_URL = "https://kudago.com/public-api/v1.4/"
 
-val applicationModules = module {
+
+//repos
+val RepositoryModules = module {
 
 	//presenters
 //	factory<AbstractActivityPresenter> {
@@ -47,23 +49,21 @@ val applicationModules = module {
 	//repository
 //	factory<Repository> { RepoImpl(get()) }
 
-	//database
-//	single {
-//		Room.databaseBuilder(androidContext(),
-//			                 MyDatabase::class.java,
-//			                 MyDatabase.DB_NAME).build()
-//	}
+
 //	single<PlayerDao> { get<MyDatabase>().playerDao() }
-
-	single {  }
-
 	factory<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
 
-	//network
+}
+
+//network
+val NetworkModule = module {
+
 	single { provideGson() }
 	single { provideRetrofit(gson = get()) }
 	factory { providePlacesApi(retrofit = get()) }
 }
+
+val applicationModules = listOf(NetworkModule, RepositoryModules)
 
 fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 

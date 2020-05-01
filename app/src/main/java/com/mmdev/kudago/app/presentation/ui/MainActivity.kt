@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.mmdev.kudago.app.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,45 +35,9 @@ class MainActivity: AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		//not working?
-//		val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainFlowFragment) as NavHostFragment
-//		val navController = navHostFragment.findNavController()
-//		mainBottomNavigation.setupWithNavController(navController)
-
 		val navController = findNavController(R.id.mainFlowFragment)
+		mainBottomNavigation.setupWithNavController(navController)
 
-		mainBottomNavigation.setOnNavigationItemSelectedListener {
-			val previousItem = mainBottomNavigation.selectedItemId
-			val nextItem = it.itemId
-
-			if (previousItem != nextItem) {
-
-				when (nextItem) {
-					R.id.mainBottomNavPlaces -> {
-						navController.popBackStack()
-						navController.navigate(R.id.action_global_placesFragment)
-
-					}
-					R.id.mainBottomNavEvents -> {
-						navController.popBackStack()
-						navController.navigate(R.id.eventsFragment)
-
-					}
-					R.id.mainBottomNavFavourites -> {
-						navController.popBackStack()
-						navController.navigate(R.id.favouritesFragment)
-
-					}
-					R.id.mainBottomNavSettings -> {
-						navController.popBackStack()
-						navController.navigate(R.id.settingsFragment)
-
-					}
-				}
-			}
-
-			return@setOnNavigationItemSelectedListener true
-		}
 	}
 
 

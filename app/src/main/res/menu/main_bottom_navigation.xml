@@ -20,21 +20,25 @@
 
 	<item android:id="@+id/mainBottomNavPlaces"
 		android:icon="@drawable/ic_places_24dp"
+		android:orderInCategory="1"
 		android:title="@string/bottom_navigation_places"
 		/>
 
 	<item android:id="@+id/mainBottomNavEvents"
 		android:icon="@drawable/ic_events_24dp"
+		android:orderInCategory="2"
 		android:title="@string/bottom_navigation_events"
 		/>
 
 	<item android:id="@+id/mainBottomNavFavourites"
 		android:icon="@drawable/ic_favourites_24dp"
+		android:orderInCategory="3"
 		android:title="@string/bottom_navigation_favourites"
 		/>
 
 	<item android:id="@+id/mainBottomNavSettings"
 		android:icon="@drawable/ic_settings_24dp"
+		android:orderInCategory="4"
 		android:title="@string/bottom_navigation_settings"
 		/>
 

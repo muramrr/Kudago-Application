@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.domain.places
 
-import com.mmdev.kudago.app.domain.core.UseCaseResult
+import com.mmdev.kudago.app.domain.core.ResultState
 
 /**
  * Places commands interface
@@ -25,14 +25,14 @@ import com.mmdev.kudago.app.domain.core.UseCaseResult
 
 interface IPlacesRepository {
 
-	suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): UseCaseResult<Unit>
+	suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): ResultState<Unit>
 
-	suspend fun loadFirstPlaces(category: String): UseCaseResult<PlacesResponse>
+	suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse>
 
-	suspend fun loadMorePlaces(category: String): UseCaseResult<PlacesResponse>
+	suspend fun loadMorePlaces(category: String): ResultState<PlacesResponse>
 
-	suspend fun getPlaceDetails(id: Int): UseCaseResult<PlaceDetailedEntity>
+	suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity>
 
-	suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): UseCaseResult<Unit>
+	suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): ResultState<Unit>
 
 }

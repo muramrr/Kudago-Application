@@ -31,13 +31,13 @@ import retrofit2.http.Query
 interface PlacesApi {
 
 	@GET("places/?fields=id,title,short_title,images&text_format=plain")
-	fun getPlacesListAsync(@Query("actual_since") timestamp: Long,
+	suspend fun getPlacesListAsync(@Query("actual_since") timestamp: Long,
 	                       @Query("categories") category: String,
 	                       @Query("location") location: String,
 	                       @Query("page") page: Int = 1): Deferred<PlacesResponse>
 
 	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images&text_format=plain")
-	fun getPlaceDetailsAsync(@Path("id") id: Int): Deferred<PlaceDetailedEntity>
+	suspend fun getPlaceDetailsAsync(@Path("id") id: Int): Deferred<PlaceDetailedEntity>
 
 	//	@GET("events/?fields=id,title,short_title,images&text_format=plain")
 	//	fun getEventsList(@Query("actual_since") timestamp: Long,

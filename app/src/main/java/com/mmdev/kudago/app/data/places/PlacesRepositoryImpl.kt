@@ -18,11 +18,11 @@
 package com.mmdev.kudago.app.data.places
 
 import com.mmdev.kudago.app.data.api.PlacesApi
-import com.mmdev.kudago.app.domain.core.UseCaseResult
+import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.domain.places.PlacesResponse
-import com.mmdev.kudago.app.domain.places.IPlacesRepository
 
 /**
  * This is the documentation block about the class
@@ -36,43 +36,43 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) :
 	private var page = 1
 
 
-	override suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): UseCaseResult<Unit> {
+	override suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): ResultState<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun loadFirstPlaces(category: String): UseCaseResult<PlacesResponse> {
+	override suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse> {
 		return try {
 			page = 0
 
 			val result = placesApi.getPlacesListAsync(unixTime, category, "msk").await()
-			UseCaseResult.Success(result)
+			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
-			UseCaseResult.Error(ex)
+			ResultState.Error(ex)
 		}
 	}
 
-	override suspend fun loadMorePlaces(category: String): UseCaseResult<PlacesResponse> {
+	override suspend fun loadMorePlaces(category: String): ResultState<PlacesResponse> {
 		return try {
 			page++
 			val result = placesApi.getPlacesListAsync(unixTime, category, "msk", page).await()
-			UseCaseResult.Success(result)
+			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
-			UseCaseResult.Error(ex)
+			ResultState.Error(ex)
 		}
 	}
 
-	override suspend fun getPlaceDetails(id: Int): UseCaseResult<PlaceDetailedEntity> =
+	override suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity> =
 		try {
 			val result = placesApi.getPlaceDetailsAsync(id).await()
-			UseCaseResult.Success(result)
+			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
-			UseCaseResult.Error(ex)
+			ResultState.Error(ex)
 		}
 
-	override suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): UseCaseResult<Unit> {
+	override suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): ResultState<Unit> {
 		TODO("Not yet implemented")
 	}
 

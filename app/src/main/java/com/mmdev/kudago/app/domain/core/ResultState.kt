@@ -21,10 +21,21 @@ package com.mmdev.kudago.app.domain.core
  * Possible results in usecase
  */
 
-sealed class UseCaseResult<out T : Any> {
+sealed class ResultState<out T : Any> {
 
-	class Success<out T : Any>(val data: T) : UseCaseResult<T>()
+	/**
+	 * A state of [data] which shows that we know there is still an update to come.
+	 */
+	class Loading<out T: Any>(val data: T) : ResultState<T>()
 
-	class Error(val exception: Throwable) : UseCaseResult<Nothing>()
+	/**
+	 * A state that shows the [data] is the last known update.
+	 */
+	class Success<out T : Any>(val data: T) : ResultState<T>()
+
+	/**
+	 * A state to show a [Throwable] is thrown.
+	 */
+	class Error<T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>()
 
 }
