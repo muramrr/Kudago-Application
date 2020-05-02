@@ -22,26 +22,25 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
 /**
  * Base Presenter feature - for coroutines jobs
  *
- * do job on subscribe()
- * clear all jobs on unsubscribe()
  */
 
-abstract class BasePresenter<V : IBaseView<IBasePresenter<V>>> :
+abstract class BasePresenter<V> :
 		IBasePresenter<V>,
 		CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
 	override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
 
-	override var attachedView: V? = null
+	protected var attachedView: WeakReference<V>? = null
 
 
 	override fun attach(view: V) {
-		this.attachedView = view
+		this.attachedView = WeakReference(view)
 	}
 
 
@@ -62,5 +61,4 @@ interface IBasePresenter<T> {
 
 	fun detach()
 
-	var attachedView: T?
 }

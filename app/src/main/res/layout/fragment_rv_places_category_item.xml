@@ -27,7 +27,7 @@
 
 
 
-	<com.mmdev.kudago.app.presentation.ui.custom.components.CircleImageView
+	<com.mmdev.kudago.app.presentation.ui.common.custom.components.CircleImageView
 		android:id="@+id/ivCategoryIcon"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

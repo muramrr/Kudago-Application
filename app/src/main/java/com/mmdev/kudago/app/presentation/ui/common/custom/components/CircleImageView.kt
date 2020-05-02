@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.custom.components
+package com.mmdev.kudago.app.presentation.ui.common.custom.components
 
 
 import android.annotation.SuppressLint
@@ -53,8 +53,10 @@ class CircleImageView: ImageView {
 	private val mBitmapPaint: Paint = Paint()
 
 	private val mCircleBackgroundPaint = Paint()
-	private var mCircleBackgroundColor = DEFAULT_CIRCLE_BACKGROUND_COLOR
-	private var mImageAlpha = DEFAULT_IMAGE_ALPHA
+	private var mCircleBackgroundColor =
+		DEFAULT_CIRCLE_BACKGROUND_COLOR
+	private var mImageAlpha =
+		DEFAULT_IMAGE_ALPHA
 	private var mBitmap: Bitmap? = null
 	private var mBitmapShader: BitmapShader? = null
 	private var mBitmapWidth = 0
@@ -96,7 +98,8 @@ class CircleImageView: ImageView {
 		}
 	}
 
-	override fun getScaleType(): ScaleType = SCALE_TYPE
+	override fun getScaleType(): ScaleType =
+		SCALE_TYPE
 
 	override fun setScaleType(scaleType: ScaleType) {
 		require(scaleType == SCALE_TYPE) {
@@ -235,7 +238,9 @@ class CircleImageView: ImageView {
 		}
 		else try {
 			val bitmap: Bitmap = if (drawable is ColorDrawable) {
-				Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG)
+				Bitmap.createBitmap(COLORDRAWABLE_DIMENSION,
+				                    COLORDRAWABLE_DIMENSION,
+				                    BITMAP_CONFIG)
 			}
 			else {
 				Bitmap.createBitmap(drawable.intrinsicWidth,

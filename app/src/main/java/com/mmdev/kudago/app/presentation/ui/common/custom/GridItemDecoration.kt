@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.custom
+package com.mmdev.kudago.app.presentation.ui.common.custom
 
 import android.graphics.Rect
 import android.view.View

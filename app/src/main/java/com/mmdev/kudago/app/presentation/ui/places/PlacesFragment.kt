@@ -17,15 +17,41 @@
 
 package com.mmdev.kudago.app.presentation.ui.places
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_places.*
+import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesFragment : BaseFragment(R.layout.fragment_places) {
+class PlacesFragment : BaseFragment(R.layout.fragment_places), PlacesContract.View {
+
+
+	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
+
+	override val presenter: PlacesPresenter by inject()
+
 	override fun setupViews() {
+		rvPlacesCategories.apply {
+			layoutManager = LinearLayoutManager(this.context)
+		}.adapter = mPlacesCategoriesAdapter
+	}
+
+	override fun updateData() {
 		TODO("Not yet implemented")
 	}
+
+	override fun showLoading() {
+		TODO("Not yet implemented")
+	}
+
+	override fun hideLoading() {
+		TODO("Not yet implemented")
+	}
+
+
+
 }

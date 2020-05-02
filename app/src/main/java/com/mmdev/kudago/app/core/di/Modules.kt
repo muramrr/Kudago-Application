@@ -21,9 +21,11 @@ import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.presentation.ui.places.PlacesPresenter
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.CoroutineContext
 
 /**
  * This is the documentation block about the class
@@ -37,43 +39,32 @@ val PresentersModule = module {
 	factory { PlacesPresenter(repository = get()) }
 }
 
-
-
+//coroutines
+val CoroutinesModule = module {
+	single<CoroutineContext> { Dispatchers.IO }
+}
 
 //repos
 val RepositoryModules = module {
 
 	single<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
 
-	//presenters
-//	factory<AbstractActivityPresenter> {
-//		ActivityPresenterImpl()
-//	}
-//
-//	factory<AbstractFragmentPresenter> {
-//		FragmentPresenterImpl(
-//				get(),
-//				get()
-//		)
-//	}
-
-	//repository
-//	factory<Repository> { RepoImpl(get()) }
-
-
-//	single<PlayerDao> { get<MyDatabase>().playerDao() }
-	//factory<IPlacesRepository> { PlacesRepositoryImpl(placesApi = get()) }
-
 }
 
 //network
 val NetworkModule = module {
-
 	single { provideRetrofit() }
 	factory { providePlacesApi(retrofit = get()) }
 }
 
-val applicationModules = listOf(PresentersModule, RepositoryModules, NetworkModule)
+
+
+val applicationModules = listOf(CoroutinesModule,
+                                PresentersModule,
+                                RepositoryModules,
+                                NetworkModule)
+
+
 
 
 fun provideRetrofit(): Retrofit =
