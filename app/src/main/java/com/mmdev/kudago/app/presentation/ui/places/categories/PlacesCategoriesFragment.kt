@@ -20,8 +20,8 @@ package com.mmdev.kudago.app.presentation.ui.places.categories
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.ui.places.PlacesContract
-import com.mmdev.kudago.app.presentation.ui.places.PlacesPresenter
+import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesContract
+import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import kotlinx.android.synthetic.main.fragment_places_categories.*
 import org.koin.android.ext.android.inject
 
@@ -32,11 +32,11 @@ import org.koin.android.ext.android.inject
 class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories),
                                  PlacesContract.View {
 
-
-	private val mPlacesCategoriesAdapter =
-		PlacesCategoriesAdapter()
-
 	override val presenter: PlacesPresenter by inject()
+
+	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
+
+
 
 	override fun setupViews() {
 		rvPlacesCategories.apply {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places
+package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import com.mmdev.kudago.app.presentation.base.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.IBaseView
@@ -38,7 +38,7 @@ interface PlacesContract {
 
 	interface Presenter : IBasePresenter<View> {
 
-		fun loadPlaces()
+		fun loadPlaces(category: String)
 
 		fun loadMorePlaces()
 

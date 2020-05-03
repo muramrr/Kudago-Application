@@ -17,8 +17,50 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
+
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedAdapter
+class PlacesCategoryDetailedAdapter (private var data: List<String> = emptyList()):
+
+		RecyclerView.Adapter<PlacesCategoryDetailedAdapter.PlacesCategoryDetailedViewHolder>() {
+
+
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+		PlacesCategoryDetailedViewHolder(
+				ItemPlaceCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
+				                                         parent,
+				                                         false)
+		)
+
+	override fun getItemCount(): Int = data.size
+
+	override fun onBindViewHolder(holder: PlacesCategoryDetailedViewHolder, position: Int) {
+		holder.bind(data[position])
+	}
+
+
+	fun setData(data: List<String>){
+		this.data = data
+		notifyDataSetChanged()
+	}
+
+
+	inner class PlacesCategoryDetailedViewHolder (private val viewBinding:
+	                                              ItemPlaceCategoryDetailedBinding):
+			RecyclerView.ViewHolder(viewBinding.root) {
+
+
+		fun bind(item: String) {
+
+		}
+
+
+	}
+
+}

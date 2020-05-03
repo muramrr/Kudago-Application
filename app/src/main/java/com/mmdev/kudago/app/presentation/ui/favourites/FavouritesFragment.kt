@@ -66,7 +66,6 @@ class FavouritesFragment: BaseFragment(R.layout.fragment_favourites) {
 	}
 
 	override fun setupViews() {
-		TODO("Not yet implemented")
 	}
 
 }

@@ -17,16 +17,81 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
+import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
+import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
+import kotlinx.android.synthetic.main.fragment_places_category_detailed.*
+import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed) {
+class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed),
+                                       PlacesContract.View {
+
+
+	override val presenter: PlacesPresenter by inject()
+
+	private var receivedCategoryString = ""
+
+	private val adapter = PlacesCategoryDetailedAdapter()
+
+	companion object {
+
+		private const val CATEGORY_KEY = "CATEGORY"
+
+		fun newInstance(category: String) =
+			PlacesCategoryDetailedFragment().apply {
+				arguments = Bundle().apply {
+					putString(CATEGORY_KEY, category)
+				}
+			}
+	}
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+
+		arguments?.let {
+			receivedCategoryString = it.getString(CATEGORY_KEY, "")
+			presenter.loadPlaces(receivedCategoryString)
+		}
+	}
 
 	override fun setupViews() {
+		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+		rvDetailedCategory.apply {
+			adapter = adapter
+			layoutManager = gridLayoutManager
+			addItemDecoration(GridItemDecoration())
+
+			addOnScrollListener(object: EndlessRecyclerViewScrollListener(gridLayoutManager) {
+				override fun onLoadMore(page: Int, totalItemsCount: Int) {
+
+					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4){
+						//presenter.loadMorePlaces(receivedCategoryString)
+					}
+
+				}
+			})
+		}
+
+	}
+
+	override fun updateData() {
+		presenter.data?.let {
+			adapter.setData(it.map { placeEntity -> placeEntity.title })
+		}
+	}
+
+	override fun showLoading() {
+		TODO("Not yet implemented")
+	}
+
+	override fun hideLoading() {
 		TODO("Not yet implemented")
 	}
 }

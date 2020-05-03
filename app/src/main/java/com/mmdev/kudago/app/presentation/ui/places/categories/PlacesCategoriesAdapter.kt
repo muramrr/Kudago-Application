@@ -27,7 +27,7 @@ import com.mmdev.kudago.app.databinding.ItemPlacesCategoryBinding
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesAdapter (private val data: List<String> = emptyList()):
+class PlacesCategoriesAdapter (private val data: List<String> = listOf("restaurants", "bar")):
 
 		RecyclerView.Adapter<PlacesCategoriesAdapter.PlacesCategoriesViewHolder>() {
 
@@ -45,18 +45,14 @@ class PlacesCategoriesAdapter (private val data: List<String> = emptyList()):
 		holder.bind(data[position])
 	}
 
-	fun setData(data: List<String>){
 
-		notifyDataSetChanged()
-	}
-
-
-	inner class PlacesCategoriesViewHolder(private val viewBind: ItemPlacesCategoryBinding):
-			RecyclerView.ViewHolder(viewBind.root) {
+	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemPlacesCategoryBinding):
+			RecyclerView.ViewHolder(viewBinding.root) {
 
 
 		fun bind(item: String){
 
+			viewBinding.tvCategoryTitle.text = item
 		}
 
 

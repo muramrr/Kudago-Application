@@ -17,6 +17,8 @@
 
 package com.mmdev.kudago.app.presentation.base
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 
 /**
@@ -26,6 +28,12 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
+
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		setupViews()
+	}
 
 	abstract fun setupViews()
 

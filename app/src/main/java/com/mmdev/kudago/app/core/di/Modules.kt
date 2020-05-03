@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.core.di
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.presentation.ui.places.PlacesPresenter
+import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -36,7 +36,10 @@ private const val KUDAGO_BASE_URL = "https://kudago.com/public-api/v1.4/"
 
 //presenters
 val PresentersModule = module {
-	factory { PlacesPresenter(repository = get()) }
+	factory {
+		PlacesPresenter(
+				repository = get())
+	}
 }
 
 //coroutines

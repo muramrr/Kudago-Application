@@ -26,6 +26,5 @@ import com.mmdev.kudago.app.presentation.base.BaseFragment
 
 class EventsFragment : BaseFragment(R.layout.fragment_events) {
 	override fun setupViews() {
-		TODO("Not yet implemented")
 	}
 }

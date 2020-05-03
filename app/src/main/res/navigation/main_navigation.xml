@@ -45,7 +45,11 @@
 		>
 
 		<action android:id="@+id/action_placesCategories_to_placesCategoryDetailed"
-			app:destination="@id/placesCategoryDetailedFragment" />
+			app:destination="@id/placesCategoryDetailedFragment" >
+
+			<argument android:name="CATEGORY" />
+
+		</action>
 
 	</fragment>
 
@@ -71,6 +75,9 @@
 		android:name="com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesCategoryDetailedFragment"
 		android:label="PlacesCategoryDetailedFragment"
 		tools:layout="@layout/item_place_category_detailed">
+
+		<argument android:name="CATEGORY"
+			app:argType="string" />
 
 		<action android:id="@+id/action_categoryDetailed_to_placeDetailed"
 			app:destination="@id/placeDetailedFragment" >

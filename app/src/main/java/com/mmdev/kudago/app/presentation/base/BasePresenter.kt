@@ -18,12 +18,8 @@
 package com.mmdev.kudago.app.presentation.base
 
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import java.lang.ref.WeakReference
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Base Presenter feature - for coroutines jobs
@@ -31,10 +27,11 @@ import kotlin.coroutines.CoroutineContext
  */
 
 abstract class BasePresenter<V> :
-		IBasePresenter<V>,
-		CoroutineScope by CoroutineScope(Dispatchers.Main) {
+		IBasePresenter<V>{
 
-	override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
+
+	protected val parentJob = SupervisorJob()
+
 
 	protected var attachedView: WeakReference<V>? = null
 
@@ -46,7 +43,7 @@ abstract class BasePresenter<V> :
 
 	override fun detach() {
 		attachedView = null
-		cancel()
+//		cancel()
 	}
 
 }
