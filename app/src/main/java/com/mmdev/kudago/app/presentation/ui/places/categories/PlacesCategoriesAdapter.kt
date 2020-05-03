@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places
+package com.mmdev.kudago.app.presentation.ui.places.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mmdev.kudago.app.databinding.FragmentRvPlacesCategoryItemBinding
+import com.mmdev.kudago.app.databinding.ItemPlacesCategoryBinding
 
 
 /**
@@ -33,7 +33,7 @@ class PlacesCategoriesAdapter (private val data: List<String> = emptyList()):
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
-		PlacesCategoriesViewHolder(FragmentRvPlacesCategoryItemBinding
+		PlacesCategoriesViewHolder(ItemPlacesCategoryBinding
 			                           .inflate(LayoutInflater.from(parent.context),
 			                                    parent,
 			                                    false)
@@ -51,8 +51,8 @@ class PlacesCategoriesAdapter (private val data: List<String> = emptyList()):
 	}
 
 
-	inner class PlacesCategoriesViewHolder(private val view: FragmentRvPlacesCategoryItemBinding):
-			RecyclerView.ViewHolder(view.root) {
+	inner class PlacesCategoriesViewHolder(private val viewBind: ItemPlacesCategoryBinding):
+			RecyclerView.ViewHolder(viewBind.root) {
 
 
 		fun bind(item: String){

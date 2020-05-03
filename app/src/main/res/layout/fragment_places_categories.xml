@@ -21,7 +21,7 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	tools:itemCount="10"
-	tools:listitem="@layout/fragment_rv_places_category_item"
+	tools:listitem="@layout/item_places_category"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
