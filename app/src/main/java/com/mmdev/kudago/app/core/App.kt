@@ -19,8 +19,11 @@ package com.mmdev.kudago.app.core
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.mmdev.kudago.app.core.di.applicationModules
+import com.mmdev.kudago.app.core.di.NetworkModule
+import com.mmdev.kudago.app.core.di.PresentersModule
+import com.mmdev.kudago.app.core.di.RepositoryModules
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import kotlin.random.Random
 
@@ -30,6 +33,10 @@ import kotlin.random.Random
 
 class App: Application() {
 
+	private val applicationModules = listOf(PresentersModule,
+	                                        RepositoryModules,
+	                                        NetworkModule)
+
 	override fun onCreate() {
 
 //		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -37,6 +44,7 @@ class App: Application() {
 		super.onCreate()
 		startKoin {
 			androidContext(this@App)
+			androidLogger()
 			modules(applicationModules)
 		}
 

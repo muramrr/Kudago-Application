@@ -30,26 +30,20 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed),
-                                       PlacesContract.View {
+class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed) ,
+    PlacesContract.View {
 
 
-	override val presenter: PlacesPresenter by inject()
+	private val presenter: PlacesPresenter by inject()
 
 	private var receivedCategoryString = ""
 
-	private val adapter = PlacesCategoryDetailedAdapter()
+	private val categoryDetailedAdapter = PlacesCategoryDetailedAdapter()
 
 	companion object {
 
 		private const val CATEGORY_KEY = "CATEGORY"
 
-		fun newInstance(category: String) =
-			PlacesCategoryDetailedFragment().apply {
-				arguments = Bundle().apply {
-					putString(CATEGORY_KEY, category)
-				}
-			}
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,21 +51,23 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
-			presenter.loadPlaces(receivedCategoryString)
+			//presenter.loadPlaces(receivedCategoryString)
 		}
+
+		presenter.attachView(this)
 	}
 
 	override fun setupViews() {
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		rvDetailedCategory.apply {
-			adapter = adapter
+			adapter = categoryDetailedAdapter
 			layoutManager = gridLayoutManager
 			addItemDecoration(GridItemDecoration())
 
 			addOnScrollListener(object: EndlessRecyclerViewScrollListener(gridLayoutManager) {
 				override fun onLoadMore(page: Int, totalItemsCount: Int) {
 
-					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4){
+					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4) {
 						//presenter.loadMorePlaces(receivedCategoryString)
 					}
 
@@ -82,9 +78,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	}
 
 	override fun updateData() {
-		presenter.data?.let {
-			adapter.setData(it.map { placeEntity -> placeEntity.title })
-		}
+		TODO("Not yet implemented")
 	}
 
 	override fun showLoading() {

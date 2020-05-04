@@ -17,8 +17,6 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
 
 /**
  * This is the documentation block about the class
@@ -26,7 +24,7 @@ import com.mmdev.kudago.app.presentation.base.IBaseView
 
 interface PlacesContract {
 
-	interface View : IBaseView<Presenter> {
+	interface View {
 
 		fun updateData()
 
@@ -36,7 +34,7 @@ interface PlacesContract {
 
 	}
 
-	interface Presenter : IBasePresenter<View> {
+	interface Presenter {
 
 		fun loadPlaces(category: String)
 

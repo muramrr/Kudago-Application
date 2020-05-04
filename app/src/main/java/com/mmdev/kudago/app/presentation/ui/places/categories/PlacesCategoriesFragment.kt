@@ -17,44 +17,41 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.categories
 
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesContract
-import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import kotlinx.android.synthetic.main.fragment_places_categories.*
-import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories),
-                                 PlacesContract.View {
-
-	override val presenter: PlacesPresenter by inject()
+class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories) {
 
 	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
 
+	companion object {
 
+		private const val CATEGORY_KEY = "CATEGORY"
+
+	}
 
 	override fun setupViews() {
 		rvPlacesCategories.apply {
 			adapter = mPlacesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}
-	}
 
-	override fun updateData() {
-		TODO("Not yet implemented")
-	}
+		mPlacesCategoriesAdapter.setOnItemClickListener(object : PlacesCategoriesAdapter.OnItemClickListener{
 
-	override fun showLoading() {
-		TODO("Not yet implemented")
-	}
-
-	override fun hideLoading() {
-		TODO("Not yet implemented")
+			override fun onItemClick(item: String, position: Int) {
+				val category = bundleOf(CATEGORY_KEY to item)
+				findNavController().navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
+				                             category)
+			}
+		})
 	}
 
 

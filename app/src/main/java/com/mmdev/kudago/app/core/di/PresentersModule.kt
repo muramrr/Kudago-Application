@@ -15,14 +15,20 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.base
+package com.mmdev.kudago.app.core.di
 
-/**
- * This is the documentation block about the class
- */
+import com.mmdev.kudago.app.domain.places.IPlacesRepository
+import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
+import org.koin.dsl.module
 
-interface IBaseView<out T : IBasePresenter<*>> {
 
-	val presenter: T
+//presenters
+val PresentersModule = module {
+	factory {
+		providePlacesPresenter(repository = get())
+	}
+}
 
+private fun providePlacesPresenter(repository: IPlacesRepository): PlacesPresenter {
+	return PlacesPresenter(repository)
 }

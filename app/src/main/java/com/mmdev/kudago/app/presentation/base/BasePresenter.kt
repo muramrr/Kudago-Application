@@ -18,7 +18,6 @@
 package com.mmdev.kudago.app.presentation.base
 
 
-import kotlinx.coroutines.SupervisorJob
 import java.lang.ref.WeakReference
 
 /**
@@ -26,36 +25,16 @@ import java.lang.ref.WeakReference
  *
  */
 
-abstract class BasePresenter<V> :
-		IBasePresenter<V>{
+abstract class BasePresenter<V> {
 
+	private var attachedView: WeakReference<V>? = null
 
-	protected val parentJob = SupervisorJob()
-
-
-	protected var attachedView: WeakReference<V>? = null
-
-
-	override fun attach(view: V) {
+	fun attachView(view: V) {
 		this.attachedView = WeakReference(view)
 	}
 
-
-	override fun detach() {
-		attachedView = null
-//		cancel()
+	protected fun getAttachedView(): V? {
+		return attachedView?.get()
 	}
-
-}
-
-/**
- * Base commands for presenter
- */
-
-interface IBasePresenter<T> {
-
-	fun attach(view: T)
-
-	fun detach()
 
 }

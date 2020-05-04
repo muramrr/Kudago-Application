@@ -25,6 +25,7 @@ import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -33,15 +34,20 @@ import kotlin.coroutines.CoroutineContext
  * This is the documentation block about the class
  */
 
-class PlacesPresenter(val repository: IPlacesRepository) :
-		BasePresenter<PlacesContract.View>(),
-		PlacesContract.Presenter,
+class PlacesPresenter(private val repository: IPlacesRepository) :
+		BasePresenter<PlacesContract.View>(), PlacesContract.Presenter,
 		CoroutineScope by CoroutineScope(Dispatchers.Main) {
+
+
+	private val parentJob = SupervisorJob()
 
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.Main + parentJob
 
+
+
 	var data: List<PlaceEntity>? = null
+
 
 	override fun loadPlaces(category: String) {
 		launch {

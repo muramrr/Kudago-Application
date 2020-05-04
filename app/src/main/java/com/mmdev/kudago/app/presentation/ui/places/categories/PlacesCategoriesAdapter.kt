@@ -31,6 +31,8 @@ class PlacesCategoriesAdapter (private val data: List<String> = listOf("restaura
 
 		RecyclerView.Adapter<PlacesCategoriesAdapter.PlacesCategoriesViewHolder>() {
 
+	private var mClickListener: OnItemClickListener? = null
+
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
 		PlacesCategoriesViewHolder(ItemPlacesCategoryBinding
@@ -45,9 +47,21 @@ class PlacesCategoriesAdapter (private val data: List<String> = listOf("restaura
 		holder.bind(data[position])
 	}
 
+	private fun getItem(position: Int) = data[position]
+
+	fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+		mClickListener = itemClickListener
+	}
+
 
 	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemPlacesCategoryBinding):
 			RecyclerView.ViewHolder(viewBinding.root) {
+
+		init {
+			viewBinding.root.setOnClickListener {
+				mClickListener?.onItemClick(getItem(adapterPosition), adapterPosition)
+			}
+		}
 
 
 		fun bind(item: String){
@@ -58,5 +72,9 @@ class PlacesCategoriesAdapter (private val data: List<String> = listOf("restaura
 
 	}
 
+
+	interface OnItemClickListener {
+		fun onItemClick(item: String, position: Int)
+	}
 
 }

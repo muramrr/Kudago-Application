@@ -18,18 +18,23 @@
 package com.mmdev.kudago.app.core.di
 
 import com.mmdev.kudago.app.data.api.PlacesApi
-import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
-import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
-//repos
-val RepositoryModules = module {
+private const val KUDAGO_BASE_URL = "https://kudago.com/public-api/v1.4/"
 
-	single<IPlacesRepository> { providePlacesRepositoryImpl(placesApi = get() ) }
-
+//network
+val NetworkModule = module {
+	single { provideRetrofit() }
+	single { providePlacesApi(retrofit = get()) }
 }
 
-private fun providePlacesRepositoryImpl(placesApi: PlacesApi): PlacesRepositoryImpl {
-	return PlacesRepositoryImpl(placesApi)
-}
+fun provideRetrofit(): Retrofit =
+	Retrofit.Builder()
+		.baseUrl(KUDAGO_BASE_URL)
+		.addConverterFactory(GsonConverterFactory.create())
+		.build()
+
+fun providePlacesApi(retrofit: Retrofit): PlacesApi = retrofit.create(PlacesApi::class.java)
