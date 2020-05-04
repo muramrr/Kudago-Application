@@ -27,14 +27,11 @@ import java.lang.ref.WeakReference
 
 abstract class BasePresenter<V> {
 
-	private var attachedView: WeakReference<V>? = null
+	protected var attachedView: WeakReference<V>? = null
 
 	fun attachView(view: V) {
 		this.attachedView = WeakReference(view)
 	}
 
-	protected fun getAttachedView(): V? {
-		return attachedView?.get()
-	}
 
 }

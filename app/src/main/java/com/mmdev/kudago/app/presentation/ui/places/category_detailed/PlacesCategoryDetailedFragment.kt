@@ -20,6 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
 import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
@@ -37,7 +38,6 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	private val presenter: PlacesPresenter by inject()
 
 	private var receivedCategoryString = ""
-
 	private val categoryDetailedAdapter = PlacesCategoryDetailedAdapter()
 
 	companion object {
@@ -49,15 +49,19 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		presenter.attachView(this)
+
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
-			//presenter.loadPlaces(receivedCategoryString)
+			presenter.loadPlaces(receivedCategoryString)
 		}
 
-		presenter.attachView(this)
+
 	}
 
 	override fun setupViews() {
+		toolbarCategoryTitle.title = receivedCategoryString
+
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		rvDetailedCategory.apply {
 			adapter = categoryDetailedAdapter
@@ -77,8 +81,8 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 	}
 
-	override fun updateData() {
-		TODO("Not yet implemented")
+	override fun updateData(data: List<PlaceEntity>) {
+		categoryDetailedAdapter.setData(data)
 	}
 
 	override fun showLoading() {

@@ -18,15 +18,10 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 
-import android.util.Log
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -35,7 +30,8 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class PlacesPresenter(private val repository: IPlacesRepository) :
-		BasePresenter<PlacesContract.View>(), PlacesContract.Presenter,
+		BasePresenter<PlacesContract.View>(),
+		PlacesContract.Presenter,
 		CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
 
@@ -46,23 +42,22 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 
 
 
-	var data: List<PlaceEntity>? = null
+
 
 
 	override fun loadPlaces(category: String) {
 		launch {
-			val result = repository.loadFirstPlaces(category)
+			val result = async { repository.loadFirstPlaces(category) }.await()
 			when (result) {
 				is ResultState.Success -> {
-					data = result.data.results
-					//attachedView?.showData(example.user)
+					val data = result.data.results
+					attachedView?.get()?.updateData(data)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
 				}
 			}
 
-			Log.wtf("mylogs", "$data")
 		}
 
 	}

@@ -21,12 +21,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
+import com.mmdev.kudago.app.domain.places.PlaceEntity
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedAdapter (private var data: List<String> = emptyList()):
+class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = emptyList()):
 
 		RecyclerView.Adapter<PlacesCategoryDetailedAdapter.PlacesCategoryDetailedViewHolder>() {
 
@@ -45,7 +46,7 @@ class PlacesCategoryDetailedAdapter (private var data: List<String> = emptyList(
 	}
 
 
-	fun setData(data: List<String>){
+	fun setData(data: List<PlaceEntity>){
 		this.data = data
 		notifyDataSetChanged()
 	}
@@ -56,8 +57,8 @@ class PlacesCategoryDetailedAdapter (private var data: List<String> = emptyList(
 			RecyclerView.ViewHolder(viewBinding.root) {
 
 
-		fun bind(item: String) {
-
+		fun bind(item: PlaceEntity) {
+			viewBinding.tvPlaceTitle.text = item.short_title
 		}
 
 

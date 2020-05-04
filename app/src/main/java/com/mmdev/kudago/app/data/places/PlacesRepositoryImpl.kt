@@ -49,9 +49,9 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 //
 //		return placesResponse.results.toMutableList()
 		return try {
-			page = 0
+			page = 1
 
-			val result = placesApi.getPlacesListAsync(unixTime, category, "msk").await()
+			val result = placesApi.getPlacesListAsync(unixTime, category, "msk")
 			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
@@ -62,7 +62,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 	override suspend fun loadMorePlaces(category: String): ResultState<PlacesResponse> {
 		return try {
 			page++
-			val result = placesApi.getPlacesListAsync(unixTime, category, "msk", page).await()
+			val result = placesApi.getPlacesListAsync(unixTime, category, "msk", page)
 			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
@@ -72,7 +72,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 
 	override suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity> =
 		try {
-			val result = placesApi.getPlaceDetailsAsync(id).await()
+			val result = placesApi.getPlaceDetailsAsync(id)
 			ResultState.Success(result)
 		}
 		catch (ex: Exception) {
