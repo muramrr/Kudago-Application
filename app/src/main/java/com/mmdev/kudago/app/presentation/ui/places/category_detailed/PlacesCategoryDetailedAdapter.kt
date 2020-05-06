@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 /**
  * This is the documentation block about the class
@@ -59,6 +60,9 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 
 		fun bind(item: PlaceEntity) {
 			viewBinding.tvPlaceTitle.text = item.short_title
+			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
+			ImageLoader.with(viewBinding.ivImageHolder.context)
+				.load(viewBinding.ivImageHolder, item.images[0].image)
 		}
 
 

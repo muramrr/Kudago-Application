@@ -35,7 +35,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
     PlacesContract.View {
 
 
-	private val presenter: PlacesPresenter by inject()
+	override val presenter: PlacesPresenter by inject()
 
 	private var receivedCategoryString = ""
 	private val categoryDetailedAdapter = PlacesCategoryDetailedAdapter()

@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BasePresenter
 
 
 /**
@@ -64,6 +65,9 @@ class FavouritesFragment: BaseFragment(R.layout.fragment_favourites) {
 			param2 = it.getString(ARG_PARAM2)
 		}
 	}
+
+	override val presenter: BasePresenter<*>
+		get() = TODO("Not yet implemented")
 
 	override fun setupViews() {
 	}

@@ -19,12 +19,17 @@ package com.mmdev.kudago.app.presentation.ui.events
 
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BasePresenter
 
 /**
  * This is the documentation block about the class
  */
 
 class EventsFragment : BaseFragment(R.layout.fragment_events) {
+
+	override val presenter: BasePresenter<*>
+		get() = TODO("Not yet implemented")
+
 	override fun setupViews() {
 	}
 }

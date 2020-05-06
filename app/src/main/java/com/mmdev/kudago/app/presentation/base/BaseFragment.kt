@@ -29,10 +29,16 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 
+	protected abstract val presenter: BasePresenter<*>
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setupViews()
+	}
+
+	override fun onDestroy() {
+		super.onDestroy()
+		presenter.detachView()
 	}
 
 	abstract fun setupViews()

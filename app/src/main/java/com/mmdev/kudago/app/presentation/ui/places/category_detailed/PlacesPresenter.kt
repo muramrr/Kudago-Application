@@ -42,9 +42,6 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 
 
 
-
-
-
 	override fun loadPlaces(category: String) {
 		launch {
 			val result = async { repository.loadFirstPlaces(category) }.await()

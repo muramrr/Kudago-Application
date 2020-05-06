@@ -15,21 +15,32 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.settings
+package com.mmdev.kudago.app.presentation.ui.common.image_loader
 
-import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BasePresenter
+import android.content.Context
+import java.io.File
 
 /**
- * This is the documentation block about the class
+ * FileCache
  */
 
-class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
-	override val presenter: BasePresenter<*>
-		get() = TODO("Not yet implemented")
+class FileCache(context: Context) {
 
-	override fun setupViews() {
-		TODO("Not yet implemented")
+	private var cacheDir: File? = null
+
+	init {
+		cacheDir = context.cacheDir
+		if (!cacheDir!!.exists()) cacheDir!!.mkdirs()
+	}
+
+	fun getFile(url: String): File {
+		val filename = url.hashCode().toString()
+		return File(cacheDir, filename)
+
+	}
+
+	fun clear() {
+		val files = cacheDir!!.listFiles() ?: return
+		for (f in files) f.delete()
 	}
 }
