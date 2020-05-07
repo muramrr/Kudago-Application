@@ -29,6 +29,8 @@
 		android:layout_height="wrap_content"
 		android:minHeight="?attr/actionBarSize"
 
+		app:navigationIcon="@drawable/ic_arrow_back_24dp"
+
 		app:title="@string/app_name"
 
 		app:layout_constraintBottom_toTopOf="@id/rvDetailedCategory"
@@ -43,8 +45,6 @@
 		android:id="@+id/rvDetailedCategory"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
-
-		android:clipToPadding="false"
 
 		tools:listitem="@layout/item_place_category_detailed"
 

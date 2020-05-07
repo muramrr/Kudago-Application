@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import kotlinx.android.synthetic.main.fragment_places_categories.*
 
 /**
@@ -42,7 +43,9 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 	override val presenter: BasePresenter<*>
 		get() = TODO("Not yet implemented")
 
+
 	override fun setupViews() {
+		rvPlacesCategories.applySystemWindowInsets(applyTop = true)
 		rvPlacesCategories.apply {
 			adapter = mPlacesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)

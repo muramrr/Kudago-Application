@@ -27,7 +27,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.mmdev.kudago.app.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,7 +41,6 @@ class MainActivity: AppCompatActivity() {
 		}
 
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
 
 
 		//set night icons

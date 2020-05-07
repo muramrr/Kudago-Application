@@ -18,6 +18,7 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.domain.places.PlaceEntity
@@ -63,6 +64,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun setupViews() {
 		toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
 		toolbarCategoryTitle.title = receivedCategoryString
+		toolbarCategoryTitle.setNavigationOnClickListener { findNavController().navigateUp() }
 
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		rvDetailedCategory.apply {

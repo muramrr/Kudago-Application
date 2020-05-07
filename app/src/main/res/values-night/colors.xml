@@ -47,8 +47,10 @@
 	<color name="highEmphasisText">#DEFFFFFF</color>
 	<color name="lowEmphasisText">#99FFFFFF</color>
 	<color name="disabledText">#61FFFFFF</color>
+
 	<color name="bottom_nav_checked_tint">#FFFFFF</color>
 	<color name="bottom_nav_default">#FF000000</color>
 
+	<color name="nav_arrow_back_color">#FFFFFF</color>
 
 </resources>
