@@ -31,6 +31,6 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed) {
 
 
 	override fun setupViews() {
-		TODO("Not yet implemented")
+
 	}
 }

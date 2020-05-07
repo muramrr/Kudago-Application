@@ -35,12 +35,15 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 	private val unixTime = System.currentTimeMillis() / 1000L
 	private var page = 1
 
+	private var category = ""
+
 
 	override suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): ResultState<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	override suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse> {
+		this.category = category
 		//another approach
 //		val placesResponse = safeApiCall(
 //				call = { placesApi.getPlacesListAsync(unixTime, category, "msk").await() },
@@ -59,7 +62,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 		}
 	}
 
-	override suspend fun loadMorePlaces(category: String): ResultState<PlacesResponse> {
+	override suspend fun loadMorePlaces(): ResultState<PlacesResponse> {
 		return try {
 			page++
 			val result = placesApi.getPlacesListAsync(unixTime, category, "msk", page)

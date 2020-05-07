@@ -20,6 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
+import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -40,15 +41,17 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.Main + parentJob
 
-
+	private var placesList: MutableList<PlaceEntity> = mutableListOf()
 
 	override fun loadPlaces(category: String) {
 		launch {
-			val result = async { repository.loadFirstPlaces(category) }.await()
+			val result = withContext(Dispatchers.Default) {
+				repository.loadFirstPlaces(category)
+			}
 			when (result) {
 				is ResultState.Success -> {
-					val data = result.data.results
-					attachedView?.get()?.updateData(data)
+					placesList = result.data.results.toMutableList()
+					attachedView?.get()?.updateData(placesList)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
@@ -60,7 +63,21 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 	}
 
 	override fun loadMorePlaces() {
-		TODO("Not yet implemented")
+		launch {
+			val result = withContext(Dispatchers.Default) {
+				repository.loadMorePlaces()
+			}
+			when (result) {
+				is ResultState.Success -> {
+					placesList.addAll(result.data.results)
+					attachedView?.get()?.updateData(placesList)
+				}
+				is ResultState.Error -> {
+					result.exception.printStackTrace()
+				}
+			}
+
+		}
 	}
 
 

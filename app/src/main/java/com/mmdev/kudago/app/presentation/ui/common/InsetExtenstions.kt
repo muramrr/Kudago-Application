@@ -20,9 +20,6 @@ package com.mmdev.kudago.app.presentation.ui.common
 import android.view.View
 import android.view.WindowInsets
 
-/**
- * This is the documentation block about the class
- */
 
 fun View.applySystemWindowInsets(
 	applyLeft: Boolean = false,

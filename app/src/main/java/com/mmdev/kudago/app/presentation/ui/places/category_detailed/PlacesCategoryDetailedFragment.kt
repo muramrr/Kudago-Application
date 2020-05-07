@@ -18,10 +18,12 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
@@ -64,7 +66,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun setupViews() {
 		toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
 		toolbarCategoryTitle.title = receivedCategoryString
-		toolbarCategoryTitle.setNavigationOnClickListener { findNavController().navigateUp() }
+		toolbarCategoryTitle.setNavigationOnClickListener { navController.navigateUp() }
 
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		rvDetailedCategory.apply {
@@ -76,12 +78,21 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 				override fun onLoadMore(page: Int, totalItemsCount: Int) {
 
 					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4) {
-						//presenter.loadMorePlaces(receivedCategoryString)
+						presenter.loadMorePlaces()
 					}
 
 				}
 			})
 		}
+
+		categoryDetailedAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<PlaceEntity> {
+
+			override fun onItemClick(item: PlaceEntity, position: Int) {
+				val placeId = bundleOf("PLACE_ID" to item.id)
+				findNavController().navigate(R.id.action_categoryDetailed_to_placeDetailed,
+				                             placeId)
+			}
+		})
 
 	}
 

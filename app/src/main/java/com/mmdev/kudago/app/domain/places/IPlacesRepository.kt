@@ -29,7 +29,7 @@ interface IPlacesRepository {
 
 	suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse>
 
-	suspend fun loadMorePlaces(category: String): ResultState<PlacesResponse>
+	suspend fun loadMorePlaces(): ResultState<PlacesResponse>
 
 	suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity>
 

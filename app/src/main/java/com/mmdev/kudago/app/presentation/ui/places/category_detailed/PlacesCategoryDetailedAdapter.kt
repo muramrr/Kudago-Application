@@ -19,9 +19,9 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 /**
@@ -29,8 +29,8 @@ import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
  */
 
 class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = emptyList()):
-
-		RecyclerView.Adapter<PlacesCategoryDetailedAdapter.PlacesCategoryDetailedViewHolder>() {
+		BaseAdapter<PlaceEntity>()
+{
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -41,13 +41,10 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 		)
 
 	override fun getItemCount(): Int = data.size
-
-	override fun onBindViewHolder(holder: PlacesCategoryDetailedViewHolder, position: Int) {
-		holder.bind(data[position])
-	}
+	override fun getItem(position: Int) = data[position]
 
 
-	fun setData(data: List<PlaceEntity>){
+	override fun setData(data: List<PlaceEntity>){
 		this.data = data
 		notifyDataSetChanged()
 	}
@@ -55,10 +52,10 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 
 	inner class PlacesCategoryDetailedViewHolder (private val viewBinding:
 	                                              ItemPlaceCategoryDetailedBinding):
-			RecyclerView.ViewHolder(viewBinding.root) {
+			BaseViewHolder<PlaceEntity>(viewBinding.root) {
 
 
-		fun bind(item: PlaceEntity) {
+		override fun bind(item: PlaceEntity) {
 			viewBinding.tvPlaceTitle.text = item.short_title
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
 			ImageLoader.with(viewBinding.ivImageHolder.context)

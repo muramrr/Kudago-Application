@@ -20,6 +20,8 @@ package com.mmdev.kudago.app.presentation.base
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 
 /**
  * generic fragment class
@@ -30,6 +32,13 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 	protected val TAG = "mylogs_" + javaClass.simpleName
 
 	protected abstract val presenter: BasePresenter<*>
+
+	protected lateinit var navController: NavController
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		navController = findNavController()
+	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
