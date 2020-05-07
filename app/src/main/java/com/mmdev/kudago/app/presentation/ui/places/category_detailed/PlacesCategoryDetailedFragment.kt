@@ -23,6 +23,7 @@ import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_places_category_detailed.*
 import org.koin.android.ext.android.inject
@@ -49,7 +50,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		presenter.attachView(this)
+		presenter.linkView(this)
 
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
@@ -60,6 +61,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	}
 
 	override fun setupViews() {
+		toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
 		toolbarCategoryTitle.title = receivedCategoryString
 
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)

@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui
 
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
@@ -29,9 +31,20 @@ class MainActivity: AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 
+		window.apply {
+			clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+			addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+			decorView.systemUiVisibility =
+				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+						View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+			//status bar and navigation bar colors assigned in style file
+		}
+
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
+
+		//set night icons
 		if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_places_night_24dp)
 			mainBottomNavigation.menu.getItem(1).setIcon(R.drawable.ic_events_night_24dp)

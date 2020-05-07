@@ -40,10 +40,14 @@
 		<item name="android:colorBackground">@color/colorBackground</item>
 		<item name="colorOnBackground">@color/colorOnBackground</item>
 
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+
 
 		<!-- widgets styles -->
 		<item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
 		<item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface</item>
+
 
 	</style>
 

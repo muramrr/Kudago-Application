@@ -29,11 +29,11 @@ abstract class BasePresenter<V> {
 
 	protected var attachedView: WeakReference<V>? = null
 
-	fun attachView(view: V) {
+	fun linkView(view: V) {
 		attachedView = WeakReference(view)
 	}
 
-	fun detachView(){
+	fun unlinkView(){
 		attachedView = null
 	}
 

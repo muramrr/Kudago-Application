@@ -38,7 +38,7 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 
 	override fun onDestroy() {
 		super.onDestroy()
-		presenter.detachView()
+		presenter.unlinkView()
 	}
 
 	abstract fun setupViews()

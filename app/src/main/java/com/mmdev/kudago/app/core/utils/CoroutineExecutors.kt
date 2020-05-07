@@ -27,7 +27,7 @@ import kotlin.coroutines.CoroutineContext
  * This is the documentation block about the class
  */
 
-abstract class Executors : CoroutineScope {
+abstract class CoroutineExecutors : CoroutineScope {
 
 
 	override val coroutineContext: CoroutineContext

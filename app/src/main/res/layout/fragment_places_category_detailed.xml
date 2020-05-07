@@ -23,10 +23,11 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	>
 
-	<com.google.android.material.appbar.MaterialToolbar
+	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbarCategoryTitle"
 		android:layout_width="0dp"
-		android:layout_height="?actionBarSize"
+		android:layout_height="wrap_content"
+		android:minHeight="?attr/actionBarSize"
 
 		app:title="@string/app_name"
 

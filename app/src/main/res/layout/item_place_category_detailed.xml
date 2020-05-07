@@ -52,6 +52,7 @@
 		android:padding="8dp"
 
 		android:text="Place title"
+		android:textColor="@android:color/white"
 		android:textSize="20sp"
 		/>
 
