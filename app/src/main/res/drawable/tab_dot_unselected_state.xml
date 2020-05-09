@@ -16,15 +16,12 @@
   ~ limitations under the License.
   -->
 
-<!-- TextAppearance, text size etc -->
+<shape
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:innerRadius="0dp"
+	android:shape="ring"
+	android:thickness="3dp"
+	android:useLevel="false">
+	<solid android:alpha = "0.25" android:color="#FFFFFF"/>
 
-<resources>
-
-	<!-- header text -->
-	<style name="header_text" parent="Widget.AppCompat.TextView">
-
-		<item name="android:textSize">24sp</item>
-
-	</style>
-
-</resources>
+</shape>

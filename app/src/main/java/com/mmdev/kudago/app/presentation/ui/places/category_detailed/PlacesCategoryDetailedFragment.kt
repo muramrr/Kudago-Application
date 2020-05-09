@@ -46,6 +46,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 	companion object {
 
+		private const val PLACE_ID_KEY = "PLACE_ID"
 		private const val CATEGORY_KEY = "CATEGORY"
 
 	}
@@ -88,7 +89,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 		categoryDetailedAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<PlaceEntity> {
 
 			override fun onItemClick(item: PlaceEntity, position: Int) {
-				val placeId = bundleOf("PLACE_ID" to item.id)
+				val placeId = bundleOf(PLACE_ID_KEY to item.id)
 				findNavController().navigate(R.id.action_categoryDetailed_to_placeDetailed,
 				                             placeId)
 			}

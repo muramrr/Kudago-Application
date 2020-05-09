@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<MotionScene
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+	<Transition
+		app:constraintSetEnd="@id/collapsed"
+		app:constraintSetStart="@id/expanded"
+		app:motionInterpolator="linear">
+
+		<OnSwipe
+			app:dragDirection="dragUp"
+			app:touchAnchorId="@id/scrollContainer"
+			/>
+
+		<KeyFrameSet>
+
+			<KeyAttribute
+				app:framePosition="60"
+				app:motionTarget="@id/vpPhotos">
+
+				<CustomAttribute app:attributeName="backgroundColor"
+					app:customColorValue="@color/colorPrimary"/>
+
+			</KeyAttribute>
+
+			<KeyAttribute
+				app:framePosition="70"
+				app:motionTarget="@id/viewToolbarBackground"
+				android:alpha="0"/>
+
+		</KeyFrameSet>
+
+	</Transition>
+
+
+
+	<ConstraintSet android:id="@+id/expanded">
+
+		<Constraint android:id="@+id/vpPhotos"
+			android:layout_width="0dp"
+			android:layout_height="400dp"
+
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			/>
+
+		<!-- "toolbar" collapsed background -->
+		<Constraint android:id="@+id/viewToolbarBackground"
+			android:layout_width="0dp"
+			android:layout_height="?actionBarSize"
+
+			android:alpha="0"
+
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			/>
+
+		<!-- "toolbar" back button -->
+		<Constraint android:id="@+id/ibToolbarBack"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:contentDescription="@null"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
+
+			app:layout_constraintStart_toStartOf="@id/viewToolbarBackground"
+			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
+			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+			/>
+
+		<!-- "toolbar" title -->
+		<Constraint android:id="@+id/tvToolbarTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:layout_marginStart="8dp"
+			android:layout_marginBottom="16dp"
+
+			android:scaleX="1.0"
+			android:scaleY="1.0"
+
+			app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"
+			app:layout_constraintStart_toStartOf="parent"
+			/>
+
+		<Constraint
+			android:id="@+id/scrollContainer"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+
+			app:layout_constraintTop_toBottomOf="@id/vpPhotos"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			/>
+
+	</ConstraintSet>
+
+
+
+
+
+	<ConstraintSet android:id="@+id/collapsed">
+
+		<Constraint android:id="@+id/vpPhotos"
+			android:layout_height="0dp"
+			android:layout_width="0dp"
+
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
+			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+			/>
+
+		<!-- "toolbar" collapsed background -->
+		<Constraint android:id="@+id/viewToolbarBackground"
+			android:layout_width="0dp"
+			android:layout_height="?actionBarSize"
+
+			android:alpha="1"
+
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			/>
+
+		<!-- "toolbar" title -->
+		<Constraint android:id="@+id/tvToolbarTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+
+			android:scaleX="0.625"
+			android:scaleY="0.625"
+
+			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
+			app:layout_constraintStart_toEndOf="@id/ibToolbarBack"
+			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+			/>
+
+	</ConstraintSet>
+
+</MotionScene>

@@ -27,7 +27,9 @@ import java.lang.ref.WeakReference
 
 abstract class BasePresenter<V> {
 
-	protected var attachedView: WeakReference<V>? = null
+	private var attachedView: WeakReference<V>? = null
+
+	fun getLinkedView() = attachedView?.get()
 
 	fun linkView(view: V) {
 		attachedView = WeakReference(view)

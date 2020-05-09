@@ -20,17 +20,20 @@ package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import kotlinx.android.synthetic.main.fragment_place_detailed.*
 
 /**
  * This is the documentation block about the class
  */
 
 class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed) {
+
 	override val presenter: BasePresenter<*>
 		get() = TODO("Not yet implemented")
 
 
 	override fun setupViews() {
 
+		ibToolbarBack.setOnClickListener { navController.navigateUp() }
 	}
 }

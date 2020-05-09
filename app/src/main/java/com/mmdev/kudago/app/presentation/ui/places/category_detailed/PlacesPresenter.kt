@@ -51,7 +51,7 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 			when (result) {
 				is ResultState.Success -> {
 					placesList = result.data.results.toMutableList()
-					attachedView?.get()?.updateData(placesList)
+					getLinkedView()?.updateData(placesList)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
@@ -70,7 +70,7 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 			when (result) {
 				is ResultState.Success -> {
 					placesList.addAll(result.data.results)
-					attachedView?.get()?.updateData(placesList)
+					getLinkedView()?.updateData(placesList)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

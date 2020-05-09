@@ -43,6 +43,8 @@
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:statusBarColor">@android:color/transparent</item>
 
+		<item name="android:textColor">@color/colorOnPrimary</item>
+
 
 		<!-- widgets styles -->
 		<item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>

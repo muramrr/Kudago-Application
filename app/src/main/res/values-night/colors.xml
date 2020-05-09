@@ -51,6 +51,5 @@
 	<color name="bottom_nav_checked_tint">#FFFFFF</color>
 	<color name="bottom_nav_default">#FF000000</color>
 
-	<color name="nav_arrow_back_color">#FFFFFF</color>
 
 </resources>
