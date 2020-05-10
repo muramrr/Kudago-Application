@@ -23,7 +23,6 @@
 	android:clipChildren="false"
 
 	app:layoutDescription="@xml/collapsing_toolbar_scene"
-	app:motionDebug="SHOW_ALL"
 
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -33,7 +32,7 @@
 		android:id="@+id/vpPhotos"
 		android:layout_width="0dp"
 		android:layout_height="400dp"
-		android:background="@android:color/transparent"
+		android:background="@null"
 
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -95,11 +94,11 @@
 		android:id="@+id/tvToolbarTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
+		android:layout_marginStart="16dp"
 		android:layout_marginBottom="16dp"
 
 		android:text="Title"
-		android:textColor="@color/colorOnPrimary"
+		android:textColor="@android:color/white"
 		android:textSize="32sp"
 
 		app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"

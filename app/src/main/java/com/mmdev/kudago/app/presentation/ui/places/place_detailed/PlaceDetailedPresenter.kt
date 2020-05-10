@@ -15,24 +15,21 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
-
+package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
-
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesPresenter (private val repository: IPlacesRepository) :
-		BasePresenter<PlacesContract.View>(),
-		PlacesContract.Presenter,
+class PlaceDetailedPresenter (private val repository: IPlacesRepository):
+		BasePresenter<PlaceDetailedContract.View>(),
+		PlaceDetailedContract.Presenter,
 		CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
 
@@ -41,36 +38,16 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.Main + parentJob
 
-	private var placesList: MutableList<PlaceEntity> = mutableListOf()
 
-	override fun loadPlaces(category: String) {
+
+	override fun loadPlaceDetailsById(id: Int) {
 		launch {
-			val result = withContext(Dispatchers.Default) {
-				repository.loadFirstPlaces(category)
+			val result = withContext(coroutineContext) {
+				repository.getPlaceDetails(id)
 			}
 			when (result) {
 				is ResultState.Success -> {
-					placesList = result.data.results.toMutableList()
-					getLinkedView()?.updateData(placesList)
-				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
-			}
-
-		}
-
-	}
-
-	override fun loadMorePlaces() {
-		launch {
-			val result = withContext(Dispatchers.Default) {
-				repository.loadMorePlaces()
-			}
-			when (result) {
-				is ResultState.Success -> {
-					placesList.addAll(result.data.results)
-					getLinkedView()?.updateData(placesList)
+					getLinkedView()?.updateData(result.data.images.map { it.image })
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
@@ -79,6 +56,4 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 		}
 	}
-
-
 }

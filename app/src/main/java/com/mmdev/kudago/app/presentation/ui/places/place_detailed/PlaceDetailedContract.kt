@@ -15,19 +15,25 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.core.di
+package com.mmdev.kudago.app.presentation.ui.places.place_detailed
+
+/**
+ * This is the documentation block about the class
+ */
+
+interface PlaceDetailedContract {
 
 
-import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
-import com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedPresenter
-import org.koin.dsl.module
+	interface View {
 
+		fun updateData(data: List<String>)
 
-//presenters
-val PresentersModule = module {
+	}
 
-	factory { PlacesPresenter(repository = get()) }
+	interface Presenter {
 
-	factory { PlaceDetailedPresenter(repository = get()) }
+		fun loadPlaceDetailsById(id: Int)
+
+	}
 
 }

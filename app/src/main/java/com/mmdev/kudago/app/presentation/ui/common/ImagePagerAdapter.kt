@@ -15,53 +15,46 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
+package com.mmdev.kudago.app.presentation.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.databinding.ItemImagePagerBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
-/**
- * This is the documentation block about the class
- */
 
-class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = emptyList()):
-		BaseAdapter<PlaceEntity>() {
+class ImagePagerAdapter (private var data: List<String> = emptyList()) :
+		BaseAdapter<String>(){
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		PlacesCategoryDetailedViewHolder(
-				ItemPlaceCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
+				ItemImagePagerBinding.inflate(LayoutInflater.from(parent.context),
 				                                         parent,
 				                                         false)
 		)
 
-	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
+	override fun getItemCount() = data.size
 
 
-	override fun setData(data: List<PlaceEntity>){
+	override fun setData(data: List<String>){
 		this.data = data
 		notifyDataSetChanged()
 	}
 
 
-	inner class PlacesCategoryDetailedViewHolder (private val viewBinding:
-	                                              ItemPlaceCategoryDetailedBinding):
-			BaseViewHolder<PlaceEntity>(viewBinding.root) {
+	inner class PlacesCategoryDetailedViewHolder (private val viewBinding: ItemImagePagerBinding):
+			BaseViewHolder<String>(viewBinding.root) {
 
 
-		override fun bind(item: PlaceEntity) {
-			viewBinding.tvPlaceTitle.text = item.short_title
+		override fun bind(item: String) {
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
-			ImageLoader.with(viewBinding.ivImageHolder.context)
-				.load(viewBinding.ivImageHolder, item.images[0].image)
+			ImageLoader.with(viewBinding.ivPhoto.context)
+				.load(viewBinding.ivPhoto, item)
 		}
 
 
 	}
-
 }
