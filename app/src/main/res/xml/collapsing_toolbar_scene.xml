@@ -38,7 +38,8 @@
 			<KeyAttribute
 				app:framePosition="95"
 				app:motionTarget="@id/viewToolbarBackground"
-				android:alpha="0"/>
+				android:alpha="0"
+				/>
 
 		</KeyFrameSet>
 
@@ -60,27 +61,28 @@
 		<!-- "toolbar" collapsed background -->
 		<Constraint android:id="@+id/viewToolbarBackground"
 			android:layout_width="0dp"
-			android:layout_height="?actionBarSize"
+			android:layout_height="0dp"
+			android:minHeight="?attr/actionBarSize"
 
 			android:alpha="0"
+
+			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			/>
+
+
+		<Constraint android:id="@+id/toolbarPlaceDetailed"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:minHeight="?attr/actionBarSize"
 
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			/>
 
-		<!-- "toolbar" back button -->
-		<Constraint android:id="@+id/ibToolbarBack"
-			android:layout_width="wrap_content"
-			android:layout_height="0dp"
-			android:contentDescription="@null"
-			android:paddingStart="16dp"
-			android:paddingEnd="16dp"
-
-			app:layout_constraintStart_toStartOf="@id/viewToolbarBackground"
-			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
-			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
-			/>
 
 		<!-- "toolbar" title -->
 		<Constraint android:id="@+id/tvToolbarTitle"
@@ -115,6 +117,21 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			/>
 
+		<Constraint
+			android:id="@+id/tlDotsIndicator"
+			android:layout_width="0dp"
+			android:layout_height="10dp"
+			android:layout_marginBottom="8dp"
+
+			android:background="@null"
+
+			android:alpha="1"
+
+			app:layout_constraintBottom_toBottomOf="@id/vpPhotos"
+			app:layout_constraintEnd_toEndOf="@id/vpPhotos"
+			app:layout_constraintStart_toStartOf="@id/vpPhotos"
+			/>
+
 	</ConstraintSet>
 
 
@@ -129,16 +146,43 @@
 
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
-			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			/>
+
+		<Constraint
+			android:id="@+id/tlDotsIndicator"
+			android:layout_width="0dp"
+			android:layout_height="10dp"
+			android:layout_marginBottom="8dp"
+
+			android:background="@null"
+
+			android:alpha="0"
+
+			app:layout_constraintBottom_toBottomOf="@id/vpPhotos"
+			app:layout_constraintEnd_toEndOf="@id/vpPhotos"
+			app:layout_constraintStart_toStartOf="@id/vpPhotos"
 			/>
 
 		<!-- "toolbar" collapsed background -->
 		<Constraint android:id="@+id/viewToolbarBackground"
 			android:layout_width="0dp"
-			android:layout_height="?actionBarSize"
+			android:layout_height="0dp"
+			android:minHeight="?attr/actionBarSize"
 
 			android:alpha="1"
+
+			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			/>
+
+		<Constraint android:id="@+id/toolbarPlaceDetailed"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:minHeight="?attr/actionBarSize"
 
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -150,14 +194,13 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 
-			android:layout_marginStart="8dp"
-
 			android:scaleX="0.625"
 			android:scaleY="0.625"
 
-			app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
-			app:layout_constraintStart_toEndOf="@id/ibToolbarBack"
-			app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
 			>
 
 			<CustomAttribute

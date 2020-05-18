@@ -58,9 +58,9 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
-			presenter.loadPlaces(receivedCategoryString)
 		}
 
+		presenter.loadPlaces(receivedCategoryString)
 
 	}
 

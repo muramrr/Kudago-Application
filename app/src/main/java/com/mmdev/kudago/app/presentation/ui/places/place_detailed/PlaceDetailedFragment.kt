@@ -23,6 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import kotlinx.android.synthetic.main.fragment_place_detailed.*
 import org.koin.android.ext.android.inject
 
@@ -60,7 +61,10 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	}
 
 	override fun setupViews() {
-		ibToolbarBack.setOnClickListener { navController.navigateUp() }
+		toolbarPlaceDetailed.applySystemWindowInsets(applyTop = true)
+		tvToolbarTitle.applySystemWindowInsets(applyTop = true)
+
+		toolbarPlaceDetailed.setNavigationOnClickListener { navController.navigateUp() }
 
 		vpPhotos.apply {
 			adapter = placePhotosAdapter
