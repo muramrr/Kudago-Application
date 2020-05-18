@@ -47,7 +47,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			}
 			when (result) {
 				is ResultState.Success -> {
-					getLinkedView()?.updateData(result.data.images.map { it.image })
+					getLinkedView()?.updateData(result.data)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

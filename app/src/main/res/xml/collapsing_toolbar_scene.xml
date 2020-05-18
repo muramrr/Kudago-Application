@@ -41,6 +41,12 @@
 				android:alpha="0"
 				/>
 
+			<KeyAttribute
+				app:framePosition="40"
+				app:motionTarget="@id/tlDotsIndicator"
+				android:alpha="0"
+				/>
+
 		</KeyFrameSet>
 
 	</Transition>
@@ -194,8 +200,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 
-			android:scaleX="0.625"
-			android:scaleY="0.625"
+			android:scaleX="0.7"
+			android:scaleY="0.7"
 
 			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
 			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"

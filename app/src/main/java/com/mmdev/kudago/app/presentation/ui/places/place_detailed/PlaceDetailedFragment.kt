@@ -21,6 +21,7 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
@@ -75,7 +76,9 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		}.attach()
 	}
 
-	override fun updateData(data: List<String>) {
-		placePhotosAdapter.setData(data)
+	override fun updateData(data: PlaceDetailedEntity) {
+		placePhotosAdapter.setData(data.images.map { it.image })
+		tvToolbarTitle.text = data.short_title
+		tvPlaceDetailedDescription.text = data.body_text
 	}
 }

@@ -27,6 +27,78 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+	<androidx.core.widget.NestedScrollView
+		android:id="@+id/scrollContainer"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:overScrollMode="never"
+
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/vpPhotos">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingBottom="16dp">
+
+			<com.google.android.material.textview.MaterialTextView
+				android:id="@+id/tvPlaceDetailedAboutHeader"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:paddingTop="16dp"
+				android:paddingBottom="16dp"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
+
+				android:text="About"
+				android:textAppearance="@style/header_text"
+
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toTopOf="@id/tvPlaceDetailedDescription"
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				/>
+
+			<com.google.android.material.textview.MaterialTextView
+				android:id="@+id/tvPlaceDetailedDescription"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+
+				android:lineSpacingExtra="10sp"
+
+
+				android:textSize="16sp"
+
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				app:layout_constraintTop_toBottomOf="@id/tvPlaceDetailedAboutHeader"
+
+				/>
+
+
+			<!-- left padding -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineStart"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_begin="8dp" />
+
+			<!-- right padding -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineEnd"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_end="8dp" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</androidx.core.widget.NestedScrollView>
+
 	<!-- photos container -->
 	<androidx.viewpager2.widget.ViewPager2
 		android:id="@+id/vpPhotos"
@@ -101,7 +173,6 @@
 		android:layout_height="wrap_content"
 
 
-		android:text="Title"
 		android:textColor="@android:color/white"
 		android:textSize="32sp"
 
@@ -110,79 +181,6 @@
 		app:layout_constraintEnd_toEndOf="@id/viewToolbarBackground"
 		app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
 		/>
-
-	<androidx.core.widget.NestedScrollView
-		android:id="@+id/scrollContainer"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:overScrollMode="never"
-
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/vpPhotos">
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:paddingBottom="16dp">
-
-			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvPlaceDetailedAboutHeader"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
-
-				android:text="Header_text"
-				android:textAppearance="@style/header_text"
-
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toTopOf="@id/tvPlaceDetailedDescription"
-				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-				app:layout_constraintStart_toStartOf="@id/guidelineStart"
-				/>
-
-			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvPlaceDetailedDescription"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-
-				android:lineSpacingExtra="10sp"
-
-				android:text="DESCRIPTION TEXT"
-				android:textSize="16sp"
-
-				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-				app:layout_constraintStart_toStartOf="@id/guidelineStart"
-				app:layout_constraintTop_toBottomOf="@id/tvPlaceDetailedAboutHeader"
-
-				/>
-
-
-			<!-- left padding -->
-			<androidx.constraintlayout.widget.Guideline
-				android:id="@+id/guidelineStart"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				app:layout_constraintGuide_begin="8dp" />
-
-			<!-- right padding -->
-			<androidx.constraintlayout.widget.Guideline
-				android:id="@+id/guidelineEnd"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				app:layout_constraintGuide_end="8dp" />
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-	</androidx.core.widget.NestedScrollView>
-
-
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

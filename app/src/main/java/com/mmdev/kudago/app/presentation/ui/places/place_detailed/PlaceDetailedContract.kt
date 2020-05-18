@@ -17,6 +17,9 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
+import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
+
+
 /**
  * This is the documentation block about the class
  */
@@ -26,7 +29,7 @@ interface PlaceDetailedContract {
 
 	interface View {
 
-		fun updateData(data: List<String>)
+		fun updateData(data: PlaceDetailedEntity)
 
 	}
 
