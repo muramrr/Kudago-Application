@@ -31,7 +31,7 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 
-	protected abstract val presenter: BasePresenter<*>
+	protected open val presenter: BasePresenter<*>? = null
 
 	protected lateinit var navController: NavController
 
@@ -46,7 +46,7 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 	}
 
 	override fun onDestroy() {
-		presenter.unlinkView()
+		presenter?.unlinkView()
 		super.onDestroy()
 	}
 

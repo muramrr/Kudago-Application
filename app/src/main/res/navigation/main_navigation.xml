@@ -23,17 +23,22 @@
 	android:id="@+id/main_navigation"
 	app:startDestination="@id/mainBottomNavPlaces">
 
-	<action android:id="@+id/action_global_placesCategoriesFragment"
-		app:destination="@id/mainBottomNavPlaces"/>
+	<action
+		android:id="@+id/action_global_placesCategoriesFragment"
+		app:destination="@id/mainBottomNavPlaces"
+		/>
 
 	<action android:id="@+id/action_global_eventsFragment"
-		app:destination="@id/mainBottomNavEvents" />
+		app:destination="@id/mainBottomNavEvents"
+		/>
 
 	<action android:id="@+id/action_global_favourites"
-		app:destination="@id/mainBottomNavFavourites"/>
+		app:destination="@id/mainBottomNavFavourites"
+		/>
 
 	<action android:id="@+id/action_global_settingsFragment"
-		app:destination="@id/mainBottomNavSettings" />
+		app:destination="@id/mainBottomNavSettings"
+		/>
 
 
 
@@ -45,7 +50,7 @@
 		>
 
 		<action android:id="@+id/action_placesCategories_to_placesCategoryDetailed"
-			app:destination="@id/placesCategoryDetailedFragment" >
+			app:destination="@id/placesCategoryDetailedFragment">
 
 			<argument android:name="CATEGORY" />
 
@@ -54,16 +59,39 @@
 	</fragment>
 
 	<fragment android:id="@+id/mainBottomNavEvents"
-		android:name="com.mmdev.kudago.app.presentation.ui.events.EventsFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesFragment"
 		android:label="EventsFragment"
-		tools:layout="@layout/fragment_events"
-		/>
+		tools:layout="@layout/fragment_events_categories"
+		>
+
+		<action android:id="@+id/action_eventsCategories_to_eventsCategoryDetailed"
+			app:destination="@id/eventsCategoryDetailedFragment">
+
+			<argument android:name="CATEGORY" />
+
+		</action>
+
+	</fragment>
 
 	<fragment android:id="@+id/mainBottomNavFavourites"
 		android:name="com.mmdev.kudago.app.presentation.ui.favourites.FavouritesFragment"
 		android:label="fragment_favourites"
 		tools:layout="@layout/fragment_favourites"
-		/>
+		>
+
+		<action android:id="@+id/action_favourites_to_placeDetailed"
+			app:destination="@id/placeDetailedFragment" >
+
+			<argument android:name="PLACE_ID" />
+		</action>
+
+		<action android:id="@+id/action_favourites_to_eventDetailed"
+			app:destination="@id/eventDetailedFragment" >
+
+			<argument android:name="EVENT_ID" />
+		</action>
+
+	</fragment>
 
 	<fragment android:id="@+id/mainBottomNavSettings"
 		android:name="com.mmdev.kudago.app.presentation.ui.settings.SettingsFragment"
@@ -87,12 +115,40 @@
 
 	</fragment>
 
+	<fragment android:id="@+id/eventsCategoryDetailedFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.events.category_detailed.EventsCategoryDetailedFragment"
+		android:label="EventsCategoryDetailedFragment"
+		tools:layout="@layout/item_place_category_detailed">
+
+		<argument android:name="CATEGORY"
+			app:argType="string" />
+
+		<action android:id="@+id/action_eventsCategoryDetailed_to_eventDetailed"
+			app:destination="@id/eventDetailedFragment" >
+
+			<argument android:name="EVENT_ID" />
+		</action>
+
+	</fragment>
+
+
 	<fragment android:id="@+id/placeDetailedFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedFragment"
 		android:label="PlaceDetailedFragment"
 		tools:layout="@layout/fragment_place_detailed">
 
 		<argument android:name="PLACE_ID"
+			app:argType="integer"
+			android:defaultValue="0" />
+
+	</fragment>
+
+	<fragment android:id="@+id/eventDetailedFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedFragment"
+		android:label="EventDetailedFragment"
+		tools:layout="@layout/fragment_event_detailed">
+
+		<argument android:name="EVENT_ID"
 			app:argType="integer"
 			android:defaultValue="0" />
 

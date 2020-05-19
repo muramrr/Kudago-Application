@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.categories
+package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -23,15 +23,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.fragment_places_categories.*
+import kotlinx.android.synthetic.main.fragment_events_categories.*
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories) {
+class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categories) {
 
-	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
+	private val mEventsCategoriesAdapter = EventsCategoriesAdapter()
 
 	companion object {
 
@@ -41,22 +41,20 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 
 
 	override fun setupViews() {
-		rvPlacesCategories.applySystemWindowInsets(applyTop = true)
-		rvPlacesCategories.apply {
-			adapter = mPlacesCategoriesAdapter
+		rvEventsCategories.applySystemWindowInsets(applyTop = true)
+		rvEventsCategories.apply {
+			adapter = mEventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}
 
-		mPlacesCategoriesAdapter.setOnItemClickListener(object : PlacesCategoriesAdapter.OnItemClickListener{
+		mEventsCategoriesAdapter.setOnItemClickListener(object : EventsCategoriesAdapter.OnItemClickListener{
 
 			override fun onItemClick(item: String, position: Int) {
 				val category = bundleOf(CATEGORY_KEY to item)
-				findNavController().navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
+				findNavController().navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
 				                             category)
 			}
 		})
 	}
-
-
 
 }

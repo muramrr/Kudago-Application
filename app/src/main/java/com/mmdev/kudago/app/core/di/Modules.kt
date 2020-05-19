@@ -18,7 +18,9 @@
 package com.mmdev.kudago.app.core.di
 
 import com.mmdev.kudago.app.data.api.PlacesApi
+import com.mmdev.kudago.app.data.events.EventsRepositoryImpl
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
+import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import org.koin.dsl.module
 
@@ -27,6 +29,8 @@ import org.koin.dsl.module
 val RepositoryModules = module {
 
 	single<IPlacesRepository> { providePlacesRepositoryImpl(placesApi = get() ) }
+
+	single<IEventsRepository> { EventsRepositoryImpl(eventsApi = get()) }
 
 }
 

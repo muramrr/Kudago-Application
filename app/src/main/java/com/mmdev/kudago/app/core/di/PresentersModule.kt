@@ -18,6 +18,7 @@
 package com.mmdev.kudago.app.core.di
 
 
+import com.mmdev.kudago.app.presentation.ui.events.category_detailed.EventsPresenter
 import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedPresenter
 import org.koin.dsl.module
@@ -27,7 +28,9 @@ import org.koin.dsl.module
 val PresentersModule = module {
 
 	factory { PlacesPresenter(repository = get()) }
-
 	factory { PlaceDetailedPresenter(repository = get()) }
+
+	factory { EventsPresenter(repository = get()) }
+	//factory { EventsDetailedPresenter(repository = get()) }
 
 }

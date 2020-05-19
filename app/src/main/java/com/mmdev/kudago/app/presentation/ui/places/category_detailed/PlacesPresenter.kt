@@ -51,7 +51,8 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 			when (result) {
 				is ResultState.Success -> {
 					placesList = result.data.results.toMutableList()
-					getLinkedView()?.updateData(placesList)
+					if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
+					//else getLinkedView()?.showEmptyHint()
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

@@ -17,6 +17,7 @@
 
 package com.mmdev.kudago.app.core.di
 
+import com.mmdev.kudago.app.data.api.EventsApi
 import com.mmdev.kudago.app.data.api.PlacesApi
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ private const val KUDAGO_BASE_URL = "https://kudago.com/public-api/v1.4/"
 //network
 val NetworkModule = module {
 	single { provideRetrofit() }
+	single { provideEventsApi(retrofit = get()) }
 	single { providePlacesApi(retrofit = get()) }
 }
 
@@ -37,4 +39,5 @@ fun provideRetrofit(): Retrofit =
 		.addConverterFactory(GsonConverterFactory.create())
 		.build()
 
+fun provideEventsApi(retrofit: Retrofit): EventsApi = retrofit.create(EventsApi::class.java)
 fun providePlacesApi(retrofit: Retrofit): PlacesApi = retrofit.create(PlacesApi::class.java)

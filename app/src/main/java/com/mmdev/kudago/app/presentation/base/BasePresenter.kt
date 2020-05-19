@@ -29,7 +29,7 @@ abstract class BasePresenter<V> {
 
 	private var attachedView: WeakReference<V>? = null
 
-	fun getLinkedView() = attachedView?.get()
+	protected fun getLinkedView() = attachedView?.get()
 
 	fun linkView(view: V) {
 		attachedView = WeakReference(view)

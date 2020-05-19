@@ -23,7 +23,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.mmdev.kudago.app.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,7 +51,39 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
 		}
 
 		val navController = findNavController(R.id.mainFlowFragment)
-		mainBottomNavigation.setupWithNavController(navController)
+		//mainBottomNavigation.setupWithNavController(navController)
+
+		//launchSingleTop doesn't work, so here is solution
+		mainBottomNavigation.setOnNavigationItemSelectedListener {
+			val previousItem = mainBottomNavigation.selectedItemId
+			val nextItem = it.itemId
+
+			if (previousItem != nextItem) {
+
+				when (nextItem) {
+					R.id.mainBottomNavPlaces -> {
+						navController.popBackStack()
+						navController.navigate(R.id.mainBottomNavPlaces)
+					}
+					R.id.mainBottomNavEvents -> {
+						navController.popBackStack()
+						navController.navigate(R.id.mainBottomNavEvents)
+					}
+					//R.id.bottomCards -> navControllerDating.navigate(R.id.cardsFragmentNav)
+					R.id.mainBottomNavFavourites -> {
+						navController.popBackStack()
+						navController.navigate(R.id.mainBottomNavFavourites)
+
+					}
+					R.id.mainBottomNavSettings -> {
+						navController.popBackStack()
+						navController.navigate(R.id.mainBottomNavSettings)
+					}
+				}
+			}
+
+			return@setOnNavigationItemSelectedListener true
+		}
 
 	}
 

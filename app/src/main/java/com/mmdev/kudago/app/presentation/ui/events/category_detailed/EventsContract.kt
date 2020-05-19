@@ -15,21 +15,32 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.events
+package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
-import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.domain.events.EventEntity
 
 /**
  * This is the documentation block about the class
  */
 
-class EventsFragment : BaseFragment(R.layout.fragment_events) {
+interface EventsContract {
 
-	override val presenter: BasePresenter<*>
-		get() = TODO("Not yet implemented")
+	interface View {
 
-	override fun setupViews() {
+		fun updateData(data: List<EventEntity>)
+
+		fun showLoading()
+
+		fun hideLoading()
+
 	}
+
+	interface Presenter {
+
+		fun loadEvents(category: String)
+
+		fun loadMoreEvents()
+
+	}
+
 }

@@ -24,8 +24,7 @@
 	android:clipToPadding="false"
 
 	tools:itemCount="10"
-	tools:listitem="@layout/item_places_category"
+	tools:listitem="@layout/item_category"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools">
-
-</androidx.recyclerview.widget.RecyclerView>
+	xmlns:tools="http://schemas.android.com/tools"
+	/>

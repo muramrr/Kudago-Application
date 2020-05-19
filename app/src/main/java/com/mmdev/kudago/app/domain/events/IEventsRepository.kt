@@ -15,10 +15,24 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.events
+package com.mmdev.kudago.app.domain.events
+
+import com.mmdev.kudago.app.domain.core.ResultState
 
 /**
- * This is the documentation block about the class
+ * Events commands interface
  */
 
-class EventsPresenter
+interface IEventsRepository {
+
+	suspend fun addEventToFavouritesList(eventEntity: EventEntity): ResultState<Unit>
+
+	suspend fun loadFirstEvents(category: String): EventsResponse?
+
+	suspend fun loadMoreEvents(): EventsResponse?
+
+	suspend fun getEventDetails(id: Int): ResultState<EventDetailedEntity>
+
+	suspend fun removeEventFromFavouritesList(eventEntity: EventEntity): ResultState<Unit>
+
+}

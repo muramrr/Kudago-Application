@@ -17,26 +17,26 @@
 
 package com.mmdev.kudago.app.data.api
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.domain.places.PlacesResponse
+import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.domain.events.EventsResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Retrofit places api calls
+ * Retrofit events api calls
  */
 
-interface PlacesApi {
+interface EventsApi {
 
-	@GET("places/?fields=id,title,short_title,images&text_format=plain")
-	suspend fun getPlacesListAsync(
-		@Query("actual_since") timestamp: Long,
-		@Query("categories") category: String,
-		@Query("location") location: String,
-		@Query("page") page: Int = 1): PlacesResponse
+	@GET("events/?fields=id,title,short_title,images&text_format=plain")
+	suspend fun getEventsListAsync(@Query("actual_since") timestamp: Long,
+	                               @Query("categories") category: String,
+	                               @Query("location") location: String,
+	                               @Query("page") page: Int = 1): Response<EventsResponse>
 
-	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images&text_format=plain")
-	suspend fun getPlaceDetailsAsync(@Path("id") id: Int): PlaceDetailedEntity
+	@GET("events/{id}/?fields=id,title,short_title,body_text,description,images&text_format=plain")
+	suspend fun getEventDetailsAsync(@Path("id") id: Int): EventDetailedEntity
 
 }

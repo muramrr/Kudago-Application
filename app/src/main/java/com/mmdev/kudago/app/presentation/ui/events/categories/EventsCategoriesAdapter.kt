@@ -15,27 +15,25 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.categories
+package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
 
-
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesAdapter (private val data: List<String> =
-	                               listOf("restaurants", "bar", "amusement",
-	                                      "anticafe", "art-centers", "art-space",
-	                                      "cinema", "theatre", "museums",
-	                                      "park", "clubs", "strip-club",
-	                                      "sights", "other"
+class EventsCategoriesAdapter (private val data: List<String> =
+	                               listOf("cinema", "concert", "entertainment",
+	                                      "exhibition", "festival", "other",
+	                                      "party", "stock", "theater",
+	                                      "yarmarki-razvlecheniya-yarmarki"
 	                               )):
 
-		RecyclerView.Adapter<PlacesCategoriesAdapter.PlacesCategoriesViewHolder>() {
+		RecyclerView.Adapter<EventsCategoriesAdapter.PlacesCategoriesViewHolder>() {
 
 	private var mClickListener: OnItemClickListener? = null
 
