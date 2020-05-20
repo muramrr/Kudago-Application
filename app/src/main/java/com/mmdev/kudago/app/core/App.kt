@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.core
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.mmdev.kudago.app.core.di.DatabaseModule
 import com.mmdev.kudago.app.core.di.NetworkModule
 import com.mmdev.kudago.app.core.di.PresentersModule
 import com.mmdev.kudago.app.core.di.RepositoryModules
@@ -33,7 +34,8 @@ import kotlin.random.Random
 
 class App: Application() {
 
-	private val applicationModules = listOf(PresentersModule,
+	private val applicationModules = listOf(DatabaseModule,
+	                                        PresentersModule,
 	                                        RepositoryModules,
 	                                        NetworkModule)
 
