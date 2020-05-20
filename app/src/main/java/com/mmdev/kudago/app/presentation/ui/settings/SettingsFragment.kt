@@ -19,17 +19,15 @@ package com.mmdev.kudago.app.presentation.ui.settings
 
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BasePresenter
 
 /**
  * This is the documentation block about the class
  */
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
-	override val presenter: BasePresenter<*>
-		get() = TODO("Not yet implemented")
+
 
 	override fun setupViews() {
-		TODO("Not yet implemented")
+
 	}
 }
