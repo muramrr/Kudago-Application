@@ -15,31 +15,33 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.favourites
+package com.mmdev.kudago.app.presentation.ui.favourites
 
-import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 /**
  * This is the documentation block about the class
  */
 
-@Entity(tableName = "favourites")
-@Parcelize
-data class FavouriteEntity(
+interface FavouritesContract {
 
-	@PrimaryKey(autoGenerate = true)
-	@ColumnInfo(name = "favourite_id")
-	val id: Int = 0,
+	interface View {
 
-	@ColumnInfo(name = "favourite_title")
-	val favouriteTitle: String,
+		fun updateData(data: List<FavouriteEntity>)
 
-	@ColumnInfo(name = "favourite_type")
-	val favouriteType: String,
+	}
 
-	@ColumnInfo(name = "favourite_description")
-	val favouriteDescription: String): Parcelable
+	interface Presenter {
+
+		fun addToFavourites(favouriteEntity: FavouriteEntity)
+
+		fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
+
+		fun loadFavouritePlaces()
+
+		fun loadFavouriteEvents()
+
+	}
+
+
+}

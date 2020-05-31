@@ -18,9 +18,17 @@
 package com.mmdev.kudago.app.presentation.ui.favourites
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import kotlinx.android.synthetic.main.fragment_favourites.*
+import org.koin.android.ext.android.inject
 
 
 /**
@@ -29,44 +37,53 @@ import com.mmdev.kudago.app.presentation.base.BaseFragment
  * create an instance of this fragment.
  */
 
-class FavouritesFragment: BaseFragment(R.layout.fragment_favourites) {
+class FavouritesFragment : BaseFragment(R.layout.fragment_favourites),
+                           FavouritesContract.View {
+
+
+	override val presenter: FavouritesPresenter by inject()
+
+	private val mFavouritesAdapter = FavouritesAdapter()
 
 	companion object {
-		private val ARG_PARAM1 = "param1"
-		private val ARG_PARAM2 = "param2"
 
-		/**
-		 * Use this factory method to create a new instance of
-		 * this fragment using the provided parameters.
-		 *
-		 * @param param1 Parameter 1.
-		 * @param param2 Parameter 2.
-		 * @return A new instance of fragment Favourites.
-		 */
-		@JvmStatic
-		fun newInstance(param1: String, param2: String) = FavouritesFragment()
-			.apply {
-			arguments = Bundle().apply {
-				putString(ARG_PARAM1, param1)
-				putString(ARG_PARAM2, param2)
-			}
-		}
+		private const val CATEGORY_KEY = "CATEGORY"
+
 	}
-
-
-	private var param1: String? = null
-	private var param2: String? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		presenter.linkView(this)
+
 		arguments?.let {
-			param1 = it.getString(ARG_PARAM1)
-			param2 = it.getString(ARG_PARAM2)
+			//receivedCategoryString = it.getString(CATEGORY_KEY, "")
 		}
+
+		presenter.loadFavouritePlaces()
+
 	}
 
-
 	override fun setupViews() {
+		rvFavouritesListTest.applySystemWindowInsets(applyTop = true)
+		rvFavouritesListTest.apply {
+			adapter = mFavouritesAdapter
+			layoutManager = LinearLayoutManager(this.context)
+		}
+
+		mFavouritesAdapter.setOnItemClickListener(object : BaseAdapter
+		                                                   .OnItemClickListener<FavouriteEntity> {
+
+			override fun onItemClick(item: FavouriteEntity, position: Int) {
+				val category = bundleOf(CATEGORY_KEY to item)
+				findNavController().navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
+				                             category)
+			}
+		})
+	}
+
+	override fun updateData(data: List<FavouriteEntity>) {
+		mFavouritesAdapter.setData(data)
 	}
 
 }

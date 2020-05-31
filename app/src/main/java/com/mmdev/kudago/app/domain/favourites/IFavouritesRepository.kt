@@ -17,26 +17,18 @@
 
 package com.mmdev.kudago.app.domain.favourites
 
-import androidx.room.*
-import com.mmdev.kudago.app.domain.events.EventEntity
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+/**
+ * This is the documentation block about the class
+ */
 
+interface IFavouritesRepository {
 
-@Dao
-interface FavouritesDao {
+	suspend fun addToFavourite(favouriteEntity: FavouriteEntity)
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertFavourite(favouriteEntity: FavouriteEntity): Long
+	suspend fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'place'")
-	suspend fun getFavouritePlaces(keyPlace: String = "place"): List<PlaceEntity>
+	suspend fun getFavouritePlaces(): List<FavouriteEntity>
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'event'")
-	suspend fun getFavouriteEvents(keyEvent: String = "event"): List<EventEntity>
-
-	@Delete
-	suspend fun deleteFavourite(favouriteEntity: FavouriteEntity)
-
-
+	suspend fun getFavouriteEvents(): List<FavouriteEntity>
 
 }

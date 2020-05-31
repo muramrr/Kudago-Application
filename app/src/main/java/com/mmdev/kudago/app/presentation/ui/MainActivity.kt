@@ -69,7 +69,6 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
 						navController.popBackStack()
 						navController.navigate(R.id.mainBottomNavEvents)
 					}
-					//R.id.bottomCards -> navControllerDating.navigate(R.id.cardsFragmentNav)
 					R.id.mainBottomNavFavourites -> {
 						navController.popBackStack()
 						navController.navigate(R.id.mainBottomNavFavourites)

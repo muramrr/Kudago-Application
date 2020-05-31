@@ -17,8 +17,59 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites
 
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
+import com.mmdev.kudago.app.presentation.base.BasePresenter
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
+
 /**
  * This is the documentation block about the class
  */
 
-class FavouritesPresenter {}
+class FavouritesPresenter (private val repository: IFavouritesRepository) :
+		BasePresenter<FavouritesContract.View>(),
+		FavouritesContract.Presenter,
+		CoroutineScope {
+
+	private val job: Job = SupervisorJob()
+
+	override val coroutineContext: CoroutineContext
+		get() = Dispatchers.Main + job // By default child coroutines will run on the main thread.
+
+	private val placesList: MutableList<FavouriteEntity> = mutableListOf()
+	private val eventsList: MutableList<FavouriteEntity> = mutableListOf()
+
+
+	override fun addToFavourites (favouriteEntity: FavouriteEntity) {
+		launch {
+			repository.addToFavourite(favouriteEntity)
+		}
+	}
+
+	override fun loadFavouritePlaces () {
+		launch {
+			placesList.addAll(repository.getFavouritePlaces())
+			if (placesList.isNotEmpty()) getLinkedView()
+		}
+	}
+
+	override fun loadFavouriteEvents () {
+		launch {
+			eventsList.addAll(repository.getFavouriteEvents())
+		}
+	}
+
+	override fun deleteFromFavourites (favouriteEntity: FavouriteEntity) {
+		launch {
+			repository.deleteFromFavourites(favouriteEntity)
+		}
+	}
+
+}
+
+
+//	override fun onCleared() {
+//		super.onCleared()
+//		job.cancel() // Parent Job cancels all child coroutines.
+//	}

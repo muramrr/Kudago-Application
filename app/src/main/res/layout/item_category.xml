@@ -26,7 +26,6 @@
 	>
 
 
-
 	<com.mmdev.kudago.app.presentation.ui.common.custom.components.CircleImageView
 		android:id="@+id/ivCategoryIcon"
 		android:layout_width="32dp"

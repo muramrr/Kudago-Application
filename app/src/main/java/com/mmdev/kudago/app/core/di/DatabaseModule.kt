@@ -17,10 +17,7 @@
 
 package com.mmdev.kudago.app.core.di
 
-import android.app.Application
-import androidx.room.Room
-import com.mmdev.kudago.app.domain.favourites.FavouritesDao
-import com.mmdev.kudago.app.domain.favourites.FavouritesDatabase
+import com.mmdev.kudago.app.domain.favourites.db.FavouritesRoomDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -29,21 +26,22 @@ import org.koin.dsl.module
  */
 
 
-private const val DATABASE_NAME = "favourites_db"
+//private const val DATABASE_NAME = "favourites_db"
 
 val DatabaseModule = module {
-	single { provideFavouritesDatabase(androidApplication()) }
-	single { provideAuthTokenDao(db = get()) }
+	factory { FavouritesRoomDatabase.getDatabase(androidApplication()).getFavouritesDao() }
+	//single { provideFavouritesDatabase(androidApplication()) }
+	//single { provideFavouritesDao(db = get()) }
 }
 
-private fun provideFavouritesDatabase(app: Application): FavouritesDatabase {
-	return Room
-		.databaseBuilder(app, FavouritesDatabase::class.java, DATABASE_NAME)
-		.fallbackToDestructiveMigration() // get correct db version if schema changed
-		.build()
-}
-
-
-private fun provideAuthTokenDao(db: FavouritesDatabase): FavouritesDao {
-	return db.getFavouritesDao()
-}
+//private fun provideFavouritesDatabase(app: Application): FavouritesRoomDatabase {
+//	return Room
+//		.databaseBuilder(app, FavouritesRoomDatabase::class.java, DATABASE_NAME)
+//		.fallbackToDestructiveMigration() // get correct db version if schema changed
+//		.build()
+//}
+//
+//
+//private fun provideFavouritesDao(db: FavouritesRoomDatabase): FavouritesDao {
+//	return db.getFavouritesDao()
+//}

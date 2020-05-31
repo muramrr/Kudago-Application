@@ -29,7 +29,8 @@ import com.mmdev.kudago.app.domain.events.IEventsRepository
  * [IEventsRepository] implementation
  */
 
-class EventsRepositoryImpl (private val eventsApi: EventsApi): BaseRepository(), IEventsRepository {
+class EventsRepositoryImpl (private val eventsApi: EventsApi):
+		BaseRepository(), IEventsRepository {
 
 
 	//current time
@@ -48,7 +49,7 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi): BaseRepository(),
 
 		return safeApiCall(
 				call = { eventsApi.getEventsListAsync(unixTime, category, "msk", page = page) },
-				errorMessage = "Error Loading events"
+				errorMessage = "Error Loading Events"
 		)
 	}
 
@@ -56,7 +57,7 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi): BaseRepository(),
 		page++
 		return safeApiCall(
 				call = { eventsApi.getEventsListAsync(unixTime, category, "msk", page = page) },
-				errorMessage = "Error Loading events"
+				errorMessage = "Error Loading More Events"
 		)
 	}
 

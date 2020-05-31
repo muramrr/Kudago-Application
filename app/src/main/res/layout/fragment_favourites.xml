@@ -16,18 +16,15 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout
-
-	android:layout_width="match_parent"
+<androidx.recyclerview.widget.RecyclerView
+	android:id="@+id/rvFavouritesListTest"
 	android:layout_height="match_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	android:layout_width="match_parent"
 
+	android:clipToPadding="false"
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:gravity="center"
-		android:text="FAVOURITES"
-		/>
-
-</FrameLayout>
+	tools:itemCount="10"
+	tools:listitem="@layout/item_category"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	/>
