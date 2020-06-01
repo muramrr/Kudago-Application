@@ -21,15 +21,16 @@ import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.EventsApi
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.domain.events.EventsResponse
 import com.mmdev.kudago.app.domain.events.IEventsRepository
+import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
 
 /**
  * [IEventsRepository] implementation
  */
 
-class EventsRepositoryImpl (private val eventsApi: EventsApi):
+class EventsRepositoryImpl (private val eventsApi: EventsApi,
+                            private val favouritesDao: FavouritesDao):
 		BaseRepository(), IEventsRepository {
 
 
@@ -40,8 +41,14 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi):
 	private var category = ""
 
 
-	override suspend fun addEventToFavouritesList(eventEntity: EventEntity): ResultState<Unit> {
-		TODO("Not yet implemented")
+	override suspend fun addEventToFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit> {
+		return try {
+			val result = favouritesDao.insertFavourite(eventDetailedEntity.mapToFavourite())
+			ResultState.Success(result)
+		}
+		catch (ex: Exception) {
+			ResultState.Error(ex)
+		}
 	}
 
 	override suspend fun loadFirstEvents(category: String): EventsResponse? {
@@ -71,8 +78,14 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi):
 		}
 	}
 
-	override suspend fun removeEventFromFavouritesList(eventEntity: EventEntity): ResultState<Unit> {
-		TODO("Not yet implemented")
+	override suspend fun removeEventFromFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit> {
+		return try {
+			val result = favouritesDao.deleteFavourite(eventDetailedEntity.mapToFavourite())
+			ResultState.Success(result)
+		}
+		catch (ex: Exception) {
+			ResultState.Error(ex)
+		}
 	}
 
 

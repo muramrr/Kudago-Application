@@ -41,22 +41,17 @@ class FavouritesPresenter (private val repository: IFavouritesRepository) :
 	private val eventsList: MutableList<FavouriteEntity> = mutableListOf()
 
 
-	override fun addToFavourites (favouriteEntity: FavouriteEntity) {
-		launch {
-			repository.addToFavourite(favouriteEntity)
-		}
-	}
-
 	override fun loadFavouritePlaces () {
 		launch {
 			placesList.addAll(repository.getFavouritePlaces())
-			if (placesList.isNotEmpty()) getLinkedView()
+			if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
 		}
 	}
 
 	override fun loadFavouriteEvents () {
 		launch {
 			eventsList.addAll(repository.getFavouriteEvents())
+			if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
 		}
 	}
 

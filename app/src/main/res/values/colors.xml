@@ -39,6 +39,7 @@
 	<!-- "On" colors-->
 	<color name="colorOnPrimary">#000000</color>
 	<color name="colorOnSecondary">#000000</color>
+	<color name="colorOnSecondaryDark">#FFFFFF</color>
 	<color name="colorOnBackground">#000000</color>
 	<color name="colorOnError">#FFFFFF</color>
 	<color name="colorOnSurface">#000000</color>

@@ -33,8 +33,6 @@ interface FavouritesContract {
 
 	interface Presenter {
 
-		fun addToFavourites(favouriteEntity: FavouriteEntity)
-
 		fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
 
 		fun loadFavouritePlaces()

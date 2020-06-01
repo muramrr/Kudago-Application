@@ -15,32 +15,14 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.place_detailed
+package com.mmdev.kudago.app.presentation.ui.common
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-
+import android.content.Context
+import android.widget.Toast
 
 /**
  * This is the documentation block about the class
  */
 
-interface PlaceDetailedContract {
-
-
-	interface View {
-
-		fun showToast(toastText: String)
-
-		fun updateData(data: PlaceDetailedEntity)
-
-	}
-
-	interface Presenter {
-
-		fun addPlaceToFavourites()
-
-		fun loadPlaceDetailsById(id: Int)
-
-	}
-
-}
+fun Context.showToast(toastText: String = "") =
+	Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()

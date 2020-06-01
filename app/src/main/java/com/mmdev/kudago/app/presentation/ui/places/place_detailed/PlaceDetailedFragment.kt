@@ -25,6 +25,7 @@ import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.showToast
 import kotlinx.android.synthetic.main.fragment_place_detailed.*
 import org.koin.android.ext.android.inject
 
@@ -74,6 +75,8 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		TabLayoutMediator(tlDotsIndicator, vpPhotos){
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
+
+		fabAddRemovePlaceFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
 	}
 
 	override fun updateData(data: PlaceDetailedEntity) {
@@ -81,4 +84,6 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		tvToolbarTitle.text = data.short_title
 		tvPlaceDetailedDescription.text = data.body_text
 	}
+
+	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 }

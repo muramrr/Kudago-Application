@@ -23,6 +23,7 @@ import com.mmdev.kudago.app.data.favourites.FavouritesRepositoryImpl
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
+import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import org.koin.dsl.module
 
@@ -30,14 +31,14 @@ import org.koin.dsl.module
 //repos
 val RepositoryModules = module {
 
-	single<IPlacesRepository> { providePlacesRepositoryImpl(placesApi = get() ) }
+	single<IPlacesRepository> { providePlacesRepositoryImpl(placesApi = get(), favouritesDao = get() ) }
 
-	single<IEventsRepository> { EventsRepositoryImpl(eventsApi = get()) }
+	single<IEventsRepository> { EventsRepositoryImpl(eventsApi = get(), favouritesDao = get() ) }
 
 	single<IFavouritesRepository> { FavouritesRepositoryImpl(favouritesDao = get() ) }
 
 }
 
-private fun providePlacesRepositoryImpl(placesApi: PlacesApi): PlacesRepositoryImpl {
-	return PlacesRepositoryImpl(placesApi)
+private fun providePlacesRepositoryImpl(placesApi: PlacesApi, favouritesDao: FavouritesDao): PlacesRepositoryImpl {
+	return PlacesRepositoryImpl(placesApi, favouritesDao)
 }

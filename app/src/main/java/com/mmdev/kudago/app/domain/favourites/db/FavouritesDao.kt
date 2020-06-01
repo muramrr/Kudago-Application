@@ -27,10 +27,10 @@ interface FavouritesDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun insertFavourite(favouriteEntity: FavouriteEntity)
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'place'")
+	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'PLACE'")
 	suspend fun getFavouritePlaces(): List<FavouriteEntity>
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'event'")
+	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'EVENT'")
 	suspend fun getFavouriteEvents(): List<FavouriteEntity>
 
 	@Delete

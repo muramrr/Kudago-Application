@@ -20,16 +20,18 @@ package com.mmdev.kudago.app.data.places
 import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.domain.places.PlacesResponse
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository(), IPlacesRepository {
+class PlacesRepositoryImpl (private val placesApi: PlacesApi,
+                            private val favouritesDao: FavouritesDao) :
+		BaseRepository(), IPlacesRepository {
 
 	//current time
 	private val unixTime = System.currentTimeMillis() / 1000L
@@ -38,8 +40,14 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 	private var category = ""
 
 
-	override suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): ResultState<Unit> {
-		TODO("Not yet implemented")
+	override suspend fun addPlaceToFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit> {
+		return try {
+			val result = favouritesDao.insertFavourite(placeDetailedEntity.mapToFavourite())
+			ResultState.Success(result)
+		}
+		catch (ex: Exception) {
+			ResultState.Error(ex)
+		}
 	}
 
 	override suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse> {
@@ -82,8 +90,14 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi) : BaseRepository()
 			ResultState.Error(ex)
 		}
 
-	override suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): ResultState<Unit> {
-		TODO("Not yet implemented")
+	override suspend fun removePlaceFromFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit> {
+		return try {
+			val result = favouritesDao.deleteFavourite(placeDetailedEntity.mapToFavourite())
+			ResultState.Success(result)
+		}
+		catch (ex: Exception) {
+			ResultState.Error(ex)
+		}
 	}
 
 }

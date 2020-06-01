@@ -17,6 +17,10 @@
 
 package com.mmdev.kudago.app.domain.events
 
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
+import com.mmdev.kudago.app.domain.favourites.IMapperFavourite
+
 /**
  * Events entities
  * Events response - list of EventItem received from api call
@@ -34,8 +38,24 @@ data class EventDetailedEntity (val id: Int = 0,
                                 val short_title: String = "",
                                 val body_text: String = "",
                                 val description: String = "",
-                                val images: List<ImageEntity> = emptyList())
+                                val images: List<ImageEntity> = emptyList()):
+
+		IMapperFavourite {
+
+	override fun mapToFavourite(): FavouriteEntity {
+		return FavouriteEntity(id = id,
+		                       favouriteDescription = description,
+		                       favouriteTitle = title,
+		                       favouriteType = FavouriteType.EVENT.name)
+	}
+
+}
 
 //image url
 //do not change because it is api declaration
 data class ImageEntity (val image: String = "")
+
+interface IMapperEvent {
+	fun mapToEventDetailedEntity(): EventDetailedEntity
+}
+

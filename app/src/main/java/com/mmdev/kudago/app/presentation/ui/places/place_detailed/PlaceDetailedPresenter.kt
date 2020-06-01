@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
+import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -38,7 +39,25 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.Main + parentJob
 
+	private lateinit var placeDetailedEntity: PlaceDetailedEntity
 
+
+	override fun addPlaceToFavourites() {
+		launch {
+			val result = withContext(coroutineContext) {
+				repository.addPlaceToFavouritesList(placeDetailedEntity)
+			}
+			when (result) {
+				is ResultState.Success -> {
+					getLinkedView()?.showToast("Successfully added to favourites")
+				}
+				is ResultState.Error -> {
+					result.exception.printStackTrace()
+				}
+			}
+
+		}
+	}
 
 	override fun loadPlaceDetailsById(id: Int) {
 		launch {
@@ -48,6 +67,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			when (result) {
 				is ResultState.Success -> {
 					getLinkedView()?.updateData(result.data)
+					placeDetailedEntity = result.data
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

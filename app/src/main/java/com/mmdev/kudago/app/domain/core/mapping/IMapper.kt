@@ -21,6 +21,6 @@ package com.mmdev.kudago.app.domain.core.mapping
  * mapper interface used to map entity to display in ui
  */
 
-interface IMapper<I, O> {
+interface IMapper<in I, out O> {
 	fun map(input: I): O
 }

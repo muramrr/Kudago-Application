@@ -28,6 +28,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
+
 	<androidx.core.widget.NestedScrollView
 		android:id="@+id/scrollContainer"
 		android:layout_width="0dp"
@@ -164,8 +166,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-
-
 	<!-- "toolbar" title -->
 	<com.google.android.material.textview.MaterialTextView
 		android:id="@+id/tvToolbarTitle"
@@ -180,6 +180,26 @@
 		app:layout_constraintStart_toStartOf="@id/viewToolbarBackground"
 		app:layout_constraintEnd_toEndOf="@id/viewToolbarBackground"
 		app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+		/>
+
+	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+		android:id="@+id/fabAddRemovePlaceFavourites"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_margin="16dp"
+
+		android:text="Add to favourites"
+		android:textAlignment="center"
+		android:textAllCaps="false"
+		android:textColor="@color/colorOnSecondaryDark"
+		android:textSize="14sp"
+
+		app:elevation="@null"
+
+		style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
 		/>
 
 

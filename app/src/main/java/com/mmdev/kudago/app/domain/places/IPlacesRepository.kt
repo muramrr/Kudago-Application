@@ -25,7 +25,7 @@ import com.mmdev.kudago.app.domain.core.ResultState
 
 interface IPlacesRepository {
 
-	suspend fun addPlaceToFavouritesList(placeEntity: PlaceEntity): ResultState<Unit>
+	suspend fun addPlaceToFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit>
 
 	suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse>
 
@@ -33,6 +33,6 @@ interface IPlacesRepository {
 
 	suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity>
 
-	suspend fun removePlaceFromFavouritesList(placeEntity: PlaceEntity): ResultState<Unit>
+	suspend fun removePlaceFromFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit>
 
 }

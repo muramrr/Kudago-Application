@@ -25,7 +25,7 @@ import com.mmdev.kudago.app.domain.core.ResultState
 
 interface IEventsRepository {
 
-	suspend fun addEventToFavouritesList(eventEntity: EventEntity): ResultState<Unit>
+	suspend fun addEventToFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit>
 
 	suspend fun loadFirstEvents(category: String): EventsResponse?
 
@@ -33,6 +33,6 @@ interface IEventsRepository {
 
 	suspend fun getEventDetails(id: Int): ResultState<EventDetailedEntity>
 
-	suspend fun removeEventFromFavouritesList(eventEntity: EventEntity): ResultState<Unit>
+	suspend fun removeEventFromFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit>
 
 }
