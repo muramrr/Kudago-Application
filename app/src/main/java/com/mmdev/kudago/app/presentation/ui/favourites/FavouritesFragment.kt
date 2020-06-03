@@ -50,5 +50,4 @@ class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
 			}
 		}.attach()
 	}
-
 }
