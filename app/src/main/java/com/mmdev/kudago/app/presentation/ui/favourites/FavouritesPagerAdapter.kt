@@ -17,29 +17,25 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites
 
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
+import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypeFragment
+
 
 /**
  * This is the documentation block about the class
  */
 
-interface FavouritesContract {
+class FavouritesPagerAdapter (fm: FragmentManager, lifecycle: Lifecycle) :
+		FragmentStateAdapter(fm, lifecycle) {
 
-	interface View {
 
-		fun updateData(data: List<FavouriteEntity>)
+	override fun createFragment(position: Int) =
+		if (position == 0) FavouritesTypeFragment.newInstance(FavouriteType.EVENT.name)
+		else FavouritesTypeFragment.newInstance(FavouriteType.PLACE.name)
 
-	}
-
-	interface Presenter {
-
-		fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
-
-		fun loadFavouritePlaces()
-
-		fun loadFavouriteEvents()
-
-	}
-
+	override fun getItemCount(): Int = 2
 
 }

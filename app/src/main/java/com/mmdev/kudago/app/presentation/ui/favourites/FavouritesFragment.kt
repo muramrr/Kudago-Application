@@ -17,73 +17,38 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites
 
-import android.os.Bundle
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.databinding.FragmentFavouritesBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.fragment_favourites.*
-import org.koin.android.ext.android.inject
-
 
 /**
- * A simple [Fragment] subclass.
- * Use the [FavouritesFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * This is the documentation block about the class
  */
 
-class FavouritesFragment : BaseFragment(R.layout.fragment_favourites),
-                           FavouritesContract.View {
+class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
 
 
-	override val presenter: FavouritesPresenter by inject()
+	private val viewBinding by viewBinding(FragmentFavouritesBinding::bind)
 
-	private val mFavouritesAdapter = FavouritesAdapter()
-
-	companion object {
-
-		private const val CATEGORY_KEY = "CATEGORY"
-
-	}
-
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-
-		presenter.linkView(this)
-
-		arguments?.let {
-			//receivedCategoryString = it.getString(CATEGORY_KEY, "")
-		}
-
-		presenter.loadFavouritePlaces()
-
-	}
 
 	override fun setupViews() {
-		rvFavouritesListTest.applySystemWindowInsets(applyTop = true)
-		rvFavouritesListTest.apply {
-			adapter = mFavouritesAdapter
-			layoutManager = LinearLayoutManager(this.context)
+		viewBinding.tabLayoutContainer.applySystemWindowInsets(applyTop = true)
+
+		viewBinding.viewPagerContainer.apply {
+			adapter = FavouritesPagerAdapter(childFragmentManager, lifecycle)
 		}
 
-		mFavouritesAdapter.setOnItemClickListener(object : BaseAdapter
-		                                                   .OnItemClickListener<FavouriteEntity> {
-
-			override fun onItemClick(item: FavouriteEntity, position: Int) {
-				val category = bundleOf(CATEGORY_KEY to item)
-				findNavController().navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
-				                             category)
+		TabLayoutMediator(viewBinding.tabLayoutContainer,
+		                  viewBinding.viewPagerContainer) { tab: TabLayout.Tab, position: Int ->
+			when (position){
+				0 -> tab.text = "Events"
+				1 -> tab.text = "Places"
 			}
-		})
-	}
-
-	override fun updateData(data: List<FavouriteEntity>) {
-		mFavouritesAdapter.setData(data)
+		}.attach()
 	}
 
 }

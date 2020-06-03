@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.favourites
+package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ import com.mmdev.kudago.app.presentation.base.BaseAdapter
  * This is the documentation block about the class
  */
 
-class FavouritesAdapter (private var data: List<FavouriteEntity> = emptyList()) :
+class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList()) :
 		BaseAdapter<FavouriteEntity>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder =

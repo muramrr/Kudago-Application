@@ -18,9 +18,9 @@
 package com.mmdev.kudago.app.presentation.ui.places.categories
 
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import kotlinx.android.synthetic.main.fragment_places_categories.*
@@ -47,11 +47,11 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 			layoutManager = LinearLayoutManager(this.context)
 		}
 
-		mPlacesCategoriesAdapter.setOnItemClickListener(object : PlacesCategoriesAdapter.OnItemClickListener{
+		mPlacesCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<String>{
 
 			override fun onItemClick(item: String, position: Int) {
 				val category = bundleOf(CATEGORY_KEY to item)
-				findNavController().navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
+				navController.navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
 				                             category)
 			}
 		})

@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.domain.events.EventEntity
@@ -90,7 +89,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_events_cate
 
 			override fun onItemClick(item: EventEntity, position: Int) {
 				val eventId = bundleOf(EVENT_ID_KEY to item.id)
-				findNavController().navigate(R.id.action_eventsCategoryDetailed_to_eventDetailed,
+				navController.navigate(R.id.action_eventsCategoryDetailed_to_eventDetailed,
 				                             eventId)
 			}
 		})

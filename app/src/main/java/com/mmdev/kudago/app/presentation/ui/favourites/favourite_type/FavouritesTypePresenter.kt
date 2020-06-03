@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.favourites
+package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
@@ -27,9 +27,9 @@ import kotlin.coroutines.CoroutineContext
  * This is the documentation block about the class
  */
 
-class FavouritesPresenter (private val repository: IFavouritesRepository) :
-		BasePresenter<FavouritesContract.View>(),
-		FavouritesContract.Presenter,
+class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
+		BasePresenter<FavouritesTypeContract.View>(),
+		FavouritesTypeContract.Presenter,
 		CoroutineScope {
 
 	private val job: Job = SupervisorJob()

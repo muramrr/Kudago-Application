@@ -19,8 +19,8 @@ package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 
 /**
  * This is the documentation block about the class
@@ -33,9 +33,7 @@ class EventsCategoriesAdapter (private val data: List<String> =
 	                                      "yarmarki-razvlecheniya-yarmarki"
 	                               )):
 
-		RecyclerView.Adapter<EventsCategoriesAdapter.PlacesCategoriesViewHolder>() {
-
-	private var mClickListener: OnItemClickListener? = null
+		BaseAdapter<String>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
@@ -46,39 +44,21 @@ class EventsCategoriesAdapter (private val data: List<String> =
 		)
 
 	override fun getItemCount(): Int = data.size
+	override fun getItem(position: Int) = data[position]
 
-	override fun onBindViewHolder(holder: PlacesCategoriesViewHolder, position: Int) {
-		holder.bind(data[position])
+	override fun setData(data: List<String>) {
+		//do nothing
 	}
 
-	private fun getItem(position: Int) = data[position]
-
-	fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
-		mClickListener = itemClickListener
-	}
 
 
 	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemCategoryBinding):
-			RecyclerView.ViewHolder(viewBinding.root) {
+			BaseViewHolder<String>(viewBinding.root) {
 
-		init {
-			viewBinding.root.setOnClickListener {
-				mClickListener?.onItemClick(getItem(adapterPosition), adapterPosition)
-			}
-		}
-
-
-		fun bind(item: String){
-
+		override fun bind(item: String){
 			viewBinding.tvCategoryTitle.text = item
 		}
 
-
-	}
-
-
-	interface OnItemClickListener {
-		fun onItemClick(item: String, position: Int)
 	}
 
 }

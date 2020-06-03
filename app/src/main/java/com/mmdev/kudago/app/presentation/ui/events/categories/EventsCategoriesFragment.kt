@@ -18,9 +18,9 @@
 package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import kotlinx.android.synthetic.main.fragment_events_categories.*
@@ -47,11 +47,11 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 			layoutManager = LinearLayoutManager(this.context)
 		}
 
-		mEventsCategoriesAdapter.setOnItemClickListener(object : EventsCategoriesAdapter.OnItemClickListener{
+		mEventsCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<String>{
 
 			override fun onItemClick(item: String, position: Int) {
 				val category = bundleOf(CATEGORY_KEY to item)
-				findNavController().navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
+				navController.navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
 				                             category)
 			}
 		})

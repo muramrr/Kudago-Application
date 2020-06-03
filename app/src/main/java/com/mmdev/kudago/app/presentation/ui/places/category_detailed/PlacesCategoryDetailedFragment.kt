@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.domain.places.PlaceEntity
@@ -90,7 +89,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 			override fun onItemClick(item: PlaceEntity, position: Int) {
 				val placeId = bundleOf(PLACE_ID_KEY to item.id)
-				findNavController().navigate(R.id.action_categoryDetailed_to_placeDetailed,
+				navController.navigate(R.id.action_categoryDetailed_to_placeDetailed,
 				                             placeId)
 			}
 		})
