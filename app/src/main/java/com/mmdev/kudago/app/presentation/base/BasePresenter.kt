@@ -32,7 +32,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
-	protected val parentJob: Job = SupervisorJob()
+	private val parentJob: Job = SupervisorJob()
 
 	// By default child coroutines will run on the main thread.
 	override val coroutineContext: CoroutineContext
@@ -46,8 +46,14 @@ abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.M
 		attachedView = WeakReference(view)
 	}
 
-	fun unlinkView(){
+	private fun unlinkView(){
 		attachedView = null
+	}
+
+	fun onClear() {
+		unlinkView()
+		// Parent Job cancels all child coroutines.
+		parentJob.cancel()
 	}
 
 

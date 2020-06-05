@@ -55,9 +55,3 @@ class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 	}
 
 }
-
-
-//	override fun onCleared() {
-//		super.onCleared()
-//		job.cancel() // Parent Job cancels all child coroutines.
-//	}
