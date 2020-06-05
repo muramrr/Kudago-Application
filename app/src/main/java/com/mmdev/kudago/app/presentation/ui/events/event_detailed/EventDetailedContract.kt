@@ -17,8 +17,29 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
+import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+
 /**
  * This is the documentation block about the class
  */
 
-interface EventDetailedContract
+interface EventDetailedContract {
+
+
+	interface View {
+
+		fun showToast(toastText: String)
+
+		fun updateData(data: EventDetailedEntity)
+
+	}
+
+	interface Presenter {
+
+		fun addEventToFavourites()
+
+		fun loadEventDetailsById(id: Int)
+
+	}
+
+}

@@ -17,8 +17,22 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
+import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentEventDetailedBinding
+import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
+
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedFragment
+class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed) {
+
+	private val viewBinding by viewBinding(FragmentEventDetailedBinding::bind)
+
+	override fun setupViews() {
+		TODO("Not yet implemented")
+	}
+
+
+}

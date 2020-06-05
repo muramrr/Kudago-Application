@@ -21,12 +21,13 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentPlaceDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.showToast
-import kotlinx.android.synthetic.main.fragment_place_detailed.*
 import org.koin.android.ext.android.inject
 
 /**
@@ -34,7 +35,9 @@ import org.koin.android.ext.android.inject
  */
 
 class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
-	PlaceDetailedContract.View {
+                             PlaceDetailedContract.View {
+
+	private val viewBinding by viewBinding(FragmentPlaceDetailedBinding::bind)
 
 	override val presenter: PlaceDetailedPresenter by inject()
 
@@ -63,26 +66,26 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	}
 
 	override fun setupViews() {
-		toolbarPlaceDetailed.applySystemWindowInsets(applyTop = true)
-		tvToolbarTitle.applySystemWindowInsets(applyTop = true)
+		viewBinding.toolbarPlaceDetailed.applySystemWindowInsets(applyTop = true)
+		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
 
-		toolbarPlaceDetailed.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarPlaceDetailed.setNavigationOnClickListener { navController.navigateUp() }
 
-		vpPhotos.apply {
+		viewBinding.vpPhotos.apply {
 			adapter = placePhotosAdapter
 		}
 
-		TabLayoutMediator(tlDotsIndicator, vpPhotos){
+		TabLayoutMediator(viewBinding.tlDotsIndicator, viewBinding.vpPhotos){
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
-		fabAddRemovePlaceFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
+		viewBinding.fabAddRemovePlaceFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
 	}
 
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
-		tvToolbarTitle.text = data.short_title
-		tvPlaceDetailedDescription.text = data.body_text
+		viewBinding.tvToolbarTitle.text = data.short_title
+		viewBinding.tvPlaceDetailedDescription.text = data.body_text
 	}
 
 	override fun showToast(toastText: String) = requireContext().showToast(toastText)

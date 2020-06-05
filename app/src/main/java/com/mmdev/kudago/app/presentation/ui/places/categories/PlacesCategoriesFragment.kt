@@ -20,16 +20,19 @@ package com.mmdev.kudago.app.presentation.ui.places.categories
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentPlacesCategoriesBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.fragment_places_categories.*
 
 /**
  * This is the documentation block about the class
  */
 
 class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories) {
+
+	private val viewBinding by viewBinding(FragmentPlacesCategoriesBinding::bind)
 
 	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
 
@@ -41,8 +44,8 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 
 
 	override fun setupViews() {
-		rvPlacesCategories.applySystemWindowInsets(applyTop = true)
-		rvPlacesCategories.apply {
+		viewBinding.rvPlacesCategories.applySystemWindowInsets(applyTop = true)
+		viewBinding.rvPlacesCategories.apply {
 			adapter = mPlacesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}

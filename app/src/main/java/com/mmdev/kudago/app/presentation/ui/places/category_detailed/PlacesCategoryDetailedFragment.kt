@@ -21,13 +21,14 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentPlacesCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
-import kotlinx.android.synthetic.main.fragment_places_category_detailed.*
 import org.koin.android.ext.android.inject
 
 /**
@@ -37,6 +38,7 @@ import org.koin.android.ext.android.inject
 class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed) ,
     PlacesContract.View {
 
+	private val viewBinding by viewBinding(FragmentPlacesCategoryDetailedBinding::bind)
 
 	override val presenter: PlacesPresenter by inject()
 
@@ -64,12 +66,12 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	}
 
 	override fun setupViews() {
-		toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
-		toolbarCategoryTitle.title = receivedCategoryString
-		toolbarCategoryTitle.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
+		viewBinding.toolbarCategoryTitle.title = receivedCategoryString
+		viewBinding.toolbarCategoryTitle.setNavigationOnClickListener { navController.navigateUp() }
 
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-		rvDetailedCategory.apply {
+		viewBinding.rvDetailedCategory.apply {
 			adapter = categoryDetailedAdapter
 			layoutManager = gridLayoutManager
 			addItemDecoration(GridItemDecoration())

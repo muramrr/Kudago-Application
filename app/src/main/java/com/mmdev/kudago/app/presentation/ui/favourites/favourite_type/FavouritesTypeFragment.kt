@@ -22,12 +22,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.fragment_favourites_type_list.*
 import org.koin.android.ext.android.inject
 
 
@@ -40,6 +41,7 @@ import org.koin.android.ext.android.inject
 class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_list),
                                FavouritesTypeContract.View {
 
+	private val viewBinding by viewBinding(FragmentFavouritesTypeListBinding::bind)
 
 	override val presenter: FavouritesTypePresenter by inject()
 
@@ -74,8 +76,8 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	}
 
 	override fun setupViews() {
-		rvFavouritesListTest.applySystemWindowInsets(applyTop = true)
-		rvFavouritesListTest.apply {
+		viewBinding.rvFavouritesListTest.applySystemWindowInsets(applyTop = true)
+		viewBinding.rvFavouritesListTest.apply {
 			adapter = mFavouritesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}

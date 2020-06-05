@@ -20,16 +20,19 @@ package com.mmdev.kudago.app.presentation.ui.events.categories
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentEventsCategoriesBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.fragment_events_categories.*
 
 /**
  * This is the documentation block about the class
  */
 
 class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categories) {
+
+	private val viewBinding by viewBinding(FragmentEventsCategoriesBinding::bind)
 
 	private val mEventsCategoriesAdapter = EventsCategoriesAdapter()
 
@@ -41,8 +44,8 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 
 
 	override fun setupViews() {
-		rvEventsCategories.applySystemWindowInsets(applyTop = true)
-		rvEventsCategories.apply {
+		viewBinding.rvEventsCategories.applySystemWindowInsets(applyTop = true)
+		viewBinding.rvEventsCategories.apply {
 			adapter = mEventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}
