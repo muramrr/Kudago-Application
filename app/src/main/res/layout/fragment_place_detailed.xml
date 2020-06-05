@@ -47,7 +47,7 @@
 			android:paddingBottom="16dp">
 
 			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvPlaceDetailedAboutHeader"
+				android:id="@+id/tvDetailedAboutHeader"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:paddingTop="16dp"
@@ -59,13 +59,13 @@
 				android:textAppearance="@style/header_text"
 
 				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toTopOf="@id/tvPlaceDetailedDescription"
+				app:layout_constraintBottom_toTopOf="@id/tvDetailedDescription"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				/>
 
 			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvPlaceDetailedDescription"
+				android:id="@+id/tvDetailedDescription"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 
@@ -76,7 +76,7 @@
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
-				app:layout_constraintTop_toBottomOf="@id/tvPlaceDetailedAboutHeader"
+				app:layout_constraintTop_toBottomOf="@id/tvDetailedAboutHeader"
 
 				/>
 
@@ -143,15 +143,15 @@
 
 		android:alpha="0"
 
-		app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
-		app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
-		app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
-		app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+		app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
+		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
+		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+		app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 		/>
 
 	<!-- "toolbar" collapsed background -->
 	<com.google.android.material.appbar.MaterialToolbar
-		android:id="@+id/toolbarPlaceDetailed"
+		android:id="@+id/toolbarDetailed"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:minHeight="?attr/actionBarSize"
@@ -183,7 +183,7 @@
 		/>
 
 	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-		android:id="@+id/fabAddRemovePlaceFavourites"
+		android:id="@+id/fabAddRemoveFavourites"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_margin="16dp"

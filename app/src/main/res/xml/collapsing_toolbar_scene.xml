@@ -72,14 +72,14 @@
 
 			android:alpha="0"
 
-			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 			/>
 
 
-		<Constraint android:id="@+id/toolbarPlaceDetailed"
+		<Constraint android:id="@+id/toolbarDetailed"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:minHeight="?attr/actionBarSize"
@@ -152,8 +152,8 @@
 
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 			/>
 
 		<Constraint
@@ -179,13 +179,13 @@
 
 			android:alpha="1"
 
-			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 			/>
 
-		<Constraint android:id="@+id/toolbarPlaceDetailed"
+		<Constraint android:id="@+id/toolbarDetailed"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:minHeight="?attr/actionBarSize"
@@ -203,10 +203,10 @@
 			android:scaleX="0.7"
 			android:scaleY="0.7"
 
-			app:layout_constraintEnd_toEndOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintStart_toStartOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintTop_toTopOf="@id/toolbarPlaceDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarPlaceDetailed"
+			app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
+			app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
+			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 			>
 
 			<CustomAttribute

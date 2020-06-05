@@ -20,8 +20,9 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * This is the documentation block about the class
@@ -29,14 +30,7 @@ import kotlin.coroutines.CoroutineContext
 
 class EventsPresenter (private val repository: IEventsRepository) :
 		BasePresenter<EventsContract.View>(),
-		EventsContract.Presenter,
-		CoroutineScope by CoroutineScope(Dispatchers.Main) {
-
-
-	private val parentJob = SupervisorJob()
-
-	override val coroutineContext: CoroutineContext
-		get() = Dispatchers.Main + parentJob
+		EventsContract.Presenter {
 
 	private var eventsList: MutableList<EventEntity> = mutableListOf()
 
@@ -57,7 +51,6 @@ class EventsPresenter (private val repository: IEventsRepository) :
 				eventsList.addAll(it.results)
 				getLinkedView()?.updateData(eventsList)
 			}
-
 
 		}
 	}

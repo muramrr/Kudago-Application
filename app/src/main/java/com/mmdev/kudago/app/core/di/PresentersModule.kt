@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.core.di
 
 
 import com.mmdev.kudago.app.presentation.ui.events.category_detailed.EventsPresenter
+import com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedPresenter
 import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypePresenter
 import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedPresenter
@@ -32,7 +33,7 @@ val PresentersModule = module {
 	factory { PlaceDetailedPresenter(repository = get()) }
 
 	factory { EventsPresenter(repository = get()) }
-	//factory { EventsDetailedPresenter(repository = get()) }
+	factory { EventDetailedPresenter(repository = get()) }
 
 	factory { FavouritesTypePresenter(repository = get()) }
 

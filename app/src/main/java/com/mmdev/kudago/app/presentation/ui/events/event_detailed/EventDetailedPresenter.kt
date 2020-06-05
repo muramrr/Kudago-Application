@@ -17,8 +17,68 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
+import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.domain.events.IEventsRepository
+import com.mmdev.kudago.app.presentation.base.BasePresenter
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedPresenter
+class EventDetailedPresenter (private val repository: IEventsRepository) :
+		BasePresenter<EventDetailedContract.View>(),
+		EventDetailedContract.Presenter {
+
+	private lateinit var eventDetailedEntity: EventDetailedEntity
+
+	private var isAdded = false
+
+	override fun addEventToFavourites() {
+		launch {
+			val result = withContext(coroutineContext) {
+				if (isAdded) repository.addEventToFavouritesList(eventDetailedEntity)
+				else repository.removeEventFromFavouritesList(eventDetailedEntity)
+			}
+			when (result) {
+				is ResultState.Success -> {
+					isAdded = if (isAdded){
+						getLinkedView()?.showToast("Successfully removed from favourites")
+						false
+					}
+					else {
+						getLinkedView()?.showToast("Successfully added to favourites")
+						true
+					}
+					getLinkedView()?.updateFabButton(isAdded)
+
+				}
+				is ResultState.Error -> {
+					result.exception.printStackTrace()
+				}
+			}
+
+		}
+	}
+
+	override fun loadEventDetailsById(id: Int) {
+		launch {
+			val result = withContext(coroutineContext) {
+				repository.getEventDetails(id)
+			}
+			when (result) {
+				is ResultState.Success -> {
+					getLinkedView()?.updateData(result.data)
+					eventDetailedEntity = result.data
+				}
+				is ResultState.Error -> {
+					result.exception.printStackTrace()
+				}
+			}
+		}
+	}
+
+
+}

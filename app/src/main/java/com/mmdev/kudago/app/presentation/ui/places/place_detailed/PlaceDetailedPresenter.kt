@@ -21,8 +21,8 @@ import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * This is the documentation block about the class
@@ -30,14 +30,7 @@ import kotlin.coroutines.CoroutineContext
 
 class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 		BasePresenter<PlaceDetailedContract.View>(),
-		PlaceDetailedContract.Presenter,
-		CoroutineScope by CoroutineScope(Dispatchers.Main) {
-
-
-	private val parentJob = SupervisorJob()
-
-	override val coroutineContext: CoroutineContext
-		get() = Dispatchers.Main + parentJob
+		PlaceDetailedContract.Presenter {
 
 	private lateinit var placeDetailedEntity: PlaceDetailedEntity
 

@@ -18,14 +18,25 @@
 package com.mmdev.kudago.app.presentation.base
 
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import java.lang.ref.WeakReference
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Base Presenter feature - for coroutines jobs
  *
  */
 
-abstract class BasePresenter<V> {
+abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.Main) {
+
+	protected val parentJob: Job = SupervisorJob()
+
+	// By default child coroutines will run on the main thread.
+	override val coroutineContext: CoroutineContext
+		get() = Dispatchers.Main + parentJob
 
 	private var attachedView: WeakReference<V>? = null
 

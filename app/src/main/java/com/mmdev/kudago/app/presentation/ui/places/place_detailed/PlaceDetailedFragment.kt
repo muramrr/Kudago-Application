@@ -66,10 +66,10 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	}
 
 	override fun setupViews() {
-		viewBinding.toolbarPlaceDetailed.applySystemWindowInsets(applyTop = true)
+		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
 		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
 
-		viewBinding.toolbarPlaceDetailed.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarDetailed.setNavigationOnClickListener { navController.navigateUp() }
 
 		viewBinding.vpPhotos.apply {
 			adapter = placePhotosAdapter
@@ -79,13 +79,13 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
-		viewBinding.fabAddRemovePlaceFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
+		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
 	}
 
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title
-		viewBinding.tvPlaceDetailedDescription.text = data.body_text
+		viewBinding.tvDetailedDescription.text = data.body_text
 	}
 
 	override fun showToast(toastText: String) = requireContext().showToast(toastText)

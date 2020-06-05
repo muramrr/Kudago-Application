@@ -17,21 +17,83 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
+import android.os.Bundle
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentEventDetailedBinding
+import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
+import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.showToast
+import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed) {
+class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
+                              EventDetailedContract.View {
 
 	private val viewBinding by viewBinding(FragmentEventDetailedBinding::bind)
 
+	override val presenter: EventDetailedPresenter by inject()
+
+	private val placePhotosAdapter = ImagePagerAdapter()
+
+
+	private var receivedEventId = 0
+	companion object {
+		private const val EVENT_ID_KEY = "EVENT_ID"
+	}
+
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+
+		presenter.linkView(this)
+
+		arguments?.let {
+			receivedEventId = it.getInt(EVENT_ID_KEY)
+			presenter.loadEventDetailsById(receivedEventId)
+		}
+
+	}
+
 	override fun setupViews() {
-		TODO("Not yet implemented")
+		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
+		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
+
+		viewBinding.toolbarDetailed.setNavigationOnClickListener { navController.navigateUp() }
+
+		viewBinding.vpPhotos.apply {
+			adapter = placePhotosAdapter
+		}
+
+		TabLayoutMediator(viewBinding.tlDotsIndicator, viewBinding.vpPhotos){
+			_: TabLayout.Tab, _: Int -> //do nothing
+		}.attach()
+
+		viewBinding.fabAddRemoveFavourites.setOnClickListener {
+			presenter.addEventToFavourites()
+		}
+	}
+
+
+
+	override fun showToast(toastText: String) = requireContext().showToast(toastText)
+
+	override fun updateFabButton(isAdded: Boolean) {
+		if (isAdded) viewBinding.fabAddRemoveFavourites.text = "Remove from favourites"
+		else viewBinding.fabAddRemoveFavourites.text = "Add to favourites"
+	}
+
+	override fun updateData(data: EventDetailedEntity) {
+		placePhotosAdapter.setData(data.images.map { it.image })
+		viewBinding.tvToolbarTitle.text = data.short_title
+		viewBinding.tvDetailedDescription.text = data.body_text
 	}
 
 

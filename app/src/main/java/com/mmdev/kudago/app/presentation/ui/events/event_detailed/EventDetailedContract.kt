@@ -30,6 +30,8 @@ interface EventDetailedContract {
 
 		fun showToast(toastText: String)
 
+		fun updateFabButton(isAdded: Boolean)
+
 		fun updateData(data: EventDetailedEntity)
 
 	}

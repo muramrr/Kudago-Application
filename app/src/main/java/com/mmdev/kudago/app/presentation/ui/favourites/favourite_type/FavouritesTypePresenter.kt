@@ -20,8 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.launch
 
 /**
  * This is the documentation block about the class
@@ -29,13 +28,7 @@ import kotlin.coroutines.CoroutineContext
 
 class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 		BasePresenter<FavouritesTypeContract.View>(),
-		FavouritesTypeContract.Presenter,
-		CoroutineScope {
-
-	private val job: Job = SupervisorJob()
-
-	override val coroutineContext: CoroutineContext
-		get() = Dispatchers.Main + job // By default child coroutines will run on the main thread.
+		FavouritesTypeContract.Presenter {
 
 	private val placesList: MutableList<FavouriteEntity> = mutableListOf()
 	private val eventsList: MutableList<FavouriteEntity> = mutableListOf()
