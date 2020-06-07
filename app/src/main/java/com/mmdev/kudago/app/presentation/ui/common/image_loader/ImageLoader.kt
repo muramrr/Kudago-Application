@@ -22,6 +22,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Handler
+import android.os.Looper
 import android.widget.ImageView
 import java.io.*
 import java.net.HttpURLConnection
@@ -79,7 +80,7 @@ class ImageLoader(context: Context) {
 	private var fileCache: FileCache = FileCache(context)
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
 	private var executorService: ExecutorService = Executors.newFixedThreadPool(5)
-	private var handler = Handler()
+	private var handler = Handler(Looper.myLooper()!!)
 
 	@Synchronized
 	fun load(imageView: ImageView, url: String) {
