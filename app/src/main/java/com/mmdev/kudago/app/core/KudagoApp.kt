@@ -32,7 +32,7 @@ import kotlin.random.Random
  * This is the documentation block about the class
  */
 
-class App: Application() {
+class KudagoApp: Application() {
 
 	private val applicationModules = listOf(DatabaseModule,
 	                                        PresentersModule,
@@ -45,7 +45,7 @@ class App: Application() {
 
 		super.onCreate()
 		startKoin {
-			androidContext(this@App)
+			androidContext(this@KudagoApp)
 			androidLogger()
 			modules(applicationModules)
 		}

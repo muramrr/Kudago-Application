@@ -37,7 +37,7 @@ data class FavouriteEntity(
 
 	@PrimaryKey(autoGenerate = true)
 	@ColumnInfo(name = "favourite_id")
-	val id: Int = 0,
+	val id: Int = 1,
 
 	@ColumnInfo(name = "favourite_title")
 	val favouriteTitle: String,
