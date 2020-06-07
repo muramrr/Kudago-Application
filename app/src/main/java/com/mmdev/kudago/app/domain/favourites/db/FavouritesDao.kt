@@ -17,12 +17,17 @@
 
 package com.mmdev.kudago.app.domain.favourites.db
 
+import androidx.annotation.VisibleForTesting
 import androidx.room.*
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 
 @Dao
 interface FavouritesDao {
+
+	@VisibleForTesting
+	@Query("SELECT * FROM favourites")
+	suspend fun getAllFavourites(): List<FavouriteEntity>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun insertFavourite(favouriteEntity: FavouriteEntity)
