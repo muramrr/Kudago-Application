@@ -1,0 +1,86 @@
+[
+  {
+	"id":31235,
+	"title":"частный кинотеатр «Секрет»",
+	"description":"<p>Любите смотреть фильмы на большом экране в уютной атмосфере, не отвлекаясь на хруст попкорна вокруг? Приходите в частный кинотеатр «Секрет», где дружной компанией можно не только насладиться любимой кинокартиной, но и перекусить, попеть под караоке и сразиться в видеоигры. Здесь можно устроить необычное свидание, шикарный девичник или тематическую вечеринку.</p>",
+	"images":[
+	  {
+		"image":"https://kudago.com/media/images/place/f3/39/f33989e2727847cfd2a5b5dc464df88e.jpg",
+		"source":{"name":"cinemasecret.ru","link":"https://cinemasecret.ru/photoalbums"}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/ad/b0/adb0933fbbd79b665ed094e9e5806496.jpg",
+		"source":{"name":"cinemasecret.ru","link":"https://cinemasecret.ru/photoalbums"}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/fc/7b/fc7b121f9099c1058e4cc2c6e9e7bcff.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/b4/b4/b4b488aa6a94d5c84c9810bb854acb05.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/d6/47/d6471171d050fe4f39ee186ba7469f04.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/9a/59/9a5932604e9b9879ec2f0cd075eff2f6.jpg",
+		"source":{"name":"","link":""}
+	  }
+	]
+  },
+  {
+	"id":32193,
+	"title":"арт-пространство «Бункер 703»",
+	"description":"<p>«Бункер 703» — музей современной фортификации, расположенный на глубине 43 метров под землёй. Раньше здесь находился защищённый спецархив МИДа, где хранились документы особой государственной важности. Сегодня место сочетает в себе уникальный музей и креативное театральное пространство и открыто для посещения.</p>",
+	"images": [
+	  {
+		"image":"https://kudago.com/media/images/place/b2/6e/b26e240bdbee478dddd974249b2624d8.JPG",
+		"source":{"name":"","link":""}},
+	  {
+		"image":"https://kudago.com/media/images/place/bb/70/bb7047bdb9518b2549884a3d5ee79501.JPG",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/03/3d/033db68312b27562b81cc67f8413d0f4.JPG",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/c2/eb/c2ebe3433ea83cd38d78a0c5537e81f4.JPG",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/2a/f7/2af72ac03386b5f9f2b2db124f23cd05.JPG",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/df/75/df75041da987c438c55d04d71157c7ea.JPG",
+		"source":{"name":"","link":""}
+	  }
+	]
+  },
+  {
+	"id":31013,
+	"title":"смотровая площадка PANORAMA360 в ММДЦ «Москва-Сити»",
+	"description":"<p>PANORAMA360 находится на 89 этаже башни «Федерация-Восток» комплекса «Москва-Сити» и считается одной из самых высоких смотровых площадок в стране. Во время ограничений на массовые мероприятия PANORAMA360 останавливает продажу билетов на период с 17 марта по 10 апреля, но вы всё ещё можете попасть в <a href=\"https://kudago.com/msk/place/restoran-360/\">ресторан</a>, посетив заодно и смотровую площадку. Посещение ресторана теперь будет со скидкой 50%!</p>\n",
+	"images": [
+	  {
+		"image":"https://kudago.com/media/images/place/a5/1f/a51f55fee40590ab1a5f5ce1def96b1f.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/21/93/21935f58603f35a3996b5e28395c8412.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/6a/fc/6afc11465856936355a10b0bac7abb05.jpg",
+		"source":{"name":"","link":""}
+	  },
+	  {
+		"image":"https://kudago.com/media/images/place/28/e5/28e5d8cb70dc42d2b5e10276b3d3fd92.jpg",
+		"source":{"name":"","link":""}
+	  }
+	]
+  }
+]

@@ -22,6 +22,7 @@ import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.favourites.db.FavouritesRoomDatabase
+import com.mmdev.kudago.app.modules.roomTestModule
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals

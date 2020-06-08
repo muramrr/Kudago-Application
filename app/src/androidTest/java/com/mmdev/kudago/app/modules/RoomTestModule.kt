@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app
+package com.mmdev.kudago.app.modules
 
 import androidx.room.Room
 import com.mmdev.kudago.app.domain.favourites.db.FavouritesRoomDatabase
