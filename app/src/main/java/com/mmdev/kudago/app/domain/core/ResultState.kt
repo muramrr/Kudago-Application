@@ -36,6 +36,6 @@ sealed class ResultState<out T : Any> {
 	/**
 	 * A state to show a [Throwable] is thrown.
 	 */
-	class Error<T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>()
+	class Error<out T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>()
 
 }

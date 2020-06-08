@@ -120,7 +120,9 @@ dependencies {
 	testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines_version"
 	androidTestImplementation "org.koin:koin-test:$koin_version"
 	testImplementation "com.squareup.okhttp3:mockwebserver:3.12.1"
-	testImplementation 'org.mockito:mockito-core:3.3.3'
+	def mockito_version = "3.3.3"
+	testImplementation "org.mockito:mockito-core:$mockito_version"
+	testImplementation "org.mockito:mockito-inline:$mockito_version"
 	testImplementation 'junit:junit:4.12'
 	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
