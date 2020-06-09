@@ -17,18 +17,19 @@
 
 package com.mmdev.kudago.app
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import java.io.File
+import java.net.HttpURLConnection
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * This is the documentation block about the class
  */
 
-class ExampleUnitTest {
-	@Test
-	fun addition_isCorrect() {
-		assertEquals(4, 2 + 2)
-	}
-}
+fun MockWebServer.mockHttpResponse(body: String, responseCode: Int = HttpURLConnection.HTTP_OK) =
+	this.enqueue(MockResponse()
+		             .setResponseCode(responseCode)
+		             .setBody(body)
+	)
+
+fun readJson(fileName: String) = File("src/test/java/com/mmdev/kudago/app/res/$fileName").readText()

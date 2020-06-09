@@ -26,16 +26,26 @@ sealed class ResultState<out T : Any> {
 	/**
 	 * A state of [data] which shows that we know there is still an update to come.
 	 */
-	class Loading<out T: Any>(val data: T) : ResultState<T>()
+	class Loading<out T: Any>(val data: T) : ResultState<T>(){
+		override fun getState() = STATE.Loading
+	}
 
 	/**
 	 * A state that shows the [data] is the last known update.
 	 */
-	class Success<out T : Any>(val data: T) : ResultState<T>()
+	class Success<out T : Any>(val data: T) : ResultState<T>() {
+		override fun getState() = STATE.Success
+	}
 
 	/**
 	 * A state to show a [Throwable] is thrown.
 	 */
-	class Error<out T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>()
+	class Error<out T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>(){
+		override fun getState() = STATE.Error
+	}
+
+	abstract fun getState(): STATE
+
+	enum class STATE { Loading, Success, Error}
 
 }

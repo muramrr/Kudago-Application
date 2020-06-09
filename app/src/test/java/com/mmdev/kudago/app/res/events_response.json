@@ -1,135 +1,37 @@
-[
-  {
-	"id":155978,
-	"title":"III Международный фестиваль искусств «Вдохновение»",
-	"description":"<p>В парке «Останкино» пройдет ежегодный световой мультимедийный фестиваль. После захода солнца зрители смогут прогуляться по волшебному лесу и встретить диковинных персонажей: летающих рыб, светящихся лошадей и небесных люмильеров.</p>\n",
-	"images":[
-	  {
-		"image":"https://kudago.com/media/images/event/00/6b/006b147b4ca397bf9c43f1113a16acb7.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/06/8a/068a9a2815e9c01aadc646fa0c98b724.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/0e/9b/0e9b12e8a7fe4859ad7e81c41e934d20.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/da/52/da52e9c7a8e915ee44b8561b33fbb8bc.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/84/d6/84d645c6a7d7d6769fffde291b63f2f0.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/d7/77/d7778d3a155016fc12b573197d50521d.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/b6/b8/b6b80df2eba0134c9981d1d6d37204fc.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/3f/e6/3fe677a10431226bcdb1d0372c116af3.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/11/2f/112f6f677de3a9016db87cb4d94ec303.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/ac/0b/ac0b3bd4b964e044c89ea64ab5a4be10.jpg",
-		"source":{"name":"","link":""}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/7a/13/7a13e2b41e7a534564376c71de55fd3a.jpg",
-		"source":{"name":"","link":""}
-	  }
-	]
-  },
-  {
-	"id":185321,
-	"title":"Новый год 2020 в Москве",
-	"description":"<p>Новогодние праздники дарят нам долгожданный отдых от повседневных забот. Прогулки по живописно украшенному городу, покупка подарков и вкусностей на ярмарках, катание на коньках, тюбинге и северных оленях, концерты и залпы салюта — всё это превратит встречу 2020 года в яркое событие, которое запомнится надолго.</p>",
-	"images": [
-	  {
-		"image":"https://kudago.com/media/images/event/63/7c/637cf2dca96fcf4bee70e3f11eb90a84.jpg",
-		"source":{"name":"2020-god.su/","link":"https://2020-god.su/smotret-novogodnie-salyuty-v-moskve/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/33/e9/33e92cab58390c07cfee5ffa56b11ed4.jpg",
-		"source":{"name":"pix-feed.com","link":"https://pix-feed.com/novyj-god-v-moskve-2020/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/a9/d6/a9d65e1e5bb198b567db2c990a62ea52.jpg",
-		"source":{"name":"pix-feed.com","link":"https://pix-feed.com/novyj-god-v-moskve-2020/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/20/90/20904be3343b5ce7615b0fedd38a40f5.jpg",
-		"source":{"name":"pix-feed.com","link":"https://pix-feed.com/novyj-god-v-moskve-2020/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/f1/ac/f1acdb5d4c8996fda20b5997ea3f40af.jpg",
-		"source":{"name":"www.kp.ru","link":"https://www.kp.ru/afisha/moskva/daily/staryj-novyj-god-na-yarmarkax-moskvy/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/20/1c/201c6de2e05e27aeaf8772e9deb3c013.jpg",
-		"source":{"name":"www.kleo.ru","link":"https://www.kleo.ru/items/relax/novyy-god-2020-na-krasnoy-ploshchadi.shtml"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/f6/b6/f6b6c7cd736b99b82729fcbf7505c06f.jpg",
-		"source":{"name":"pix-feed.com","link":"https://pix-feed.com/novyj-god-v-moskve-2020/"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/e8/48/e84831bd89fd23b01d8fc565346760fc.jpg",
-		"source":{"name":"topdizz.com","link":"https://topdizz.com/novyj-god-v-moskve-2020/"}
-	  }
-	]
-  },
-  {
-	"id":155766,
-	"title":"День семьи, любви и верности 2017",
-	"description":"<p>Большой музыкальный фестиваль в «Царицыно», экскурсии в столичных музеях, события в парках, бесплатные кинопоказы и яркий фейерверк — 8 июля в Москве отметят праздник, известный также как День Петра и Февронии.</p>\n",
-	"images": [
-	  {
-		"image":"https://kudago.com/media/images/event/5f/52/5f52c1e65d27f8d18000b96de1b86808.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/album-27098092_244175357"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/c7/87/c787f5fbe8f4a1be484839b335e490c9.jpg",
-		"source":{"name":"youtube.com","link":"https://www.youtube.com/watch?v=bjVKUNQ2xj4"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/80/c9/80c94f45db4928c26265e51e34b33bf2.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/albums-27098092?z=photo-27098092_456240554%2Fphotos-27098092"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/3e/8b/3e8b3817b03ffb18d5b0dc608fbf5741.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/albums-27098092"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/98/12/981222bae6d7722e679023296b77eeab.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/album-27098092_233539060"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/11/6b/116b1fefcaf5ed04eff796cb6c1f2c7d.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/album-36230364_233722487"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/86/e5/86e57a6884a69b779cc61e2159712bad.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/photo-39446630_372636707"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/d2/b1/d2b1ae30bd33e5bca3139a99c5731c8e.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/albums-27098092"}
-	  },
-	  {
-		"image":"https://kudago.com/media/images/event/c2/f0/c2f0bf17fbf7cbc9161a9b98980d2666.jpg",
-		"source":{"name":"ВКонтакте","link":"https://vk.com/albums-27098092"}
-	  }
-	]
-  }
-]
+{
+  "results": [
+	{
+	  "id": 155978,
+	  "title": "III Международный фестиваль искусств «Вдохновение»",
+	  "description": "<p>В парке «Останкино» пройдет ежегодный световой мультимедийный фестиваль. После захода солнца зрители смогут прогуляться по волшебному лесу и встретить диковинных персонажей: летающих рыб, светящихся лошадей и небесных люмильеров.</p>\n",
+	  "images": [
+		{"image": "https://kudago.com/media/images/event/00/6b/006b147b4ca397bf9c43f1113a16acb7.jpg" },
+		{"image": "https://kudago.com/media/images/event/06/8a/068a9a2815e9c01aadc646fa0c98b724.jpg" },
+		{"image": "https://kudago.com/media/images/event/0e/9b/0e9b12e8a7fe4859ad7e81c41e934d20.jpg" },
+		{"image": "https://kudago.com/media/images/event/da/52/da52e9c7a8e915ee44b8561b33fbb8bc.jpg" }
+	  ]
+	},
+	{
+	  "id": 185321,
+	  "title": "Новый год 2020 в Москве",
+	  "description": "<p>Новогодние праздники дарят нам долгожданный отдых от повседневных забот. Прогулки по живописно украшенному городу, покупка подарков и вкусностей на ярмарках, катание на коньках, тюбинге и северных оленях, концерты и залпы салюта — всё это превратит встречу 2020 года в яркое событие, которое запомнится надолго.</p>",
+	  "images": [
+		{"image": "https://kudago.com/media/images/event/63/7c/637cf2dca96fcf4bee70e3f11eb90a84.jpg" },
+		{"image": "https://kudago.com/media/images/event/33/e9/33e92cab58390c07cfee5ffa56b11ed4.jpg" },
+		{"image": "https://kudago.com/media/images/event/a9/d6/a9d65e1e5bb198b567db2c990a62ea52.jpg" },
+		{"image": "https://kudago.com/media/images/event/20/90/20904be3343b5ce7615b0fedd38a40f5.jpg" }
+	  ]
+	},
+	{
+	  "id": 155766,
+	  "title": "День семьи, любви и верности 2017",
+	  "description": "<p>Большой музыкальный фестиваль в «Царицыно», экскурсии в столичных музеях, события в парках, бесплатные кинопоказы и яркий фейерверк — 8 июля в Москве отметят праздник, известный также как День Петра и Февронии.</p>\n",
+	  "images": [
+		{"image": "https://kudago.com/media/images/event/5f/52/5f52c1e65d27f8d18000b96de1b86808.jpg" },
+		{"image": "https://kudago.com/media/images/event/c7/87/c787f5fbe8f4a1be484839b335e490c9.jpg" },
+		{"image": "https://kudago.com/media/images/event/80/c9/80c94f45db4928c26265e51e34b33bf2.jpg" },
+		{"image": "https://kudago.com/media/images/event/3e/8b/3e8b3817b03ffb18d5b0dc608fbf5741.jpg" }
+	  ]
+	}
+  ]
+}
