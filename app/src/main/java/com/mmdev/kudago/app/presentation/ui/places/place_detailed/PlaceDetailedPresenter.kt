@@ -34,15 +34,26 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 
 	private lateinit var placeDetailedEntity: PlaceDetailedEntity
 
+	private var isAdded = false
 
 	override fun addPlaceToFavourites() {
 		launch {
 			val result = withContext(coroutineContext) {
-				repository.addPlaceToFavouritesList(placeDetailedEntity)
+				if (isAdded) repository.removePlaceFromFavouritesList(placeDetailedEntity)
+				else repository.addPlaceToFavouritesList(placeDetailedEntity)
 			}
 			when (result) {
 				is ResultState.Success -> {
-					getLinkedView()?.showToast("Successfully added to favourites")
+					isAdded = if (isAdded){
+						getLinkedView()?.showToast("Successfully removed from favourites")
+						false
+					}
+					else {
+						getLinkedView()?.showToast("Successfully added to favourites")
+						true
+					}
+					getLinkedView()?.updateFabButton(isAdded)
+
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
@@ -59,8 +70,9 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			}
 			when (result) {
 				is ResultState.Success -> {
-					getLinkedView()?.updateData(result.data)
 					placeDetailedEntity = result.data
+					getLinkedView()?.updateData(placeDetailedEntity)
+					getLinkedView()?.updateFabButton(placeDetailedEntity.isAddedToFavourites)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

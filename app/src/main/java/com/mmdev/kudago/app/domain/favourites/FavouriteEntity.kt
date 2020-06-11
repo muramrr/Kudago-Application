@@ -35,9 +35,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class FavouriteEntity(
 
-	@PrimaryKey(autoGenerate = true)
+	@PrimaryKey
 	@ColumnInfo(name = "favourite_id")
-	val id: Int = 1,
+	val favouriteId: Int,
 
 	@ColumnInfo(name = "favourite_title")
 	val favouriteTitle: String,
@@ -50,15 +50,17 @@ data class FavouriteEntity(
 
 
 	override fun mapToPlaceDetailedEntity(): PlaceDetailedEntity {
-		return PlaceDetailedEntity(id = id,
+		return PlaceDetailedEntity(id = favouriteId,
 		                           description = favouriteDescription,
-		                           title = favouriteTitle)
+		                           title = favouriteTitle,
+		                           isAddedToFavourites = true)
 	}
 
 	override fun mapToEventDetailedEntity(): EventDetailedEntity {
-		return EventDetailedEntity(id = id,
+		return EventDetailedEntity(id = favouriteId,
 		                           description = favouriteDescription,
-		                           title = favouriteTitle)
+		                           title = favouriteTitle,
+		                           isAddedToFavourites = true)
 	}
 
 }

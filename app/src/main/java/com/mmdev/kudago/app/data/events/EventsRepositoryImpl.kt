@@ -71,6 +71,9 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi,
 	override suspend fun getEventDetails(id: Int): ResultState<EventDetailedEntity> {
 		return try {
 			val result = eventsApi.getEventDetailsAsync(id)
+
+			val isFavourite = favouritesDao.getFavouriteEvent(id)?.mapToEventDetailedEntity()
+			isFavourite?.let { result.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) } }
 			ResultState.Success(result)
 		}
 		catch (e: Exception){

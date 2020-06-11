@@ -38,16 +38,17 @@ data class PlaceDetailedEntity (val id: Int = 0,
                                 val short_title: String = "",
                                 val body_text: String = "",
                                 val description: String = "",
-                                val images: List<ImageEntity> = emptyList()):
+                                val images: List<ImageEntity> = emptyList(),
+                                var isAddedToFavourites: Boolean = false):
 
-        IMapperFavourite {
+		IMapperFavourite {
 
-    override fun mapToFavourite(): FavouriteEntity {
-        return FavouriteEntity(id = id,
-                               favouriteDescription = description,
-                               favouriteTitle = title,
-                               favouriteType = FavouriteType.PLACE.name)
-    }
+	override fun mapToFavourite(): FavouriteEntity {
+		return FavouriteEntity(favouriteId = id,
+		                       favouriteDescription = description,
+		                       favouriteTitle = title,
+		                       favouriteType = FavouriteType.PLACE.name)
+	}
 
 }
 
@@ -56,5 +57,5 @@ data class PlaceDetailedEntity (val id: Int = 0,
 data class ImageEntity (val image: String = "")
 
 interface IMapperPlace {
-    fun mapToPlaceDetailedEntity(): PlaceDetailedEntity
+	fun mapToPlaceDetailedEntity(): PlaceDetailedEntity
 }

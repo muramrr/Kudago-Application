@@ -38,12 +38,13 @@ data class EventDetailedEntity (val id: Int = 0,
                                 val short_title: String = "",
                                 val body_text: String = "",
                                 val description: String = "",
-                                val images: List<ImageEntity> = emptyList()):
+                                val images: List<ImageEntity> = emptyList(),
+                                var isAddedToFavourites: Boolean = false):
 
 		IMapperFavourite {
 
 	override fun mapToFavourite(): FavouriteEntity {
-		return FavouriteEntity(id = id,
+		return FavouriteEntity(favouriteId = id,
 		                       favouriteDescription = description,
 		                       favouriteTitle = title,
 		                       favouriteType = FavouriteType.EVENT.name)

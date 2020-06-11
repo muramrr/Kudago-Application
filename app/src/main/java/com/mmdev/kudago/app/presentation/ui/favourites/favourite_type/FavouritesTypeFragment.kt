@@ -87,11 +87,11 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 
 			override fun onItemClick(item: FavouriteEntity, position: Int) {
 				if (item.favouriteType == FavouriteType.EVENT.name) {
-					val id = bundleOf(EVENT_ID_KEY to item.id)
+					val id = bundleOf(EVENT_ID_KEY to item.favouriteId)
 					navController.navigate(R.id.action_favourites_to_eventDetailed, id)
 				}
 				else {
-					val id = bundleOf(PLACE_ID_KEY to item.id)
+					val id = bundleOf(PLACE_ID_KEY to item.favouriteId)
 					navController.navigate(R.id.action_favourites_to_placeDetailed, id)
 				}
 

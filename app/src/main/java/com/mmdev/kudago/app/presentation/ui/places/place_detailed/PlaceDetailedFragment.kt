@@ -82,6 +82,11 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
 	}
 
+	override fun updateFabButton(isAdded: Boolean) {
+		if (isAdded) viewBinding.fabAddRemoveFavourites.text = "Remove from favourites"
+		else viewBinding.fabAddRemoveFavourites.text = "Add to favourites"
+	}
+
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title

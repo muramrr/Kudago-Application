@@ -26,7 +26,7 @@ import java.io.IOException
  * This is the documentation block about the class
  */
 
-open class BaseRepository{
+open class BaseRepository {
 
 	suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>,
 	                                  errorMessage: String): T? {
@@ -53,4 +53,6 @@ open class BaseRepository{
 
 		return ResultState.Error(IOException("Error Occurred during getting safe Api result, Custom ERROR - $errorMessage"))
 	}
+
+	protected fun compareId(id1: Int, id2: Int) : Boolean = id1 == id2
 }

@@ -84,6 +84,8 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 	override suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity> =
 		try {
 			val result = placesApi.getPlaceDetailsAsync(id)
+			val isFavourite = favouritesDao.getFavouritePlace(id)?.mapToPlaceDetailedEntity()
+			isFavourite?.let { result.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) } }
 			ResultState.Success(result)
 		}
 		catch (ex: Exception) {

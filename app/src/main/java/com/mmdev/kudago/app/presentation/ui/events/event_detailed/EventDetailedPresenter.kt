@@ -39,8 +39,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 	override fun addEventToFavourites() {
 		launch {
 			val result = withContext(coroutineContext) {
-				if (isAdded) repository.addEventToFavouritesList(eventDetailedEntity)
-				else repository.removeEventFromFavouritesList(eventDetailedEntity)
+				if (isAdded) repository.removeEventFromFavouritesList(eventDetailedEntity)
+				else repository.addEventToFavouritesList(eventDetailedEntity)
 			}
 			when (result) {
 				is ResultState.Success -> {
@@ -70,8 +70,9 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 			}
 			when (result) {
 				is ResultState.Success -> {
-					getLinkedView()?.updateData(result.data)
 					eventDetailedEntity = result.data
+					getLinkedView()?.updateData(eventDetailedEntity)
+					getLinkedView()?.updateFabButton(eventDetailedEntity.isAddedToFavourites)
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

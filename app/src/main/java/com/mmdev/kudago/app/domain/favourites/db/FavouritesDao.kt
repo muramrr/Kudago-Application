@@ -35,10 +35,19 @@ interface FavouritesDao {
 	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'PLACE'")
 	suspend fun getFavouritePlaces(): List<FavouriteEntity>
 
+	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'PLACE' AND favourite_id = :id")
+	suspend fun getFavouritePlace(id: Int): FavouriteEntity?
+
 	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'EVENT'")
 	suspend fun getFavouriteEvents(): List<FavouriteEntity>
 
+	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'EVENT' AND favourite_id = :id")
+	suspend fun getFavouriteEvent(id: Int): FavouriteEntity?
+
 	@Delete
 	suspend fun deleteFavourite(favouriteEntity: FavouriteEntity)
+
+	@Query("DELETE FROM favourites")
+	suspend fun deleteAll()
 
 }
