@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.repositories
+package com.mmdev.kudago.app
 
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
@@ -24,8 +24,6 @@ import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.ImageEntity
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.mockHttpResponse
-import com.mmdev.kudago.app.readJson
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
@@ -45,7 +43,7 @@ import kotlin.test.assertTrue
  */
 
 @RunWith(JUnit4::class)
-class PlacesRepositoryTest {
+class ResultStateTest {
 
 	private val mockWebServer: MockWebServer = MockWebServer()
 	private lateinit var repository: IPlacesRepository
@@ -110,7 +108,7 @@ class PlacesRepositoryTest {
 	@Test
 	fun testErrorResultState() {
 
-		mockWebServer.mockHttpResponse("empty string", HttpURLConnection.HTTP_NOT_FOUND)
+		mockWebServer.mockHttpResponse("no result", HttpURLConnection.HTTP_NOT_FOUND)
 
 		runBlocking {
 			val repositoryResultState = repository.getPlaceDetails(0)
@@ -132,5 +130,6 @@ class PlacesRepositoryTest {
 
 		}
 	}
+
 
 }
