@@ -18,7 +18,6 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 
-import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
@@ -39,18 +38,11 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	override fun loadPlaces(category: String) {
 		launch {
-			val result = withContext(Dispatchers.Default) {
-				repository.loadFirstPlaces(category)
-			}
-			when (result) {
-				is ResultState.Success -> {
-					placesList = result.data.results.toMutableList()
-					if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
-					//else getLinkedView()?.showEmptyHint()
-				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
+			withContext(Dispatchers.IO) { repository.loadFirstPlaces(category) }?.let {
+				placesList = it.results.toMutableList()
+				if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
+				//else getLinkedView()?.showEmptyHint() }
+
 			}
 
 		}
@@ -59,17 +51,9 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	override fun loadMorePlaces() {
 		launch {
-			val result = withContext(Dispatchers.Default) {
-				repository.loadMorePlaces()
-			}
-			when (result) {
-				is ResultState.Success -> {
-					placesList.addAll(result.data.results)
-					getLinkedView()?.updateData(placesList)
-				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
+			withContext(Dispatchers.IO) { repository.loadMorePlaces() }?.let {
+				placesList.addAll(it.results)
+				getLinkedView()?.updateData(placesList)
 			}
 
 		}

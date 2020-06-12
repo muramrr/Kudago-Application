@@ -36,7 +36,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 
 	override fun loadEvents(category: String) {
 		launch {
-			withContext(Dispatchers.Default) { repository.loadFirstEvents(category) }?.let {
+			withContext(Dispatchers.IO) { repository.loadFirstEvents(category) }?.let {
 				eventsList = it.results.toMutableList()
 				if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
 				//else getLinkedView()?.showEmptyHint() }
@@ -47,7 +47,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 
 	override fun loadMoreEvents() {
 		launch {
-			withContext(Dispatchers.Default) { repository.loadMoreEvents() }?.let {
+			withContext(Dispatchers.IO) { repository.loadMoreEvents() }?.let {
 				eventsList.addAll(it.results)
 				getLinkedView()?.updateData(eventsList)
 			}

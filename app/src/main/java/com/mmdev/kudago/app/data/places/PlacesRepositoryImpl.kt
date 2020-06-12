@@ -50,35 +50,21 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 		}
 	}
 
-	override suspend fun loadFirstPlaces(category: String): ResultState<PlacesResponse> {
+	override suspend fun loadFirstPlaces(category: String): PlacesResponse? {
 		this.category = category
-		//another approach
-//		val placesResponse = safeApiCall(
-//				call = { placesApi.getPlacesListAsync(unixTime, category, "msk").await() },
-//				errorMessage = "Error Loading Places"
-//		)
-//
-//		return placesResponse.results.toMutableList()
-		return try {
-			page = 1
 
-			val result = placesApi.getPlacesListAsync(unixTime, category, "msk")
-			ResultState.Success(result)
-		}
-		catch (ex: Exception) {
-			ResultState.Error(ex)
-		}
+		return safeApiCall(
+				call = { placesApi.getPlacesListAsync(unixTime, category, "msk", page = page) },
+				errorMessage = "Error Loading Places"
+		)
 	}
 
-	override suspend fun loadMorePlaces(): ResultState<PlacesResponse> {
-		return try {
-			page++
-			val result = placesApi.getPlacesListAsync(unixTime, category, "msk", page)
-			ResultState.Success(result)
-		}
-		catch (ex: Exception) {
-			ResultState.Error(ex)
-		}
+	override suspend fun loadMorePlaces(): PlacesResponse? {
+		page++
+		return safeApiCall(
+				call = { placesApi.getPlacesListAsync(unixTime, category, "msk", page = page) },
+				errorMessage = "Error Loading More Places"
+		)
 	}
 
 	override suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity> =

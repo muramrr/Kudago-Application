@@ -19,10 +19,16 @@ package com.mmdev.kudago.app.presentation.ui.common
 
 import android.content.Context
 import android.widget.Toast
+import java.util.*
 
 /**
  * This is the documentation block about the class
  */
 
+private val ruLocale = Locale("ru")
+
 fun Context.showToast(toastText: String = "") =
 	Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
+
+@ExperimentalStdlibApi
+fun String.capitalizeRu() = this.capitalize(ruLocale)

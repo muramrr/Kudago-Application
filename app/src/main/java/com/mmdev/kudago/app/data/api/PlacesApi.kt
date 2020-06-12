@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.data.api
 
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.domain.places.PlacesResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -34,7 +35,7 @@ interface PlacesApi {
 		@Query("actual_since") timestamp: Long,
 		@Query("categories") category: String,
 		@Query("location") location: String,
-		@Query("page") page: Int = 1): PlacesResponse
+		@Query("page") page: Int = 1): Response<PlacesResponse>
 
 	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images&text_format=plain")
 	suspend fun getPlaceDetailsAsync(@Path("id") id: Int): PlaceDetailedEntity

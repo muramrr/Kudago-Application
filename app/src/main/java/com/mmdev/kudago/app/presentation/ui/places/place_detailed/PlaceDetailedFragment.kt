@@ -27,6 +27,7 @@ import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
@@ -87,9 +88,12 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		else viewBinding.fabAddRemoveFavourites.text = "Add to favourites"
 	}
 
+	@ExperimentalStdlibApi
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
-		viewBinding.tvToolbarTitle.text = data.short_title
+		if (data.short_title.isNotBlank()) viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
+		else viewBinding.tvToolbarTitle.text = data.title.capitalizeRu()
+
 		viewBinding.tvDetailedDescription.text = data.body_text
 	}
 

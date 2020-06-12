@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 /**
@@ -54,8 +55,10 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 			BaseViewHolder<PlaceEntity>(viewBinding.root) {
 
 
+		@ExperimentalStdlibApi
 		override fun bind(item: PlaceEntity) {
-			viewBinding.tvPlaceTitle.text = item.short_title
+			if (item.short_title.isNotBlank()) viewBinding.tvPlaceTitle.text = item.short_title.capitalizeRu()
+			else viewBinding.tvPlaceTitle.text = item.title.capitalizeRu()
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
 			ImageLoader.with(viewBinding.ivImageHolder.context)
 				.load(viewBinding.ivImageHolder, item.images[0].image)
