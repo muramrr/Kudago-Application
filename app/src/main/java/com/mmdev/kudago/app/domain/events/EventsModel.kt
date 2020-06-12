@@ -46,7 +46,7 @@ data class EventDetailedEntity (val id: Int = 0,
 	override fun mapToFavourite(): FavouriteEntity {
 		return FavouriteEntity(favouriteId = id,
 		                       favouriteDescription = description,
-		                       favouriteTitle = title,
+		                       favouriteTitle = short_title,
 		                       favouriteType = FavouriteType.EVENT.name)
 	}
 
