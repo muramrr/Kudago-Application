@@ -73,6 +73,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 					placeDetailedEntity = result.data
 					getLinkedView()?.updateData(placeDetailedEntity)
 					getLinkedView()?.updateFabButton(placeDetailedEntity.isAddedToFavourites)
+					isAdded = placeDetailedEntity.isAddedToFavourites
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()

@@ -73,6 +73,7 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 					eventDetailedEntity = result.data
 					getLinkedView()?.updateData(eventDetailedEntity)
 					getLinkedView()?.updateFabButton(eventDetailedEntity.isAddedToFavourites)
+					isAdded = eventDetailedEntity.isAddedToFavourites
 				}
 				is ResultState.Error -> {
 					result.exception.printStackTrace()
