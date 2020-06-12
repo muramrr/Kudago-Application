@@ -53,7 +53,7 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi,
 
 	override suspend fun loadFirstEvents(category: String): EventsResponse? {
 		this.category = category
-
+		page = 1
 		return safeApiCall(
 				call = { eventsApi.getEventsListAsync(unixTime, category, "msk", page = page) },
 				errorMessage = "Error Loading Events"

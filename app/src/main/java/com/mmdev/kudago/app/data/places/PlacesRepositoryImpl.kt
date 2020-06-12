@@ -52,7 +52,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 
 	override suspend fun loadFirstPlaces(category: String): PlacesResponse? {
 		this.category = category
-
+		page = 1
 		return safeApiCall(
 				call = { placesApi.getPlacesListAsync(unixTime, category, "msk", page = page) },
 				errorMessage = "Error Loading Places"

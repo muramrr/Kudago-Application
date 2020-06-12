@@ -86,9 +86,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
 
 	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 
-	override fun updateFabButton(isAdded: Boolean) {
-		if (isAdded) viewBinding.fabAddRemoveFavourites.text = "Remove from favourites"
-		else viewBinding.fabAddRemoveFavourites.text = "Add to favourites"
+	override fun updateFabButton(fabText: String) {
+		viewBinding.fabAddRemoveFavourites.text = fabText
 	}
 
 	@ExperimentalStdlibApi

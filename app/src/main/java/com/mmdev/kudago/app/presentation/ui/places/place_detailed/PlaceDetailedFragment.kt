@@ -83,9 +83,8 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addPlaceToFavourites() }
 	}
 
-	override fun updateFabButton(isAdded: Boolean) {
-		if (isAdded) viewBinding.fabAddRemoveFavourites.text = "Remove from favourites"
-		else viewBinding.fabAddRemoveFavourites.text = "Add to favourites"
+	override fun updateFabButton(fabText: String) {
+		viewBinding.fabAddRemoveFavourites.text = fabText
 	}
 
 	@ExperimentalStdlibApi

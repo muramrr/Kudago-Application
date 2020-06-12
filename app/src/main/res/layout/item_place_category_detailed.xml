@@ -51,6 +51,8 @@
 		android:layout_gravity="center|bottom"
 		android:padding="8dp"
 
+		android:ellipsize="end"
+
 		android:text="Place title"
 		android:textColor="@android:color/white"
 		android:textSize="20sp"
