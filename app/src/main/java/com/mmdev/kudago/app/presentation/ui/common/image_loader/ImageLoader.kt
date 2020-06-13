@@ -20,9 +20,9 @@ package com.mmdev.kudago.app.presentation.ui.common.image_loader
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageView
 import java.io.*
 import java.net.HttpURLConnection
@@ -50,10 +50,12 @@ class ImageLoader(context: Context) {
 
 			return INSTANCE ?: ImageLoader(context).also {
 				INSTANCE = it
+				Log.i(TAG, "One Instance initiated and running")
 			}
 
 		}
 
+		private const val TAG = "ImageLoader"
 		private const val REQUIRED_SIZE = 1400
 		private const val CONNECTION_TIMEOUT = 30000
 		private const val READ_TIMEOUT = 30000
@@ -126,29 +128,31 @@ class ImageLoader(context: Context) {
 		try {
 			val o = BitmapFactory.Options()
 			o.inJustDecodeBounds = true
-			val stream1 = FileInputStream(f)
-			BitmapFactory.decodeStream(stream1, null, o)
-			stream1.close()
+			if (f.exists()) {
+				val stream1 = FileInputStream(f)
+				BitmapFactory.decodeStream(stream1, null, o)
+				stream1.close()
 
+				var widthTMP = o.outWidth
+				var heightTMP = o.outHeight
+				var scale = 1
+				while (true) {
+					if (widthTMP / 2 < REQUIRED_SIZE || heightTMP / 2 < REQUIRED_SIZE) break
 
-			var widthTMP = o.outWidth
-			var heightTMP = o.outHeight
-			var scale = 1
-			while (true) {
-				if (widthTMP / 2 < REQUIRED_SIZE || heightTMP / 2 < REQUIRED_SIZE) break
+					widthTMP /= 2
+					heightTMP /= 2
+					scale *= 2
+				}
 
-				widthTMP /= 2
-				heightTMP /= 2
-				scale *= 2
+				val bitmapOptions = BitmapFactory.Options()
+				bitmapOptions.inSampleSize = scale
+				val stream2 = FileInputStream(f)
+				val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
+				stream2.close()
+				return bitmap
 			}
-
-			val bitmapOptions = BitmapFactory.Options()
-			bitmapOptions.inSampleSize = scale
-			val stream2 = FileInputStream(f)
-			val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
-			stream2.close()
-			return bitmap
 		} catch (e: FileNotFoundException) {
+			e.printStackTrace()
 		} catch (e: IOException) {
 			e.printStackTrace()
 		}
@@ -156,9 +160,9 @@ class ImageLoader(context: Context) {
 		return null
 	}
 
-	private data class PhotoToLoad(var url: String, var imageView: ImageView)
+	private data class PhotoToLoad(val url: String, val imageView: ImageView)
 
-	private inner class PhotosLoader(var photoToLoad: PhotoToLoad) : Runnable {
+	private inner class PhotosLoader(val photoToLoad: PhotoToLoad) : Runnable {
 
 		override fun run() {
 			try {
@@ -183,12 +187,13 @@ class ImageLoader(context: Context) {
 		return tag == null || tag != photoToLoad.url
 	}
 
-	private inner class BitmapDisplayer(var bitmap: Bitmap?, var photoToLoad: PhotoToLoad) : Runnable {
+	private inner class BitmapDisplayer(val bitmap: Bitmap?, val photoToLoad: PhotoToLoad) :
+			Runnable {
 		override fun run() {
 			if (imageViewReused(photoToLoad)) return
 
-			if (bitmap != null) photoToLoad.imageView.setImageBitmap(bitmap)
-			else photoToLoad.imageView.setBackgroundColor(Color.parseColor("#00000000"))
+			bitmap?.let { photoToLoad.imageView.setImageBitmap(it) }
+
 		}
 	}
 

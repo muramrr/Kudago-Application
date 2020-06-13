@@ -34,7 +34,7 @@ class MemoryCache {
 	init { setLimit(Runtime.getRuntime().maxMemory() / 4) }
 
 	companion object {
-		private val TAG = "MemoryCache"
+		private const val TAG = "MemoryCache"
 	}
 
 	private fun setLimit(new_limit: Long) {
