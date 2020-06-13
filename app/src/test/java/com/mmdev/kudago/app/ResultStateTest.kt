@@ -20,7 +20,7 @@ package com.mmdev.kudago.app
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
 import com.mmdev.kudago.app.domain.core.ResultState
-import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.ImageEntity
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity

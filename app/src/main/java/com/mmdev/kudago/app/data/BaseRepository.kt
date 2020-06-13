@@ -37,7 +37,7 @@ open class BaseRepository {
 		when(result) {
 			is ResultState.Success -> data = result.data
 			is ResultState.Error -> {
-				Log.d("1.DataRepository", "$errorMessage & Exception - ${result.exception}")
+				Log.d("BaseRepository", "$errorMessage & Exception - ${result.exception}")
 			}
 		}
 

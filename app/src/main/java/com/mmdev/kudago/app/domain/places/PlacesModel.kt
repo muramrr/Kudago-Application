@@ -17,9 +17,9 @@
 
 package com.mmdev.kudago.app.domain.places
 
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
-import com.mmdev.kudago.app.domain.favourites.FavouriteType
-import com.mmdev.kudago.app.domain.favourites.IMapperFavourite
+import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
+import com.mmdev.kudago.app.data.favourites.db.FavouriteType
+import com.mmdev.kudago.app.data.favourites.db.IMapperFavourite
 
 /**
  * Places entities
@@ -44,10 +44,11 @@ data class PlaceDetailedEntity (val id: Int = 0,
 		IMapperFavourite {
 
 	override fun mapToFavourite(): FavouriteEntity {
-		return FavouriteEntity(favouriteId = id,
-		                       favouriteDescription = description,
-		                       favouriteTitle = short_title,
-		                       favouriteType = FavouriteType.PLACE.name)
+		return FavouriteEntity(
+				favouriteId = id,
+				favouriteDescription = description,
+				favouriteTitle = short_title,
+				favouriteType = FavouriteType.PLACE.name)
 	}
 
 }

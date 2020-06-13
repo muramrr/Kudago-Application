@@ -17,6 +17,8 @@
 
 package com.mmdev.kudago.app.domain.favourites
 
+import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
+
 /**
  * This is the documentation block about the class
  */

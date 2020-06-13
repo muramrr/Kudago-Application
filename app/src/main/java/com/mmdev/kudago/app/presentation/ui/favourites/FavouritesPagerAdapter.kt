@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.favourites
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.mmdev.kudago.app.domain.favourites.FavouriteType
+import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypeFragment
 
 

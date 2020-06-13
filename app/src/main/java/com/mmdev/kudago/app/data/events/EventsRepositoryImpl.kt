@@ -23,7 +23,7 @@ import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.EventsResponse
 import com.mmdev.kudago.app.domain.events.IEventsRepository
-import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 
 /**
  * [IEventsRepository] implementation

@@ -19,8 +19,8 @@ package com.mmdev.kudago.app.core.di
 
 import android.app.Application
 import androidx.room.Room
-import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
-import com.mmdev.kudago.app.domain.favourites.db.FavouritesRoomDatabase
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.favourites.db.FavouritesRoomDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

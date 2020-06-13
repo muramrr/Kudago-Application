@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 
 

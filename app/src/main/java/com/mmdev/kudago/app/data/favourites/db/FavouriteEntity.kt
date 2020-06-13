@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.favourites
+package com.mmdev.kudago.app.data.favourites.db
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

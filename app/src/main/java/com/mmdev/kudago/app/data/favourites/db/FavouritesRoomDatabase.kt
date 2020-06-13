@@ -15,13 +15,12 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.favourites.db
+package com.mmdev.kudago.app.data.favourites.db
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 
 /**
@@ -42,12 +41,17 @@ abstract class FavouritesRoomDatabase: RoomDatabase() {
 		@Volatile private var INSTANCE: FavouritesRoomDatabase? = null
 
 		fun getDatabase(app: Application): FavouritesRoomDatabase =
-			INSTANCE ?: synchronized(this) {
-				INSTANCE ?: buildDatabase(app).also { INSTANCE = it }
+			INSTANCE
+			?: synchronized(this) {
+				INSTANCE
+				?: buildDatabase(
+						app)
+					.also { INSTANCE = it }
 			}
 
 		private fun buildDatabase(app: Application) =
-			Room.databaseBuilder(app, FavouritesRoomDatabase::class.java, DATABASE_NAME)
+			Room.databaseBuilder(app, FavouritesRoomDatabase::class.java,
+			                     DATABASE_NAME)
 				.fallbackToDestructiveMigration()
 				.build()
 	}

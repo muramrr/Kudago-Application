@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.data.places
 import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.domain.core.ResultState
-import com.mmdev.kudago.app.domain.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.domain.places.PlacesResponse
@@ -70,6 +70,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 	override suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity> =
 		try {
 			val result = placesApi.getPlaceDetailsAsync(id)
+			//check if this place is saved to favourites
 			val isFavourite = favouritesDao.getFavouritePlace(id)?.mapToPlaceDetailedEntity()
 			isFavourite?.let { result.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) } }
 			ResultState.Success(result)
