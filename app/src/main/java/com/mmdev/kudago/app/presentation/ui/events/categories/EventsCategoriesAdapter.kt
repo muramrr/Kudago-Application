@@ -19,25 +19,31 @@ package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.databinding.ItemCategoryBinding
+import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.ItemCategoryEventsBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAdapter.EventsCategory
 
 /**
  * This is the documentation block about the class
  */
 
-class EventsCategoriesAdapter (private val data: List<String> =
-	                               listOf("cinema", "concert", "entertainment",
-	                                      "exhibition", "festival", "other",
-	                                      "party", "stock", "theater",
-	                                      "yarmarki-razvlecheniya-yarmarki"
-	                               )):
+class EventsCategoriesAdapter (private val data: List<EventsCategory> = listOf(
+		EventsCategory("cinema", R.drawable.events_cinema),
+		EventsCategory("concert", R.drawable.events_concert),
+		EventsCategory("entertainment", R.drawable.events_entertainment),
+		EventsCategory("exhibition", R.drawable.events_exhibition),
+		EventsCategory("festival", R.drawable.events_festival),
+		EventsCategory("other", R.drawable.events_other),
+		EventsCategory("party", R.drawable.events_party),
+		EventsCategory("theater", R.drawable.events_theathre),
+		EventsCategory("yarmarki-razvlecheniya-yarmarki", R.drawable.events_fair))):
 
-		BaseAdapter<String>() {
+		BaseAdapter<EventsCategory>() {
 
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
-		PlacesCategoriesViewHolder(ItemCategoryBinding
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsCategoriesViewHolder =
+		EventsCategoriesViewHolder(ItemCategoryEventsBinding
 			                           .inflate(LayoutInflater.from(parent.context),
 			                                    parent,
 			                                    false)
@@ -46,19 +52,21 @@ class EventsCategoriesAdapter (private val data: List<String> =
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
-	override fun setData(data: List<String>) {
+	override fun setData(data: List<EventsCategory>) {
 		//do nothing
 	}
 
 
 
-	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemCategoryBinding):
-			BaseViewHolder<String>(viewBinding.root) {
+	inner class EventsCategoriesViewHolder(private val viewBinding: ItemCategoryEventsBinding):
+			BaseViewHolder<EventsCategory>(viewBinding.root) {
 
-		override fun bind(item: String){
-			viewBinding.tvCategoryTitle.text = item
+		override fun bind(item: EventsCategory){
+			viewBinding.tvEventsCategoryTitle.text = item.title
+			viewBinding.ivEventsCategoryIcon.setImageResource(item.picture)
 		}
 
 	}
 
+	data class EventsCategory(val title: String, val picture: Int)
 }
