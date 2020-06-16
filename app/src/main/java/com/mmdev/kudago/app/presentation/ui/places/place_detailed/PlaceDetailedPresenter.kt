@@ -21,6 +21,7 @@ import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,7 +37,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 
 	private var isAdded = false
 
-	override fun addPlaceToFavourites() {
+	override fun addOrRemovePlaceToFavourites() {
 		launch {
 			val result = withContext(coroutineContext) {
 				if (isAdded) repository.removePlaceFromFavouritesList(placeDetailedEntity)
@@ -63,6 +64,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 		}
 	}
 
+	@ExperimentalStdlibApi
 	override fun loadPlaceDetailsById(id: Int) {
 		launch {
 			val result = withContext(coroutineContext) {
@@ -71,6 +73,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			when (result) {
 				is ResultState.Success -> {
 					placeDetailedEntity = result.data
+					placeDetailedEntity.short_title.capitalizeRu()
 					getLinkedView()?.updateData(placeDetailedEntity)
 					handleFabState(placeDetailedEntity.isAddedToFavourites)
 

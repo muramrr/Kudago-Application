@@ -15,34 +15,28 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.place_detailed
+package com.mmdev.kudago.app.presentation.ui.common.custom
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-
+import android.graphics.Rect
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * This is the documentation block about the class
  */
 
-interface PlaceDetailedContract {
+class LinearItemDecoration: RecyclerView.ItemDecoration() {
 
+	override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
 
-	interface View {
+		val position = parent.getChildAdapterPosition(view)
 
-		fun showToast(toastText: String)
+		// Add top margin only for the first item to avoid double space between items
+		if (position == 0 ) outRect.top = 30
 
-		fun updateFabButton(fabText: String)
-
-		fun updateData(data: PlaceDetailedEntity)
-
-	}
-
-	interface Presenter {
-
-		fun addOrRemovePlaceToFavourites()
-
-		fun loadPlaceDetailsById(id: Int)
-
+		outRect.left = 30
+		outRect.right = 30
+		outRect.bottom = 30
 	}
 
 }

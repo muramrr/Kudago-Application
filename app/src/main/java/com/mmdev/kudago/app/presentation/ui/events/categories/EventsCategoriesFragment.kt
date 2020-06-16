@@ -18,8 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentEventsCategoriesBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
@@ -47,12 +47,10 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 
 	override fun setupViews() {
 		viewBinding.rvEventsCategories.applySystemWindowInsets(applyTop = true)
-		val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, VERTICAL).apply {
-			//gapStrategy = GAP_HANDLING_NONE
-		}
 		viewBinding.rvEventsCategories.apply {
 			adapter = mEventsCategoriesAdapter
-			layoutManager = staggeredGridLayoutManager
+			layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+			addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
 		}
 
 		mEventsCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<EventsCategory>{

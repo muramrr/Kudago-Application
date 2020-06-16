@@ -20,6 +20,7 @@ package com.mmdev.kudago.app.domain.events
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.data.favourites.db.IMapperFavourite
+import com.mmdev.kudago.app.domain.core.ImageEntity
 
 /**
  * Events entities
@@ -34,8 +35,8 @@ data class EventEntity (val id: Int = 0,
 data class EventsResponse (val results: List<EventEntity> = emptyList())
 
 data class EventDetailedEntity (val id: Int = 0,
-                                val title: String = "",
-                                val short_title: String = "",
+                                var title: String = "",
+                                var short_title: String = "",
                                 val body_text: String = "",
                                 val description: String = "",
                                 val images: List<ImageEntity> = emptyList(),
@@ -48,14 +49,11 @@ data class EventDetailedEntity (val id: Int = 0,
 				favouriteId = id,
 				favouriteDescription = description,
 				favouriteTitle = short_title,
-				favouriteType = FavouriteType.EVENT.name)
+				favouriteType = FavouriteType.EVENT.name,
+				favouriteMainPictureUrl = images[0].image)
 	}
 
 }
-
-//image url
-//do not change because it is api declaration
-data class ImageEntity (val image: String = "")
 
 interface IMapperEvent {
 	fun mapToEventDetailedEntity(): EventDetailedEntity

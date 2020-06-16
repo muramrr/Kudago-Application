@@ -23,42 +23,22 @@
 
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:layout_marginTop="4dp"
+	android:layout_marginBottom="4dp"
+	android:layout_marginEnd="8dp"
+	android:layout_marginStart="8dp"
+
+	app:cardCornerRadius="8dp"
 	>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
+	<ImageView
+		android:id="@+id/ivEventsCategoryIcon"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		>
 
+		android:adjustViewBounds="true"
+		android:scaleType="fitCenter"
+		android:src="@drawable/events_concert"
+		/>
 
-		<ImageView
-			android:id="@+id/ivEventsCategoryIcon"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:maxHeight="200dp"
-
-
-			android:src="@drawable/events_cinema"
-
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintBottom_toTopOf="@id/tvEventsCategoryTitle"
-			/>
-
-		<com.google.android.material.textview.MaterialTextView
-			android:id="@+id/tvEventsCategoryTitle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-
-			android:text="@string/app_name"
-
-			app:layout_constraintStart_toStartOf="@id/ivEventsCategoryIcon"
-			app:layout_constraintEnd_toEndOf="@id/ivEventsCategoryIcon"
-			app:layout_constraintTop_toBottomOf="@id/ivEventsCategoryIcon"
-
-			/>
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

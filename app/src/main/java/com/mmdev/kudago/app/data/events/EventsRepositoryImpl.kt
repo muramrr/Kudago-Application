@@ -19,11 +19,11 @@ package com.mmdev.kudago.app.data.events
 
 import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.EventsApi
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.EventsResponse
 import com.mmdev.kudago.app.domain.events.IEventsRepository
-import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 
 /**
  * [IEventsRepository] implementation
@@ -71,7 +71,9 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi,
 	override suspend fun getEventDetails(id: Int): ResultState<EventDetailedEntity> {
 		return try {
 			val result = eventsApi.getEventDetailsAsync(id)
-
+			if (result.short_title.isBlank() && result.title.isNotBlank()) result.short_title = result.title
+			else
+				if (result.title.isBlank() && result.short_title.isNotBlank()) result.title = result.short_title
 			val isFavourite = favouritesDao.getFavouriteEvent(id)?.mapToEventDetailedEntity()
 			isFavourite?.let { result.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) } }
 			ResultState.Success(result)

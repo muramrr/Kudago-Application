@@ -30,16 +30,14 @@ import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAd
 
 class EventsCategoriesAdapter (private val data: List<EventsCategory> = listOf(
 		EventsCategory("cinema", R.drawable.events_cinema),
+		EventsCategory("theater", R.drawable.events_theater),
 		EventsCategory("concert", R.drawable.events_concert),
 		EventsCategory("entertainment", R.drawable.events_entertainment),
 		EventsCategory("exhibition", R.drawable.events_exhibition),
 		EventsCategory("festival", R.drawable.events_festival),
-		EventsCategory("other", R.drawable.events_other),
 		EventsCategory("party", R.drawable.events_party),
-		EventsCategory("theater", R.drawable.events_theathre),
-		EventsCategory("yarmarki-razvlecheniya-yarmarki", R.drawable.events_fair))):
-
-		BaseAdapter<EventsCategory>() {
+		EventsCategory("yarmarki-razvlecheniya-yarmarki", R.drawable.events_fair),
+		EventsCategory("other", R.drawable.events_other))): BaseAdapter<EventsCategory>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsCategoriesViewHolder =
@@ -62,7 +60,6 @@ class EventsCategoriesAdapter (private val data: List<EventsCategory> = listOf(
 			BaseViewHolder<EventsCategory>(viewBinding.root) {
 
 		override fun bind(item: EventsCategory){
-			viewBinding.tvEventsCategoryTitle.text = item.title
 			viewBinding.ivEventsCategoryIcon.setImageResource(item.picture)
 		}
 

@@ -21,6 +21,7 @@ import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,7 +37,7 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 
 	private var isAdded = false
 
-	override fun addEventToFavourites() {
+	override fun addOrRemoveEventToFavourites() {
 		launch {
 			val result = withContext(coroutineContext) {
 				if (isAdded) repository.removeEventFromFavouritesList(eventDetailedEntity)
@@ -63,6 +64,7 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		}
 	}
 
+	@ExperimentalStdlibApi
 	override fun loadEventDetailsById(id: Int) {
 		launch {
 			val result = withContext(coroutineContext) {
@@ -71,6 +73,7 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 			when (result) {
 				is ResultState.Success -> {
 					eventDetailedEntity = result.data
+					eventDetailedEntity.short_title.capitalizeRu()
 					getLinkedView()?.updateData(eventDetailedEntity)
 					handleFabState(eventDetailedEntity.isAddedToFavourites)
 

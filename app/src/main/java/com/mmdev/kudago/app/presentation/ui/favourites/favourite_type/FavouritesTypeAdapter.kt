@@ -19,9 +19,10 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.databinding.ItemCategoryBinding
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
+import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 
 /**
@@ -32,7 +33,7 @@ class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList
 		BaseAdapter<FavouriteEntity>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder =
-		FavouritesViewHolder(ItemCategoryBinding
+		FavouritesViewHolder(ItemCategoryDetailedBinding
 			                           .inflate(LayoutInflater.from(parent.context),
 			                                    parent,
 			                                    false)
@@ -48,11 +49,16 @@ class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList
 	}
 
 
-	inner class FavouritesViewHolder(private val viewBinding: ItemCategoryBinding):
+	inner class FavouritesViewHolder(private val viewBinding: ItemCategoryDetailedBinding):
 			BaseViewHolder<FavouriteEntity>(viewBinding.root) {
 
+
 		override fun bind(item: FavouriteEntity){
-			viewBinding.tvCategoryTitle.text = item.favouriteTitle
+			viewBinding.tvTitle.text = item.favouriteTitle
+			viewBinding.ivImageHolder.run {
+				ImageLoader.with(this.context)
+					.load(this, item.favouriteMainPictureUrl)
+			}
 		}
 
 	}

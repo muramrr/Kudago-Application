@@ -20,6 +20,7 @@ package com.mmdev.kudago.app.domain.places
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.data.favourites.db.IMapperFavourite
+import com.mmdev.kudago.app.domain.core.ImageEntity
 
 /**
  * Places entities
@@ -34,8 +35,8 @@ data class PlaceEntity (val id: Int = 0,
 data class PlacesResponse (val results: List<PlaceEntity> = emptyList())
 
 data class PlaceDetailedEntity (val id: Int = 0,
-                                val title: String = "",
-                                val short_title: String = "",
+                                var title: String = "",
+                                var short_title: String = "",
                                 val body_text: String = "",
                                 val description: String = "",
                                 val images: List<ImageEntity> = emptyList(),
@@ -48,14 +49,11 @@ data class PlaceDetailedEntity (val id: Int = 0,
 				favouriteId = id,
 				favouriteDescription = description,
 				favouriteTitle = short_title,
-				favouriteType = FavouriteType.PLACE.name)
+				favouriteType = FavouriteType.PLACE.name,
+				favouriteMainPictureUrl = images[0].image)
 	}
 
 }
-
-//image url
-//do not change because it is api declaration
-data class ImageEntity (val image: String = "")
 
 interface IMapperPlace {
 	fun mapToPlaceDetailedEntity(): PlaceDetailedEntity

@@ -38,7 +38,7 @@ interface EventDetailedContract {
 
 	interface Presenter {
 
-		fun addEventToFavourites()
+		fun addOrRemoveEventToFavourites()
 
 		fun loadEventDetailsById(id: Int)
 

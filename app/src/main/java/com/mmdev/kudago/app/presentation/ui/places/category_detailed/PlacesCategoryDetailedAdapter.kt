@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.databinding.ItemPlaceCategoryDetailedBinding
+import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
@@ -35,9 +35,9 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		PlacesCategoryDetailedViewHolder(
-				ItemPlaceCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
-				                                         parent,
-				                                         false)
+				ItemCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
+				                                    parent,
+				                                    false)
 		)
 
 	override fun getItemCount(): Int = data.size
@@ -50,16 +50,14 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 	}
 
 
-	inner class PlacesCategoryDetailedViewHolder (private val viewBinding:
-	                                              ItemPlaceCategoryDetailedBinding):
+	inner class PlacesCategoryDetailedViewHolder(private val viewBinding: ItemCategoryDetailedBinding):
 			BaseViewHolder<PlaceEntity>(viewBinding.root) {
 
 
 		@ExperimentalStdlibApi
 		override fun bind(item: PlaceEntity) {
-			if (item.short_title.isNotBlank()) viewBinding.tvPlaceTitle.text = item.short_title.capitalizeRu()
-			else viewBinding.tvPlaceTitle.text = item.title.capitalizeRu()
-			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
+			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
+			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			ImageLoader.with(viewBinding.ivImageHolder.context)
 				.load(viewBinding.ivImageHolder, item.images[0].image)
 		}

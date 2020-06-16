@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.databinding.ItemEventCategoryDetailedBinding
+import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
@@ -35,7 +35,7 @@ class EventsCategoryDetailedAdapter(private var data: List<EventEntity> = emptyL
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		EventsCategoryDetailedViewHolder(
-				ItemEventCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
+				ItemCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
 				                                         parent,
 				                                         false)
 		)
@@ -50,16 +50,14 @@ class EventsCategoryDetailedAdapter(private var data: List<EventEntity> = emptyL
 	}
 
 
-	inner class EventsCategoryDetailedViewHolder (private val viewBinding:
-	                                              ItemEventCategoryDetailedBinding):
+	inner class EventsCategoryDetailedViewHolder (private val viewBinding: ItemCategoryDetailedBinding):
 			BaseViewHolder<EventEntity>(viewBinding.root) {
 
 
 		@ExperimentalStdlibApi
 		override fun bind(item: EventEntity) {
-			if (item.short_title.isNotBlank()) viewBinding.tvEventTitle.text = item.short_title.capitalizeRu()
-			else viewBinding.tvEventTitle.text = item.title.capitalizeRu()
-			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
+			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
+			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			ImageLoader.with(viewBinding.ivImageHolder.context)
 				.load(viewBinding.ivImageHolder, item.images[0].image)
 		}

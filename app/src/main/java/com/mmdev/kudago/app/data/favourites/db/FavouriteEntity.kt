@@ -21,6 +21,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.mmdev.kudago.app.domain.core.ImageEntity
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IMapperEvent
 import com.mmdev.kudago.app.domain.places.IMapperPlace
@@ -46,20 +47,25 @@ data class FavouriteEntity(
 	val favouriteType: String,
 
 	@ColumnInfo(name = "favourite_description")
-	val favouriteDescription: String): Parcelable, IMapperEvent, IMapperPlace {
+	val favouriteDescription: String,
+
+	@ColumnInfo(name = "favourite_image")
+	val favouriteMainPictureUrl: String): Parcelable, IMapperEvent, IMapperPlace {
 
 
 	override fun mapToPlaceDetailedEntity(): PlaceDetailedEntity {
 		return PlaceDetailedEntity(id = favouriteId,
 		                           description = favouriteDescription,
-		                           title = favouriteTitle,
+		                           short_title = favouriteTitle,
+		                           images = listOf(ImageEntity(favouriteMainPictureUrl)),
 		                           isAddedToFavourites = true)
 	}
 
 	override fun mapToEventDetailedEntity(): EventDetailedEntity {
 		return EventDetailedEntity(id = favouriteId,
 		                           description = favouriteDescription,
-		                           title = favouriteTitle,
+		                           short_title = favouriteTitle,
+		                           images = listOf(ImageEntity(favouriteMainPictureUrl)),
 		                           isAddedToFavourites = true)
 	}
 

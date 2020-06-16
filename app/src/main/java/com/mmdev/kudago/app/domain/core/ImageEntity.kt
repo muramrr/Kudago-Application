@@ -15,34 +15,8 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.place_detailed
+package com.mmdev.kudago.app.domain.core
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-
-
-/**
- * This is the documentation block about the class
- */
-
-interface PlaceDetailedContract {
-
-
-	interface View {
-
-		fun showToast(toastText: String)
-
-		fun updateFabButton(fabText: String)
-
-		fun updateData(data: PlaceDetailedEntity)
-
-	}
-
-	interface Presenter {
-
-		fun addOrRemovePlaceToFavourites()
-
-		fun loadPlaceDetailsById(id: Int)
-
-	}
-
-}
+//image url
+//do not change because it is api declaration
+data class ImageEntity (val image: String = "")

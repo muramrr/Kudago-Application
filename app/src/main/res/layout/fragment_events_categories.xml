@@ -16,7 +16,8 @@
   ~ limitations under the License.
   -->
 
-<androidx.recyclerview.widget.RecyclerView android:id="@+id/rvEventsCategories"
+<androidx.recyclerview.widget.RecyclerView
+	android:id="@+id/rvEventsCategories"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 

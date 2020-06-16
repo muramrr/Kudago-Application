@@ -21,7 +21,8 @@
 	android:layout_height="400dp"
 
 	app:cardBackgroundColor="@android:color/transparent"
-	app:cardCornerRadius="16dp"
+	app:cardCornerRadius="8dp"
+
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
@@ -45,7 +46,7 @@
 		tools:ignore="ContentDescription" />
 
 	<TextView
-		android:id="@+id/tvEventTitle"
+		android:id="@+id/tvTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center|bottom"
@@ -53,7 +54,7 @@
 
 		android:ellipsize="end"
 
-		android:text="Event title"
+		android:text="Title"
 		android:textColor="@android:color/white"
 		android:textSize="20sp"
 		/>

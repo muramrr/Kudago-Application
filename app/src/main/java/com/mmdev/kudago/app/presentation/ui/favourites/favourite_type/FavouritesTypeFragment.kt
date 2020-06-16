@@ -22,13 +22,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.data.favourites.db.FavouriteType
+import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.custom.LinearItemDecoration
 import org.koin.android.ext.android.inject
 
 
@@ -76,10 +76,11 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	}
 
 	override fun setupViews() {
-		viewBinding.rvFavouritesListTest.applySystemWindowInsets(applyTop = true)
-		viewBinding.rvFavouritesListTest.apply {
+
+		viewBinding.rvFavouritesList.apply {
 			adapter = mFavouritesAdapter
 			layoutManager = LinearLayoutManager(this.context)
+			addItemDecoration(LinearItemDecoration())
 		}
 
 		mFavouritesAdapter.setOnItemClickListener(object : BaseAdapter

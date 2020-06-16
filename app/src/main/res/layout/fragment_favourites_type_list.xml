@@ -17,14 +17,11 @@
   -->
 
 <androidx.recyclerview.widget.RecyclerView
-	android:id="@+id/rvFavouritesListTest"
+	android:id="@+id/rvFavouritesList"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 
-	android:clipToPadding="false"
-
-	tools:itemCount="10"
-	tools:listitem="@layout/item_category"
+	tools:listitem="@layout/item_category_detailed"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	/>
