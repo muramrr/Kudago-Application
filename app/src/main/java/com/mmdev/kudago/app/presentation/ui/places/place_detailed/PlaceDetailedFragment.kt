@@ -70,7 +70,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
 		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
 
-		viewBinding.toolbarDetailed.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarNavigation.setOnClickListener { navController.navigateUp() }
 
 		viewBinding.vpPhotos.apply {
 			adapter = placePhotosAdapter

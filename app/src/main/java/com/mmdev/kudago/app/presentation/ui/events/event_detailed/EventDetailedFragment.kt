@@ -67,7 +67,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
 		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
 		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
 
-		viewBinding.toolbarDetailed.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarNavigation.setOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarDetailed.setNavigationOnClickListener {  }
 
 		viewBinding.vpPhotos.apply {
 			adapter = placePhotosAdapter
