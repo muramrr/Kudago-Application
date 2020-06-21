@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.core.di
 
 import android.app.Application
 import androidx.room.Room
+import com.ironz.binaryprefs.BinaryPreferencesBuilder
 import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.data.favourites.db.FavouritesRoomDatabase
 import org.koin.android.ext.koin.androidApplication
@@ -30,11 +31,13 @@ import org.koin.dsl.module
 
 
 private const val DATABASE_NAME = "favourites_db"
+private const val PREFERENCES_NAME = "general_prefs"
 
 val DatabaseModule = module {
 	//factory { FavouritesRoomDatabase.getDatabase(androidApplication()).getFavouritesDao() }
 	single { provideFavouritesDatabase(androidApplication()) }
 	single { provideFavouritesDao(db = get()) }
+	single { BinaryPreferencesBuilder(androidApplication()).name(PREFERENCES_NAME).build() }
 }
 
 private fun provideFavouritesDatabase(app: Application): FavouritesRoomDatabase {
@@ -45,6 +48,4 @@ private fun provideFavouritesDatabase(app: Application): FavouritesRoomDatabase 
 }
 //
 //
-private fun provideFavouritesDao(db: FavouritesRoomDatabase): FavouritesDao {
-	return db.getFavouritesDao()
-}
+private fun provideFavouritesDao(db: FavouritesRoomDatabase): FavouritesDao = db.getFavouritesDao()
