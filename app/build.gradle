@@ -86,7 +86,7 @@ dependencies {
 	implementation "com.github.yandextaxitech:binaryprefs:1.0.1"
 
 	//ui
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
 	implementation 'com.google.android.material:material:1.3.0-alpha01'
 
 	//di
