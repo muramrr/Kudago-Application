@@ -20,10 +20,11 @@ package com.mmdev.kudago.app.core.di
 import com.mmdev.kudago.app.data.api.PlacesApi
 import com.mmdev.kudago.app.data.events.EventsRepositoryImpl
 import com.mmdev.kudago.app.data.favourites.FavouritesRepositoryImpl
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.data.places.PlacesRepositoryImpl
+import com.mmdev.kudago.app.data.settings.SettingsImpl
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
-import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import org.koin.dsl.module
 
@@ -36,6 +37,8 @@ val RepositoryModules = module {
 	single<IEventsRepository> { EventsRepositoryImpl(eventsApi = get(), favouritesDao = get() ) }
 
 	single<IFavouritesRepository> { FavouritesRepositoryImpl(favouritesDao = get() ) }
+
+	single { SettingsImpl(prefs = get()) }
 
 }
 

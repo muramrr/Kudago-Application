@@ -18,7 +18,10 @@
 package com.mmdev.kudago.app.data
 
 import android.util.Log
+import com.ironz.binaryprefs.Preferences
 import com.mmdev.kudago.app.domain.core.ResultState
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import retrofit2.Response
 import java.io.IOException
 
@@ -26,7 +29,11 @@ import java.io.IOException
  * This is the documentation block about the class
  */
 
-open class BaseRepository {
+open class BaseRepository: KoinComponent {
+
+	private val prefs: Preferences by inject()
+	protected val city = prefs.getString("CITY_KEY", "")!!
+
 
 	suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>,
 	                                  errorMessage: String): T? {

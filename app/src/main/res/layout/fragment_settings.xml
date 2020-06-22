@@ -20,13 +20,55 @@
 
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:gravity="center"
-		android:text="Settings"
-		/>
+	<com.google.android.material.appbar.MaterialToolbar
+		android:id="@+id/toolbarSettings"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:minHeight="?attr/actionBarSize"
+		app:contentInsetStart="0dp"
+
+		style="@style/Widget.MaterialComponents.Toolbar"
+
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		>
+
+		<!--city-->
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/layoutSettingsEditCity"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+
+			app:boxStrokeWidth="0dp"
+
+			app:hintEnabled="false"
+			app:hintTextColor="@android:color/white"
+
+			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+
+			>
+			<com.google.android.material.textfield.MaterialAutoCompleteTextView
+				android:id="@+id/dropSettingsEditCity"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+
+				android:background="@null"
+				android:cursorVisible="false"
+
+				android:focusable="false"
+				android:imeOptions="actionDone"
+				android:inputType="textNoSuggestions"
+
+				android:text="Your City"
+				android:textColor="@android:color/white"
+				android:textSize="22sp"
+				/>
+
+		</com.google.android.material.textfield.TextInputLayout>
+	</com.google.android.material.appbar.MaterialToolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

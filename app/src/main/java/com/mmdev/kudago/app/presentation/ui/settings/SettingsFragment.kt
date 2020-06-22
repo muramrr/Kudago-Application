@@ -17,8 +17,13 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.viewBinding
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+
 
 /**
  * This is the documentation block about the class
@@ -26,8 +31,26 @@ import com.mmdev.kudago.app.presentation.base.BaseFragment
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
+	private val viewBinding by viewBinding(FragmentSettingsBinding::bind)
+
+	private val cityList = mapOf(
+			"Екатеринбург" to "ekb",
+			"Красноярск" to "krasnoyarsk",
+			"Краснодар" to "krd",
+			"Казань" to "kzn",
+			"Москва" to "msk",
+			"Нижний Новгород" to "nnv",
+			"Новосибирск" to "nsk",
+			"Санкт-Петербург" to "spb",
+			"Сочи" to "sochi"
+	)
+
 
 	override fun setupViews() {
-
+		viewBinding.toolbarSettings.applySystemWindowInsets(applyTop = true)
+		val adapter = ArrayAdapter(requireContext(),
+		                           android.R.layout.simple_dropdown_item_1line,
+		                           cityList.keys.toMutableList())
+		viewBinding.dropSettingsEditCity.setAdapter(adapter)
 	}
 }
