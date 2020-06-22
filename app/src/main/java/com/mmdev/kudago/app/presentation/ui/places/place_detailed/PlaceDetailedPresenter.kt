@@ -21,7 +21,6 @@ import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BasePresenter
-import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -73,7 +72,6 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			when (result) {
 				is ResultState.Success -> {
 					placeDetailedEntity = result.data
-					placeDetailedEntity.short_title.capitalizeRu()
 					getLinkedView()?.updateData(placeDetailedEntity)
 					handleFabState(placeDetailedEntity.isAddedToFavourites)
 
