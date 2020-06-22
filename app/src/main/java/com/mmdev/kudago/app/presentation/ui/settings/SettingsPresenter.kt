@@ -17,8 +17,26 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import com.mmdev.kudago.app.data.settings.SettingsImpl
+import com.mmdev.kudago.app.presentation.base.BasePresenter
+
 /**
  * This is the documentation block about the class
  */
 
-class SettingsPresenter
+class SettingsPresenter (private val settingsWrapper: SettingsImpl) :
+		BasePresenter<SettingsContract.View>(),
+		SettingsContract.Presenter {
+
+	override fun getCity() {
+		settingsWrapper.readCity().run {
+			if (this.isNotBlank()) getLinkedView()?.updateSettings(this)
+			else getLinkedView()?.updateSettings("jopa")
+		}
+	}
+
+	override fun setCity(city: String) {
+		settingsWrapper.changeCity(city)
+	}
+
+}

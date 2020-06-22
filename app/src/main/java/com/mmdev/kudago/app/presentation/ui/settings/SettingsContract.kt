@@ -15,29 +15,29 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.data.settings
+package com.mmdev.kudago.app.presentation.ui.settings
 
-import androidx.core.content.edit
-import com.ironz.binaryprefs.Preferences
 
 /**
  * This is the documentation block about the class
  */
 
-class SettingsImpl (private val prefs: Preferences) {
+interface SettingsContract {
 
-	companion object {
-		private const val cityKey = "CITY_KEY"
+
+	interface View {
+
+		fun showToast(toastText: String)
+
+		fun updateSettings(city: String)
+
 	}
 
-	fun readCity() : String {
-		return prefs.getString(cityKey, "")!!
-	}
+	interface Presenter {
 
-	fun changeCity(newCity: String) {
-		prefs.edit {
-			putString(cityKey, newCity)
-		}
+		fun getCity()
+
+		fun setCity(city: String)
 
 	}
 

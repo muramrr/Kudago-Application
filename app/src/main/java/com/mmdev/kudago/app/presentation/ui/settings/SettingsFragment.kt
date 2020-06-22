@@ -17,21 +17,27 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.showToast
+import org.koin.android.ext.android.inject
 
 
 /**
  * This is the documentation block about the class
  */
 
-class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
+class SettingsFragment : BaseFragment(R.layout.fragment_settings),
+                         SettingsContract.View {
 
 	private val viewBinding by viewBinding(FragmentSettingsBinding::bind)
+
+	override val presenter: SettingsPresenter by inject()
 
 	private val cityList = mapOf(
 			"Екатеринбург" to "ekb",
@@ -45,6 +51,11 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 			"Сочи" to "sochi"
 	)
 
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+
+		presenter.linkView(this)
+	}
 
 	override fun setupViews() {
 		viewBinding.toolbarSettings.applySystemWindowInsets(applyTop = true)
@@ -52,5 +63,21 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 		                           android.R.layout.simple_dropdown_item_1line,
 		                           cityList.keys.toMutableList())
 		viewBinding.dropSettingsEditCity.setAdapter(adapter)
+
+		viewBinding.dropSettingsEditCity.setOnItemClickListener { _, _, position, _ ->
+			val city = cityList.map { it.value }[position]
+			presenter.setCity(city)
+		}
+	}
+
+	override fun onStart() {
+		super.onStart()
+		presenter.getCity()
+	}
+
+	override fun showToast(toastText: String) = requireContext().showToast(toastText)
+
+	override fun updateSettings(city: String) {
+		viewBinding.dropSettingsEditCity.setText(city)
 	}
 }

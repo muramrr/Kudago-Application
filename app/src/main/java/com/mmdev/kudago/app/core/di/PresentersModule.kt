@@ -23,6 +23,7 @@ import com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedP
 import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypePresenter
 import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesPresenter
 import com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedPresenter
+import com.mmdev.kudago.app.presentation.ui.settings.SettingsPresenter
 import org.koin.dsl.module
 
 
@@ -36,5 +37,7 @@ val PresentersModule = module {
 	factory { EventDetailedPresenter(repository = get()) }
 
 	factory { FavouritesTypePresenter(repository = get()) }
+
+	factory { SettingsPresenter(settingsWrapper = get()) }
 
 }

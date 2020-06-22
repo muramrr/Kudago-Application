@@ -63,7 +63,7 @@
 				android:imeOptions="actionDone"
 				android:inputType="textNoSuggestions"
 
-				android:text="Your City"
+				android:text=""
 				android:textColor="@android:color/white"
 				android:textSize="22sp"
 				/>
