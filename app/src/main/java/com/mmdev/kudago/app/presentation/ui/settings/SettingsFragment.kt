@@ -40,15 +40,15 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 	override val presenter: SettingsPresenter by inject()
 
 	private val cityList = mapOf(
-			"Екатеринбург" to "ekb",
-			"Красноярск" to "krasnoyarsk",
-			"Краснодар" to "krd",
-			"Казань" to "kzn",
-			"Москва" to "msk",
-			"Нижний Новгород" to "nnv",
-			"Новосибирск" to "nsk",
-			"Санкт-Петербург" to "spb",
-			"Сочи" to "sochi"
+			"ekb" to "Екатеринбург",
+			"krasnoyarsk" to "Красноярск",
+			"krd" to "Краснодар",
+			"kzn" to "Казань",
+			"msk" to "Москва",
+			"nnv" to "Нижний Новгород",
+			"nsk" to "Новосибирск",
+			"spb" to "Санкт-Петербург",
+			"sochi" to "Сочи"
 	)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,12 +61,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		viewBinding.toolbarSettings.applySystemWindowInsets(applyTop = true)
 		val adapter = ArrayAdapter(requireContext(),
 		                           android.R.layout.simple_dropdown_item_1line,
-		                           cityList.keys.toMutableList())
+		                           cityList.values.toMutableList())
 		viewBinding.dropSettingsEditCity.setAdapter(adapter)
 
 		viewBinding.dropSettingsEditCity.setOnItemClickListener { _, _, position, _ ->
-			val city = cityList.map { it.value }[position]
-			presenter.setCity(city)
+			val cityKey = cityList.map { it.key }[position]
+			presenter.setCity(cityKey)
 		}
 	}
 
@@ -78,6 +78,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 
 	override fun updateSettings(city: String) {
-		viewBinding.dropSettingsEditCity.setText(city)
+		val cityToDisplay = cityList.getValue(city)
+		viewBinding.dropSettingsEditCity.setText(cityToDisplay, false)
 	}
 }
