@@ -38,7 +38,7 @@ val RepositoryModules = module {
 
 	single<IFavouritesRepository> { FavouritesRepositoryImpl(favouritesDao = get() ) }
 
-	single { SettingsImpl(prefs = get()) }
+	single { SettingsImpl(prefs = get(), favouritesDao = get()) }
 
 }
 

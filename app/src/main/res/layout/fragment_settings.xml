@@ -65,18 +65,36 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="24dp"
 		android:padding="24dp"
-		android:text="Clear Cache\nsize 600"
+		android:text="Clear Cache\n600 mb"
+		android:textAllCaps="false"
+		android:textAlignment="center"
 
-		app:cornerRadius="8dp"
+		app:cornerRadius="12dp"
 
-		style="@style/Widget.MaterialComponents.CardView"
+		style="@style/Widget.MaterialComponents.Button"
 
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/layoutSettingsEditCity"
-		>
+		/>
 
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/btnClearFavourites"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="24dp"
+		android:padding="24dp"
+		android:text="Clear Favourites"
+		android:textAllCaps="false"
+		android:textAlignment="center"
 
-	</com.google.android.material.button.MaterialButton>
+		app:cornerRadius="12dp"
+
+		style="@style/Widget.MaterialComponents.Button"
+
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btnClearCache"
+		/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

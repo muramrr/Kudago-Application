@@ -85,6 +85,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 				this.text = cacheSize.invoke()
 			}
 		}
+
+		viewBinding.btnClearFavourites.setOnClickListener { presenter.clearFavourites() }
 	}
 
 	override fun onStart() {

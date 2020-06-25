@@ -35,6 +35,8 @@ interface SettingsContract {
 
 	interface Presenter {
 
+		fun clearFavourites()
+
 		fun getCity()
 
 		fun setCity(city: String)

@@ -19,6 +19,9 @@ package com.mmdev.kudago.app.presentation.ui.settings
 
 import com.mmdev.kudago.app.data.settings.SettingsImpl
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * This is the documentation block about the class
@@ -28,10 +31,19 @@ class SettingsPresenter (private val settingsWrapper: SettingsImpl) :
 		BasePresenter<SettingsContract.View>(),
 		SettingsContract.Presenter {
 
+	override fun clearFavourites() {
+		launch {
+			withContext(Dispatchers.IO) {
+				settingsWrapper.clearFavourites()
+			}
+			getLinkedView()?.showToast("Successfully cleared favourites")
+		}
+	}
+
 	override fun getCity() {
 		settingsWrapper.readCity().run {
 			if (this.isNotBlank()) getLinkedView()?.updateSettings(this)
-			else getLinkedView()?.updateSettings("jopa")
+			else getLinkedView()?.updateSettings("Город не выбран")
 		}
 	}
 

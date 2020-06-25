@@ -19,16 +19,20 @@ package com.mmdev.kudago.app.data.settings
 
 import androidx.core.content.edit
 import com.ironz.binaryprefs.Preferences
+import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
 
 /**
  * This is the documentation block about the class
  */
 
-class SettingsImpl (private val prefs: Preferences) {
+class SettingsImpl (private val prefs: Preferences,
+                    private val favouritesDao: FavouritesDao) {
 
 	companion object {
 		private const val cityKey = "CITY_KEY"
 	}
+
+	suspend fun clearFavourites() = favouritesDao.deleteAll()
 
 	fun readCity() : String {
 		return prefs.getString(cityKey, "")!!
