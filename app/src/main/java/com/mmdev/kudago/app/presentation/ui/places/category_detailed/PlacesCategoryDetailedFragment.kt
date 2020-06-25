@@ -66,9 +66,11 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	}
 
 	override fun setupViews() {
-		viewBinding.toolbarCategoryTitle.applySystemWindowInsets(applyTop = true)
-		viewBinding.toolbarCategoryTitle.title = receivedCategoryString
-		viewBinding.toolbarCategoryTitle.setNavigationOnClickListener { navController.navigateUp() }
+		viewBinding.toolbarCategoryTitle.apply {
+			applySystemWindowInsets(applyTop = true)
+			title = receivedCategoryString
+			setNavigationOnClickListener { navController.navigateUp() }
+		}
 
 		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		viewBinding.rvDetailedCategory.apply {

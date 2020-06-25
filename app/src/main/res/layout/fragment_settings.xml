@@ -23,52 +23,60 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<com.google.android.material.appbar.MaterialToolbar
-		android:id="@+id/toolbarSettings"
+	<!--city-->
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/layoutSettingsEditCity"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:minHeight="?attr/actionBarSize"
-		app:contentInsetStart="0dp"
+		android:background="?colorPrimary"
 
-		style="@style/Widget.MaterialComponents.Toolbar"
+		app:boxStrokeWidth="0dp"
+		app:hintEnabled="false"
+
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
 
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		>
-
-		<!--city-->
-		<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/layoutSettingsEditCity"
+		<com.google.android.material.textfield.MaterialAutoCompleteTextView
+			android:id="@+id/dropSettingsEditCity"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 
-			app:boxStrokeWidth="0dp"
+			android:background="@null"
+			android:cursorVisible="false"
 
-			app:hintEnabled="false"
-			app:hintTextColor="@android:color/white"
+			android:focusable="false"
+			android:imeOptions="actionDone"
+			android:inputType="textNoSuggestions"
 
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+			android:text=""
+			android:textColor="@android:color/white"
+			android:textSize="22sp"
+			/>
 
-			>
-			<com.google.android.material.textfield.MaterialAutoCompleteTextView
-				android:id="@+id/dropSettingsEditCity"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+	</com.google.android.material.textfield.TextInputLayout>
 
-				android:background="@null"
-				android:cursorVisible="false"
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/btnClearCache"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="24dp"
+		android:padding="24dp"
+		android:text="Clear Cache\nsize 600"
 
-				android:focusable="false"
-				android:imeOptions="actionDone"
-				android:inputType="textNoSuggestions"
+		app:cornerRadius="8dp"
 
-				android:text=""
-				android:textColor="@android:color/white"
-				android:textSize="22sp"
-				/>
+		style="@style/Widget.MaterialComponents.CardView"
 
-		</com.google.android.material.textfield.TextInputLayout>
-	</com.google.android.material.appbar.MaterialToolbar>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/layoutSettingsEditCity"
+		>
+
+
+	</com.google.android.material.button.MaterialButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

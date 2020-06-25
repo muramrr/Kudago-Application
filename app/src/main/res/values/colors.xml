@@ -34,7 +34,7 @@
 
 	<!-- backgrounds -->
 	<color name="colorBackground">#FFFFFF</color>
-	<color name="colorSurface">#FFFFFF</color>
+	<color name="colorSurface">@color/colorPrimary</color>
 
 	<!-- "On" colors-->
 	<color name="colorOnPrimary">#000000</color>

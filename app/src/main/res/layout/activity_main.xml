@@ -51,6 +51,8 @@
 		app:menu="@menu/main_bottom_navigation"
 		app:labelVisibilityMode="labeled"
 
+		style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

@@ -39,6 +39,15 @@ class FileCache(context: Context) {
 
 	}
 
+	fun getFileCacheSizeUsed(): Long {
+		var size: Long = 0
+		val files = cacheDir!!.listFiles() ?: return 0L
+		for (f in files) {
+			size += f.length()
+		}
+		return size/1024/1024
+	}
+
 	fun clear() {
 		val files = cacheDir!!.listFiles() ?: return
 		for (f in files) f.delete()

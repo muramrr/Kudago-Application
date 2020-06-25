@@ -44,8 +44,8 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 
 
 	override fun setupViews() {
-		viewBinding.rvPlacesCategories.applySystemWindowInsets(applyTop = true)
 		viewBinding.rvPlacesCategories.apply {
+			applySystemWindowInsets(applyTop = true)
 			adapter = mPlacesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 		}

@@ -197,6 +197,8 @@ class ImageLoader(context: Context) {
 		}
 	}
 
+	fun getFileCacheSize() = fileCache.getFileCacheSizeUsed()
+
 	fun clearCache() {
 		memoryCache.clear()
 		fileCache.clear()

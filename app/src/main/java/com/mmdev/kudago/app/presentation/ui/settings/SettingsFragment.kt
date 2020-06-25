@@ -17,6 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
@@ -24,6 +25,7 @@ import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
@@ -57,16 +59,31 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		presenter.linkView(this)
 	}
 
+	@SuppressLint("SetTextI18n")
 	override fun setupViews() {
-		viewBinding.toolbarSettings.applySystemWindowInsets(applyTop = true)
+		val imageLoader = ImageLoader(requireContext())
+		val cacheSize = { "Clear Cache\n ${imageLoader.getFileCacheSize()} Mb" }
+
+		viewBinding.layoutSettingsEditCity.applySystemWindowInsets(applyTop = true)
 		val adapter = ArrayAdapter(requireContext(),
 		                           android.R.layout.simple_dropdown_item_1line,
 		                           cityList.values.toMutableList())
-		viewBinding.dropSettingsEditCity.setAdapter(adapter)
+		viewBinding.dropSettingsEditCity.apply {
+			setAdapter(adapter)
 
-		viewBinding.dropSettingsEditCity.setOnItemClickListener { _, _, position, _ ->
-			val cityKey = cityList.map { it.key }[position]
-			presenter.setCity(cityKey)
+			setOnItemClickListener { _, _, position, _ ->
+				val cityKey = cityList.map { it.key }[position]
+				presenter.setCity(cityKey)
+			}
+		}
+
+		viewBinding.btnClearCache.apply {
+			text = cacheSize.invoke()
+
+			setOnClickListener {
+				imageLoader.clearCache()
+				this.text = cacheSize.invoke()
+			}
 		}
 	}
 
