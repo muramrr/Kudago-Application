@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
+import com.mmdev.kudago.app.presentation.base.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.IBaseView
 
 
 /**
@@ -27,9 +29,7 @@ import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 interface PlaceDetailedContract {
 
 
-	interface View {
-
-		fun showToast(toastText: String)
+	interface View : IBaseView {
 
 		fun updateFabButton(fabText: String)
 
@@ -37,7 +37,7 @@ interface PlaceDetailedContract {
 
 	}
 
-	interface Presenter {
+	interface Presenter : IBasePresenter<View> {
 
 		fun addOrRemovePlaceToFavourites()
 

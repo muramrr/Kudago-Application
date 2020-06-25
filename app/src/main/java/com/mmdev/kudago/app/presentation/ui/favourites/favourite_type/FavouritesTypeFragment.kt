@@ -64,7 +64,6 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		presenter.linkView(this)
 
 		arguments?.let {
 			when(it.getString(FAVOURITE_TYPE_KEY, "")) {

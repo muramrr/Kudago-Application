@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
 import com.mmdev.kudago.app.domain.events.EventEntity
+import com.mmdev.kudago.app.presentation.base.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.IBaseView
 
 /**
  * This is the documentation block about the class
@@ -25,7 +27,7 @@ import com.mmdev.kudago.app.domain.events.EventEntity
 
 interface EventsContract {
 
-	interface View {
+	interface View : IBaseView {
 
 		fun updateData(data: List<EventEntity>)
 
@@ -35,7 +37,7 @@ interface EventsContract {
 
 	}
 
-	interface Presenter {
+	interface Presenter : IBasePresenter<View> {
 
 		fun loadEvents(category: String)
 

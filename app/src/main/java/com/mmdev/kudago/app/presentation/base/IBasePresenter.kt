@@ -15,36 +15,27 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
-
-import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
+package com.mmdev.kudago.app.presentation.base
 
 
 /**
- * This is the documentation block about the class
+ * Each presenter must implement this interface
+ *
+ * @param V View for the presenter
  */
 
-interface PlacesContract {
+interface IBasePresenter<V: IBaseView> {
 
-	interface View : IBaseView {
+	/**
+	 * Called when view attached to presenter
+	 *
+	 * @param view
+	 */
+	fun linkView(view: V)
 
-		fun updateData(data: List<PlaceEntity>)
-
-		fun showLoading()
-
-		fun hideLoading()
-
-	}
-
-	interface Presenter : IBasePresenter<View> {
-
-		fun loadPlaces(category: String)
-
-		fun loadMorePlaces()
-
-	}
+	/**
+	 * Called when view is detached from presenter
+	 */
+	fun onClear()
 
 }
-

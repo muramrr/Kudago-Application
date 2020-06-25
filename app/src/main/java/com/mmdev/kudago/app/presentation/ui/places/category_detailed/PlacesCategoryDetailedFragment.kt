@@ -55,8 +55,6 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		presenter.linkView(this)
-
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
 		}

@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.presentation.base.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.IBaseView
 
 /**
  * This is the documentation block about the class
@@ -26,9 +28,7 @@ import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 interface EventDetailedContract {
 
 
-	interface View {
-
-		fun showToast(toastText: String)
+	interface View : IBaseView {
 
 		fun updateFabButton(fabText: String)
 
@@ -36,7 +36,7 @@ interface EventDetailedContract {
 
 	}
 
-	interface Presenter {
+	interface Presenter : IBasePresenter<View> {
 
 		fun addOrRemoveEventToFavourites()
 

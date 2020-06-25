@@ -17,8 +17,6 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
-import android.annotation.SuppressLint
-import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
@@ -26,7 +24,6 @@ import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
-import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 
@@ -53,13 +50,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 			"sochi" to "Сочи"
 	)
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-
-		presenter.linkView(this)
-	}
-
-	@SuppressLint("SetTextI18n")
 	override fun setupViews() {
 		val imageLoader = ImageLoader(requireContext())
 		val cacheSize = { "Clear Cache\n ${imageLoader.getFileCacheSize()} Mb" }
@@ -93,8 +83,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		super.onStart()
 		presenter.getCity()
 	}
-
-	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 
 	override fun updateSettings(city: String) {
 		val cityToDisplay = cityList.getValue(city)

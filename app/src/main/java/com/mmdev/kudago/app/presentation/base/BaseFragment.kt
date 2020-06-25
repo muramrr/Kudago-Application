@@ -22,22 +22,24 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.mmdev.kudago.app.presentation.ui.common.showToast
 
 /**
  * generic fragment class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
+abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 
-	protected open val presenter: BasePresenter<*>? = null
+	protected open val presenter: IBasePresenter<*>? = null
 
 	protected lateinit var navController: NavController
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		navController = findNavController()
+		(presenter as IBasePresenter<IBaseView>?)?.linkView(this)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,5 +54,6 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId) {
 
 	abstract fun setupViews()
 
+	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 }
 

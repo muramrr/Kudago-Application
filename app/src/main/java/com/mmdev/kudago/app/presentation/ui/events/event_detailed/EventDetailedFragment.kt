@@ -28,7 +28,6 @@ import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
-import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 /**
@@ -54,8 +53,6 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
 	@ExperimentalStdlibApi
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
-		presenter.linkView(this)
 
 		arguments?.let {
 			receivedEventId = it.getInt(EVENT_ID_KEY)
@@ -83,10 +80,6 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
 			presenter.addOrRemoveEventToFavourites()
 		}
 	}
-
-
-
-	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 
 	override fun updateFabButton(fabText: String) {
 		viewBinding.fabAddRemoveFavourites.text = fabText

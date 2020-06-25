@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 
@@ -53,8 +54,9 @@ class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList
 			BaseViewHolder<FavouriteEntity>(viewBinding.root) {
 
 
+		@ExperimentalStdlibApi
 		override fun bind(item: FavouriteEntity){
-			viewBinding.tvTitle.text = item.favouriteTitle
+			viewBinding.tvTitle.text = item.favouriteTitle.capitalizeRu()
 			viewBinding.ivImageHolder.run {
 				ImageLoader.with(this.context)
 					.load(this, item.favouriteMainPictureUrl)

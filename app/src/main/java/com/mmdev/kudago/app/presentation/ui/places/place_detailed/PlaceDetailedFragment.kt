@@ -28,7 +28,6 @@ import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
-import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 /**
@@ -45,8 +44,6 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	private val placePhotosAdapter = ImagePagerAdapter()
 
 
-
-
 	private var receivedPlaceId = 0
 	companion object {
 		private const val PLACE_ID_KEY = "PLACE_ID"
@@ -57,7 +54,6 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		presenter.linkView(this)
 
 		arguments?.let {
 			receivedPlaceId = it.getInt(PLACE_ID_KEY)
@@ -95,5 +91,4 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		viewBinding.tvDetailedDescription.text = data.body_text
 	}
 
-	override fun showToast(toastText: String) = requireContext().showToast(toastText)
 }

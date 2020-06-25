@@ -27,10 +27,10 @@ import kotlin.coroutines.CoroutineContext
 
 /**
  * Base Presenter feature - for coroutines jobs
- *
  */
 
-abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.Main) {
+abstract class BasePresenter<V: IBaseView> : IBasePresenter<V>,
+                                             CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
 	private val parentJob: Job = SupervisorJob()
 
@@ -42,7 +42,7 @@ abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.M
 
 	protected fun getLinkedView() = attachedView?.get()
 
-	fun linkView(view: V) {
+	override fun linkView(view: V) {
 		attachedView = WeakReference(view)
 	}
 
@@ -50,7 +50,7 @@ abstract class BasePresenter<V> : CoroutineScope by CoroutineScope(Dispatchers.M
 		attachedView = null
 	}
 
-	fun onClear() {
+	override fun onClear() {
 		unlinkView()
 		// Parent Job cancels all child coroutines.
 		parentJob.cancel()

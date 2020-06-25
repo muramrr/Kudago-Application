@@ -15,36 +15,14 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
-
-import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
-
+package com.mmdev.kudago.app.presentation.base
 
 /**
  * This is the documentation block about the class
  */
 
-interface PlacesContract {
+interface IBaseView {
 
-	interface View : IBaseView {
-
-		fun updateData(data: List<PlaceEntity>)
-
-		fun showLoading()
-
-		fun hideLoading()
-
-	}
-
-	interface Presenter : IBasePresenter<View> {
-
-		fun loadPlaces(category: String)
-
-		fun loadMorePlaces()
-
-	}
+	fun showToast(toastText: String)
 
 }
-

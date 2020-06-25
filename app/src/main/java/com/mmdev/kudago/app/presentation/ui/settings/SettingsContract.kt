@@ -17,6 +17,9 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import com.mmdev.kudago.app.presentation.base.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.IBaseView
+
 
 /**
  * This is the documentation block about the class
@@ -25,15 +28,13 @@ package com.mmdev.kudago.app.presentation.ui.settings
 interface SettingsContract {
 
 
-	interface View {
-
-		fun showToast(toastText: String)
+	interface View : IBaseView {
 
 		fun updateSettings(city: String)
 
 	}
 
-	interface Presenter {
+	interface Presenter : IBasePresenter<View> {
 
 		fun clearFavourites()
 
