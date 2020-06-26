@@ -19,6 +19,15 @@
 
 <resources>
 
+	<style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+		<item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+	</style>
+
+	<style name="ThemeOverlay.App.Switch" parent="">
+		<item name="colorSurface">@android:color/white</item>
+		<item name="colorOnSurface">@color/colorPrimaryLight</item>
+		<item name="colorSecondary">@color/colorSecondary</item>
+	</style>
 
 
 </resources>

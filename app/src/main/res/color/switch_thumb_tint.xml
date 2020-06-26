@@ -16,11 +16,11 @@
   ~ limitations under the License.
   -->
 
-<com.google.android.material.textview.MaterialTextView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="16dp"
-	android:ellipsize="end"
-	android:maxLines="1"
-	android:textSize="22sp"/>
+<selector
+
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:color="@color/colorPrimaryLight" android:state_checked="false"/>
+	<item android:color="@color/colorSecondary" android:state_checked="true"/>
+
+</selector>

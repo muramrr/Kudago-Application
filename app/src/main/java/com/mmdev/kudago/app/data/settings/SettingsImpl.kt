@@ -30,6 +30,7 @@ class SettingsImpl (private val prefs: Preferences,
 
 	companion object {
 		private const val cityKey = "CITY_KEY"
+		private const val darkThemeKey = "DARK_THEME_KEY"
 	}
 
 	suspend fun clearFavourites() = favouritesDao.deleteAll()
@@ -43,6 +44,16 @@ class SettingsImpl (private val prefs: Preferences,
 			putString(cityKey, newCity)
 		}
 
+	}
+
+	fun saveDarkThemeProperty(isForcingDarkTheme: Boolean) {
+		prefs.edit {
+			putBoolean(darkThemeKey, isForcingDarkTheme)
+		}
+	}
+
+	fun readDarkThemeProperty(): Boolean {
+		return prefs.getBoolean(darkThemeKey, false)
 	}
 
 }

@@ -33,7 +33,7 @@
 
 		app:title="@string/app_name"
 
-		style="@style/Widget.MaterialComponents.Toolbar.Surface"
+		style="@style/Widget.MaterialComponents.Toolbar"
 
 		app:layout_constraintBottom_toTopOf="@id/rvDetailedCategory"
 		app:layout_constraintEnd_toEndOf="parent"

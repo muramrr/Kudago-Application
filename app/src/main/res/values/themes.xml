@@ -47,8 +47,9 @@
 
 
 		<!-- widgets styles -->
-		<item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
 		<item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface</item>
+		<item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
+		<item name="switchStyle">@style/Widget.App.Switch</item>
 
 
 	</style>

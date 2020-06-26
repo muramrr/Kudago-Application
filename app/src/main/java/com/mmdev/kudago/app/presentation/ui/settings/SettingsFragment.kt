@@ -22,6 +22,8 @@ import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
+import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
+import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 import org.koin.android.ext.android.inject
@@ -77,6 +79,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		}
 
 		viewBinding.btnClearFavourites.setOnClickListener { presenter.clearFavourites() }
+
+		viewBinding.switchDarkTheme.isChecked = presenter.getForceDarkTheme()
+
+		viewBinding.switchDarkTheme.setOnCheckedChangeListener { compoundButton, b ->
+			presenter.setForceDarkTheme(b)
+		}
 	}
 
 	override fun onStart() {
@@ -87,5 +95,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 	override fun updateSettings(city: String) {
 		val cityToDisplay = cityList.getValue(city)
 		viewBinding.dropSettingsEditCity.setText(cityToDisplay, false)
+	}
+
+	override fun updateTheme(themeMode: ThemeMode) {
+		ThemeHelper.applyTheme(themeMode)
+		navController.navigateUp()
 	}
 }

@@ -18,15 +18,16 @@
 package com.mmdev.kudago.app.core
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
+import com.ironz.binaryprefs.Preferences
 import com.mmdev.kudago.app.core.di.DatabaseModule
 import com.mmdev.kudago.app.core.di.NetworkModule
 import com.mmdev.kudago.app.core.di.PresentersModule
 import com.mmdev.kudago.app.core.di.RepositoryModules
+import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import kotlin.random.Random
 
 /**
  * This is the documentation block about the class
@@ -49,12 +50,14 @@ class KudagoApp: Application() {
 			androidLogger()
 			modules(applicationModules)
 		}
-
+		val prefs: Preferences by inject()
+		val darkMode = prefs.getBoolean("DARK_THEME_KEY", false)
+		if (darkMode) ThemeHelper.applyTheme(ThemeHelper.ThemeMode.DARK_MODE)
 		// Random nightMode to aware of day/night themes
-		val nightMode = when (Random.nextBoolean()) {
-			true -> AppCompatDelegate.MODE_NIGHT_YES
-			false -> AppCompatDelegate.MODE_NIGHT_NO
-		}
-		AppCompatDelegate.setDefaultNightMode(nightMode)
+//		val nightMode = when (Random.nextBoolean()) {
+//			true -> AppCompatDelegate.MODE_NIGHT_YES
+//			false -> AppCompatDelegate.MODE_NIGHT_NO
+//		}
+//		AppCompatDelegate.setDefaultNightMode(nightMode)
 	}
 }

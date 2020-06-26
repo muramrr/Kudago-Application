@@ -19,6 +19,8 @@ package com.mmdev.kudago.app.presentation.ui.settings
 
 import com.mmdev.kudago.app.data.settings.SettingsImpl
 import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.DARK_MODE
+import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.DEFAULT_MODE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -50,5 +52,14 @@ class SettingsPresenter (private val settingsWrapper: SettingsImpl) :
 	override fun setCity(city: String) {
 		settingsWrapper.changeCity(city)
 	}
+
+	override fun setForceDarkTheme(darkMode: Boolean) {
+		settingsWrapper.saveDarkThemeProperty(darkMode).also {
+			if (darkMode) getLinkedView()?.updateTheme(DARK_MODE)
+			else getLinkedView()?.updateTheme(DEFAULT_MODE)
+		}
+	}
+
+	override fun getForceDarkTheme(): Boolean = settingsWrapper.readDarkThemeProperty()
 
 }
