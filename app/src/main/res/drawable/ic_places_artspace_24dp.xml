@@ -1,0 +1,49 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="496"
+	android:viewportWidth="496" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+	<path android:fillColor="#48cfad" android:pathData="m416,88h24l40,144h-464l40,-144zM416,88"/>
+	<path android:fillColor="#cf9e76" android:pathData="m248,40h160c4.414,0 8,3.586 8,8v80c0,4.414 -3.586,8 -8,8h-160zM248,40"/>
+	<path android:fillColor="#b27946" android:pathData="m248,136h19.055c8.184,-14.129 12.945,-30.496 12.945,-48s-4.762,-33.871 -12.945,-48h-19.055zM248,136"/>
+	<path android:fillColor="#ff826e" android:pathData="m264,88c0,44.184 -35.816,80 -80,80s-80,-35.816 -80,-80 35.816,-80 80,-80 80,35.816 80,80zM264,88"/>
+	<path android:fillColor="#aab2bd" android:pathData="m8,440h480v48h-480zM8,440"/>
+	<path android:fillColor="#aab2bd" android:pathData="m32,232h432v256h-432zM32,232"/>
+	<path android:fillColor="#969faa" android:pathData="m32,232h432v16h-432zM32,232"/>
+	<path android:fillColor="#ccd1d9" android:pathData="m416,232v256h-336v-256zM416,232"/>
+	<path android:fillColor="#838f9b" android:pathData="m160,312h176v176h-176zM160,312"/>
+	<path android:fillColor="#e6e9ed" android:pathData="m232,88c0,26.508 -21.492,48 -48,48s-48,-21.492 -48,-48 21.492,-48 48,-48 48,21.492 48,48zM232,88"/>
+	<path android:fillColor="#ff826e" android:pathData="m200,88c0,8.836 -7.164,16 -16,16s-16,-7.164 -16,-16 7.164,-16 16,-16 16,7.164 16,16zM200,88"/>
+	<path android:fillColor="#dfb28b" android:pathData="m400,456v32h32v-96h-32zM400,456"/>
+	<path android:fillColor="#dfb28b" android:pathData="m320,456v32h32v-96h-32zM320,456"/>
+	<path android:fillColor="#dfb28b" android:pathData="m96,456v32h-32v-96h32zM96,456"/>
+	<path android:fillColor="#cf9e76" android:pathData="m64,408h32v64h-32zM64,408"/>
+	<path android:fillColor="#dfb28b" android:pathData="m176,456v32h-32v-96h32zM176,456"/>
+	<path android:fillColor="#cf9e76" android:pathData="m144,408h32v64h-32zM144,408"/>
+	<path android:fillColor="#cf9e76" android:pathData="m320,408h32v64h-32zM320,408"/>
+	<path android:fillColor="#cf9e76" android:pathData="m400,408h32v64h-32zM400,408"/>
+	<path android:fillColor="#ecc19c" android:pathData="m288,424h200v32h-200zM288,424"/>
+	<path android:fillColor="#ecc19c" android:pathData="m8,424h200v32h-200zM8,424"/>
+	<path android:fillColor="#48cfad" android:pathData="m352,312h-208l16,-48h176zM352,312"/>
+	<path android:fillColor="#37bc9b" android:pathData="m24.887,200 l-8.887,32h464l-8.887,-32zM24.887,200"/>
+	<path android:fillColor="#aab2bd" android:pathData="m80,232h336v16h-336zM80,232"/>
+	<path android:fillColor="#656d78" android:pathData="m160,312h176v16h-176zM160,312"/>
+	<path android:fillColor="#FF000000" android:pathData="m184,112c13.23,0 24,-10.77 24,-24s-10.77,-24 -24,-24 -24,10.77 -24,24 10.77,24 24,24zM184,80c4.414,0 8,3.586 8,8s-3.586,8 -8,8 -8,-3.586 -8,-8 3.586,-8 8,-8zM184,80"/>
+	<path android:fillColor="#FF000000" android:pathData="m288,64h104v16h-104zM288,64"/>
+	<path android:fillColor="#FF000000" android:pathData="m288,96h104v16h-104zM288,96"/>
+	<path android:fillColor="#FF000000" android:pathData="m472,416v-176h18.52l-44.441,-160h-22.078v-32c0,-8.824 -7.176,-16 -16,-16h-156.168c-16.16,-19.527 -40.566,-32 -67.832,-32 -45.824,0 -83.535,35.215 -87.594,80h-46.484l-44.441,160h18.52v176h-24v80h496v-80zM26.52,224 L30.969,208h434.063l4.449,16zM408,48v80h-145.711c6.16,-12.016 9.711,-25.594 9.711,-40s-3.551,-27.984 -9.711,-40zM255.527,80h-16.168c-3.527,-24.473 -22.887,-43.832 -47.359,-47.359v-16.168c33.32,3.703 59.824,30.207 63.527,63.527zM176,16.473v16.145c-8.754,1.262 -17.078,4.551 -24.426,9.773l9.281,13.035c6.824,-4.859 14.824,-7.426 23.145,-7.426 22.055,0 40,17.945 40,40 0,8.32 -2.566,16.32 -7.426,23.145l13.035,9.281c5.223,-7.336 8.512,-15.664 9.773,-24.426h16.145c-3.703,33.32 -30.207,59.824 -63.527,63.527v-16.145c8.754,-1.262 17.078,-4.551 24.426,-9.773l-9.281,-13.035c-6.824,4.859 -14.824,7.426 -23.145,7.426 -22.055,0 -40,-17.945 -40,-40 0,-8.32 2.566,-16.32 7.426,-23.145l-13.035,-9.281c-5.223,7.348 -8.512,15.672 -9.773,24.426h-16.145c3.703,-33.32 30.207,-59.824 63.527,-63.527zM128.641,96c3.527,24.473 22.887,43.832 47.359,47.359v16.168c-33.32,-3.703 -59.824,-30.207 -63.527,-63.527zM62.078,96h34.328c4.059,44.785 41.77,80 87.594,80 27.266,0 51.672,-12.473 67.832,-32h156.168c8.824,0 16,-7.176 16,-16v-32h9.922l26.664,96h-425.172zM40,240h32v72h16v-72h320v72h16v-72h32v176h-16v-32h-16v-56h-16v56h-16v32h-32v-32h-16v-64h19.105l-21.336,-64h-187.539l-21.336,64h19.105v64h-16v32h-32v-32h-16v-56h-16v56h-16v32h-16zM424,400v16h-16v-16zM312,464v16h-128v-16h32v-48h-32v-32h-16v-64h160v64h-16v32h-32v48zM424,464v16h-8v-16zM400,480h-40v-16h40zM344,480h-16v-16h16zM88,464v16h-16v-16zM104,464h32v16h-32zM152,464h16v16h-16zM168,400v16h-16v-16zM155.105,304 L165.77,272h164.469l10.664,32zM328,400h16v16h-16zM88,400v16h-16v-16zM16,432h184v16h-184zM16,464h40v16h-40zM480,480h-40v-16h40zM480,448h-184v-16h184zM480,448"/>
+</vector>

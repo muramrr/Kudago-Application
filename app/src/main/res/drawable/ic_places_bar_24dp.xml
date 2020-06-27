@@ -1,0 +1,28 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="512"
+	android:viewportWidth="512" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+	<path android:fillColor="#1dd882" android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0"/>
+	<path android:fillColor="#06b26b" android:pathData="m259.292,511.979c139.867,-1.762 252.708,-115.693 252.708,-255.979 0,-1.01 -0.006,-2.018 -0.018,-3.025l-149.311,-149.311 -117.18,171.866 10.509,141.253 -56.688,35.217z"/>
+	<path android:fillColor="#fff" android:pathData="m275.547,342.7 l132.358,-179.574 -303.81,0.001 132.358,179.573v78.024h-37.141v31.276h113.376v-31.276h-37.141z"/>
+	<path android:fillColor="#e9edf5" android:pathData="m275.547,342.7 l132.358,-179.574h-151.863v288.874h56.646v-31.276h-37.141z"/>
+	<path android:fillColor="#ffce00" android:pathData="m330.168,220.398h-148.336l74.168,100.626z"/>
+	<path android:fillColor="#fdba12" android:pathData="m256.042,220.398v100.568l74.125,-100.568z"/>
+	<path android:fillColor="#636978" android:pathData="m255.962,233.187l80.606,-144.199l26.191,14.64l-80.606,144.199z"/>
+	<path android:fillColor="#1dd882" android:pathData="M293.266,198.995m-30.624,0a30.624,30.624 0,1 1,61.248 0a30.624,30.624 0,1 1,-61.248 0"/>
+</vector>

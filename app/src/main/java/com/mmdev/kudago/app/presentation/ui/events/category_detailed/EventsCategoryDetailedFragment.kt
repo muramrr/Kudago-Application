@@ -43,12 +43,14 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_events_cate
 	override val presenter: EventsPresenter by inject()
 
 	private var receivedCategoryString = ""
+	private var receivedTitleString = ""
 	private val categoryDetailedAdapter = EventsCategoryDetailedAdapter()
 
 	companion object {
 
 		private const val EVENT_ID_KEY = "EVENT_ID"
 		private const val CATEGORY_KEY = "CATEGORY"
+		private const val TITLE_KEY = "TITLE"
 
 	}
 
@@ -57,6 +59,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_events_cate
 
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
+			receivedTitleString = it.getString(TITLE_KEY, "")
 		}
 
 		presenter.loadEvents(receivedCategoryString)
@@ -66,7 +69,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_events_cate
 	override fun setupViews() {
 		viewBinding.toolbarCategoryTitle.apply {
 			applySystemWindowInsets(applyTop = true)
-			title = receivedCategoryString
+			title = receivedTitleString
 			setNavigationOnClickListener { navController.navigateUp() }
 		}
 

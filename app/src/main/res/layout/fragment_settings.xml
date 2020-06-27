@@ -53,9 +53,10 @@
 			android:imeOptions="actionDone"
 			android:inputType="textNoSuggestions"
 
-			android:text=""
+			android:text="City"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 			android:textColor="?colorOnPrimary"
-			android:textSize="22sp" />
+			/>
 
 	</com.google.android.material.textfield.TextInputLayout>
 

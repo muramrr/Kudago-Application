@@ -31,7 +31,7 @@
 
 		app:navigationIcon="@drawable/ic_arrow_back_24dp"
 
-		app:title="@string/app_name"
+		app:title="Place category"
 
 		style="@style/Widget.MaterialComponents.Toolbar"
 
@@ -48,6 +48,8 @@
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 
+		app:spanCount="2"
+		app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
 		tools:listitem="@layout/item_category_detailed"
 
 		app:layout_constraintBottom_toBottomOf="parent"

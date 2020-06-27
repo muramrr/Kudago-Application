@@ -43,12 +43,15 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override val presenter: PlacesPresenter by inject()
 
 	private var receivedCategoryString = ""
+	private var receivedTitleString = ""
+
 	private val categoryDetailedAdapter = PlacesCategoryDetailedAdapter()
 
 	companion object {
 
 		private const val PLACE_ID_KEY = "PLACE_ID"
 		private const val CATEGORY_KEY = "CATEGORY"
+		private const val TITLE_KEY = "TITLE"
 
 	}
 
@@ -57,6 +60,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
+			receivedTitleString = it.getString(TITLE_KEY, "")
 		}
 
 		presenter.loadPlaces(receivedCategoryString)
@@ -66,7 +70,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	override fun setupViews() {
 		viewBinding.toolbarCategoryTitle.apply {
 			applySystemWindowInsets(applyTop = true)
-			title = receivedCategoryString
+			title = receivedTitleString
 			setNavigationOnClickListener { navController.navigateUp() }
 		}
 

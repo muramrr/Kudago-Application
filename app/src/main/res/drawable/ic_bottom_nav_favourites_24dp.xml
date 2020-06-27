@@ -1,0 +1,27 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp"
+	android:width="24dp"
+	android:viewportHeight="512"
+	android:viewportWidth="512"
+	android:tintMode="multiply"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<path android:fillColor="#FF000000" android:pathData="m114.617,501.137c-5.633,0 -11.203,-1.746 -15.957,-5.184 -8.855,-6.398 -12.992,-17.43 -10.582,-28.094l32.938,-145.066 -111.703,-97.965c-8.211,-7.188 -11.348,-18.516 -7.977,-28.906 3.371,-10.367 12.543,-17.727 23.402,-18.73l147.82,-13.418 58.41,-136.746c4.309,-10.047 14.121,-16.535 25.023,-16.535 10.902,0 20.715,6.488 25.023,16.512l58.41,136.77 147.797,13.418c10.883,0.98 20.055,8.344 23.426,18.711 3.371,10.387 0.254,21.738 -7.98,28.906l-111.68,97.941 32.938,145.066c2.414,10.668 -1.727,21.695 -10.578,28.094 -8.813,6.379 -20.566,6.914 -29.891,1.324l-127.465,-76.16 -127.445,76.203c-4.309,2.582 -9.109,3.859 -13.93,3.859zM255.992,388.266c4.844,0 9.641,1.301 13.953,3.859l120.277,71.938 -31.086,-136.941c-2.219,-9.77 1.09,-19.926 8.621,-26.516l105.473,-92.523 -139.543,-12.672c-10.004,-0.895 -18.668,-7.188 -22.594,-16.469l-55.102,-129.047 -55.148,129.066c-3.902,9.238 -12.563,15.531 -22.59,16.43l-139.52,12.672 105.469,92.52c7.555,6.594 10.84,16.77 8.621,26.539l-31.082,136.941 120.277,-71.938c4.328,-2.559 9.129,-3.859 13.973,-3.859zM171.406,166.441v0.02zM340.559,166.375v0.023s0,0 0,-0.023zM340.559,166.375"/>
+
+</vector>

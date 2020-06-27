@@ -22,22 +22,23 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemCategoryEventsBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
-import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAdapter.EventsCategory
+import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAdapter.AdapterEventsCategory
 
 /**
  * This is the documentation block about the class
  */
 
-class EventsCategoriesAdapter (private val data: List<EventsCategory> = listOf(
-		EventsCategory("cinema", R.drawable.events_cinema),
-		EventsCategory("theater", R.drawable.events_theater),
-		EventsCategory("concert", R.drawable.events_concert),
-		EventsCategory("entertainment", R.drawable.events_entertainment),
-		EventsCategory("exhibition", R.drawable.events_exhibition),
-		EventsCategory("festival", R.drawable.events_festival),
-		EventsCategory("party", R.drawable.events_party),
-		EventsCategory("yarmarki-razvlecheniya-yarmarki", R.drawable.events_fair),
-		EventsCategory("other", R.drawable.events_other))): BaseAdapter<EventsCategory>() {
+class EventsCategoriesAdapter (private val data: List<AdapterEventsCategory> = listOf(
+		AdapterEventsCategory("Кино", R.drawable.events_cinema, "cinema"),
+		AdapterEventsCategory("Театр", R.drawable.events_theater,"theater"),
+		AdapterEventsCategory("Концерты", R.drawable.events_concert,"concert"),
+		AdapterEventsCategory("Развлечения", R.drawable.events_entertainment,"entertainment"),
+		AdapterEventsCategory("Выставки", R.drawable.events_exhibition,"exhibition"),
+		AdapterEventsCategory("Фестивали", R.drawable.events_festival,"festival"),
+		AdapterEventsCategory("Вечеринки", R.drawable.events_party,"party"),
+		AdapterEventsCategory("Ярмарки", R.drawable.events_fair,"yarmarki-razvlecheniya-yarmarki"),
+		AdapterEventsCategory("Другое", R.drawable.events_other,"other"))):
+		BaseAdapter<AdapterEventsCategory>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsCategoriesViewHolder =
@@ -50,20 +51,20 @@ class EventsCategoriesAdapter (private val data: List<EventsCategory> = listOf(
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
-	override fun setData(data: List<EventsCategory>) {
+	override fun setData(data: List<AdapterEventsCategory>) {
 		//do nothing
 	}
 
 
 
 	inner class EventsCategoriesViewHolder(private val viewBinding: ItemCategoryEventsBinding):
-			BaseViewHolder<EventsCategory>(viewBinding.root) {
+			BaseViewHolder<AdapterEventsCategory>(viewBinding.root) {
 
-		override fun bind(item: EventsCategory){
+		override fun bind(item: AdapterEventsCategory){
 			viewBinding.ivEventsCategoryIcon.setImageResource(item.picture)
 		}
 
 	}
 
-	data class EventsCategory(val title: String, val picture: Int)
+	data class AdapterEventsCategory(val title: String, val picture: Int, val apiIdentifier: String)
 }

@@ -18,13 +18,16 @@
 package com.mmdev.kudago.app.presentation.ui.places.categories
 
 import androidx.core.os.bundleOf
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentPlacesCategoriesBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesAdapter.AdapterPlaceCategory
 
 /**
  * This is the documentation block about the class
@@ -39,6 +42,7 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 	companion object {
 
 		private const val CATEGORY_KEY = "CATEGORY"
+		private const val TITLE_KEY = "TITLE"
 
 	}
 
@@ -48,12 +52,14 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 			applySystemWindowInsets(applyTop = true)
 			adapter = mPlacesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
+			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
 		}
 
-		mPlacesCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<String>{
+		mPlacesCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<AdapterPlaceCategory>{
 
-			override fun onItemClick(item: String, position: Int) {
-				val category = bundleOf(CATEGORY_KEY to item)
+			override fun onItemClick(item: AdapterPlaceCategory, position: Int) {
+				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
+				                        TITLE_KEY to item.title)
 				navController.navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
 				                             category)
 			}

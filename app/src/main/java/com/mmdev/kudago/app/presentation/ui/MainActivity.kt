@@ -44,10 +44,10 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
 		//set night icons
 		if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_places_night_24dp)
-			mainBottomNavigation.menu.getItem(1).setIcon(R.drawable.ic_events_night_24dp)
-			mainBottomNavigation.menu.getItem(2).setIcon(R.drawable.ic_favourites_night_24dp)
-			mainBottomNavigation.menu.getItem(3).setIcon(R.drawable.ic_settings_night_24dp)
+			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_bottom_nav_places_night_24dp)
+			mainBottomNavigation.menu.getItem(1).setIcon(R.drawable.ic_bottom_nav_events_night_24dp)
+			mainBottomNavigation.menu.getItem(2).setIcon(R.drawable.ic_bottom_nav_favourites_night_24dp)
+			mainBottomNavigation.menu.getItem(3).setIcon(R.drawable.ic_bottom_nav_settings_night_24dp)
 		}
 
 		val navController = findNavController(R.id.mainFlowFragment)

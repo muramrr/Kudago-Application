@@ -23,4 +23,8 @@
 
 	android:clipToPadding="false"
 
-	xmlns:android="http://schemas.android.com/apk/res/android" />
+	tools:itemCount="10"
+	tools:listitem="@layout/item_category_events"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	/>

@@ -33,6 +33,7 @@
 		android:layout_height="match_parent"
 		android:scaleType="centerCrop"
 
+		android:src="@drawable/placeholder"
 		tools:ignore="ContentDescription" />
 
 
@@ -50,13 +51,13 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center|bottom"
-		android:padding="8dp"
+		android:padding="12dp"
 
 		android:ellipsize="end"
 
 		android:text="Title"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
 		android:textColor="@android:color/white"
-		android:textSize="20sp"
 		/>
 
 
