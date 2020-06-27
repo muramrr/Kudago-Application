@@ -55,7 +55,7 @@
 				android:paddingStart="8dp"
 				android:paddingEnd="8dp"
 
-				android:text="About"
+				android:text="@string/detailed_about_header"
 				android:textAppearance="@style/header_text"
 
 				app:layout_constraintTop_toTopOf="parent"
@@ -209,7 +209,7 @@
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 		android:textColor="@android:color/white"
 		android:textSize="30sp"
-		android:text="Some text"
+		android:text="@string/default_title"
 
 		app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
 		app:layout_constraintStart_toStartOf="@id/viewToolbarBackground"

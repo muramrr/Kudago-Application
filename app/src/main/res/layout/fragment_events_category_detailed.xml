@@ -16,11 +16,14 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	>
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbarCategoryTitle"
@@ -30,7 +33,7 @@
 
 		app:navigationIcon="@drawable/ic_arrow_back_24dp"
 
-		app:title="Event category"
+		app:title="@string/default_title"
 
 		style="@style/Widget.MaterialComponents.Toolbar"
 

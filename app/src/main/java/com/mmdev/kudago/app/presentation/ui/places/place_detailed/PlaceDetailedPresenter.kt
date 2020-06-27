@@ -45,11 +45,11 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 			when (result) {
 				is ResultState.Success -> {
 					isAdded = if (isAdded){
-						getLinkedView()?.showToast("Successfully removed from favourites")
+						getLinkedView()?.showSuccessDeletedToast()
 						false
 					}
 					else {
-						getLinkedView()?.showToast("Successfully added to favourites")
+						getLinkedView()?.showSuccessAddedToast()
 						true
 					}
 					handleFabState(isAdded)
@@ -86,7 +86,7 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 	}
 
 	private fun handleFabState(added: Boolean) {
-		if (added) getLinkedView()?.updateFabButton("Remove from favourites")
-		else getLinkedView()?.updateFabButton("Add to favourites")
+		if (added) getLinkedView()?.setRemoveTextFab()
+		else getLinkedView()?.setAddTextFab()
 	}
 }

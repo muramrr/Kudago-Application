@@ -53,7 +53,7 @@
 			android:imeOptions="actionDone"
 			android:inputType="textNoSuggestions"
 
-			android:text="City"
+			android:text="@string/default_title"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 			android:textColor="?colorOnPrimary"
 			/>
@@ -67,7 +67,7 @@
 		android:layout_marginTop="24dp"
 
 		android:padding="24dp"
-		android:text="Clear Cache\n600 mb"
+		android:text="@string/settings_btn_clear_cache"
 		android:textAlignment="center"
 		android:textAllCaps="false"
 		android:textAppearance="@android:style/TextAppearance.Material.Button"
@@ -88,7 +88,7 @@
 		android:layout_marginTop="24dp"
 
 		android:padding="24dp"
-		android:text="Clear Favourites"
+		android:text="@string/settings_btn_clear_favourites"
 		android:textAlignment="center"
 		android:textAllCaps="false"
 		android:textAppearance="@android:style/TextAppearance.Material.Button"
@@ -123,7 +123,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 
-			android:text="Force Dark Theme"
+			android:text="@string/settings_switch_force_dark_theme"
 			android:textAllCaps="false"
 			android:textAppearance="@android:style/TextAppearance.Material.Button"
 

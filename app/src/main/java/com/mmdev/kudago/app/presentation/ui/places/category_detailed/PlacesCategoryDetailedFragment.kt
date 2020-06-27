@@ -107,10 +107,8 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 	}
 
 	override fun showLoading() {
-		TODO("Not yet implemented")
 	}
 
 	override fun hideLoading() {
-		TODO("Not yet implemented")
 	}
 }

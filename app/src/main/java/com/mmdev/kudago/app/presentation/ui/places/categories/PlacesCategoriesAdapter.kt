@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.places.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesAdapter.AdapterPlaceCategory
@@ -29,21 +28,7 @@ import com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesAd
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesAdapter (private val data: List<AdapterPlaceCategory> = listOf(
-		AdapterPlaceCategory("Рестораны и кафе", R.drawable.ic_places_restaurants_24dp, "restaurants"),
-		AdapterPlaceCategory("Бары", R.drawable.ic_places_bar_24dp, "bar"),
-		AdapterPlaceCategory("Развлечения", R.drawable.ic_places_amusement_24dp, "amusement"),
-		AdapterPlaceCategory("Антикафе", R.drawable.ic_places_anticafe_24dp, "anticafe"),
-		AdapterPlaceCategory("Арт-центры", R.drawable.ic_places_artcenter_24dp, "art-centers"),
-		AdapterPlaceCategory("Арт-пространства", R.drawable.ic_places_artspace_24dp, "art-space"),
-		AdapterPlaceCategory("Кинотеатры", R.drawable.ic_places_cinema_24dp, "cinema"),
-		AdapterPlaceCategory("Театры", R.drawable.ic_places_theater_24dp, "theatre"),
-		AdapterPlaceCategory("Музеи", R.drawable.ic_places_museums_24dp, "museums"),
-		AdapterPlaceCategory("Парки", R.drawable.ic_places_park_24dp, "park"),
-		AdapterPlaceCategory("Клубы", R.drawable.ic_places_clubs_24dp, "clubs"),
-		AdapterPlaceCategory("Стрип-клубы", R.drawable.ic_places_stripclub_24dp, "strip-club"),
-		AdapterPlaceCategory("Интересные места", R.drawable.ic_places_sights_24dp, "sights"),
-		AdapterPlaceCategory("Другое", R.drawable.ic_places_other_24dp, "other"))) :
+class PlacesCategoriesAdapter (private val data: List<AdapterPlaceCategory>) :
 
 		BaseAdapter<AdapterPlaceCategory>() {
 

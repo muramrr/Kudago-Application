@@ -37,8 +37,6 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 
 	private val viewBinding by viewBinding(FragmentEventsCategoriesBinding::bind)
 
-	private val mEventsCategoriesAdapter = EventsCategoriesAdapter()
-
 	companion object {
 
 		private const val CATEGORY_KEY = "CATEGORY"
@@ -49,6 +47,8 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 
 	override fun setupViews() {
 		viewBinding.rvEventsCategories.applySystemWindowInsets(applyTop = true)
+
+		val mEventsCategoriesAdapter = EventsCategoriesAdapter(setupAdapterList())
 		viewBinding.rvEventsCategories.apply {
 			adapter = mEventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
@@ -65,5 +65,34 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 			}
 		})
 	}
+
+	private fun setupAdapterList() = listOf(
+			AdapterEventsCategory(title = getString(R.string.category_events_title_cinema),
+			                      picture = R.drawable.events_cinema,
+			                      apiIdentifier = getString(R.string.api_cinema)),
+			AdapterEventsCategory(title = getString(R.string.category_events_title_theater),
+			                      picture = R.drawable.events_theater,
+			                      apiIdentifier = getString(R.string.api_events_theater)),
+			AdapterEventsCategory(title = getString(R.string.category_title_concert),
+			                      picture = R.drawable.events_concert,
+			                      apiIdentifier =  getString(R.string.api_concert)),
+			AdapterEventsCategory(title = getString(R.string.category_title_entertainment),
+			                      picture = R.drawable.events_entertainment,
+			                      apiIdentifier = getString(R.string.api_entertainment)),
+			AdapterEventsCategory(title = getString(R.string.category_title_exhibition),
+			                      picture = R.drawable.events_exhibition,
+			                      apiIdentifier = getString(R.string.api_exhibition)),
+			AdapterEventsCategory(title = getString(R.string.category_title_festival),
+			                      picture = R.drawable.events_festival,
+			                      apiIdentifier = getString(R.string.api_festival)),
+			AdapterEventsCategory(title = getString(R.string.category_title_party),
+			                      picture = R.drawable.events_party,
+			                      apiIdentifier = getString(R.string.api_party)),
+			AdapterEventsCategory(title = getString(R.string.category_title_fair),
+			                      picture = R.drawable.events_fair,
+			                      apiIdentifier = getString(R.string.api_fair)),
+			AdapterEventsCategory(title = getString(R.string.category_title_other),
+			                      picture = R.drawable.events_other,
+			                      apiIdentifier = getString(R.string.api_other)))
 
 }

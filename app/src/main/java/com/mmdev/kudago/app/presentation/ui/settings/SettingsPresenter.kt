@@ -38,14 +38,14 @@ class SettingsPresenter (private val settingsWrapper: SettingsImpl) :
 			withContext(Dispatchers.IO) {
 				settingsWrapper.clearFavourites()
 			}
-			getLinkedView()?.showToast("Successfully cleared favourites")
+			getLinkedView()?.showClearedToast()
 		}
 	}
 
 	override fun getCity() {
 		settingsWrapper.readCity().run {
-			if (this.isNotBlank()) getLinkedView()?.updateSettings(this)
-			else getLinkedView()?.updateSettings("Город не выбран")
+			if (this.isNotBlank()) getLinkedView()?.updateDisplayingCity(this)
+			else getLinkedView()?.setCityIsNotChosen()
 		}
 	}
 

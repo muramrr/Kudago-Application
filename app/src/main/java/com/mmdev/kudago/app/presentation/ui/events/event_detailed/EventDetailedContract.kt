@@ -30,7 +30,13 @@ interface EventDetailedContract {
 
 	interface View : IBaseView {
 
-		fun updateFabButton(fabText: String)
+		fun showSuccessDeletedToast()
+
+		fun showSuccessAddedToast()
+
+		fun setRemoveTextFab()
+
+		fun setAddTextFab()
 
 		fun updateData(data: EventDetailedEntity)
 

@@ -80,15 +80,23 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addOrRemovePlaceToFavourites() }
 	}
 
-	override fun updateFabButton(fabText: String) {
-		viewBinding.fabAddRemoveFavourites.text = fabText
-	}
-
 	@ExperimentalStdlibApi
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedDescription.text = data.body_text
 	}
+
+	override fun setRemoveTextFab() {
+		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_remove_text)
+	}
+
+	override fun setAddTextFab() {
+		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_add_text)
+	}
+
+	override fun showSuccessDeletedToast() = showToast(getString(R.string.toast_successfully_removed_favourite))
+
+	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
 
 }

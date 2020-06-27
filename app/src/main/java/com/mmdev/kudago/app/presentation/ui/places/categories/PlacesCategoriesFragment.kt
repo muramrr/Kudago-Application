@@ -37,7 +37,6 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 
 	private val viewBinding by viewBinding(FragmentPlacesCategoriesBinding::bind)
 
-	private val mPlacesCategoriesAdapter = PlacesCategoriesAdapter()
 
 	companion object {
 
@@ -48,6 +47,8 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 
 
 	override fun setupViews() {
+		val mPlacesCategoriesAdapter = PlacesCategoriesAdapter(setAdapterList())
+
 		viewBinding.rvPlacesCategories.apply {
 			applySystemWindowInsets(applyTop = true)
 			adapter = mPlacesCategoriesAdapter
@@ -66,6 +67,48 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 		})
 	}
 
-
+	private fun setAdapterList() = listOf(
+			AdapterPlaceCategory(title = getString(R.string.category_title_restaurants),
+			                     icon = R.drawable.ic_places_restaurants_24dp,
+			                     apiIdentifier = getString(R.string.api_restaurants)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_bar),
+			                     icon = R.drawable.ic_places_bar_24dp,
+			                     apiIdentifier = getString(R.string.api_bar)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_amusement),
+			                     icon = R.drawable.ic_places_amusement_24dp,
+			                     apiIdentifier = getString(R.string.api_amusement)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_anitcafe),
+			                     icon = R.drawable.ic_places_anticafe_24dp,
+			                     apiIdentifier = getString(R.string.api_anticafe)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_artcenter),
+			                     icon = R.drawable.ic_places_artcenter_24dp,
+			                     apiIdentifier = getString(R.string.api_artcenters)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_artspace),
+			                     icon = R.drawable.ic_places_artspace_24dp,
+			                     apiIdentifier = getString(R.string.api_artspace)),
+			AdapterPlaceCategory(title = getString(R.string.category_places_title_cinema),
+			                     icon = R.drawable.ic_places_cinema_24dp,
+			                     apiIdentifier = getString(R.string.api_cinema)),
+			AdapterPlaceCategory(title = getString(R.string.category_places_title_theatre),
+			                     icon = R.drawable.ic_places_theater_24dp,
+			                     apiIdentifier = getString(R.string.api_theatre)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_museums),
+			                     icon = R.drawable.ic_places_museums_24dp,
+			                     apiIdentifier = getString(R.string.api_museums)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_park),
+			                     icon = R.drawable.ic_places_park_24dp,
+			                     apiIdentifier = getString(R.string.api_park)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_clubs),
+			                     icon = R.drawable.ic_places_clubs_24dp,
+			                     apiIdentifier = getString(R.string.api_clubs)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_stripclub),
+			                     icon = R.drawable.ic_places_stripclub_24dp,
+			                     apiIdentifier = getString(R.string.api_stripclub)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_sights),
+			                     icon = R.drawable.ic_places_sights_24dp,
+			                     apiIdentifier = getString(R.string.api_sights)),
+			AdapterPlaceCategory(title = getString(R.string.category_title_other),
+			                     icon = R.drawable.ic_places_other_24dp,
+			                     apiIdentifier = getString(R.string.api_other)))
 
 }

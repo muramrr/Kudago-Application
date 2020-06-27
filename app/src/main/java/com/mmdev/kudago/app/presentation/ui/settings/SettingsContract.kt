@@ -31,7 +31,11 @@ interface SettingsContract {
 
 	interface View : IBaseView {
 
-		fun updateSettings(city: String)
+		fun showClearedToast()
+
+		fun updateDisplayingCity(city: String)
+
+		fun setCityIsNotChosen()
 
 		fun updateTheme(themeMode: ThemeMode)
 	}

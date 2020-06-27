@@ -45,8 +45,8 @@ class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
 		TabLayoutMediator(viewBinding.tabLayoutContainer,
 		                  viewBinding.viewPagerContainer) { tab: TabLayout.Tab, position: Int ->
 			when (position){
-				0 -> tab.text = "Events"
-				1 -> tab.text = "Places"
+				0 -> tab.text = getString(R.string.favourite_tab_events)
+				1 -> tab.text = getString(R.string.favourite_tab_places)
 			}
 		}.attach()
 	}

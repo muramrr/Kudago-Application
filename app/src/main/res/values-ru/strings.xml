@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+	<string name="city_human_ekb">Екатеринбург</string>
+	<string name="city_human_krasnoyarsk">Красноярск</string>
+	<string name="city_human_krd">Краснодар</string>
+	<string name="city_human_kzn">Казань</string>
+	<string name="city_human_msk">Москва</string>
+	<string name="city_human_nnv">Нижний Новгород</string>
+	<string name="city_human_nsk">Новосибирск</string>
+	<string name="city_human_spb">Санкт-Петербург</string>
+	<string name="city_human_sochi">Сочи</string>
+
+	<string name="category_events_title_cinema">Кино</string>
+	<string name="category_events_title_theater">Спектакли</string>
+	<string name="category_title_concert">Концерты</string>
+	<string name="category_title_entertainment">Развлечения</string>
+	<string name="category_title_fair">Ярмарки</string>
+	<string name="category_title_exhibition">Выставки</string>
+	<string name="category_title_festival">Фестивали</string>
+	<string name="category_title_party">Вечеринки</string>
+	<string name="category_title_other">Другое</string>
+	<string name="category_title_restaurants">Рестораны и кафе</string>
+	<string name="category_title_bar">Бары</string>
+	<string name="category_title_amusement">Развлечения</string>
+	<string name="category_title_anitcafe">Антикафе</string>
+	<string name="category_title_artcenter">Арт-центры</string>
+	<string name="category_title_artspace">Арт-пространства</string>
+	<string name="category_places_title_cinema">Кинотеатры</string>
+	<string name="category_places_title_theatre">Театры</string>
+	<string name="category_title_museums">Музеи</string>
+	<string name="category_title_park">Парки</string>
+	<string name="category_title_clubs">Клубы</string>
+	<string name="category_title_stripclub">Стрип-клубы</string>
+	<string name="category_title_sights">Интересные места</string>
+
+	<string name="bottom_navigation_places">Места</string>
+	<string name="bottom_navigation_events">События</string>
+	<string name="bottom_navigation_favourites">Избранное</string>
+	<string name="bottom_navigation_settings">Настройки</string>
+
+	<string name="detailed_about_header">Описание</string>
+
+	<string name="favourite_tab_events">События</string>
+	<string name="favourite_tab_places">Места</string>
+
+	<string name="settings_btn_clear_cache">Очистить кэш\\n</string>
+	<string name="settings_btn_clear_favourites">Очистить избранное</string>
+	<string name="settings_switch_force_dark_theme">Включить темную тему</string>
+
+	<string name="description_category_title_picture">Изображение категории</string>
+	<string name="description_category_item_picture">Изображение элемента</string>
+
+	<string name="toast_successfully_removed_favourite">Удалено из избранного</string>
+	<string name="toast_successfully_added_favourite">Добавлено в избранное</string>
+	<string name="toast_successfully_cleared_favourites">Избранное полностью очищено</string>
+	<string name="detailed_fab_remove_text">Удалить избранное</string>
+	<string name="detailed_fab_add_text">Добавить в избранное</string>
+	<string name="city_is_not_chosen">Город не выбран</string>
+
+</resources>

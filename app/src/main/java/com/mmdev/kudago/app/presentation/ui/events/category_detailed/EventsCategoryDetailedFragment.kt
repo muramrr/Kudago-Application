@@ -106,10 +106,8 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_events_cate
 	}
 
 	override fun showLoading() {
-		TODO("Not yet implemented")
 	}
 
 	override fun hideLoading() {
-		TODO("Not yet implemented")
 	}
 }

@@ -34,7 +34,8 @@
 		android:scaleType="centerCrop"
 
 		android:src="@drawable/placeholder"
-		tools:ignore="ContentDescription" />
+
+		android:contentDescription="@string/description_category_item_picture" />
 
 
 	<ImageView
@@ -55,7 +56,7 @@
 
 		android:ellipsize="end"
 
-		android:text="Title"
+		android:text="@string/default_title"
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
 		android:textColor="@android:color/white"
 		/>

@@ -45,11 +45,11 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 			when (result) {
 				is ResultState.Success -> {
 					isAdded = if (isAdded){
-						getLinkedView()?.showToast("Successfully removed from favourites")
+						getLinkedView()?.showSuccessDeletedToast()
 						false
 					}
 					else {
-						getLinkedView()?.showToast("Successfully added to favourites")
+						getLinkedView()?.showSuccessAddedToast()
 						true
 					}
 					handleFabState(isAdded)
@@ -85,8 +85,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 	}
 
 	private fun handleFabState(added: Boolean) {
-		if (added) getLinkedView()?.updateFabButton("Remove from favourites")
-		else getLinkedView()?.updateFabButton("Add to favourites")
+		if (added) getLinkedView()?.setRemoveTextFab()
+		else getLinkedView()?.setAddTextFab()
 	}
 
 

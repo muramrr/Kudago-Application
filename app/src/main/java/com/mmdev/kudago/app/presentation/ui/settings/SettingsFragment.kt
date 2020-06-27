@@ -40,21 +40,25 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 
 	override val presenter: SettingsPresenter by inject()
 
-	private val cityList = mapOf(
-			"ekb" to "Екатеринбург",
-			"krasnoyarsk" to "Красноярск",
-			"krd" to "Краснодар",
-			"kzn" to "Казань",
-			"msk" to "Москва",
-			"nnv" to "Нижний Новгород",
-			"nsk" to "Новосибирск",
-			"spb" to "Санкт-Петербург",
-			"sochi" to "Сочи"
-	)
+	private lateinit var cityList: Map<String, String>
+
+	private fun getCityList() = mapOf(
+			getString(R.string.city_api_ekb) to getString(R.string.city_human_ekb),
+			getString(R.string.city_api_krasnoyarsk) to getString(R.string.city_human_krasnoyarsk),
+			getString(R.string.city_api_krd) to getString(R.string.city_human_krd),
+			getString(R.string.city_api_kzn) to getString(R.string.city_human_kzn),
+			getString(R.string.city_api_msk) to getString(R.string.city_human_msk),
+			getString(R.string.city_api_nnv) to getString(R.string.city_human_nnv),
+			getString(R.string.city_api_nsk) to getString(R.string.city_human_nsk),
+			getString(R.string.city_api_spb) to getString(R.string.city_human_spb),
+			getString(R.string.city_api_sochi) to getString(R.string.city_human_sochi))
+
 
 	override fun setupViews() {
+		cityList = getCityList()
 		val imageLoader = ImageLoader(requireContext())
-		val cacheSize = { "Clear Cache\n ${imageLoader.getFileCacheSize()} Mb" }
+		val clearCacheString = getString(R.string.settings_btn_clear_cache)
+		val cacheSize = { clearCacheString + imageLoader.getFileCacheSize() + " Mb" }
 
 		viewBinding.layoutSettingsEditCity.applySystemWindowInsets(applyTop = true)
 		val adapter = ArrayAdapter(requireContext(),
@@ -82,7 +86,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 
 		viewBinding.switchDarkTheme.isChecked = presenter.getForceDarkTheme()
 
-		viewBinding.switchDarkTheme.setOnCheckedChangeListener { compoundButton, b ->
+		viewBinding.switchDarkTheme.setOnCheckedChangeListener { _, b ->
 			presenter.setForceDarkTheme(b)
 		}
 	}
@@ -92,13 +96,19 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		presenter.getCity()
 	}
 
-	override fun updateSettings(city: String) {
+	override fun updateDisplayingCity(city: String) {
 		val cityToDisplay = cityList.getValue(city)
 		viewBinding.dropSettingsEditCity.setText(cityToDisplay, false)
+	}
+
+	override fun setCityIsNotChosen() {
+		viewBinding.dropSettingsEditCity.setText(getString(R.string.city_is_not_chosen), false)
 	}
 
 	override fun updateTheme(themeMode: ThemeMode) {
 		ThemeHelper.applyTheme(themeMode)
 		navController.navigateUp()
 	}
+
+	override fun showClearedToast() = showToast(getString(R.string.toast_successfully_cleared_favourites))
 }

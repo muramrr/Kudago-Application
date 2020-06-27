@@ -31,7 +31,7 @@
 
 		app:navigationIcon="@drawable/ic_arrow_back_24dp"
 
-		app:title="Place category"
+		app:title="@string/default_title"
 
 		style="@style/Widget.MaterialComponents.Toolbar"
 

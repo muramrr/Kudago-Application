@@ -22,11 +22,11 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 
 	android:layout_width="match_parent"
-	android:layout_height="72dp"
+	android:layout_height="wrap_content"
 	>
 
 
-	<com.mmdev.kudago.app.presentation.ui.common.custom.components.CircleImageView
+	<ImageView
 		android:id="@+id/ivCategoryIcon"
 		android:layout_width="56dp"
 		android:layout_height="56dp"
@@ -34,20 +34,23 @@
 		android:layout_marginBottom="8dp"
 		android:layout_marginEnd="16dp"
 		android:layout_marginStart="16dp"
-		android:src="@drawable/ic_bottom_nav_favourites_night_24dp"
+		android:src="@drawable/ic_places_clubs_24dp"
 
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@id/tvCategoryTitle"
+
+		android:contentDescription="@string/description_category_title_picture"
 		/>
 
 	<com.google.android.material.textview.MaterialTextView
 		android:id="@+id/tvCategoryTitle"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:layout_marginEnd="16dp"
 
-		android:gravity="center_vertical"
+		android:gravity="start|center_vertical"
 
 		android:text="@string/app_name"
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"

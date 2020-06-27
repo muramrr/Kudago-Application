@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.events.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemCategoryEventsBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAdapter.AdapterEventsCategory
@@ -28,16 +27,8 @@ import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAd
  * This is the documentation block about the class
  */
 
-class EventsCategoriesAdapter (private val data: List<AdapterEventsCategory> = listOf(
-		AdapterEventsCategory("Кино", R.drawable.events_cinema, "cinema"),
-		AdapterEventsCategory("Театр", R.drawable.events_theater,"theater"),
-		AdapterEventsCategory("Концерты", R.drawable.events_concert,"concert"),
-		AdapterEventsCategory("Развлечения", R.drawable.events_entertainment,"entertainment"),
-		AdapterEventsCategory("Выставки", R.drawable.events_exhibition,"exhibition"),
-		AdapterEventsCategory("Фестивали", R.drawable.events_festival,"festival"),
-		AdapterEventsCategory("Вечеринки", R.drawable.events_party,"party"),
-		AdapterEventsCategory("Ярмарки", R.drawable.events_fair,"yarmarki-razvlecheniya-yarmarki"),
-		AdapterEventsCategory("Другое", R.drawable.events_other,"other"))):
+class EventsCategoriesAdapter (private val data: List<AdapterEventsCategory>):
+
 		BaseAdapter<AdapterEventsCategory>() {
 
 
