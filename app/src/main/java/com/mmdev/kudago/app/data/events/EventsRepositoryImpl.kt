@@ -55,7 +55,7 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi,
 		this.category = category
 		page = 1
 		return safeApiCall(
-				call = { eventsApi.getEventsListAsync(unixTime, category, "msk", page = page) },
+				call = { eventsApi.getEventsListAsync(unixTime, category, getCity(), page = page) },
 				errorMessage = "Error Loading Events"
 		)
 	}
@@ -63,7 +63,7 @@ class EventsRepositoryImpl (private val eventsApi: EventsApi,
 	override suspend fun loadMoreEvents(): EventsResponse? {
 		page++
 		return safeApiCall(
-				call = { eventsApi.getEventsListAsync(unixTime, category, "msk", page = page) },
+				call = { eventsApi.getEventsListAsync(unixTime, category, getCity(), page = page) },
 				errorMessage = "Error Loading More Events"
 		)
 	}

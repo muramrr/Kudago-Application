@@ -32,7 +32,9 @@ import java.io.IOException
 open class BaseRepository: KoinComponent {
 
 	private val prefs: Preferences by inject()
-	protected val city = prefs.getString("CITY_KEY", "")!!
+
+
+	protected fun getCity() = prefs.getString("CITY_KEY", "")!!
 
 
 	suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>,

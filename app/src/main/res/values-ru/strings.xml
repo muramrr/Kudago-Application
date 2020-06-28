@@ -61,7 +61,7 @@
 	<string name="favourite_tab_events">События</string>
 	<string name="favourite_tab_places">Места</string>
 
-	<string name="settings_btn_clear_cache">Очистить кэш\\n</string>
+	<string name="settings_btn_clear_cache">Очистить кэш\n</string>
 	<string name="settings_btn_clear_favourites">Очистить избранное</string>
 	<string name="settings_switch_force_dark_theme">Включить темную тему</string>
 

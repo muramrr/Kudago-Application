@@ -54,7 +54,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 		this.category = category
 		page = 1
 		return safeApiCall(
-				call = { placesApi.getPlacesListAsync(unixTime, category, city, page = page) },
+				call = { placesApi.getPlacesListAsync(unixTime, category, getCity(), page = page) },
 				errorMessage = "Error Loading Places"
 		)
 	}
@@ -62,7 +62,7 @@ class PlacesRepositoryImpl (private val placesApi: PlacesApi,
 	override suspend fun loadMorePlaces(): PlacesResponse? {
 		page++
 		return safeApiCall(
-				call = { placesApi.getPlacesListAsync(unixTime, category, city, page = page) },
+				call = { placesApi.getPlacesListAsync(unixTime, category, getCity(), page = page) },
 				errorMessage = "Error Loading More Places"
 		)
 	}
