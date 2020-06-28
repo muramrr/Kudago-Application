@@ -22,11 +22,13 @@ apply plugin: 'kotlin-kapt'
 
 android {
 	compileSdkVersion 'android-R'
+	//compileSdkVersion 29
 
 	defaultConfig {
 		applicationId "com.mmdev.kudago.app"
 		minSdkVersion 21
 		targetSdkVersion 'R'
+		//targetSdkVersion 29
 		versionCode 1
 		versionName "1.0"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
