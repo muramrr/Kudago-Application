@@ -37,8 +37,8 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
 	protected lateinit var navController: NavController
 
 	@Suppress("UNCHECKED_CAST")
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
+	override fun onActivityCreated(savedInstanceState: Bundle?) {
+		super.onActivityCreated(savedInstanceState)
 		navController = findNavController()
 		(presenter as IBasePresenter<IBaseView>?)?.linkView(this)
 	}
