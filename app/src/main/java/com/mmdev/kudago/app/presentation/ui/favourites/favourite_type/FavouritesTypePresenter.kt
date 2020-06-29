@@ -30,13 +30,13 @@ class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 		BasePresenter<FavouritesTypeContract.View>(),
 		FavouritesTypeContract.Presenter {
 
-	private val placesList: MutableList<FavouriteEntity> = mutableListOf()
-	private val eventsList: MutableList<FavouriteEntity> = mutableListOf()
+	private var placesList: MutableList<FavouriteEntity> = mutableListOf()
+	private var eventsList: MutableList<FavouriteEntity> = mutableListOf()
 
 
 	override fun loadFavouritePlaces () {
 		launch {
-			placesList.addAll(repository.getFavouritePlaces())
+			placesList = repository.getFavouritePlaces().toMutableList()
 			if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
 			else getLinkedView()?.showEmptyFavourites()
 		}
@@ -44,7 +44,7 @@ class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 
 	override fun loadFavouriteEvents () {
 		launch {
-			eventsList.addAll(repository.getFavouriteEvents())
+			eventsList = repository.getFavouriteEvents().toMutableList()
 			if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
 			else getLinkedView()?.showEmptyFavourites()
 		}

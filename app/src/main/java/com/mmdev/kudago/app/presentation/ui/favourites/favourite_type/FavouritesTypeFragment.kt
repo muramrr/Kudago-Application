@@ -48,6 +48,8 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 
 	private val mFavouritesAdapter = FavouritesTypeAdapter()
 
+	private var receivedFavouriteType = ""
+
 	companion object {
 
 		private const val FAVOURITE_TYPE_KEY = "FAVOURITE_TYPE"
@@ -65,14 +67,18 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-
 		arguments?.let {
-			when(it.getString(FAVOURITE_TYPE_KEY, "")) {
-				FavouriteType.EVENT.name -> presenter.loadFavouriteEvents()
-				FavouriteType.PLACE.name -> presenter.loadFavouritePlaces()
-			}
+			receivedFavouriteType = it.getString(FAVOURITE_TYPE_KEY, "")
 		}
 
+	}
+
+	override fun onStart() {
+		super.onStart()
+		when(receivedFavouriteType) {
+			FavouriteType.EVENT.name -> presenter.loadFavouriteEvents()
+			FavouriteType.PLACE.name -> presenter.loadFavouritePlaces()
+		}
 	}
 
 	override fun setupViews() {
@@ -96,18 +102,19 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 					navController.navigate(R.id.action_favourites_to_placeDetailed, id)
 				}
 
-
 			}
 		})
 	}
 
 	override fun updateData(data: List<FavouriteEntity>) {
 		mFavouritesAdapter.setData(data)
+		viewBinding.rvFavouritesList.visibility = View.VISIBLE
 		viewBinding.tvEmptyFavourites.visibility = View.INVISIBLE
 	}
 
 	override fun showEmptyFavourites() {
 		viewBinding.tvEmptyFavourites.visibility = View.VISIBLE
+		viewBinding.rvFavouritesList.visibility = View.INVISIBLE
 	}
 
 }
