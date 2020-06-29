@@ -106,6 +106,7 @@
 	<string name="category_title_sights">Sights</string>
 	<string name="description_sad_face_image">Sad face image</string>
 	<string name="category_detailed_empty_list">Sorry\nCan\'t find anything in this category</string>
+	<string name="favourites_empty_hint">No favourites added</string>
 
 
 </resources>

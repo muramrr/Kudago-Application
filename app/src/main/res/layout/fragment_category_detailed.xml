@@ -65,7 +65,7 @@
 		android:layout_width="wrap_content"
 
 		android:text="@string/category_detailed_empty_list"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
 		android:textAlignment="center"
 		android:visibility="invisible"
 
@@ -78,8 +78,8 @@
 
 	<ImageView
 		android:id="@+id/ivEmptyList"
-		android:layout_height="160dp"
-		android:layout_width="160dp"
+		android:layout_height="120dp"
+		android:layout_width="120dp"
 		android:layout_marginTop="32dp"
 
 		android:contentDescription="@string/description_sad_face_image"

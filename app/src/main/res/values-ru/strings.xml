@@ -76,6 +76,7 @@
 	<string name="detailed_fab_add_text">Добавить в избранное</string>
 	<string name="city_is_not_chosen">Город не выбран</string>
 	<string name="category_detailed_empty_list">Мы ничего не нашли в данной категории</string>
+	<string name="favourites_empty_hint">Избранное не добавлено</string>
 
 
 </resources>

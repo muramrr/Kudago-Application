@@ -18,6 +18,7 @@
 package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -102,6 +103,11 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 
 	override fun updateData(data: List<FavouriteEntity>) {
 		mFavouritesAdapter.setData(data)
+		viewBinding.tvEmptyFavourites.visibility = View.INVISIBLE
+	}
+
+	override fun showEmptyFavourites() {
+		viewBinding.tvEmptyFavourites.visibility = View.VISIBLE
 	}
 
 }

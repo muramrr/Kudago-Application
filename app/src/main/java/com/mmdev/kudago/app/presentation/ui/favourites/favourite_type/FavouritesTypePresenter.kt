@@ -38,6 +38,7 @@ class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 		launch {
 			placesList.addAll(repository.getFavouritePlaces())
 			if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
+			else getLinkedView()?.showEmptyFavourites()
 		}
 	}
 
@@ -45,6 +46,7 @@ class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
 		launch {
 			eventsList.addAll(repository.getFavouriteEvents())
 			if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
+			else getLinkedView()?.showEmptyFavourites()
 		}
 	}
 

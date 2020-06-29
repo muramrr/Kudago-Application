@@ -31,6 +31,8 @@ interface FavouritesTypeContract {
 
 		fun updateData(data: List<FavouriteEntity>)
 
+		fun showEmptyFavourites()
+
 	}
 
 	interface Presenter : IBasePresenter<View> {

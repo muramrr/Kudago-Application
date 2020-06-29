@@ -16,12 +16,43 @@
   ~ limitations under the License.
   -->
 
-<androidx.recyclerview.widget.RecyclerView
-	android:id="@+id/rvFavouritesList"
+<androidx.constraintlayout.widget.ConstraintLayout
+
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-
-	tools:listitem="@layout/item_category_detailed"
 	xmlns:android="http://schemas.android.com/apk/res/android"
+
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	/>
+	>
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rvFavouritesList"
+		android:layout_height="0dp"
+		android:layout_width="0dp"
+
+		tools:listitem="@layout/item_category_detailed"
+
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		/>
+
+	<com.google.android.material.textview.MaterialTextView
+		android:id="@+id/tvEmptyFavourites"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+
+		android:text="@string/favourites_empty_hint"
+		android:textAlignment="center"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+		android:visibility="invisible"
+
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
