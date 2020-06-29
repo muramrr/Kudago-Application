@@ -31,6 +31,8 @@ interface EventsContract {
 
 		fun updateData(data: List<EventEntity>)
 
+		fun showEmptyList()
+
 		fun showLoading()
 
 		fun hideLoading()

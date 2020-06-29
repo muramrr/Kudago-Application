@@ -67,6 +67,7 @@
 
 	<string name="description_category_title_picture">Изображение категории</string>
 	<string name="description_category_item_picture">Изображение элемента</string>
+	<string name="description_sad_face_image">Грустное лицо</string>
 
 	<string name="toast_successfully_removed_favourite">Удалено из избранного</string>
 	<string name="toast_successfully_added_favourite">Добавлено в избранное</string>
@@ -74,5 +75,7 @@
 	<string name="detailed_fab_remove_text">Удалить избранное</string>
 	<string name="detailed_fab_add_text">Добавить в избранное</string>
 	<string name="city_is_not_chosen">Город не выбран</string>
+	<string name="category_detailed_empty_list">Мы ничего не нашли в данной категории</string>
+
 
 </resources>

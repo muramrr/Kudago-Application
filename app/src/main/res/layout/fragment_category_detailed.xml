@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~ Copyright (c) 2020. Andrii Kovalchuk
   ~
@@ -15,7 +14,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+
 <androidx.constraintlayout.widget.ConstraintLayout
+
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,39 +26,71 @@
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbarCategoryTitle"
-		android:layout_width="0dp"
+
 		android:layout_height="wrap_content"
+		android:layout_width="0dp"
+
 		android:minHeight="?attr/actionBarSize"
-
 		app:navigationIcon="@drawable/ic_arrow_back_24dp"
-
 		app:title="@string/default_title"
-
-		style="@style/Widget.MaterialComponents.Toolbar"
 
 		app:layout_constraintBottom_toTopOf="@id/rvDetailedCategory"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 
+		style="@style/Widget.MaterialComponents.Toolbar"
 		/>
 
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvDetailedCategory"
-		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:layout_width="0dp"
 
-		app:spanCount="2"
 		app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-		tools:listitem="@layout/item_category_detailed"
+		app:spanCount="2"
 
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/toolbarCategoryTitle"
+
+		tools:listitem="@layout/item_category_detailed"
+		/>
+
+	<com.google.android.material.textview.MaterialTextView
+		android:id="@+id/tvEmptyList"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+
+		android:text="@string/category_detailed_empty_list"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+		android:textAlignment="center"
+		android:visibility="invisible"
+
+		app:layout_constraintVertical_bias="0.3"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/toolbarCategoryTitle"
 		/>
 
+	<ImageView
+		android:id="@+id/ivEmptyList"
+		android:layout_height="160dp"
+		android:layout_width="160dp"
+		android:layout_marginTop="32dp"
+
+		android:contentDescription="@string/description_sad_face_image"
+		android:src="@drawable/ic_sad_face_24dp"
+		android:visibility="invisible"
+
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tvEmptyList"
+		app:layout_constraintStart_toStartOf="parent"
+
+		/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

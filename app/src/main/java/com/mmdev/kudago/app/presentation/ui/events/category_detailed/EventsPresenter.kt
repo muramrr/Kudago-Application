@@ -39,7 +39,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 			withContext(Dispatchers.IO) { repository.loadFirstEvents(category) }?.let {
 				eventsList = it.results.toMutableList()
 				if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
-				//else getLinkedView()?.showEmptyHint() }
+				else getLinkedView()?.showEmptyList()
 			}
 
 		}

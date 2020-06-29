@@ -18,10 +18,11 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentPlacesCategoryDetailedBinding
+import com.mmdev.kudago.app.databinding.FragmentCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
@@ -35,10 +36,10 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_category_detailed) ,
+class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_detailed) ,
     PlacesContract.View {
 
-	private val viewBinding by viewBinding(FragmentPlacesCategoryDetailedBinding::bind)
+	private val viewBinding by viewBinding(FragmentCategoryDetailedBinding::bind)
 
 	override val presenter: PlacesPresenter by inject()
 
@@ -104,7 +105,15 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_places_cat
 
 	override fun updateData(data: List<PlaceEntity>) {
 		categoryDetailedAdapter.setData(data)
+		viewBinding.tvEmptyList.visibility = View.INVISIBLE
+		viewBinding.ivEmptyList.visibility = View.INVISIBLE
 	}
+
+	override fun showEmptyList() {
+		viewBinding.ivEmptyList.visibility = View.VISIBLE
+		viewBinding.tvEmptyList.visibility = View.VISIBLE
+	}
+
 
 	override fun showLoading() {
 	}

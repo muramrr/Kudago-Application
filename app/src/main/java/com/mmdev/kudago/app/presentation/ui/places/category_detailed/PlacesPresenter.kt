@@ -41,7 +41,7 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 			withContext(Dispatchers.IO) { repository.loadFirstPlaces(category) }?.let {
 				placesList = it.results.toMutableList()
 				if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
-				//else getLinkedView()?.showEmptyHint() }
+				else getLinkedView()?.showEmptyList()
 
 			}
 

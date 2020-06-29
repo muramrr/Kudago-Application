@@ -32,6 +32,8 @@ interface PlacesContract {
 
 		fun updateData(data: List<PlaceEntity>)
 
+		fun showEmptyList()
+
 		fun showLoading()
 
 		fun hideLoading()
