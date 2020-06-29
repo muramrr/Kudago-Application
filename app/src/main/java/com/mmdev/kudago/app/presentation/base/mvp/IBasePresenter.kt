@@ -15,14 +15,27 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.base
+package com.mmdev.kudago.app.presentation.base.mvp
+
 
 /**
- * This is the documentation block about the class
+ * Each presenter must implement this interface
+ *
+ * @param V View for the presenter
  */
 
-interface IBaseView {
+interface IBasePresenter<V: IBaseView> {
 
-	fun showToast(toastText: String)
+	/**
+	 * Called when view attached to presenter
+	 *
+	 * @param view
+	 */
+	fun linkView(view: V)
+
+	/**
+	 * Called when view is detached from presenter
+	 */
+	fun onClear()
 
 }

@@ -18,8 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
+import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
 /**
  * This is the documentation block about the class
@@ -27,7 +27,7 @@ import com.mmdev.kudago.app.presentation.base.IBaseView
 
 interface FavouritesTypeContract {
 
-	interface View : IBaseView{
+	interface View : IBaseView {
 
 		fun updateData(data: List<FavouriteEntity>)
 
@@ -35,7 +35,8 @@ interface FavouritesTypeContract {
 
 	}
 
-	interface Presenter : IBasePresenter<View> {
+	interface Presenter :
+			IBasePresenter<View> {
 
 		fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
 

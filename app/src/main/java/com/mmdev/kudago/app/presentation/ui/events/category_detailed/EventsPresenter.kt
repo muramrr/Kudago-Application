@@ -19,8 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
-import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.Dispatchers
+import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,7 +35,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 
 	override fun loadEvents(category: String) {
 		launch {
-			withContext(Dispatchers.IO) { repository.loadFirstEvents(category) }?.let {
+			withContext(backgroundContext) { repository.loadFirstEvents(category) }?.let {
 				eventsList = it.results.toMutableList()
 				if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
 				else getLinkedView()?.showEmptyList()
@@ -47,7 +46,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 
 	override fun loadMoreEvents() {
 		launch {
-			withContext(Dispatchers.IO) { repository.loadMoreEvents() }?.let {
+			withContext(backgroundContext) { repository.loadMoreEvents() }?.let {
 				eventsList.addAll(it.results)
 				getLinkedView()?.updateData(eventsList)
 			}

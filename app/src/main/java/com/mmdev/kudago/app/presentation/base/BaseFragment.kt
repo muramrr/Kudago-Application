@@ -22,13 +22,16 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 import com.mmdev.kudago.app.presentation.ui.common.showToast
 
 /**
  * generic fragment class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
+abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId),
+                                                 IBaseView {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 

@@ -18,8 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
+import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
 /**
  * This is the documentation block about the class
@@ -42,7 +42,8 @@ interface EventDetailedContract {
 
 	}
 
-	interface Presenter : IBasePresenter<View> {
+	interface Presenter :
+			IBasePresenter<View> {
 
 		fun addOrRemoveEventToFavourites()
 

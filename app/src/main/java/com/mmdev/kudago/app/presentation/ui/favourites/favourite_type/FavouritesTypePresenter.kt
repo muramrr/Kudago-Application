@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
-import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 
 /**

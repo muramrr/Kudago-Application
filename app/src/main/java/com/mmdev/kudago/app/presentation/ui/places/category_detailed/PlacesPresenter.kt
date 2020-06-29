@@ -20,8 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.BasePresenter
-import kotlinx.coroutines.Dispatchers
+import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -38,7 +37,7 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	override fun loadPlaces(category: String) {
 		launch {
-			withContext(Dispatchers.IO) { repository.loadFirstPlaces(category) }?.let {
+			withContext(backgroundContext) { repository.loadFirstPlaces(category) }?.let {
 				placesList = it.results.toMutableList()
 				if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
 				else getLinkedView()?.showEmptyList()
@@ -51,7 +50,7 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	override fun loadMorePlaces() {
 		launch {
-			withContext(Dispatchers.IO) { repository.loadMorePlaces() }?.let {
+			withContext(backgroundContext) { repository.loadMorePlaces() }?.let {
 				placesList.addAll(it.results)
 				getLinkedView()?.updateData(placesList)
 			}

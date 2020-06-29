@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
-import com.mmdev.kudago.app.presentation.base.BasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

@@ -15,27 +15,20 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.base
+package com.mmdev.kudago.app.core.utils
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
- * Each presenter must implement this interface
- *
- * @param V View for the presenter
+ * This is the documentation block about the class
  */
 
-interface IBasePresenter<V: IBaseView> {
+object CoroutineDispatchers {
 
-	/**
-	 * Called when view attached to presenter
-	 *
-	 * @param view
-	 */
-	fun linkView(view: V)
-
-	/**
-	 * Called when view is detached from presenter
-	 */
-	fun onClear()
+	fun ioDispatcher(): CoroutineDispatcher = Dispatchers.IO
+	fun defaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+	fun mainDispatcher(): CoroutineDispatcher = Dispatchers.Main
+	fun nconfinedDispatcher(): CoroutineDispatcher = Dispatchers.Unconfined
 
 }

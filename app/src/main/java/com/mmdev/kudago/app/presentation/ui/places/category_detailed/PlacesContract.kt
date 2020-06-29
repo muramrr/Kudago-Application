@@ -18,8 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.IBaseView
+import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
+import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
 
 /**
@@ -40,7 +40,8 @@ interface PlacesContract {
 
 	}
 
-	interface Presenter : IBasePresenter<View> {
+	interface Presenter :
+			IBasePresenter<View> {
 
 		fun loadPlaces(category: String)
 

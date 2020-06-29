@@ -15,37 +15,14 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.events.category_detailed
-
-import com.mmdev.kudago.app.domain.events.EventEntity
-import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
+package com.mmdev.kudago.app.presentation.base.mvp
 
 /**
  * This is the documentation block about the class
  */
 
-interface EventsContract {
+interface IBaseView {
 
-	interface View : IBaseView {
-
-		fun updateData(data: List<EventEntity>)
-
-		fun showEmptyList()
-
-		fun showLoading()
-
-		fun hideLoading()
-
-	}
-
-	interface Presenter :
-			IBasePresenter<View> {
-
-		fun loadEvents(category: String)
-
-		fun loadMoreEvents()
-
-	}
+	fun showToast(toastText: String)
 
 }
