@@ -33,7 +33,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
- * @param [REQUIRED_SIZE] depends on image size which will be loaded (lower value - lower image quality)
+ * @param REQUIRED_SIZE depends on image size which will be loaded (lower value - lower image quality)
  * to take off limits of image size, look at [decodeFile] function
  *
  */
@@ -72,8 +72,7 @@ class ImageLoader(context: Context) {
 
 					outputStream.write(bytes, 0, count)
 				}
-			} catch (ex: Exception) {
-			}
+			} catch (ex: Exception) { }
 
 		}
 	}

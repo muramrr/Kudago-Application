@@ -15,22 +15,22 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.categories
+package com.mmdev.kudago.app.presentation.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
-import com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesAdapter.AdapterPlaceCategory
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
 
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesAdapter (private val data: List<AdapterPlaceCategory>) :
+class CategoriesAdapter (private val data: List<AdapterCategoryItem>) :
 
-		BaseAdapter<AdapterPlaceCategory>() {
+		BaseAdapter<AdapterCategoryItem>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
@@ -43,15 +43,15 @@ class PlacesCategoriesAdapter (private val data: List<AdapterPlaceCategory>) :
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
-	override fun setData(data: List<AdapterPlaceCategory>) {}
+	override fun setData(data: List<AdapterCategoryItem>) {}
 
 
 
 	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemCategoryBinding):
-			BaseViewHolder<AdapterPlaceCategory>(viewBinding.root) {
+			BaseViewHolder<AdapterCategoryItem>(viewBinding.root) {
 
 
-		override fun bind(item: AdapterPlaceCategory){
+		override fun bind(item: AdapterCategoryItem){
 
 			viewBinding.tvCategoryTitle.text = item.title
 			viewBinding.ivCategoryIcon.setImageResource(item.icon)
@@ -60,6 +60,8 @@ class PlacesCategoriesAdapter (private val data: List<AdapterPlaceCategory>) :
 
 	}
 
-	data class AdapterPlaceCategory(val title: String, val icon: Int, val apiIdentifier: String)
+	data class AdapterCategoryItem(val title: String = "",
+	                               val icon: Int = 0,
+	                               val apiIdentifier: String = "")
 
 }

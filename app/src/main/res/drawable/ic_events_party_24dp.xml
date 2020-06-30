@@ -1,0 +1,30 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#684b52" android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0"/>
+    <path android:fillColor="#4c383f" android:pathData="m78.056,365.539 l7.944,-97.283 159,-69.652 25.246,-134.771 77.235,77.186c17.243,-3.496 22.183,-11.364 22.185,-11.364l99.334,99.595c3.281,-0.977 2.63,-3.363 5.97,-4.854l36.962,36.962c-2.854,138.91 -116.339,250.642 -255.932,250.642 -11.427,0 -22.675,-0.76 -33.706,-2.211z"/>
+    <path android:fillColor="#ffd261" android:pathData="m369.666,129.655c0.001,0.006 24.304,108.527 -91.11,103.613 -19.634,-113.837 91.104,-103.613 91.11,-103.613z"/>
+    <path android:fillColor="#ffe69f" android:pathData="m142.334,129.655c-0.001,0.006 -24.304,108.527 91.11,103.613 19.634,-113.837 -91.104,-103.613 -91.11,-103.613z"/>
+    <path android:fillColor="#fbbe3d" android:pathData="m256,50.721c-0.006,0.005 -115.508,87.745 0,184.971 115.508,-97.226 0.006,-184.966 0,-184.971z"/>
+    <path android:fillColor="#f9ab21" android:pathData="m307.339,144.526c0,20.053 -6.873,42.229 -25.649,65.384 -6.883,8.481 -15.364,17.096 -25.69,25.783v-184.972c0.01,0 51.339,38.994 51.339,93.805z"/>
+    <path android:fillColor="#29cc9a" android:pathData="m474.97,224.396c-28.046,12.518 -51.971,6.338 -106.478,-8.873 -56.278,-15.705 -96.933,30.74 -112.492,52.634 -15.558,-21.894 -56.214,-68.339 -112.492,-52.634 -54.507,15.211 -78.432,21.391 -106.478,8.873 0,0 -16.191,140.851 87.464,165.421 67.386,15.974 114.518,-15.615 131.506,-29.76 16.988,14.144 64.12,45.734 131.506,29.761 103.655,-24.57 87.464,-165.422 87.464,-165.422zM101.085,294.488c79.356,-49.691 111.248,12.608 111.248,12.608 -63.041,63.04 -111.248,-12.608 -111.248,-12.608zM299.84,307.096s31.891,-62.299 111.247,-12.608c0,0 -48.207,75.648 -111.247,12.608z"/>
+    <path android:fillColor="#17af84" android:pathData="m474.967,224.398c-28.039,12.52 -51.967,6.338 -106.479,-8.872 -31.254,-8.718 -57.697,1.731 -77.688,16.488 -16.003,11.82 -27.874,26.411 -34.799,36.139v91.908c16.993,14.138 64.116,45.733 131.51,29.76 103.655,-24.577 87.456,-165.423 87.456,-165.423zM299.837,307.094s31.893,-62.292 111.251,-12.603c-0.001,0 -48.207,75.648 -111.251,12.603z"/>
+    <path android:fillColor="#4d7efb" android:pathData="M223.867,246.935a34.813,34.813 111.975,1 0,64.08 -27.234a34.813,34.813 111.975,1 0,-64.08 27.234z"/>
+    <path android:fillColor="#2560e5" android:pathData="m290.83,233.425c0,19.239 -15.591,34.83 -34.83,34.83v-69.65c10.171,0 19.322,4.359 25.69,11.304 5.379,5.874 8.769,13.592 9.109,22.104 0.021,0.464 0.031,0.938 0.031,1.412z"/>
+</vector>

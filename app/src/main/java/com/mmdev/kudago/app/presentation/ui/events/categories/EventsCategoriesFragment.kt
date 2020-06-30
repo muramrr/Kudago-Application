@@ -26,8 +26,9 @@ import com.mmdev.kudago.app.databinding.FragmentEventsCategoriesBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesAdapter.AdapterEventsCategory
 
 /**
  * This is the documentation block about the class
@@ -48,16 +49,16 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 	override fun setupViews() {
 		viewBinding.rvEventsCategories.applySystemWindowInsets(applyTop = true)
 
-		val mEventsCategoriesAdapter = EventsCategoriesAdapter(setupAdapterList())
+		val eventsCategoriesAdapter = CategoriesAdapter(setupAdapterList())
 		viewBinding.rvEventsCategories.apply {
-			adapter = mEventsCategoriesAdapter
+			adapter = eventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
 		}
 
-		mEventsCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<AdapterEventsCategory>{
+		eventsCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
 
-			override fun onItemClick(item: AdapterEventsCategory, position: Int) {
+			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
 				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
 				                        TITLE_KEY to item.title)
 				navController.navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
@@ -67,32 +68,32 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 	}
 
 	private fun setupAdapterList() = listOf(
-			AdapterEventsCategory(title = getString(R.string.category_events_title_cinema),
-			                      picture = R.drawable.events_cinema,
-			                      apiIdentifier = getString(R.string.api_cinema)),
-			AdapterEventsCategory(title = getString(R.string.category_events_title_theater),
-			                      picture = R.drawable.events_theater,
-			                      apiIdentifier = getString(R.string.api_events_theater)),
-			AdapterEventsCategory(title = getString(R.string.category_title_concert),
-			                      picture = R.drawable.events_concert,
-			                      apiIdentifier =  getString(R.string.api_concert)),
-			AdapterEventsCategory(title = getString(R.string.category_title_entertainment),
-			                      picture = R.drawable.events_entertainment,
-			                      apiIdentifier = getString(R.string.api_entertainment)),
-			AdapterEventsCategory(title = getString(R.string.category_title_exhibition),
-			                      picture = R.drawable.events_exhibition,
-			                      apiIdentifier = getString(R.string.api_exhibition)),
-			AdapterEventsCategory(title = getString(R.string.category_title_festival),
-			                      picture = R.drawable.events_festival,
-			                      apiIdentifier = getString(R.string.api_festival)),
-			AdapterEventsCategory(title = getString(R.string.category_title_party),
-			                      picture = R.drawable.events_party,
-			                      apiIdentifier = getString(R.string.api_party)),
-			AdapterEventsCategory(title = getString(R.string.category_title_fair),
-			                      picture = R.drawable.events_fair,
-			                      apiIdentifier = getString(R.string.api_fair)),
-			AdapterEventsCategory(title = getString(R.string.category_title_other),
-			                      picture = R.drawable.events_other,
-			                      apiIdentifier = getString(R.string.api_other)))
+			AdapterCategoryItem(title = getString(R.string.category_events_title_cinema),
+			                    icon = R.drawable.ic_events_movies_24dp,
+			                    apiIdentifier = getString(R.string.api_cinema)),
+			AdapterCategoryItem(title = getString(R.string.category_events_title_theater),
+			                    icon = R.drawable.ic_events_theater_24dp,
+			                    apiIdentifier = getString(R.string.api_events_theater)),
+			AdapterCategoryItem(title = getString(R.string.category_title_concert),
+			                    icon = R.drawable.ic_events_concert_24dp,
+			                    apiIdentifier =  getString(R.string.api_concert)),
+			AdapterCategoryItem(title = getString(R.string.category_title_entertainment),
+			                    icon = R.drawable.ic_events_entertainment_24dp,
+			                    apiIdentifier = getString(R.string.api_entertainment)),
+			AdapterCategoryItem(title = getString(R.string.category_title_exhibition),
+			                    icon = R.drawable.ic_events_exhibition_24dp,
+			                    apiIdentifier = getString(R.string.api_exhibition)),
+			AdapterCategoryItem(title = getString(R.string.category_title_festival),
+			                    icon = R.drawable.ic_events_festival_24dp,
+			                    apiIdentifier = getString(R.string.api_festival)),
+			AdapterCategoryItem(title = getString(R.string.category_title_party),
+			                    icon = R.drawable.ic_events_party_24dp,
+			                    apiIdentifier = getString(R.string.api_party)),
+			AdapterCategoryItem(title = getString(R.string.category_title_fair),
+			                    icon = R.drawable.ic_events_fair_24dp,
+			                    apiIdentifier = getString(R.string.api_fair)),
+			AdapterCategoryItem(title = getString(R.string.category_title_other),
+			                    icon = R.drawable.ic_ic_events_other_24dp,
+			                    apiIdentifier = getString(R.string.api_other)))
 
 }

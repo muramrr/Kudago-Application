@@ -17,7 +17,8 @@
 
 package com.mmdev.kudago.app.adapters
 
-import com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesAdapter
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -26,22 +27,23 @@ import org.junit.Test
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesAdapterTest {
+class CategoriesAdapterTest {
 
-	private var adapter = PlacesCategoriesAdapter()
+	private var adapter = CategoriesAdapter(emptyList())
 
 	@Test
 	fun getItemCount() {
 
 		assertNotEquals(0, adapter.itemCount)
 
-		adapter = PlacesCategoriesAdapter(listOf("first", "second"))
+		adapter = CategoriesAdapter(listOf(AdapterCategoryItem(title = "first"),
+		                                   AdapterCategoryItem(title = "second")))
 		assertEquals(2, adapter.itemCount)
 	}
 
 	@Test
 	fun getItem() {
-		adapter = PlacesCategoriesAdapter(listOf("first", "second"))
-		assertEquals("first", adapter.getItem(0))
+		adapter = CategoriesAdapter(listOf(AdapterCategoryItem(title = "first")))
+		assertEquals("first", adapter.getItem(0).title)
 	}
 }
