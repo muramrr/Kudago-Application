@@ -19,15 +19,31 @@
 
 <resources>
 
-	<style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
-		<item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+	<style name="My.Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+		<item name="materialThemeOverlay">@style/My.ThemeOverlay.App.Switch</item>
 	</style>
 
-	<style name="ThemeOverlay.App.Switch" parent="">
+	<style name="My.ThemeOverlay.App.Switch" parent="">
 		<item name="colorSurface">@android:color/white</item>
 		<item name="colorOnSurface">@color/colorPrimaryLight</item>
 		<item name="colorSecondary">@color/colorSecondary</item>
 	</style>
 
+	<style name="My.Widget.App.MaterialButton.IconOnly.Rounded" parent="Widget.MaterialComponents.Button.UnelevatedButton.Icon">
+
+		<item name="android:insetLeft">0dp</item>
+		<item name="android:insetRight">0dp</item>
+		<item name="android:insetTop">0dp</item>
+		<item name="android:insetBottom">0dp</item>
+
+		<item name="shapeAppearanceOverlay">@style/My.ShapeAppearanceOverlay.Button.Rounded</item>
+
+	</style>
+
+	<style name="My.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+
+		<item name="shapeAppearanceOverlay">@style/My.ShapeAppearanceOverlay.Dialog.Rounded</item>
+
+	</style>
 
 </resources>

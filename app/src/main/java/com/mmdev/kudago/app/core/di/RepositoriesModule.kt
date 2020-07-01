@@ -30,7 +30,7 @@ import org.koin.dsl.module
 
 
 //repos
-val RepositoryModules = module {
+val RepositoryModule = module {
 
 	single<IPlacesRepository> { providePlacesRepositoryImpl(placesApi = get(), favouritesDao = get() ) }
 

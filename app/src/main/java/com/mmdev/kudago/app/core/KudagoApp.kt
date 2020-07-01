@@ -22,7 +22,7 @@ import com.ironz.binaryprefs.Preferences
 import com.mmdev.kudago.app.core.di.DatabaseModule
 import com.mmdev.kudago.app.core.di.NetworkModule
 import com.mmdev.kudago.app.core.di.PresentersModule
-import com.mmdev.kudago.app.core.di.RepositoryModules
+import com.mmdev.kudago.app.core.di.RepositoryModule
 import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -37,7 +37,7 @@ class KudagoApp: Application() {
 
 	private val applicationModules = listOf(DatabaseModule,
 	                                        PresentersModule,
-	                                        RepositoryModules,
+	                                        RepositoryModule,
 	                                        NetworkModule)
 
 	override fun onCreate() {

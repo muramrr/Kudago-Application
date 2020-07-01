@@ -33,8 +33,8 @@
 	<color name="colorError">#C62828</color>
 
 	<!-- backgrounds -->
-	<color name="colorBackground">#FFFFFF</color>
-	<color name="colorSurface">#FFFFFF</color>
+	<color name="colorBackground">#f4f6ff</color>
+	<color name="colorSurface">#f4f6ff</color>
 
 	<!-- "On" colors-->
 	<color name="colorOnPrimary">#000000</color>

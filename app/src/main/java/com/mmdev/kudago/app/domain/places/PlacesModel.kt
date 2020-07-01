@@ -40,6 +40,7 @@ data class PlaceDetailedEntity (val id: Int = 0,
                                 val body_text: String = "",
                                 val description: String = "",
                                 val images: List<ImageEntity> = emptyList(),
+                                val phone: String = "",
                                 var isAddedToFavourites: Boolean = false):
 
 		IMapperFavourite {

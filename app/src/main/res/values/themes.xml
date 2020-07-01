@@ -49,7 +49,7 @@
 		<!-- widgets styles -->
 		<item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface</item>
 		<item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
-		<item name="switchStyle">@style/Widget.App.Switch</item>
+		<item name="switchStyle">@style/My.Widget.App.Switch</item>
 
 
 	</style>

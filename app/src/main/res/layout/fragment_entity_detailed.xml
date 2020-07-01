@@ -44,19 +44,21 @@
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:layout_marginBottom="24dp"
 			>
 
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvDetailedAboutHeader"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:labelFor="@id/tvDetailedDescription"
 				android:paddingTop="16dp"
 				android:paddingBottom="16dp"
 				android:paddingStart="8dp"
 				android:paddingEnd="8dp"
 
 				android:text="@string/detailed_about_header"
-				android:textAppearance="@style/header_text"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 
 				app:layout_constraintTop_toTopOf="parent"
 				app:layout_constraintBottom_toTopOf="@id/tvDetailedDescription"
@@ -68,20 +70,56 @@
 				android:id="@+id/tvDetailedDescription"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-
 				android:lineSpacingExtra="10sp"
 
-
-				android:textSize="16sp"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				app:layout_constraintTop_toBottomOf="@id/tvDetailedAboutHeader"
+				app:layout_constraintBottom_toTopOf="@id/tvPhoneNumberHeader"
 
 				/>
 
+			<com.google.android.material.textview.MaterialTextView
+				android:id="@+id/tvPhoneNumberHeader"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:labelFor="@id/btnPhoneNumber"
+				android:paddingTop="16dp"
+				android:paddingBottom="16dp"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
 
-			<!-- left padding -->
+				android:text="Phone"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+
+				app:layout_constraintTop_toBottomOf="@id/tvDetailedDescription"
+				app:layout_constraintBottom_toTopOf="@id/btnPhoneNumber"
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				/>
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/btnPhoneNumber"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:padding="24dp"
+
+				android:textSize="16sp"
+
+				app:icon="@drawable/ic_baseline_phone_24dp"
+				app:iconPadding="-24dp"
+
+				app:cornerRadius="16dp"
+
+				app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberHeader"
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				/>
+
+
+			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineStart"
 				android:layout_width="wrap_content"
@@ -89,7 +127,7 @@
 				android:orientation="vertical"
 				app:layout_constraintGuide_begin="8dp" />
 
-			<!-- right padding -->
+			<!-- right margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineEnd"
 				android:layout_width="wrap_content"
@@ -173,20 +211,11 @@
 			android:id="@+id/toolbarNavigation"
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:layout_gravity="start"
 			android:layout_marginStart="4dp"
-
-			android:insetLeft="0dp"
-			android:insetTop="0dp"
-			android:insetRight="0dp"
-			android:insetBottom="0dp"
-
-			app:iconSize="24dp"
 
 			app:icon="@drawable/ic_arrow_back_24dp"
 
-			style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
-			app:shapeAppearanceOverlay="@style/My.ShapeAppearanceOverlay.Button.Rounded"
+			style="@style/My.Widget.App.MaterialButton.IconOnly.Rounded"
 
 			/>
 

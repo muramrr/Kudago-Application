@@ -17,27 +17,29 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentPlaceDetailedBinding
+import com.mmdev.kudago.app.databinding.FragmentEntityDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
-import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
+import com.mmdev.kudago.app.presentation.ui.common.*
 import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
+class PlaceDetailedFragment: BaseFragment(R.layout.fragment_entity_detailed),
                              PlaceDetailedContract.View {
 
-	private val viewBinding by viewBinding(FragmentPlaceDetailedBinding::bind)
+	private val viewBinding by viewBinding(FragmentEntityDetailedBinding::bind)
 
 	override val presenter: PlaceDetailedPresenter by inject()
 
@@ -77,6 +79,12 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
+		viewBinding.btnPhoneNumber.attachClickToCopyText(requireContext())
+		viewBinding.btnPhoneNumber.setOnLongClickListener {
+			buildDialog(viewBinding.btnPhoneNumber.text.toString()).show()
+			return@setOnLongClickListener true
+		}
+
 		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addOrRemovePlaceToFavourites() }
 	}
 
@@ -85,6 +93,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedDescription.text = data.body_text
+		viewBinding.btnPhoneNumber.text = data.phone
 	}
 
 	override fun setRemoveTextFab() {
@@ -98,5 +107,23 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	override fun showSuccessDeletedToast() = showToast(getString(R.string.toast_successfully_removed_favourite))
 
 	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
+
+	private fun buildDialog(phone: String): AlertDialog {
+		val dialog = requireContext().showMaterialAlertDialogChooser(
+				arrayOf("Call", "Copy", "Cancel"),
+				listOf(
+						{
+					       val callIntent = Intent(Intent.ACTION_DIAL)
+					       callIntent.data = Uri.parse("tel:$phone")
+					       startActivity(callIntent)
+						},
+				       { viewBinding.btnPhoneNumber.performClick() },
+				       { }
+				)
+		)
+		val params = dialog.window?.attributes
+		params?.gravity = Gravity.BOTTOM
+		return dialog
+	}
 
 }
