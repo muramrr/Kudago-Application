@@ -20,9 +20,11 @@ package com.mmdev.kudago.app.presentation.ui.common
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.mmdev.kudago.app.R
@@ -84,3 +86,8 @@ fun Context.showMaterialAlertDialogChooser(items: Array<String>,
 			clicks[itemIndex]()
 		}
 		.create()
+
+fun TextView.setHtmlText(source: String) {
+	this.text = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT)
+	this.movementMethod = LinkMovementMethod.getInstance()
+}

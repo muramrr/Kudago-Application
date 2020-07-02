@@ -31,6 +31,7 @@ import kotlin.reflect.KProperty
  * pass the MyBinding.bind function reference to our delegate,
  * and initialize the View’s binding using [viewBinding] function.
  * Then, we clear this binding value when the views are destroyed.
+ * Kotlin Delegated Property in use
  */
 
 class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment,
@@ -40,11 +41,15 @@ class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment,
 	private var binding: T? = null
 
 	init {
+		//add observer to fragment
 		fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
 			override fun onCreate(owner: LifecycleOwner) {
 				fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
 					viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+						//null value
+						//remove observer
 						override fun onDestroy(owner: LifecycleOwner) {
+							owner.lifecycle.removeObserver(this)
 							binding = null
 						}
 					})

@@ -135,7 +135,7 @@
 	<fragment android:id="@+id/placeDetailedFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedFragment"
 		android:label="PlaceDetailedFragment"
-		tools:layout="@layout/fragment_entity_detailed">
+		tools:layout="@layout/fragment_place_detailed">
 
 		<argument android:name="PLACE_ID"
 			app:argType="integer"
@@ -146,7 +146,7 @@
 	<fragment android:id="@+id/eventDetailedFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedFragment"
 		android:label="EventDetailedFragment"
-		tools:layout="@layout/fragment_entity_detailed">
+		tools:layout="@layout/fragment_event_detailed">
 
 		<argument android:name="EVENT_ID"
 			app:argType="integer"

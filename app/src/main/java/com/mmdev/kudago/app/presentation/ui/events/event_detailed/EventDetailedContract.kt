@@ -40,10 +40,11 @@ interface EventDetailedContract {
 
 		fun updateData(data: EventDetailedEntity)
 
+		fun updateTime(humanDates: String)
+
 	}
 
-	interface Presenter :
-			IBasePresenter<View> {
+	interface Presenter : IBasePresenter<View> {
 
 		fun addOrRemoveEventToFavourites()
 

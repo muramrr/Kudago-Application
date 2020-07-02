@@ -25,7 +25,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentEntityDetailedBinding
+import com.mmdev.kudago.app.databinding.FragmentPlaceDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -36,10 +36,10 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class PlaceDetailedFragment: BaseFragment(R.layout.fragment_entity_detailed),
+class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
                              PlaceDetailedContract.View {
 
-	private val viewBinding by viewBinding(FragmentEntityDetailedBinding::bind)
+	private val viewBinding by viewBinding(FragmentPlaceDetailedBinding::bind)
 
 	override val presenter: PlaceDetailedPresenter by inject()
 
@@ -92,7 +92,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_entity_detailed),
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
-		viewBinding.tvDetailedDescription.text = data.body_text
+		viewBinding.tvDetailedDescription.setHtmlText(data.body_text)
 		viewBinding.btnPhoneNumber.text = data.phone
 	}
 

@@ -23,6 +23,8 @@ import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * This is the documentation block about the class
@@ -73,6 +75,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 				is ResultState.Success -> {
 					eventDetailedEntity = result.data
 					getLinkedView()?.updateData(eventDetailedEntity)
+					getLinkedView()?.updateTime(convertTime(eventDetailedEntity.dates[0].start,
+					                                        eventDetailedEntity.dates[0].end))
 					handleFabState(eventDetailedEntity.isAddedToFavourites)
 
 					isAdded = eventDetailedEntity.isAddedToFavourites
@@ -89,5 +93,29 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		else getLinkedView()?.setAddTextFab()
 	}
 
+	private fun convertTime(start: Long, end: Long): String {
+		val dateFormatter = SimpleDateFormat.getDateTimeInstance()
+
+		val startDate = Date(start * 1000L)
+		val endDate: Date
+		return if (end != 253370754000){
+			endDate = Date(end * 1000L)
+			DateHuman(dateFormatter.format(startDate), dateFormatter.format(endDate)).toString()
+		}
+		else DateHuman(dateFormatter.format(startDate), null).toString()
+
+
+
+
+
+	}
+
+	data class DateHuman(val start: String, val end: String?) {
+		override fun toString(): String {
+			end?.let { return "$start - $end" }
+			return start
+
+		}
+	}
 
 }

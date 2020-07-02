@@ -47,6 +47,7 @@
 			android:layout_marginBottom="24dp"
 			>
 
+			<!-- about header -->
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvDetailedAboutHeader"
 				android:layout_width="0dp"
@@ -65,7 +66,7 @@
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				/>
-
+			<!-- about content -->
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvDetailedDescription"
 				android:layout_width="0dp"
@@ -80,7 +81,7 @@
 				app:layout_constraintBottom_toTopOf="@id/tvPhoneNumberHeader"
 
 				/>
-
+			<!-- phone header -->
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvPhoneNumberHeader"
 				android:layout_width="0dp"
@@ -99,7 +100,7 @@
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				/>
-
+			<!-- phone button -->
 			<com.google.android.material.button.MaterialButton
 				android:id="@+id/btnPhoneNumber"
 				android:layout_width="0dp"

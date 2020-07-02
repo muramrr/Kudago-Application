@@ -36,7 +36,8 @@ interface EventsApi {
 	                               @Query("location") location: String,
 	                               @Query("page") page: Int = 1): Response<EventsResponse>
 
-	@GET("events/{id}/?fields=id,title,short_title,body_text,description,images&text_format=plain")
+	@GET("events/{id}/?fields=id,title,short_title," +
+	     "body_text,description,images,dates,price,is_free")
 	suspend fun getEventDetailsAsync(@Path("id") id: Int): EventDetailedEntity
 
 }
