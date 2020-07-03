@@ -92,7 +92,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
 	override fun updateData(data: PlaceDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
-		viewBinding.tvDetailedDescription.setHtmlText(data.body_text)
+		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
 		viewBinding.btnPhoneNumber.text = data.phone
 	}
 
