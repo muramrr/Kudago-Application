@@ -102,7 +102,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 	}
 
 	override fun setCityIsNotChosen() {
-		viewBinding.dropSettingsEditCity.setText(getString(R.string.city_is_not_chosen), false)
+		viewBinding.dropSettingsEditCity.setText(getString(R.string.settings_city_is_not_chosen), false)
 	}
 
 	override fun updateTheme(themeMode: ThemeMode) {

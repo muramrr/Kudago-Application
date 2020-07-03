@@ -18,6 +18,48 @@
 
 <resources>
 
+	<!-- bottom navigation -->
+	<string name="bottom_navigation_places">Места</string>
+	<string name="bottom_navigation_events">События</string>
+	<string name="bottom_navigation_favourites">Избранное</string>
+	<string name="bottom_navigation_settings">Настройки</string>
+
+	<!-- ui strings -->
+	<string name="category_detailed_empty_list">Мы ничего не нашли в данной категории</string>
+
+	<string name="detailed_about_header">Описание</string>
+	<string name="detailed_fab_add_text">Добавить в избранное</string>
+	<string name="detailed_fab_remove_text">Удалить избранное</string>
+
+	<string name="favourites_empty_hint">Избранное не добавлено</string>
+	<string name="favourite_tab_events">События</string>
+	<string name="favourite_tab_places">Места</string>
+
+	<string name="settings_btn_clear_cache">Очистить кэш\n</string>
+	<string name="settings_btn_clear_favourites">Очистить избранное</string>
+	<string name="settings_city_is_not_chosen">Город не выбран</string>
+	<string name="settings_switch_force_dark_theme">Включить темную тему</string>
+
+	<string name="toast_successfully_added_favourite">Добавлено в избранное</string>
+	<string name="toast_successfully_cleared_favourites">Избранное полностью очищено</string>
+	<string name="toast_successfully_removed_favourite">Удалено из избранного</string>
+
+
+	<string name="event_detailed_free">Бесплатно</string>
+	<string name="event_detailed_every_day">Каждый день</string>
+	<string name="event_detailed_price_not_specified">Цена не указана</string>
+	<string name="event_detailed_whole_year">Круглый год</string>
+	<string name="event_detailed_whole_day">Весь день</string>
+
+	<!-- content descriptions -->
+	<string name="description_category_title_picture">Изображение категории</string>
+	<string name="description_category_item_picture">Изображение элемента</string>
+	<string name="description_sad_face_image">Грустное лицо</string>
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- user friendly api resources -->
 	<string name="city_human_ekb">Екатеринбург</string>
 	<string name="city_human_krasnoyarsk">Красноярск</string>
 	<string name="city_human_krd">Краснодар</string>
@@ -28,6 +70,7 @@
 	<string name="city_human_spb">Санкт-Петербург</string>
 	<string name="city_human_sochi">Сочи</string>
 
+	<!-- user friendly api resources -->
 	<string name="category_events_title_cinema">Кино</string>
 	<string name="category_events_title_theater">Спектакли</string>
 	<string name="category_title_concert">Концерты</string>
@@ -50,33 +93,6 @@
 	<string name="category_title_clubs">Клубы</string>
 	<string name="category_title_stripclub">Стрип-клубы</string>
 	<string name="category_title_sights">Интересные места</string>
-
-	<string name="bottom_navigation_places">Места</string>
-	<string name="bottom_navigation_events">События</string>
-	<string name="bottom_navigation_favourites">Избранное</string>
-	<string name="bottom_navigation_settings">Настройки</string>
-
-	<string name="detailed_about_header">Описание</string>
-
-	<string name="favourite_tab_events">События</string>
-	<string name="favourite_tab_places">Места</string>
-
-	<string name="settings_btn_clear_cache">Очистить кэш\n</string>
-	<string name="settings_btn_clear_favourites">Очистить избранное</string>
-	<string name="settings_switch_force_dark_theme">Включить темную тему</string>
-
-	<string name="description_category_title_picture">Изображение категории</string>
-	<string name="description_category_item_picture">Изображение элемента</string>
-	<string name="description_sad_face_image">Грустное лицо</string>
-
-	<string name="toast_successfully_removed_favourite">Удалено из избранного</string>
-	<string name="toast_successfully_added_favourite">Добавлено в избранное</string>
-	<string name="toast_successfully_cleared_favourites">Избранное полностью очищено</string>
-	<string name="detailed_fab_remove_text">Удалить избранное</string>
-	<string name="detailed_fab_add_text">Добавить в избранное</string>
-	<string name="city_is_not_chosen">Город не выбран</string>
-	<string name="category_detailed_empty_list">Мы ничего не нашли в данной категории</string>
-	<string name="favourites_empty_hint">Избранное не добавлено</string>
 
 
 </resources>

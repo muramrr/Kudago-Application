@@ -19,59 +19,48 @@
 
 	<string name="app_name" translatable="false">Kudago-App</string>
 
+	<!-- bottom navigation -->
 	<string name="bottom_navigation_places">Places</string>
 	<string name="bottom_navigation_events">Events</string>
 	<string name="bottom_navigation_favourites">Favourites</string>
 	<string name="bottom_navigation_settings">Settings</string>
+
+	<!-- ui strings -->
+	<string name="category_detailed_empty_list">Sorry\nCan\'t find anything in this category</string>
+
 	<string name="detailed_about_header">About</string>
+	<string name="detailed_fab_add_text">Add to favourites</string>
+	<string name="detailed_fab_remove_text">Remove from favourites</string>
 	<string name="default_title" translatable="false">Title</string>
+
+	<string name="event_detailed_every_day">Every day</string>
+	<string name="event_detailed_free">Free</string>
+	<string name="event_detailed_price_not_specified">Price is not specified</string>
+	<string name="event_detailed_whole_year">Whole year</string>
+	<string name="event_detailed_whole_day">All day long</string>
+
 	<string name="favourite_tab_events">Events</string>
 	<string name="favourite_tab_places">Places</string>
+	<string name="favourites_empty_hint">No favourites added</string>
+
 	<string name="settings_btn_clear_cache">Clear Cache\n</string>
 	<string name="settings_btn_clear_favourites">Clear Favourites</string>
+	<string name="settings_city_is_not_chosen">City is not chosen</string>
 	<string name="settings_switch_force_dark_theme">Force Dark Theme</string>
-	<string name="description_category_title_picture">Category title picture</string>
-	<string name="description_category_item_picture">Category item picture</string>
 
-	<string name="city_api_ekb" translatable="false">ekb</string>
-	<string name="city_api_krasnoyarsk" translatable="false">krasnoyarsk</string>
-	<string name="city_api_krd" translatable="false">krd</string>
-	<string name="city_api_kzn" translatable="false">kzn</string>
-	<string name="city_api_msk" translatable="false">msk</string>
-	<string name="city_api_nnv" translatable="false">nnv</string>
-	<string name="city_api_nsk" translatable="false">nsk</string>
-	<string name="city_api_spb" translatable="false">spb</string>
-	<string name="city_api_sochi" translatable="false">sochi</string>
-
-	<string name="api_cinema" translatable="false">cinema</string>
-	<string name="api_events_theater" translatable="false">theater</string>
-	<string name="api_concert" translatable="false">concert</string>
-	<string name="api_entertainment" translatable="false">entertainment</string>
-	<string name="api_exhibition" translatable="false">exhibition</string>
-	<string name="api_festival" translatable="false">festival</string>
-	<string name="api_party" translatable="false">party</string>
-	<string name="api_fair" translatable="false">yarmarki-razvlecheniya-yarmarki</string>
-	<string name="api_other" translatable="false">other</string>
-	<string name="api_restaurants" translatable="false">restaurants</string>
-	<string name="api_bar" translatable="false">bar</string>
-	<string name="api_amusement" translatable="false">amusement</string>
-	<string name="api_anticafe" translatable="false">anticafe</string>
-	<string name="api_artcenters" translatable="false">art-centers</string>
-	<string name="api_artspace" translatable="false">art-space</string>
-	<string name="api_theatre" translatable="false">theatre</string>
-	<string name="api_museums" translatable="false">museums</string>
-	<string name="api_park" translatable="false">park</string>
-	<string name="api_clubs" translatable="false">clubs</string>
-	<string name="api_stripclub" translatable="false">strip-club</string>
-	<string name="api_sights" translatable="false">sights</string>
-
-	<string name="toast_successfully_removed_favourite">Successfully removed from favourites</string>
 	<string name="toast_successfully_added_favourite">Successfully added to favourites</string>
 	<string name="toast_successfully_cleared_favourites">Successfully cleared favourites</string>
-	<string name="detailed_fab_remove_text">Remove from favourites</string>
-	<string name="detailed_fab_add_text">Add to favourites</string>
-	<string name="city_is_not_chosen">City is not chosen</string>
+	<string name="toast_successfully_removed_favourite">Successfully removed from favourites</string>
 
+	<!-- content descriptions -->
+	<string name="description_category_title_picture">Category title picture</string>
+	<string name="description_category_item_picture">Category item picture</string>
+	<string name="description_sad_face_image">Sad face image</string>
+
+
+
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- user friendly api resources -->
 	<string name="city_human_ekb">Yekaterinburg</string>
 	<string name="city_human_krasnoyarsk">Krasnoyarsk</string>
 	<string name="city_human_krd">Krasnodar</string>
@@ -81,7 +70,7 @@
 	<string name="city_human_nsk">Novosibirsk</string>
 	<string name="city_human_spb">Saint-Petersburg</string>
 	<string name="city_human_sochi">Sochi</string>
-
+	<!-- user friendly api resources -->
 	<string name="category_events_title_cinema">Movies</string>
 	<string name="category_events_title_theater">Performances</string>
 	<string name="category_title_concert">Concert</string>
@@ -104,9 +93,44 @@
 	<string name="category_title_clubs">Clubs</string>
 	<string name="category_title_stripclub">Strip-Club</string>
 	<string name="category_title_sights">Sights</string>
-	<string name="description_sad_face_image">Sad face image</string>
-	<string name="category_detailed_empty_list">Sorry\nCan\'t find anything in this category</string>
-	<string name="favourites_empty_hint">No favourites added</string>
+
+
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- api resources -->
+	<string name="city_api_ekb" translatable="false">ekb</string>
+	<string name="city_api_krasnoyarsk" translatable="false">krasnoyarsk</string>
+	<string name="city_api_krd" translatable="false">krd</string>
+	<string name="city_api_kzn" translatable="false">kzn</string>
+	<string name="city_api_msk" translatable="false">msk</string>
+	<string name="city_api_nnv" translatable="false">nnv</string>
+	<string name="city_api_nsk" translatable="false">nsk</string>
+	<string name="city_api_spb" translatable="false">spb</string>
+	<string name="city_api_sochi" translatable="false">sochi</string>
+	<!-- api resources -->
+	<string name="api_cinema" translatable="false">cinema</string>
+	<string name="api_events_theater" translatable="false">theater</string>
+	<string name="api_concert" translatable="false">concert</string>
+	<string name="api_entertainment" translatable="false">entertainment</string>
+	<string name="api_exhibition" translatable="false">exhibition</string>
+	<string name="api_festival" translatable="false">festival</string>
+	<string name="api_party" translatable="false">party</string>
+	<string name="api_fair" translatable="false">yarmarki-razvlecheniya-yarmarki</string>
+	<string name="api_other" translatable="false">other</string>
+	<string name="api_restaurants" translatable="false">restaurants</string>
+	<string name="api_bar" translatable="false">bar</string>
+	<string name="api_amusement" translatable="false">amusement</string>
+	<string name="api_anticafe" translatable="false">anticafe</string>
+	<string name="api_artcenters" translatable="false">art-centers</string>
+	<string name="api_artspace" translatable="false">art-space</string>
+	<string name="api_theatre" translatable="false">theatre</string>
+	<string name="api_museums" translatable="false">museums</string>
+	<string name="api_park" translatable="false">park</string>
+	<string name="api_clubs" translatable="false">clubs</string>
+	<string name="api_stripclub" translatable="false">strip-club</string>
+	<string name="api_sights" translatable="false">sights</string>
+
+
+
 
 
 </resources>
