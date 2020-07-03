@@ -42,17 +42,42 @@
 		app:layout_constraintTop_toBottomOf="@id/vpPhotos">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:layout_width="match_parent"
 			android:layout_marginBottom="24dp"
+
 			>
+
+			<!-- price -->
+			<com.google.android.material.textview.MaterialTextView
+				android:id="@+id/tvPrice"
+				android:layout_height="wrap_content"
+				android:layout_width="0dp"
+				android:background="@drawable/rounded_corners"
+				android:elevation="1dp"
+				android:paddingTop="16dp"
+				android:paddingBottom="16dp"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
+
+				android:text=""
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+				app:drawableStartCompat="@drawable/ic_rubles_24dp"
+
+
+				app:layout_constraintTop_toTopOf="@id/guidelineTop"
+				app:layout_constraintBottom_toTopOf="@id/tvDetailedAboutHeader"
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				/>
 
 			<!-- about header -->
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvDetailedAboutHeader"
-				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:labelFor="@id/tvDetailedDescription"
+				android:layout_width="0dp"
+				android:labelFor="@id/tvDetailedAbout"
 				android:paddingTop="16dp"
 				android:paddingBottom="16dp"
 				android:paddingStart="8dp"
@@ -61,16 +86,17 @@
 				android:text="@string/detailed_about_header"
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toTopOf="@id/tvDetailedDescription"
+				app:layout_constraintTop_toBottomOf="@id/tvPrice"
+				app:layout_constraintBottom_toTopOf="@id/tvDetailedAbout"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				/>
+
 			<!-- about content -->
 			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvDetailedDescription"
-				android:layout_width="0dp"
+				android:id="@+id/tvDetailedAbout"
 				android:layout_height="wrap_content"
+				android:layout_width="0dp"
 				android:lineSpacingExtra="10sp"
 
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
@@ -78,57 +104,91 @@
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				app:layout_constraintTop_toBottomOf="@id/tvDetailedAboutHeader"
-				app:layout_constraintBottom_toTopOf="@id/tvDetailedDatesHeader"
+				app:layout_constraintBottom_toTopOf="@id/cvContainerDates"
 				/>
-			<!-- dates header -->
-			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvDetailedDatesHeader"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:labelFor="@id/tvDetailedDescription"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
 
-				android:text="When?"
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 
-				app:layout_constraintTop_toBottomOf="@id/tvDetailedDescription"
-				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-				app:layout_constraintStart_toStartOf="@id/guidelineStart"
-				app:layout_constraintBottom_toTopOf="@id/tvDetailedDates"
-				/>
 			<!-- dates content -->
-			<com.google.android.material.textview.MaterialTextView
-				android:id="@+id/tvDetailedDates"
-				android:layout_width="0dp"
+			<com.google.android.material.card.MaterialCardView
+				android:id="@+id/cvContainerDates"
 				android:layout_height="wrap_content"
-				android:lineSpacingExtra="10sp"
+				android:layout_width="0dp"
 
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+				app:contentPadding="16dp"
+				app:cardCornerRadius="10dp"
+				app:cardElevation="1dp"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
-				app:layout_constraintTop_toBottomOf="@id/tvDetailedDatesHeader"
-				/>
+				app:layout_constraintTop_toBottomOf="@id/tvDetailedAbout"
+				app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
 
+				>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:id="@+id/tvDetailedDate"
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+
+					android:drawablePadding="8dp"
+					android:paddingBottom="32dp"
+
+					android:text=""
+					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+
+					app:drawableStartCompat="@drawable/ic_calendar_24dp"
+
+					/>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:id="@+id/tvDetailedTime"
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:layout_gravity="bottom"
+					android:paddingStart="32dp"
+					android:paddingEnd="0dp"
+
+					android:text=""
+					android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+					/>
+
+			</com.google.android.material.card.MaterialCardView>
+
+			<!-- top margin -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineTop"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				app:layout_constraintGuide_begin="8dp"
+				android:orientation="horizontal"
+				/>
 
 			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineStart"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="vertical"
-				app:layout_constraintGuide_begin="8dp" />
+				app:layout_constraintGuide_begin="8dp"
+				/>
 
 			<!-- right margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineEnd"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="vertical"
-				app:layout_constraintGuide_end="8dp" />
+				app:layout_constraintGuide_end="8dp"
+				/>
+
+			<!-- bottom margin -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineBottom"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				app:layout_constraintGuide_end="8dp"
+				android:orientation="horizontal"
+				/>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -143,7 +203,9 @@
 
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/scrollContainer"
+		/>
 
 	<com.google.android.material.tabs.TabLayout
 		android:id="@+id/tlDotsIndicator"

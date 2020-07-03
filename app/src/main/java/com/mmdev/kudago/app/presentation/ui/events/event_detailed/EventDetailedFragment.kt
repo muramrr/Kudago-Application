@@ -86,12 +86,30 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
 	override fun updateData(data: EventDetailedEntity) {
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
-		viewBinding.tvDetailedDescription.setHtmlText(data.body_text)
+		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
+		viewBinding.tvPrice.text = when {
+			data.is_free -> getString(R.string.event_detailed_free)
+			data.price.isNotBlank() -> data.price
+			else -> getString(R.string.event_detailed_price_not_specified)
+		}
 
 	}
 
-	override fun updateTime(humanDates: String) {
-		viewBinding.tvDetailedDates.text = humanDates
+	override fun setEventTime(humanDate: EventDetailedPresenter.DateHuman?) {
+		if (humanDate != null)
+			humanDate.let {
+				viewBinding.tvDetailedDate.text = it.getDate()
+				if (it.getTime() !in arrayOf("0:00", "12:00 AM"))
+					viewBinding.tvDetailedTime.text = it.getTime()
+				else viewBinding.tvDetailedTime.text = getString(R.string.event_detailed_every_day)
+
+			}
+		else {
+			viewBinding.tvDetailedDate.text = getString(R.string.event_detailed_whole_year)
+			viewBinding.tvDetailedTime.text = getString(R.string.event_detailed_whole_day)
+		}
+
+
 	}
 
 	override fun setRemoveTextFab() {

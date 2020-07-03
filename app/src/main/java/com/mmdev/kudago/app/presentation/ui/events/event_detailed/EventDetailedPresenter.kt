@@ -75,8 +75,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 				is ResultState.Success -> {
 					eventDetailedEntity = result.data
 					getLinkedView()?.updateData(eventDetailedEntity)
-					getLinkedView()?.updateTime(convertTime(eventDetailedEntity.dates[0].start,
-					                                        eventDetailedEntity.dates[0].end))
+					getLinkedView()?.setEventTime(convertTime(eventDetailedEntity.dates[0].start,
+					                                          eventDetailedEntity.dates[0].end))
 					handleFabState(eventDetailedEntity.isAddedToFavourites)
 
 					isAdded = eventDetailedEntity.isAddedToFavourites
@@ -93,28 +93,45 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		else getLinkedView()?.setAddTextFab()
 	}
 
-	private fun convertTime(start: Long, end: Long): String {
-		val dateFormatter = SimpleDateFormat.getDateTimeInstance()
+	//bad code
+	private fun convertTime(start: Long, end: Long): DateHuman? {
+		val timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
+		val dateFormatter = SimpleDateFormat("EEE, dd MMMM, YYYY", Locale.getDefault())
 
-		val startDate = Date(start * 1000L)
-		val endDate: Date
-		return if (end != 253370754000){
-			endDate = Date(end * 1000L)
-			DateHuman(dateFormatter.format(startDate), dateFormatter.format(endDate)).toString()
+		var fStart: Date? = null
+		if (start != -62135433000)
+			fStart = Date(start * 1000L)
+
+		var fEnd: Date? = null
+		if (end != 253370754000)
+			fEnd = Date(end * 1000L)
+
+		return when {
+			fStart != null && fEnd != null -> DateHuman(dateFormatter.format(fStart),
+			                                            timeFormatter.format(fStart),
+			                                            dateFormatter.format(fEnd),
+			                                            timeFormatter.format(fEnd))
+
+			fStart != null && fEnd == null -> DateHuman(dateFormatter.format(fStart),
+			                                            timeFormatter.format(fStart))
+
+			else -> null
 		}
-		else DateHuman(dateFormatter.format(startDate), null).toString()
-
-
-
-
-
 	}
 
-	data class DateHuman(val start: String, val end: String?) {
-		override fun toString(): String {
-			end?.let { return "$start - $end" }
-			return start
+	data class DateHuman(val startDate: String, val startTime: String,
+	                     val endDate: String? = null, val endTime: String? = null) {
 
+		fun getDate(): String {
+			if (endDate != null )
+				if (startDate != endDate) return "$startDate - $endDate"
+			return startDate
+		}
+
+		fun getTime(): String {
+			if (endDate != null)
+				if (startTime != endTime) return "$startTime - $endTime"
+			return startTime
 		}
 	}
 

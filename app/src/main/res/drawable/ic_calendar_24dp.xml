@@ -1,0 +1,26 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#eceff1" android:pathData="m490.668,171.52h-469.336c-11.773,0 -21.332,9.559 -21.332,21.332v255.148c0,35.285 28.715,64 64,64h384c35.285,0 64,-28.715 64,-64v-255.148c0,-11.773 -9.559,-21.332 -21.332,-21.332zM490.668,171.52"/>
+    <path android:fillColor="#2196f3" android:pathData="m448,64h-384c-35.348,0 -64,28.652 -64,64v64.852h512v-64.852c0,-35.348 -28.652,-64 -64,-64zM448,64"/>
+    <path android:fillColor="#FF000000" android:pathData="m453.332,512h-394.664c-32.363,0 -58.668,-26.305 -58.668,-58.668v-352c0,-32.363 26.305,-58.664 58.668,-58.664h394.664c32.363,0 58.668,26.301 58.668,58.664v352c0,32.363 -26.305,58.668 -58.668,58.668zM58.668,74.668c-14.699,0 -26.668,11.965 -26.668,26.664v352c0,14.699 11.969,26.668 26.668,26.668h394.664c14.699,0 26.668,-11.969 26.668,-26.668v-352c0,-14.699 -11.969,-26.664 -26.668,-26.664zM58.668,74.668"/>
+    <path android:fillColor="#FF000000" android:pathData="m496,202.668h-480c-8.832,0 -16,-7.168 -16,-16s7.168,-16 16,-16h480c8.832,0 16,7.168 16,16s-7.168,16 -16,16zM496,202.668"/>
+    <path android:fillColor="#FF000000" android:pathData="m122.668,128c-8.832,0 -16,-7.168 -16,-16v-96c0,-8.832 7.168,-16 16,-16s16,7.168 16,16v96c0,8.832 -7.168,16 -16,16zM122.668,128"/>
+    <path android:fillColor="#FF000000" android:pathData="m389.332,128c-8.832,0 -16,-7.168 -16,-16v-96c0,-8.832 7.168,-16 16,-16s16,7.168 16,16v96c0,8.832 -7.168,16 -16,16zM389.332,128"/>
+</vector>

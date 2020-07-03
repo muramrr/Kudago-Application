@@ -1,0 +1,24 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="m301,156h-75c-5.522,0 -10,4.478 -10,10v80h-20c-5.522,0 -10,4.478 -10,10s4.478,10 10,10h20v40h-20c-5.522,0 -10,4.478 -10,10s4.478,10 10,10h20v50c0,5.522 4.478,10 10,10s10,-4.478 10,-10v-50h80c5.522,0 10,-4.478 10,-10s-4.478,-10 -10,-10h-80v-40h65c35.882,0 54.655,-27.68 54.655,-55.022 0,-27.321 -18.773,-54.978 -54.655,-54.978zM301,246h-65v-70h65c10.848,0 19.837,3.689 25.997,10.671 5.502,6.235 8.658,15.095 8.658,24.307 0,17.432 -10.716,35.022 -34.655,35.022z"/>
+    <path android:fillColor="#FF000000" android:pathData="m256,60c-108.075,0 -196,87.925 -196,196s87.925,196 196,196 196,-87.925 196,-196 -87.925,-196 -196,-196zM256,432c-97.047,0 -176,-78.953 -176,-176s78.953,-176 176,-176 176,78.953 176,176 -78.953,176 -176,176z"/>
+    <path android:fillColor="#FF000000" android:pathData="M430,430m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
+    <path android:fillColor="#FF000000" android:pathData="m256,0c-141.581,0 -256,114.382 -256,256 0,141.581 114.382,256 256,256 52.164,0 102.336,-15.56 145.091,-44.997 4.549,-3.132 5.697,-9.358 2.565,-13.907s-9.359,-5.696 -13.907,-2.565c-39.404,27.129 -85.653,41.469 -133.749,41.469 -130.131,0 -236,-105.869 -236,-236s105.869,-236 236,-236 236,105.869 236,236c0,48.094 -14.34,94.344 -41.47,133.749 -3.132,4.549 -1.983,10.775 2.565,13.907 4.549,3.131 10.774,1.982 13.907,-2.565 29.438,-42.757 44.998,-92.928 44.998,-145.091 0,-141.581 -114.382,-256 -256,-256z"/>
+</vector>
