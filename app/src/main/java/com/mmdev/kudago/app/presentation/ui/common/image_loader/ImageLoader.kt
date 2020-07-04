@@ -168,7 +168,7 @@ class ImageLoader(context: Context) {
 				if (imageViewReused(photoToLoad)) return
 
 				val bmp = getBitmap(photoToLoad.url)
-				memoryCache.put(photoToLoad.url, bmp!!)
+				bmp?.let { memoryCache.put(photoToLoad.url, it) }
 
 				if (imageViewReused(photoToLoad)) return
 
