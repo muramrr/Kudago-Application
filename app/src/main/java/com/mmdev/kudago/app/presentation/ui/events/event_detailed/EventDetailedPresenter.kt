@@ -98,7 +98,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 	private fun convertToHumanDatesList(dates: List<EventDate>): List<DateHuman> {
 		val humanDatesList = mutableListOf<DateHuman>()
 		dates.forEach { eventDate: EventDate ->
-			if (eventDate.end > 1577836800)
+			//filter dates which is already ended
+			if (eventDate.end > System.currentTimeMillis()/1000L)
 				humanDatesList.add(convertTime(eventDate.start, eventDate.end)) }
 		return humanDatesList
 	}
