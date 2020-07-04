@@ -18,6 +18,7 @@
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.domain.events.UIEventDate
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
@@ -40,7 +41,7 @@ interface EventDetailedContract {
 
 		fun updateData(data: EventDetailedEntity)
 
-		fun setEventDateTime(humanDates: List<EventDetailedDatesAdapter.DateHuman>)
+		fun setEventDateTime(eventDates: List<UIEventDate>)
 
 	}
 

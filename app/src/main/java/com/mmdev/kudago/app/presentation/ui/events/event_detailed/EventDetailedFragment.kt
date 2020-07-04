@@ -25,6 +25,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentDetailedEventBinding
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.domain.events.UIEventDate
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
@@ -105,8 +106,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	}
 
-	override fun setEventDateTime(humanDates: List<EventDetailedDatesAdapter.DateHuman>) {
-		datesAdapter.setData(humanDates)
+	override fun setEventDateTime(eventDates: List<UIEventDate>) {
+		datesAdapter.setData(eventDates)
 	}
 
 	override fun setRemoveTextFab() {

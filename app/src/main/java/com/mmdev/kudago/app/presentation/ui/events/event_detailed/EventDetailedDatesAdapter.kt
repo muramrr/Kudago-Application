@@ -21,14 +21,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemEventDetailedDateItemBinding
+import com.mmdev.kudago.app.domain.events.UIEventDate
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
-import com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedDatesAdapter.DateHuman
 
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedDatesAdapter(private var data: List<DateHuman> = emptyList()): BaseAdapter<DateHuman>() {
+class EventDetailedDatesAdapter(private var data: List<UIEventDate> = emptyList()): BaseAdapter<UIEventDate>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -42,17 +42,17 @@ class EventDetailedDatesAdapter(private var data: List<DateHuman> = emptyList())
 	override fun getItem(position: Int) = data[position]
 
 
-	override fun setData(data: List<DateHuman>){
+	override fun setData(data: List<UIEventDate>){
 		this.data = data
 		notifyDataSetChanged()
 	}
 
 
 	inner class EventsCategoryDetailedViewHolder (private val viewBinding: ItemEventDetailedDateItemBinding):
-			BaseViewHolder<DateHuman>(viewBinding.root) {
+			BaseViewHolder<UIEventDate>(viewBinding.root) {
 
 
-		override fun bind(item: DateHuman) {
+		override fun bind(item: UIEventDate) {
 			if (item.getDate().isNotBlank()) {
 				viewBinding.tvDetailedDate.text = item.getDate()
 			}
@@ -71,22 +71,6 @@ class EventDetailedDatesAdapter(private var data: List<DateHuman> = emptyList())
 				else -> viewBinding.tvDetailedTime.text = item.getTime()
 			}
 
-		}
-	}
-
-	data class DateHuman(val startDate: String = "", val startTime: String = "",
-	                     val endDate: String? = null, val endTime: String? = null) {
-
-		fun getDate(): String {
-			if (endDate != null )
-				if (startDate != endDate) return "$startDate - $endDate"
-			return startDate
-		}
-
-		fun getTime(): String {
-			if (endDate != null)
-				if (startTime != endTime) return "$startTime - $endTime"
-			return startTime
 		}
 	}
 

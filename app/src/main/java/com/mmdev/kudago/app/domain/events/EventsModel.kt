@@ -21,6 +21,8 @@ import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
 import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.data.favourites.db.IMapperFavourite
 import com.mmdev.kudago.app.domain.core.ImageEntity
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Events entities
@@ -45,8 +47,46 @@ data class EventDetailedEntity (val id: Int = 0,
                                 val is_free: Boolean = false,
                                 var isAddedToFavourites: Boolean = false): IMapperFavourite {
 
-	data class EventDate(val start: Long = 0, val end: Long = 0)
+	data class EventDate(val start: Long = 0, val end: Long = 0) {
 
+		fun mapToUIEventDate() : UIEventDate {
+
+			val timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
+			val dateFormatter = SimpleDateFormat("EEE, dd MMMM, YYYY", Locale.getDefault())
+
+			//check if start is defined correctly
+			var fStart: Date? = null
+			if (start != -62135433000) //03.01.0001
+				fStart = Date(start * 1000L)
+
+			//check if end is defined correctly
+			var fEnd: Date? = null
+			if (end != 253370754000) //01.01.9999
+				fEnd = Date(end * 1000L)
+
+			return when {
+				//both are properly defined
+				fStart != null && fEnd != null -> UIEventDate(dateFormatter.format(fStart),
+				                                              timeFormatter.format(fStart),
+				                                              dateFormatter.format(fEnd),
+				                                              timeFormatter.format(fEnd))
+
+				//end is undefined
+				fStart != null && fEnd == null -> UIEventDate(dateFormatter.format(fStart),
+				                                              timeFormatter.format(fStart))
+
+				//start & end is undefined
+				else -> UIEventDate()
+			}
+
+		}
+	}
+
+	fun mapToUIEventDateList(): List<UIEventDate> {
+		return dates
+			.filter{ eventDate -> eventDate.end > System.currentTimeMillis() / 1000L }
+			.map{ eventDate -> eventDate.mapToUIEventDate() }
+	}
 
 	override fun mapToFavourite(): FavouriteEntity {
 		return FavouriteEntity(
@@ -58,6 +98,23 @@ data class EventDetailedEntity (val id: Int = 0,
 	}
 
 }
+
+data class UIEventDate(val startDate: String = "", val startTime: String = "",
+                       val endDate: String? = null, val endTime: String? = null) {
+
+	fun getDate(): String {
+		if (endDate != null )
+			if (startDate != endDate) return "$startDate - $endDate"
+		return startDate
+	}
+
+	fun getTime(): String {
+		if (endDate != null)
+			if (startTime != endTime) return "$startTime - $endTime"
+		return startTime
+	}
+}
+
 
 interface IMapperEvent {
 	fun mapToEventDetailedEntity(): EventDetailedEntity
