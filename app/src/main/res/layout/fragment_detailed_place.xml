@@ -176,21 +176,6 @@
 		/>
 
 	<!-- "toolbar" collapsed background -->
-	<View
-		android:id="@+id/viewToolbarBackground"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:background="@color/colorPrimary"
-
-		android:alpha="0"
-
-		app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
-		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
-		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
-		app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
-		/>
-
-	<!-- "toolbar" collapsed background -->
 	<com.google.android.material.appbar.MaterialToolbar
 		android:id="@+id/toolbarDetailed"
 		android:layout_width="0dp"
@@ -243,10 +228,10 @@
 		android:textSize="30sp"
 		android:text="@string/default_title"
 
-		app:layout_constraintTop_toTopOf="@id/viewToolbarBackground"
-		app:layout_constraintStart_toStartOf="@id/viewToolbarBackground"
-		app:layout_constraintEnd_toEndOf="@id/viewToolbarBackground"
-		app:layout_constraintBottom_toBottomOf="@id/viewToolbarBackground"
+		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
+		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
+		app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
+		app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 		/>
 
 	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

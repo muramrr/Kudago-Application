@@ -36,16 +36,19 @@
 		<KeyFrameSet>
 
 			<KeyAttribute
-				app:framePosition="95"
-				app:motionTarget="@id/viewToolbarBackground"
-				android:alpha="0"
-				/>
-
-			<KeyAttribute
 				app:framePosition="40"
 				app:motionTarget="@id/tlDotsIndicator"
 				android:alpha="0"
 				/>
+
+			<KeyAttribute
+				app:framePosition="95"
+				app:motionTarget="@id/toolbarDetailed">
+				<CustomAttribute
+					app:attributeName="backgroundColor"
+					app:customColorValue="@android:color/transparent"
+					/>
+			</KeyAttribute>
 
 		</KeyFrameSet>
 
@@ -65,20 +68,6 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			/>
 
-		<!-- "toolbar" collapsed background -->
-		<Constraint android:id="@+id/viewToolbarBackground"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:minHeight="?attr/actionBarSize"
-
-			android:alpha="0"
-
-			app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
-			app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
-			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
-			/>
-
 
 		<Constraint android:id="@+id/toolbarDetailed"
 			android:layout_width="0dp"
@@ -88,7 +77,14 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			/>
+			>
+
+			<CustomAttribute
+				app:attributeName="backgroundColor"
+				app:customColorValue="@android:color/transparent"
+				/>
+
+		</Constraint>
 
 
 		<!-- "toolbar" title -->
@@ -157,8 +153,7 @@
 			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
 			/>
 
-		<Constraint
-			android:id="@+id/tlDotsIndicator"
+		<Constraint android:id="@+id/tlDotsIndicator"
 			android:layout_width="0dp"
 			android:layout_height="10dp"
 			android:layout_marginBottom="8dp"
@@ -172,19 +167,6 @@
 			app:layout_constraintStart_toStartOf="@id/vpPhotos"
 			/>
 
-		<!-- "toolbar" collapsed background -->
-		<Constraint android:id="@+id/viewToolbarBackground"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:minHeight="?attr/actionBarSize"
-
-			android:alpha="1"
-
-			app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
-			app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
-			app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
-			app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
-			/>
 
 		<Constraint android:id="@+id/toolbarDetailed"
 			android:layout_width="0dp"
@@ -194,7 +176,14 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			/>
+			>
+
+			<CustomAttribute
+				app:attributeName="backgroundColor"
+				app:customColorValue="@color/colorPrimary"
+				/>
+
+		</Constraint>
 
 		<!-- "toolbar" title -->
 		<Constraint android:id="@+id/tvToolbarTitle"
