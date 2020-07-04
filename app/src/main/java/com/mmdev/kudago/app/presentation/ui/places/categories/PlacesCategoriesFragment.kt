@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentPlacesCategoriesBinding
+import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -34,9 +34,9 @@ import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categories) {
+class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_categories_list) {
 
-	private val viewBinding by viewBinding(FragmentPlacesCategoriesBinding::bind)
+	private val viewBinding by viewBinding(FragmentCategoriesListBinding::bind)
 
 
 	companion object {
@@ -50,7 +50,7 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_places_categorie
 	override fun setupViews() {
 		val placesCategoriesAdapter = CategoriesAdapter(setAdapterList())
 
-		viewBinding.rvPlacesCategories.apply {
+		viewBinding.rvCategories.apply {
 			applySystemWindowInsets(applyTop = true)
 			adapter = placesCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)

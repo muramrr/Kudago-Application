@@ -16,8 +16,7 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.motion.widget.MotionLayout
-	android:id="@+id/motionLayout"
+<androidx.constraintlayout.motion.widget.MotionLayout android:id="@+id/motionLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:clipChildren="false"
@@ -25,9 +24,9 @@
 	app:layoutDescription="@xml/collapsing_toolbar_scene"
 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
 
 
 	<androidx.core.widget.NestedScrollView
@@ -104,55 +103,23 @@
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				app:layout_constraintTop_toBottomOf="@id/tvDetailedAboutHeader"
-				app:layout_constraintBottom_toTopOf="@id/cvContainerDates"
+				app:layout_constraintBottom_toTopOf="@id/rvDetailedDates"
 				/>
 
-
 			<!-- dates content -->
-			<com.google.android.material.card.MaterialCardView
-				android:id="@+id/cvContainerDates"
-				android:layout_height="wrap_content"
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rvDetailedDates"
 				android:layout_width="0dp"
+				android:layout_height="wrap_content"
 
-				app:contentPadding="16dp"
-				app:cardCornerRadius="10dp"
-				app:cardElevation="1dp"
+				tools:listitem="@layout/item_event_detailed_date_item"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				app:layout_constraintTop_toBottomOf="@id/tvDetailedAbout"
 				app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+				/>
 
-				>
-
-				<com.google.android.material.textview.MaterialTextView
-					android:id="@+id/tvDetailedDate"
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-
-					android:drawablePadding="8dp"
-					android:paddingBottom="32dp"
-
-					android:text=""
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-
-					app:drawableStartCompat="@drawable/ic_calendar_24dp"
-
-					/>
-
-				<com.google.android.material.textview.MaterialTextView
-					android:id="@+id/tvDetailedTime"
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-					android:layout_gravity="bottom"
-					android:paddingStart="32dp"
-					android:paddingEnd="0dp"
-
-					android:text=""
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-					/>
-
-			</com.google.android.material.card.MaterialCardView>
 
 			<!-- top margin -->
 			<androidx.constraintlayout.widget.Guideline
@@ -162,7 +129,6 @@
 				app:layout_constraintGuide_begin="8dp"
 				android:orientation="horizontal"
 				/>
-
 			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineStart"
@@ -171,7 +137,6 @@
 				android:orientation="vertical"
 				app:layout_constraintGuide_begin="8dp"
 				/>
-
 			<!-- right margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineEnd"
@@ -180,7 +145,6 @@
 				android:orientation="vertical"
 				app:layout_constraintGuide_end="8dp"
 				/>
-
 			<!-- bottom margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineBottom"
@@ -229,7 +193,9 @@
 		app:layout_constraintStart_toStartOf="@id/vpPhotos"
 		/>
 
-	<!-- "toolbar" collapsed background -->
+	<!-- "toolbar" collapsed background color -->
+	<!-- this background view needed cause motion doesn't support changing
+	 custom attributes in keyframes-->
 	<View
 		android:id="@+id/viewToolbarBackground"
 		android:layout_width="0dp"

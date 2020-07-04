@@ -17,13 +17,13 @@
   -->
 
 <androidx.recyclerview.widget.RecyclerView
-	android:id="@+id/rvPlacesCategories"
+	android:id="@+id/rvCategories"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 
 	android:clipToPadding="false"
 
-	tools:itemCount="10"
+	tools:itemCount="7"
 	tools:listitem="@layout/item_category"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"

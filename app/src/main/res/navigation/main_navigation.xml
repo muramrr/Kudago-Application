@@ -46,7 +46,7 @@
 	<fragment android:id="@+id/mainBottomNavPlaces"
 		android:name="com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesFragment"
 		android:label="PlacesFragment"
-		tools:layout="@layout/fragment_places_categories"
+		tools:layout="@layout/fragment_categories_list"
 		>
 
 		<action android:id="@+id/action_placesCategories_to_placesCategoryDetailed"
@@ -61,7 +61,7 @@
 	<fragment android:id="@+id/mainBottomNavEvents"
 		android:name="com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesFragment"
 		android:label="EventsFragment"
-		tools:layout="@layout/fragment_events_categories"
+		tools:layout="@layout/fragment_categories_list"
 		>
 
 		<action android:id="@+id/action_eventsCategories_to_eventsCategoryDetailed"
@@ -135,7 +135,7 @@
 	<fragment android:id="@+id/placeDetailedFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.places.place_detailed.PlaceDetailedFragment"
 		android:label="PlaceDetailedFragment"
-		tools:layout="@layout/fragment_place_detailed">
+		tools:layout="@layout/fragment_detailed_place">
 
 		<argument android:name="PLACE_ID"
 			app:argType="integer"
@@ -146,7 +146,7 @@
 	<fragment android:id="@+id/eventDetailedFragment"
 		android:name="com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedFragment"
 		android:label="EventDetailedFragment"
-		tools:layout="@layout/fragment_event_detailed">
+		tools:layout="@layout/fragment_detailed_event">
 
 		<argument android:name="EVENT_ID"
 			app:argType="integer"

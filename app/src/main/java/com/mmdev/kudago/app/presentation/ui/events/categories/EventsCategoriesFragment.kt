@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentEventsCategoriesBinding
+import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -34,9 +34,9 @@ import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
  * This is the documentation block about the class
  */
 
-class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categories) {
+class EventsCategoriesFragment : BaseFragment(R.layout.fragment_categories_list) {
 
-	private val viewBinding by viewBinding(FragmentEventsCategoriesBinding::bind)
+	private val viewBinding by viewBinding(FragmentCategoriesListBinding::bind)
 
 	companion object {
 
@@ -47,10 +47,10 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_events_categorie
 
 
 	override fun setupViews() {
-		viewBinding.rvEventsCategories.applySystemWindowInsets(applyTop = true)
+		viewBinding.rvCategories.applySystemWindowInsets(applyTop = true)
 
 		val eventsCategoriesAdapter = CategoriesAdapter(setupAdapterList())
-		viewBinding.rvEventsCategories.apply {
+		viewBinding.rvCategories.apply {
 			adapter = eventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))

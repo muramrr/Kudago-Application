@@ -25,7 +25,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentPlaceDetailedBinding
+import com.mmdev.kudago.app.databinding.FragmentDetailedPlaceBinding
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -36,10 +36,10 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class PlaceDetailedFragment: BaseFragment(R.layout.fragment_place_detailed),
+class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
                              PlaceDetailedContract.View {
 
-	private val viewBinding by viewBinding(FragmentPlaceDetailedBinding::bind)
+	private val viewBinding by viewBinding(FragmentDetailedPlaceBinding::bind)
 
 	override val presenter: PlaceDetailedPresenter by inject()
 

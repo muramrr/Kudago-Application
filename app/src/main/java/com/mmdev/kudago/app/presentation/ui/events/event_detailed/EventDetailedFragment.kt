@@ -21,7 +21,7 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentEventDetailedBinding
+import com.mmdev.kudago.app.databinding.FragmentDetailedEventBinding
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -35,10 +35,10 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class EventDetailedFragment : BaseFragment(R.layout.fragment_event_detailed),
+class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
                               EventDetailedContract.View {
 
-	private val viewBinding by viewBinding(FragmentEventDetailedBinding::bind)
+	private val viewBinding by viewBinding(FragmentDetailedEventBinding::bind)
 
 	override val presenter: EventDetailedPresenter by inject()
 
