@@ -16,7 +16,8 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.motion.widget.MotionLayout android:id="@+id/motionLayout"
+<androidx.constraintlayout.motion.widget.MotionLayout
+	android:id="@+id/motionLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:clipChildren="false"
@@ -40,11 +41,10 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/vpPhotos">
 
+		<!-- do not add margins to this container -->
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:layout_marginBottom="24dp"
-
 			>
 
 			<!-- price -->
@@ -111,7 +111,10 @@
 				android:id="@+id/rvDetailedDates"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:nestedScrollingEnabled="false"
+				android:overScrollMode="never"
 
+				tools:itemCount="5"
 				tools:listitem="@layout/item_event_detailed_date_item"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"

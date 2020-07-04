@@ -19,8 +19,10 @@ package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
+import com.mmdev.kudago.app.domain.events.EventDetailedEntity.EventDate
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
+import com.mmdev.kudago.app.presentation.ui.events.event_detailed.EventDetailedDatesAdapter.DateHuman
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -75,8 +77,8 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 				is ResultState.Success -> {
 					eventDetailedEntity = result.data
 					getLinkedView()?.updateData(eventDetailedEntity)
-					getLinkedView()?.setEventTime(convertTime(eventDetailedEntity.dates[0].start,
-					                                          eventDetailedEntity.dates[0].end))
+					getLinkedView()?.setEventDateTime(convertToHumanDatesList(eventDetailedEntity.dates))
+
 					handleFabState(eventDetailedEntity.isAddedToFavourites)
 
 					isAdded = eventDetailedEntity.isAddedToFavourites
@@ -93,46 +95,45 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		else getLinkedView()?.setAddTextFab()
 	}
 
+	private fun convertToHumanDatesList(dates: List<EventDate>): List<DateHuman> {
+		val humanDatesList = mutableListOf<DateHuman>()
+		dates.forEach { eventDate: EventDate ->
+			if (eventDate.end > 1577836800)
+				humanDatesList.add(convertTime(eventDate.start, eventDate.end)) }
+		return humanDatesList
+	}
+
 	//bad code
-	private fun convertTime(start: Long, end: Long): DateHuman? {
+	private fun convertTime(start: Long, end: Long): DateHuman {
 		val timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
 		val dateFormatter = SimpleDateFormat("EEE, dd MMMM, YYYY", Locale.getDefault())
 
+		//check if start is defined correctly
 		var fStart: Date? = null
-		if (start != -62135433000)
+		if (start != -62135433000) //03.01.0001
 			fStart = Date(start * 1000L)
 
+		//check if end is defined correctly
 		var fEnd: Date? = null
-		if (end != 253370754000)
+		if (end != 253370754000) //01.01.9999
 			fEnd = Date(end * 1000L)
 
 		return when {
+			//both are properly defined
 			fStart != null && fEnd != null -> DateHuman(dateFormatter.format(fStart),
 			                                            timeFormatter.format(fStart),
 			                                            dateFormatter.format(fEnd),
 			                                            timeFormatter.format(fEnd))
 
+			//end is undefined
 			fStart != null && fEnd == null -> DateHuman(dateFormatter.format(fStart),
 			                                            timeFormatter.format(fStart))
 
-			else -> null
+			//start & end is undefined
+			else -> DateHuman()
 		}
 	}
 
-	data class DateHuman(val startDate: String, val startTime: String,
-	                     val endDate: String? = null, val endTime: String? = null) {
 
-		fun getDate(): String {
-			if (endDate != null )
-				if (startDate != endDate) return "$startDate - $endDate"
-			return startDate
-		}
-
-		fun getTime(): String {
-			if (endDate != null)
-				if (startTime != endTime) return "$startTime - $endTime"
-			return startTime
-		}
-	}
 
 }

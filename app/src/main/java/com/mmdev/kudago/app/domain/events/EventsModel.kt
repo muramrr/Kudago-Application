@@ -40,7 +40,7 @@ data class EventDetailedEntity (val id: Int = 0,
                                 val body_text: String = "",
                                 val description: String = "",
                                 val images: List<ImageEntity> = emptyList(),
-                                val dates: Array<EventDate> = emptyArray(),
+                                val dates: List<EventDate> = emptyList(),
                                 val price: String = "",
                                 val is_free: Boolean = false,
                                 var isAddedToFavourites: Boolean = false): IMapperFavourite {
@@ -55,40 +55,6 @@ data class EventDetailedEntity (val id: Int = 0,
 				favouriteTitle = short_title,
 				favouriteType = FavouriteType.EVENT.name,
 				favouriteMainPictureUrl = images[0].image)
-	}
-
-	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
-
-		other as EventDetailedEntity
-
-		if (id != other.id) return false
-		if (title != other.title) return false
-		if (short_title != other.short_title) return false
-		if (body_text != other.body_text) return false
-		if (description != other.description) return false
-		if (images != other.images) return false
-		if (!dates.contentEquals(other.dates)) return false
-		if (price != other.price) return false
-		if (is_free != other.is_free) return false
-		if (isAddedToFavourites != other.isAddedToFavourites) return false
-
-		return true
-	}
-
-	override fun hashCode(): Int {
-		var result = id
-		result = 31 * result + title.hashCode()
-		result = 31 * result + short_title.hashCode()
-		result = 31 * result + body_text.hashCode()
-		result = 31 * result + description.hashCode()
-		result = 31 * result + images.hashCode()
-		result = 31 * result + dates.contentHashCode()
-		result = 31 * result + price.hashCode()
-		result = 31 * result + is_free.hashCode()
-		result = 31 * result + isAddedToFavourites.hashCode()
-		return result
 	}
 
 }

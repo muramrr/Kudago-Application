@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
@@ -43,6 +45,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 	override val presenter: EventDetailedPresenter by inject()
 
 	private val placePhotosAdapter = ImagePagerAdapter()
+
+	private val datesAdapter = EventDetailedDatesAdapter()
 
 
 	private var receivedEventId = 0
@@ -76,6 +80,12 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
+		viewBinding.rvDetailedDates.apply {
+			adapter = datesAdapter
+			layoutManager = GridLayoutManager(this.context, 1, RecyclerView.VERTICAL,false)
+
+		}
+
 		viewBinding.fabAddRemoveFavourites.setOnClickListener {
 			presenter.addOrRemoveEventToFavourites()
 		}
@@ -95,21 +105,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	}
 
-	override fun setEventTime(humanDate: EventDetailedPresenter.DateHuman?) {
-		if (humanDate != null)
-			humanDate.let {
-				viewBinding.tvDetailedDate.text = it.getDate()
-				if (it.getTime() !in arrayOf("0:00", "12:00 AM"))
-					viewBinding.tvDetailedTime.text = it.getTime()
-				else viewBinding.tvDetailedTime.text = getString(R.string.event_detailed_every_day)
-
-			}
-		else {
-			viewBinding.tvDetailedDate.text = getString(R.string.event_detailed_whole_year)
-			viewBinding.tvDetailedTime.text = getString(R.string.event_detailed_whole_day)
-		}
-
-
+	override fun setEventDateTime(humanDates: List<EventDetailedDatesAdapter.DateHuman>) {
+		datesAdapter.setData(humanDates)
 	}
 
 	override fun setRemoveTextFab() {

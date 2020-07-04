@@ -40,7 +40,7 @@ interface EventDetailedContract {
 
 		fun updateData(data: EventDetailedEntity)
 
-		fun setEventTime(humanDate: EventDetailedPresenter.DateHuman?)
+		fun setEventDateTime(humanDates: List<EventDetailedDatesAdapter.DateHuman>)
 
 	}
 

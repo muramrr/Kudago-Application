@@ -20,6 +20,7 @@
 	android:id="@+id/cvContainerDates"
 	android:layout_height="wrap_content"
 	android:layout_width="match_parent"
+	android:layout_marginBottom="4dp"
 
 	app:contentPadding="16dp"
 	app:cardCornerRadius="10dp"

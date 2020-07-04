@@ -49,7 +49,7 @@ abstract class BaseAdapter<T>: RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolde
 		fun onItemClick(item: T, position: Int)
 	}
 
-	open inner class BaseViewHolder<T>(private val bindingRoot: View):
+	open inner class BaseViewHolder<T>(bindingRoot: View):
 			RecyclerView.ViewHolder(bindingRoot){
 
 		init {
