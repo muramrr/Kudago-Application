@@ -53,9 +53,12 @@ abstract class BaseAdapter<T>: RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolde
 			RecyclerView.ViewHolder(bindingRoot){
 
 		init {
-			bindingRoot.setOnClickListener {
-				mClickListener?.onItemClick(getItem(adapterPosition), adapterPosition)
+			mClickListener?.let { listener ->
+				bindingRoot.setOnClickListener {
+					listener.onItemClick(getItem(adapterPosition), adapterPosition)
+				}
 			}
+
 		}
 
 		open fun bind(item: T) {}
