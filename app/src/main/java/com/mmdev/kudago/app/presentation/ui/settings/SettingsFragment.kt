@@ -56,7 +56,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 
 	override fun setupViews() {
 		cityList = getCityList()
-		val imageLoader = ImageLoader(requireContext())
+		val imageLoader = ImageLoader.get()
 		val clearCacheString = getString(R.string.settings_btn_clear_cache)
 		val cacheSize = { clearCacheString + imageLoader.getFileCacheSize() + " Mb" }
 

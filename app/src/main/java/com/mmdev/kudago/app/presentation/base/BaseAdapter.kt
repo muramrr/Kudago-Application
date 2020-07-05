@@ -35,7 +35,7 @@ abstract class BaseAdapter<T>: RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolde
 	override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) =
 		holder.bind(getItem(position))
 
-	override fun onFailedToRecycleView(holder: BaseViewHolder<T>): Boolean { return true }
+//	override fun onFailedToRecycleView(holder: BaseViewHolder<T>): Boolean { return true }
 
 	private var mClickListener: OnItemClickListener<T>? = null
 

@@ -62,7 +62,7 @@ class EventsCategoryDetailedAdapter(private var data: List<EventEntity> = emptyL
 			//needed to clear recycler views that has already loaded image previously
 			viewBinding.ivImageHolder.setImageResource(R.drawable.placeholder)
 			//loading image from url
-			ImageLoader.with(viewBinding.ivImageHolder.context)
+			ImageLoader.get()
 				.load(viewBinding.ivImageHolder, item.images[0].image)
 		}
 

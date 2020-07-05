@@ -58,7 +58,7 @@ class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList
 		override fun bind(item: FavouriteEntity){
 			viewBinding.tvTitle.text = item.favouriteTitle.capitalizeRu()
 			viewBinding.ivImageHolder.run {
-				ImageLoader.with(this.context)
+				ImageLoader.get()
 					.load(this, item.favouriteMainPictureUrl)
 			}
 		}

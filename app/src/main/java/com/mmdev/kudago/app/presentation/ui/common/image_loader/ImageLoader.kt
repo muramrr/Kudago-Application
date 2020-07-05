@@ -24,6 +24,8 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -40,15 +42,16 @@ import java.util.concurrent.Executors
 
 
 
-class ImageLoader(context: Context) {
+class ImageLoader : KoinComponent {
 
+	private val context: Context by inject()
 	companion object {
 		private var INSTANCE: ImageLoader? = null
 
 		@Synchronized
-		fun with(context: Context): ImageLoader {
+		fun get(): ImageLoader {
 
-			return INSTANCE ?: ImageLoader(context).also {
+			return INSTANCE ?: ImageLoader().also {
 				INSTANCE = it
 				Log.i(TAG, "One Instance initiated and running")
 			}

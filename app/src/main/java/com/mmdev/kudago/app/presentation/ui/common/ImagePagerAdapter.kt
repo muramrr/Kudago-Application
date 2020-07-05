@@ -38,10 +38,6 @@ class ImagePagerAdapter (private var data: List<String> = emptyList()) :
 	override fun getItem(position: Int) = data[position]
 	override fun getItemCount() = data.size
 
-	override fun onFailedToRecycleView(holder: BaseViewHolder<String>): Boolean {
-		return false
-	}
-
 	override fun setData(data: List<String>){
 		this.data = data
 		notifyDataSetChanged()
@@ -54,7 +50,7 @@ class ImagePagerAdapter (private var data: List<String> = emptyList()) :
 
 		override fun bind(item: String) {
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
-			ImageLoader.with(viewBinding.root.context)
+			ImageLoader.get()
 				.load(viewBinding.ivPhoto, item)
 		}
 
