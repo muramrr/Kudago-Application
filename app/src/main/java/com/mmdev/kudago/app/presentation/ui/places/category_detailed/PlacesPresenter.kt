@@ -35,7 +35,7 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	private var placesList: MutableList<PlaceEntity> = mutableListOf()
 
-	override fun loadPlaces(category: String) {
+	override fun loadFirstCategoryEntities(category: String) {
 		launch {
 			withContext(backgroundContext) { repository.loadFirstPlaces(category) }?.let {
 				placesList = it.results.toMutableList()
@@ -48,7 +48,7 @@ class PlacesPresenter (private val repository: IPlacesRepository) :
 
 	}
 
-	override fun loadMorePlaces() {
+	override fun loadMore() {
 		launch {
 			withContext(backgroundContext) { repository.loadMorePlaces() }?.let {
 				placesList.addAll(it.results)

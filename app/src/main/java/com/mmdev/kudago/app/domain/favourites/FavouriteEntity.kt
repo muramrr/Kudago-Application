@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.data.favourites.db
+package com.mmdev.kudago.app.domain.favourites
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.mmdev.kudago.app.domain.core.ImageEntity
+import com.mmdev.kudago.app.domain.core.entity.ImageEntity
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IMapperEvent
 import com.mmdev.kudago.app.domain.places.IMapperPlace
@@ -73,7 +73,3 @@ data class FavouriteEntity(
 
 
 enum class FavouriteType { EVENT, PLACE}
-
-interface IMapperFavourite {
-	fun mapToFavourite(): FavouriteEntity
-}

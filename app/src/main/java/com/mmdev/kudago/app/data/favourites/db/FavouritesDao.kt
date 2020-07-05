@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.data.favourites.db
 
 import androidx.annotation.VisibleForTesting
 import androidx.room.*
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 
 @Dao

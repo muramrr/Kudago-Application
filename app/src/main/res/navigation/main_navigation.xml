@@ -44,7 +44,7 @@
 
 
 	<fragment android:id="@+id/mainBottomNavPlaces"
-		android:name="com.mmdev.kudago.app.presentation.ui.places.categories.PlacesCategoriesFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.places.PlacesCategoriesFragment"
 		android:label="PlacesFragment"
 		tools:layout="@layout/fragment_categories_list"
 		>
@@ -59,7 +59,7 @@
 	</fragment>
 
 	<fragment android:id="@+id/mainBottomNavEvents"
-		android:name="com.mmdev.kudago.app.presentation.ui.events.categories.EventsCategoriesFragment"
+		android:name="com.mmdev.kudago.app.presentation.ui.events.EventsCategoriesFragment"
 		android:label="EventsFragment"
 		tools:layout="@layout/fragment_categories_list"
 		>

@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 

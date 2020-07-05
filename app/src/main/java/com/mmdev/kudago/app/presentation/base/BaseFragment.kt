@@ -30,8 +30,7 @@ import com.mmdev.kudago.app.presentation.ui.common.showToast
  * generic fragment class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId),
-                                                 IBaseView {
+abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 

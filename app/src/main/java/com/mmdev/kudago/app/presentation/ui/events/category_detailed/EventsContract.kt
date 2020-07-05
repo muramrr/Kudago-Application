@@ -20,32 +20,20 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
+import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
 
 /**
  * This is the documentation block about the class
  */
 
-interface EventsContract {
+interface EventsContract  {
 
-	interface View : IBaseView {
+	interface View : CategoryDetailedContract.View<EventEntity>, IBaseView {
 
-		fun updateData(data: List<EventEntity>)
-
-		fun showEmptyList()
-
-		fun showLoading()
-
-		fun hideLoading()
+		override fun updateData(data: List<EventEntity>)
 
 	}
 
-	interface Presenter :
-			IBasePresenter<View> {
-
-		fun loadEvents(category: String)
-
-		fun loadMoreEvents()
-
-	}
+	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
 
 }

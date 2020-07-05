@@ -33,7 +33,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 
 	private var eventsList: MutableList<EventEntity> = mutableListOf()
 
-	override fun loadEvents(category: String) {
+	override fun loadFirstCategoryEntities(category: String) {
 		launch {
 			withContext(backgroundContext) { repository.loadFirstEvents(category) }?.let {
 				eventsList = it.results.toMutableList()
@@ -44,7 +44,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 		}
 	}
 
-	override fun loadMoreEvents() {
+	override fun loadMore() {
 		launch {
 			withContext(backgroundContext) { repository.loadMoreEvents() }?.let {
 				eventsList.addAll(it.results)

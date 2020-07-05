@@ -17,41 +17,39 @@
 
 package com.mmdev.kudago.app.domain.places
 
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
-import com.mmdev.kudago.app.data.favourites.db.FavouriteType
-import com.mmdev.kudago.app.data.favourites.db.IMapperFavourite
-import com.mmdev.kudago.app.domain.core.ImageEntity
+import com.mmdev.kudago.app.domain.core.entity.BaseDetailedEntity
+import com.mmdev.kudago.app.domain.core.entity.BaseEntity
+import com.mmdev.kudago.app.domain.core.entity.ImageEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 
 /**
  * Places entities
  * Places response - list of PlaceItem received from api call
  */
 
-data class PlaceEntity (val id: Int = 0,
-                        val title: String = "",
-                        val short_title: String = "",
-                        val images: List<ImageEntity> = emptyList())
+data class PlaceEntity (override val id: Int = 0,
+                        override val title: String = "",
+                        override val short_title: String = "",
+                        override val images: List<ImageEntity> = emptyList()) : BaseEntity
 
 data class PlacesResponse (val results: List<PlaceEntity> = emptyList())
 
-data class PlaceDetailedEntity (val id: Int = 0,
-                                var title: String = "",
-                                var short_title: String = "",
-                                val body_text: String = "",
-                                val description: String = "",
-                                val images: List<ImageEntity> = emptyList(),
+data class PlaceDetailedEntity (override val id: Int = 0,
+                                override var title: String = "",
+                                override var short_title: String = "",
+                                override  val body_text: String = "",
+                                override val description: String = "",
+                                override val images: List<ImageEntity> = emptyList(),
                                 val phone: String = "",
-                                var isAddedToFavourites: Boolean = false):
-
-		IMapperFavourite {
+                                override var isAddedToFavourites: Boolean = false): BaseDetailedEntity {
 
 	override fun mapToFavourite(): FavouriteEntity {
-		return FavouriteEntity(
-				favouriteId = id,
-				favouriteDescription = description,
-				favouriteTitle = short_title,
-				favouriteType = FavouriteType.PLACE.name,
-				favouriteMainPictureUrl = images[0].image)
+		return FavouriteEntity(favouriteId = id,
+		                       favouriteDescription = description,
+		                       favouriteTitle = short_title,
+		                       favouriteType = FavouriteType.PLACE.name,
+		                       favouriteMainPictureUrl = images[0].image)
 	}
 
 }

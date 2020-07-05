@@ -18,9 +18,9 @@
 package com.mmdev.kudago.app.data.favourites
 
 import androidx.annotation.WorkerThread
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
-import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

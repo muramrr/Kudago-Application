@@ -15,8 +15,17 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.core
+package com.mmdev.kudago.app.domain.core.entity
 
-//image url
-//do not change because it is api declaration
-data class ImageEntity (val image: String = "")
+/**
+ * This is the documentation block about the class
+ */
+
+interface BaseEntity {
+
+	val id: Int
+	val title: String
+	val short_title: String
+	val images: List<ImageEntity>
+
+}

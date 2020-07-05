@@ -15,27 +15,20 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
+package com.mmdev.kudago.app.domain.core.entity
 
-import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
-
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 /**
  * This is the documentation block about the class
  */
 
-interface PlacesContract  {
+interface BaseDetailedEntity : BaseEntity {
 
-	interface View : CategoryDetailedContract.View<PlaceEntity>, IBaseView {
+	val body_text: String
+	val description: String
+	var isAddedToFavourites: Boolean
 
-		override fun updateData(data: List<PlaceEntity>)
-
-	}
-
-	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
+	fun mapToFavourite(): FavouriteEntity
 
 }
-

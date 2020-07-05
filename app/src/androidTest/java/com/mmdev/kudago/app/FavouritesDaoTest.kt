@@ -18,10 +18,9 @@
 package com.mmdev.kudago.app
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
-import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
-import com.mmdev.kudago.app.data.favourites.db.FavouritesRoomDatabase
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.modules.roomTestModule
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -46,7 +45,6 @@ class FavouritesDaoTest : KoinTest {
 	/*
 	 * Inject needed components from Koin
 	 */
-	private val favouritesDatabase: FavouritesRoomDatabase by inject()
 	private val favouritesDao: FavouritesDao by inject()
 
 	//another approach without KoinTest
@@ -75,10 +73,9 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create favourite place entity
 		val favouriteEntity =
-			FavouriteEntity(
-					favouriteTitle = "Title",
-					favouriteType = FavouriteType.PLACE.name,
-					favouriteDescription = "Description")
+			FavouriteEntity(0,"Title",
+			                FavouriteType.PLACE.name,
+			                "Description", "")
 
 		// Insert entity
 
@@ -96,10 +93,9 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create favourite event entity
 		val favouriteEntity =
-			FavouriteEntity(
-					favouriteTitle = "Title",
-					favouriteType = FavouriteType.EVENT.name,
-					favouriteDescription = "Description")
+			FavouriteEntity(0,"Title",
+			                FavouriteType.EVENT.name,
+			                "Description", "")
 
 		// Insert entity
 
@@ -117,10 +113,10 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create casual entity
 		val favouriteEntity =
-			FavouriteEntity(
-					favouriteTitle = "Title",
-					favouriteType = FavouriteType.EVENT.name,
-					favouriteDescription = "Description")
+			FavouriteEntity(0, "Title",
+			                FavouriteType.EVENT.name,
+			                 "Description",
+			"")
 
 		// Save entities
 		favouritesDao.insertFavourite(favouriteEntity)

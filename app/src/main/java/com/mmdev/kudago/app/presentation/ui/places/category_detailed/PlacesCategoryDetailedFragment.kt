@@ -64,7 +64,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 			receivedTitleString = it.getString(TITLE_KEY, "")
 		}
 
-		presenter.loadPlaces(receivedCategoryString)
+		presenter.loadFirstCategoryEntities(receivedCategoryString)
 
 	}
 
@@ -85,7 +85,7 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 				override fun onLoadMore(page: Int, totalItemsCount: Int) {
 
 					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4) {
-						presenter.loadMorePlaces()
+						presenter.loadMore()
 					}
 
 				}

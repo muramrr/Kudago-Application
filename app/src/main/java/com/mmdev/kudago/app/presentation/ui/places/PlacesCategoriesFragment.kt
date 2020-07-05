@@ -15,60 +15,21 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.categories
+package com.mmdev.kudago.app.presentation.ui.places
 
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
-import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter
 import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
-import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesFragment
 
 /**
  * This is the documentation block about the class
  */
 
-class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_categories_list) {
+class PlacesCategoriesFragment : CategoriesFragment() {
 
-	private val viewBinding by viewBinding(FragmentCategoriesListBinding::bind)
-
-
-	companion object {
-
-		private const val CATEGORY_KEY = "CATEGORY"
-		private const val TITLE_KEY = "TITLE"
-
-	}
-
-
-	override fun setupViews() {
-		val placesCategoriesAdapter = CategoriesAdapter(setAdapterList())
-
-		viewBinding.rvCategories.apply {
-			applySystemWindowInsets(applyTop = true)
-			adapter = placesCategoriesAdapter
-			layoutManager = LinearLayoutManager(this.context)
-			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
-		}
-
-		placesCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
-
-			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
-				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
-				                        TITLE_KEY to item.title)
-				navController.navigate(R.id.action_placesCategories_to_placesCategoryDetailed,
-				                             category)
-			}
-		})
-	}
-
-	private fun setAdapterList() = listOf(
+	override fun setupAdapterList() = listOf(
 			AdapterCategoryItem(title = getString(R.string.category_title_restaurants),
 			                    icon = R.drawable.ic_places_restaurants_24dp,
 			                    apiIdentifier = getString(R.string.api_restaurants)),
@@ -112,4 +73,12 @@ class PlacesCategoriesFragment : BaseFragment(R.layout.fragment_categories_list)
 			                    icon = R.drawable.ic_places_other_24dp,
 			                    apiIdentifier = getString(R.string.api_other)))
 
+	override fun adapterItemClick(): BaseAdapter.OnItemClickListener<AdapterCategoryItem> =
+		object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
+			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
+				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
+				                        TITLE_KEY to item.title)
+				navController.navigate(R.id.action_placesCategories_to_placesCategoryDetailed, category)
+			}
+		}
 }

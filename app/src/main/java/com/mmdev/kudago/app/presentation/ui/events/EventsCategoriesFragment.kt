@@ -15,59 +15,22 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.events.categories
+package com.mmdev.kudago.app.presentation.ui.events
 
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
-import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter
 import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
-import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.base.CategoriesFragment
 
 /**
  * This is the documentation block about the class
  */
 
-class EventsCategoriesFragment : BaseFragment(R.layout.fragment_categories_list) {
-
-	private val viewBinding by viewBinding(FragmentCategoriesListBinding::bind)
-
-	companion object {
-
-		private const val CATEGORY_KEY = "CATEGORY"
-		private const val TITLE_KEY = "TITLE"
-
-	}
+class EventsCategoriesFragment : CategoriesFragment() {
 
 
-	override fun setupViews() {
-		viewBinding.rvCategories.applySystemWindowInsets(applyTop = true)
-
-		val eventsCategoriesAdapter = CategoriesAdapter(setupAdapterList())
-		viewBinding.rvCategories.apply {
-			adapter = eventsCategoriesAdapter
-			layoutManager = LinearLayoutManager(this.context)
-			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
-		}
-
-		eventsCategoriesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
-
-			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
-				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
-				                        TITLE_KEY to item.title)
-				navController.navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
-				                             category)
-			}
-		})
-	}
-
-	private fun setupAdapterList() = listOf(
+	override fun setupAdapterList() = listOf(
 			AdapterCategoryItem(title = getString(R.string.category_events_title_cinema),
 			                    icon = R.drawable.ic_events_movies_24dp,
 			                    apiIdentifier = getString(R.string.api_cinema)),
@@ -95,5 +58,16 @@ class EventsCategoriesFragment : BaseFragment(R.layout.fragment_categories_list)
 			AdapterCategoryItem(title = getString(R.string.category_title_other),
 			                    icon = R.drawable.ic_ic_events_other_24dp,
 			                    apiIdentifier = getString(R.string.api_other)))
+
+	override fun adapterItemClick(): BaseAdapter.OnItemClickListener<AdapterCategoryItem> =
+		object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
+
+			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
+				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,
+				                        TITLE_KEY to item.title)
+				navController.navigate(R.id.action_eventsCategories_to_eventsCategoryDetailed,
+				                       category)
+			}
+		}
 
 }

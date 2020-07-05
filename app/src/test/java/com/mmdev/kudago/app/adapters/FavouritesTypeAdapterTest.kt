@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.adapters
 
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypeAdapter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -36,32 +36,26 @@ class FavouritesTypeAdapterTest {
 
 		assertNotEquals(1, adapter.itemCount)
 
-		adapter = FavouritesTypeAdapter(listOf(FavouriteEntity(
-				1,
-				"",
-				"",
-				""),
-		                                       FavouriteEntity(
-				                                       2,
-				                                       "",
-				                                       "",
-				                                       "")))
+		adapter = FavouritesTypeAdapter(listOf(
+				FavouriteEntity(
+						1,
+						"",
+						"",
+						"", ""),
+				FavouriteEntity(
+						2,
+						"",
+						"",
+						"", "")))
 		assertEquals(2, adapter.itemCount)
 	}
 
 	@Test
 	fun getItem() {
-		adapter = FavouritesTypeAdapter(listOf(FavouriteEntity(
-				1,
-				"",
-				"",
-				""),
-		                                       FavouriteEntity(
-				                                       2,
-				                                       "",
-				                                       "",
-				                                       "")))
-		assertEquals(1, adapter.getItem(0).id)
+		adapter = FavouritesTypeAdapter(listOf(
+				FavouriteEntity(1, "", "", "", ""),
+				FavouriteEntity(2, "", "", "", "")))
+		assertEquals(1, adapter.getItem(0).favouriteId)
 		assertNotEquals(null, adapter.getItem(1))
 	}
 }

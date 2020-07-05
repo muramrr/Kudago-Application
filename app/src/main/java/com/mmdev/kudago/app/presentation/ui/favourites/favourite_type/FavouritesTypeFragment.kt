@@ -23,9 +23,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.data.favourites.db.FavouriteEntity
-import com.mmdev.kudago.app.data.favourites.db.FavouriteType
 import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding

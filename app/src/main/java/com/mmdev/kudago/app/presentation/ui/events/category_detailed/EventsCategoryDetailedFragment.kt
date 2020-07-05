@@ -63,7 +63,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 			receivedTitleString = it.getString(TITLE_KEY, "")
 		}
 
-		presenter.loadEvents(receivedCategoryString)
+		presenter.loadFirstCategoryEntities(receivedCategoryString)
 
 	}
 
@@ -84,7 +84,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 				override fun onLoadMore(page: Int, totalItemsCount: Int) {
 
 					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4) {
-						presenter.loadMoreEvents()
+						presenter.loadMore()
 					}
 
 				}

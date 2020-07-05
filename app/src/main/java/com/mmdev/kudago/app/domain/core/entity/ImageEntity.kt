@@ -15,20 +15,8 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.favourites
+package com.mmdev.kudago.app.domain.core.entity
 
-/**
- * This is the documentation block about the class
- */
-
-interface IFavouritesRepository {
-
-	suspend fun addToFavourite(favouriteEntity: FavouriteEntity)
-
-	suspend fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
-
-	suspend fun getFavouritePlaces(): List<FavouriteEntity>
-
-	suspend fun getFavouriteEvents(): List<FavouriteEntity>
-
-}
+//image url
+//do not change because it is api declaration
+data class ImageEntity (val image: String = "")

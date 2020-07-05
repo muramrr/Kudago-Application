@@ -15,27 +15,34 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.places.category_detailed
+package com.mmdev.kudago.app.presentation.ui.base
 
-import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
-
+import com.mmdev.kudago.app.domain.core.entity.BaseEntity
 
 /**
  * This is the documentation block about the class
  */
 
-interface PlacesContract  {
+interface CategoryDetailedContract {
 
-	interface View : CategoryDetailedContract.View<PlaceEntity>, IBaseView {
+	interface View<T: BaseEntity>  {
 
-		override fun updateData(data: List<PlaceEntity>)
+		fun updateData(data: List<T>)
+
+		fun showEmptyList()
+
+		fun showLoading()
+
+		fun hideLoading()
 
 	}
 
-	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
+	interface Presenter  {
+
+		fun loadFirstCategoryEntities(category: String)
+
+		fun loadMore()
+
+	}
 
 }
-
