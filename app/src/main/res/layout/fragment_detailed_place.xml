@@ -44,7 +44,6 @@
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_marginBottom="24dp"
 			>
 
 			<!-- about header -->
@@ -61,7 +60,7 @@
 				android:text="@string/detailed_about_header"
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 
-				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintTop_toTopOf="@id/guidelineTop"
 				app:layout_constraintBottom_toTopOf="@id/tvDetailedAbout"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -81,6 +80,7 @@
 				app:layout_constraintBottom_toTopOf="@id/tvPhoneNumberHeader"
 
 				/>
+
 			<!-- phone header -->
 			<com.google.android.material.textview.MaterialTextView
 				android:id="@+id/tvPhoneNumberHeader"
@@ -115,27 +115,67 @@
 				app:cornerRadius="16dp"
 
 				app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberHeader"
+				app:layout_constraintBottom_toTopOf="@id/cvContainerMap"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				/>
 
 
+			<com.google.android.material.card.MaterialCardView
+				android:id="@+id/cvContainerMap"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				app:cardCornerRadius="10dp"
+
+				app:layout_constraintTop_toBottomOf="@id/btnPhoneNumber"
+				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+				app:layout_constraintStart_toStartOf="@id/guidelineStart"
+				app:layout_constraintBottom_toBottomOf="@id/guidelineBottom">
+
+				<fragment
+					android:id="@+id/map"
+					android:layout_width="match_parent"
+					android:layout_height="300dp"
+					app:cameraZoom="14"
+					android:name="com.google.android.libraries.maps.SupportMapFragment"
+
+					/>
+			</com.google.android.material.card.MaterialCardView>
+
+
+
+			<!-- top margin -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineTop"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				app:layout_constraintGuide_begin="8dp"
+				android:orientation="horizontal"
+				/>
 			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineStart"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="vertical"
-				app:layout_constraintGuide_begin="8dp" />
-
+				app:layout_constraintGuide_begin="8dp"
+				/>
 			<!-- right margin -->
 			<androidx.constraintlayout.widget.Guideline
 				android:id="@+id/guidelineEnd"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="vertical"
-				app:layout_constraintGuide_end="8dp" />
-
+				app:layout_constraintGuide_end="8dp"
+				/>
+			<!-- bottom margin -->
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guidelineBottom"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				app:layout_constraintGuide_end="8dp"
+				android:orientation="horizontal"
+				/>
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 	</androidx.core.widget.NestedScrollView>
@@ -226,7 +266,7 @@
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 		android:textColor="@android:color/white"
 		android:textSize="30sp"
-		android:text="@string/default_title"
+		android:text=""
 
 		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
 		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"

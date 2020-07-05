@@ -37,7 +37,7 @@ interface PlacesApi {
 		@Query("location") location: String,
 		@Query("page") page: Int = 1): Response<PlacesResponse>
 
-	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images,phone")
+	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images,phone,coords")
 	suspend fun getPlaceDetailsAsync(@Path("id") id: Int): PlaceDetailedEntity
 
 }

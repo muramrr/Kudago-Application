@@ -247,7 +247,7 @@
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 		android:textColor="@android:color/white"
 		android:textSize="30sp"
-		android:text="@string/default_title"
+		android:text=""
 
 		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
 		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"

@@ -61,9 +61,10 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
 			receivedTitleString = it.getString(TITLE_KEY, "")
+			presenter.loadFirstCategoryEntities(receivedCategoryString)
 		}
 
-		presenter.loadFirstCategoryEntities(receivedCategoryString)
+
 
 	}
 

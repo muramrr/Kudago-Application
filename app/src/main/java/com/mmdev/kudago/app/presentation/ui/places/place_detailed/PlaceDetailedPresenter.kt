@@ -73,6 +73,8 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 				is ResultState.Success -> {
 					placeDetailedEntity = result.data
 					getLinkedView()?.updateData(placeDetailedEntity)
+					getLinkedView()?.setMarkerOnMap(placeDetailedEntity.coords,
+					                                placeDetailedEntity.short_title)
 					handleFabState(placeDetailedEntity.isAddedToFavourites)
 
 					isAdded = placeDetailedEntity.isAddedToFavourites

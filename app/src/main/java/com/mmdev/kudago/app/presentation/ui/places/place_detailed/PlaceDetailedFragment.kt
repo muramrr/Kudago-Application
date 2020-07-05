@@ -22,10 +22,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import androidx.appcompat.app.AlertDialog
+import com.google.android.libraries.maps.CameraUpdateFactory
+import com.google.android.libraries.maps.GoogleMap
+import com.google.android.libraries.maps.SupportMapFragment
+import com.google.android.libraries.maps.model.LatLng
+import com.google.android.libraries.maps.model.MarkerOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentDetailedPlaceBinding
+import com.mmdev.kudago.app.domain.places.PlaceCoords
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
@@ -44,6 +50,8 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 	override val presenter: PlaceDetailedPresenter by inject()
 
 	private val placePhotosAdapter = ImagePagerAdapter()
+
+	private lateinit var mGoogleMap: GoogleMap
 
 
 	private var receivedPlaceId = 0
@@ -85,6 +93,10 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 			return@setOnLongClickListener true
 		}
 
+		val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+		mapFragment.getMapAsync { googleMap -> mGoogleMap = googleMap }
+
+
 		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addOrRemovePlaceToFavourites() }
 	}
 
@@ -93,7 +105,14 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
-		viewBinding.btnPhoneNumber.text = data.phone
+		viewBinding.btnPhoneNumber.text = data.phone.replace(",", "\n")
+	}
+
+	override fun setMarkerOnMap(placeCoords: PlaceCoords, shortTitle: String) {
+		val placeMarkerOnMap = LatLng(placeCoords.lat, placeCoords.lon)
+		mGoogleMap.addMarker(MarkerOptions().position(placeMarkerOnMap).title(shortTitle))
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeMarkerOnMap))
+
 	}
 
 	override fun setRemoveTextFab() {
@@ -125,5 +144,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		params?.gravity = Gravity.BOTTOM
 		return dialog
 	}
+
+
 
 }

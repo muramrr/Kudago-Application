@@ -67,6 +67,16 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	}
 
+	//open in third party
+//	val sendIntent: Intent = Intent().apply {
+//		action = Intent.ACTION_SEND
+//		putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+//		type = "text/plain"
+//	}
+//
+//	val shareIntent = Intent.createChooser(sendIntent, null)
+//	startActivity(shareIntent)
+
 	override fun setupViews() {
 		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
 		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)

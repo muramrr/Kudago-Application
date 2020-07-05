@@ -42,6 +42,7 @@ data class PlaceDetailedEntity (override val id: Int = 0,
                                 override val description: String = "",
                                 override val images: List<ImageEntity> = emptyList(),
                                 val phone: String = "",
+                                val coords: PlaceCoords = PlaceCoords(),
                                 override var isAddedToFavourites: Boolean = false): BaseDetailedEntity {
 
 	override fun mapToFavourite(): FavouriteEntity {
@@ -53,6 +54,8 @@ data class PlaceDetailedEntity (override val id: Int = 0,
 	}
 
 }
+
+data class PlaceCoords (val lat: Double = 0.0, val lon: Double = 0.0)
 
 interface IMapperPlace {
 	fun mapToPlaceDetailedEntity(): PlaceDetailedEntity
