@@ -30,6 +30,7 @@ import com.mmdev.kudago.app.presentation.base.BaseAdapter
 
 class EventDetailedDatesAdapter(private var data: List<UIEventDate> = emptyList()): BaseAdapter<UIEventDate>() {
 
+	var eventTitle: String = ""
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		EventsCategoryDetailedViewHolder(

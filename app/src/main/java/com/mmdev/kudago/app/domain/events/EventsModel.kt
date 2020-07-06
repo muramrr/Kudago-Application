@@ -90,11 +90,13 @@ data class EventDate(val start: Long = 0, val end: Long = 0) {
 			fStart != null && fEnd != null -> UIEventDate(dateFormatter.format(fStart),
 			                                              timeFormatter.format(fStart),
 			                                              dateFormatter.format(fEnd),
-			                                              timeFormatter.format(fEnd))
+			                                              timeFormatter.format(fEnd),
+			                                              fStart.time, fEnd.time)
 
 			//end is undefined
-			fStart != null && fEnd == null -> UIEventDate(dateFormatter.format(fStart),
-			                                              timeFormatter.format(fStart))
+			fStart != null && fEnd == null -> UIEventDate(startDate = dateFormatter.format(fStart),
+			                                              startTime = timeFormatter.format(fStart),
+			                                              startInMillis = fStart.time)
 
 			//start & end is undefined
 			else -> UIEventDate()
@@ -105,7 +107,8 @@ data class EventDate(val start: Long = 0, val end: Long = 0) {
 
 //event date which we want to see in ui
 data class UIEventDate(val startDate: String = "", val startTime: String = "",
-                       val endDate: String? = null, val endTime: String? = null) {
+                       val endDate: String? = null, val endTime: String? = null,
+                       val startInMillis: Long = 0, val endInMillis: Long = 0) {
 
 	fun getDate(): String {
 		if (endDate != null )

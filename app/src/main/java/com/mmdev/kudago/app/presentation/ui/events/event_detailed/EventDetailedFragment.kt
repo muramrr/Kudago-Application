@@ -17,7 +17,9 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -26,6 +28,7 @@ import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentDetailedEventBinding
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.UIEventDate
+import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
@@ -45,7 +48,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	override val presenter: EventDetailedPresenter by inject()
 
-	private val placePhotosAdapter = ImagePagerAdapter()
+	private val eventsPhotosAdapter = ImagePagerAdapter()
 
 	private val datesAdapter = EventDetailedDatesAdapter()
 
@@ -84,7 +87,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 		viewBinding.toolbarNavigation.setOnClickListener { navController.navigateUp() }
 
 		viewBinding.vpPhotos.apply {
-			adapter = placePhotosAdapter
+			adapter = eventsPhotosAdapter
 		}
 
 		TabLayoutMediator(viewBinding.tlDotsIndicator, viewBinding.vpPhotos){
@@ -97,6 +100,17 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 		}
 
+		datesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<UIEventDate> {
+			override fun onItemClick(item: UIEventDate, position: Int) {
+				if (item.startInMillis > System.currentTimeMillis()) {
+					val intent = setupCalendarIntent(item.startInMillis,
+					                                 item.endInMillis,
+					                                 datesAdapter.eventTitle)
+					startActivity(intent)
+				}
+			}
+		})
+
 		viewBinding.fabAddRemoveFavourites.setOnClickListener {
 			presenter.addOrRemoveEventToFavourites()
 		}
@@ -105,8 +119,12 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	@ExperimentalStdlibApi
 	override fun updateData(data: EventDetailedEntity) {
-		placePhotosAdapter.setData(data.images.map { it.image })
-		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
+		eventsPhotosAdapter.setData(data.images.map { it.image })
+		with(data.short_title.capitalizeRu()){
+			viewBinding.tvToolbarTitle.text = this
+			datesAdapter.eventTitle = this
+		}
+
 		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
 		viewBinding.tvPrice.text = when {
 			data.is_free -> getString(R.string.event_detailed_free)
@@ -132,5 +150,16 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
 
+	private fun setupCalendarIntent(startMillis: Long, endMillis: Long, eventTitle: String): Intent =
+		Intent(Intent.ACTION_INSERT)
+			.apply {
+				data = CalendarContract.Events.CONTENT_URI
+				putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)
+				if (endMillis != 0L)
+					putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
+				putExtra(CalendarContract.Events.TITLE, eventTitle)
+				putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+				putExtra(CalendarContract.Events.STATUS, 1)
+			}
 
 }
