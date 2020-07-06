@@ -135,7 +135,8 @@ class ImageLoader : KoinComponent {
 			} catch (ex: Throwable) {
 				ex.printStackTrace()
 				if (ex is OutOfMemoryError) memoryCache.clear()
-				return null
+				//on error try again
+				return getBitmap(url)
 			}
 		}
 
@@ -151,7 +152,8 @@ class ImageLoader : KoinComponent {
 
 				val fileInputStream = FileInputStream(f)
 				BitmapFactory.decodeStream(fileInputStream, null, o)
-				fileInputStream.close()
+					.also { fileInputStream.close() }
+
 
 				widthTMP = o.outWidth
 				heightTMP = o.outHeight
