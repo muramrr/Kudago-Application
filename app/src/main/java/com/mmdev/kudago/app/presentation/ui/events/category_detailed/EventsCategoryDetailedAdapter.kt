@@ -20,11 +20,11 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
-import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 
 /**
  * This is the documentation block about the class

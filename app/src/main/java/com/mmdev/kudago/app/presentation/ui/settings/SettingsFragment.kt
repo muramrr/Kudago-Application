@@ -19,13 +19,13 @@ package com.mmdev.kudago.app.presentation.ui.settings
 
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
 import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import com.mmdev.kudago.app.presentation.ui.common.image_loader.ImageLoader
 import org.koin.android.ext.android.inject
 
 

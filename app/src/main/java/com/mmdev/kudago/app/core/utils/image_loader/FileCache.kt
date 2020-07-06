@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common.image_loader
+package com.mmdev.kudago.app.core.utils.image_loader
 
 import android.content.Context
 import java.io.File

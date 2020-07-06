@@ -47,6 +47,7 @@ abstract class CategoriesFragment : BaseFragment(R.layout.fragment_categories_li
 			adapter = eventsCategoriesAdapter
 			layoutManager = LinearLayoutManager(this.context)
 			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
+			setHasFixedSize(true)
 		}
 
 		eventsCategoriesAdapter.setOnItemClickListener(adapterItemClick())

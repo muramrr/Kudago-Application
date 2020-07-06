@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common.image_loader
+package com.mmdev.kudago.app.core.utils.image_loader
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -59,7 +59,7 @@ class ImageLoader : KoinComponent {
 		}
 
 		private const val TAG = "ImageLoader"
-		private const val REQUIRED_SIZE = 1400
+		private const val REQUIRED_SIZE = 1000
 		private const val CONNECTION_TIMEOUT = 30000
 		private const val READ_TIMEOUT = 30000
 		private const val BUFFER_SIZE = 2048
@@ -83,14 +83,30 @@ class ImageLoader : KoinComponent {
 	private var memoryCache = MemoryCache()
 	private var fileCache: FileCache = FileCache(context)
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
-	private var executorService: ExecutorService = Executors.newFixedThreadPool(5)
+	private var executorService: ExecutorService = Executors.newFixedThreadPool(3)
 	private var handler = Handler(Looper.myLooper()!!)
+
+	private lateinit var conn: HttpURLConnection
+
+	private var bitmapOptions = BitmapFactory.Options()
+	init {
+		bitmapOptions.apply { inPreferredConfig = Bitmap.Config.RGB_565 }
+	}
+
+	private var bitmapFromMemoryCache: Bitmap? = null
+	private var loadedBitmap: Bitmap? = null
+
+	private var scalingValue: Int = 0
+	private var widthTMP: Int = 0
+	private var heightTMP: Int = 0
+
+	private lateinit var fileInputStream: FileInputStream
 
 	@Synchronized
 	fun load(imageView: ImageView, url: String) {
 		imageViews[imageView] = url
-		val bitmap = memoryCache[url]
-		if (bitmap != null) imageView.setImageBitmap(bitmap)
+		bitmapFromMemoryCache = memoryCache[url]
+		if (bitmapFromMemoryCache != null) imageView.setImageBitmap(bitmapFromMemoryCache)
 		else queuePhoto(url, imageView)
 	}
 
@@ -107,7 +123,7 @@ class ImageLoader : KoinComponent {
 
 		try {
 			val imageUrl = URL(url)
-			val conn = imageUrl.openConnection() as HttpURLConnection
+			conn = imageUrl.openConnection() as HttpURLConnection
 			conn.apply {
 				connectTimeout = CONNECTION_TIMEOUT
 				instanceFollowRedirects = true
@@ -128,29 +144,31 @@ class ImageLoader : KoinComponent {
 
 	private fun decodeFile(f: File): Bitmap? {
 		try {
-			val o = BitmapFactory.Options()
-			o.inJustDecodeBounds = true
-			if (f.exists()) {
-				val stream1 = FileInputStream(f)
-				BitmapFactory.decodeStream(stream1, null, o)
-				stream1.close()
 
-				var widthTMP = o.outWidth
-				var heightTMP = o.outHeight
-				var scale = 1
+			if (f.exists()) {
+				val o = BitmapFactory.Options()
+				o.inJustDecodeBounds = true
+
+				fileInputStream = FileInputStream(f)
+				BitmapFactory.decodeStream(fileInputStream, null, o)
+				fileInputStream.close()
+
+				widthTMP = o.outWidth
+				heightTMP = o.outHeight
+				scalingValue = 1
 				while (true) {
 					if (widthTMP / 2 < REQUIRED_SIZE || heightTMP / 2 < REQUIRED_SIZE) break
 
 					widthTMP /= 2
 					heightTMP /= 2
-					scale *= 2
+					scalingValue *= 2
 				}
 
-				val bitmapOptions = BitmapFactory.Options()
-				bitmapOptions.inSampleSize = scale
-				val stream2 = FileInputStream(f)
-				val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
-				stream2.close()
+				bitmapOptions.inSampleSize = scalingValue
+
+				val fileInputStream = FileInputStream(f)
+				val bitmap = BitmapFactory.decodeStream(fileInputStream, null, bitmapOptions)
+				fileInputStream.close()
 				return bitmap
 			}
 		} catch (e: FileNotFoundException) {
@@ -170,13 +188,12 @@ class ImageLoader : KoinComponent {
 			try {
 				if (imageViewReused(photoToLoad)) return
 
-				val bmp = getBitmap(photoToLoad.url)
-				bmp?.let { memoryCache.put(photoToLoad.url, it) }
+				loadedBitmap = getBitmap(photoToLoad.url)
+				loadedBitmap?.let { memoryCache.put(photoToLoad.url, it) }
 
 				if (imageViewReused(photoToLoad)) return
 
-				val bd = BitmapDisplayer(bmp, photoToLoad)
-				handler.post(bd)
+				handler.post(BitmapDisplayer(loadedBitmap, photoToLoad))
 			} catch (th: Throwable) {
 				th.printStackTrace()
 			}

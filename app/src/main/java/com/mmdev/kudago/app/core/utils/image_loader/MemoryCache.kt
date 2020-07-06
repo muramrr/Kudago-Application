@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common.image_loader
+package com.mmdev.kudago.app.core.utils.image_loader
 
 import android.graphics.Bitmap
 import android.util.Log
@@ -29,8 +29,9 @@ class MemoryCache {
 	private val cache =
 		synchronizedMap(LinkedHashMap<String, Bitmap>(10, 1.5f, true))
 	private var size: Long = 0
-	private var limit: Long = 1000000
+	private var limit: Long = 10 * 1024 * 1024
 
+	//set limit depending on memory limit of device
 	init { setLimit(Runtime.getRuntime().maxMemory() / 4) }
 
 	companion object {
@@ -38,8 +39,8 @@ class MemoryCache {
 	}
 
 	private fun setLimit(new_limit: Long) {
-		limit = new_limit
-		Log.i(TAG, "MemoryCache will use up to " + limit.toDouble() / 1024.0 / 1024.0 + "MB")
+		if (limit<new_limit) limit = new_limit
+		Log.i(TAG, "MemoryCache will use up to " + limit / 1024.0 / 1024.0 + "MB")
 	}
 
 	operator fun get(id: String): Bitmap? {
@@ -70,8 +71,7 @@ class MemoryCache {
 		if (size > limit) {
 			val iter = cache.entries.iterator()
 			while (iter.hasNext()) {
-				val entry = iter.next()
-				size -= getSizeInBytes(entry.value)
+				size -= getSizeInBytes(iter.next().value)
 				iter.remove()
 
 				if (size <= limit) break
