@@ -87,10 +87,13 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
-		viewBinding.btnPhoneNumber.attachClickToCopyText(requireContext())
-		viewBinding.btnPhoneNumber.setOnLongClickListener {
-			buildDialog(viewBinding.btnPhoneNumber.text.toString()).show()
-			return@setOnLongClickListener true
+		viewBinding.btnPhoneNumber.apply {
+			attachClickToCopyText(requireContext())
+			setOnLongClickListener {
+				buildDialog(viewBinding.btnPhoneNumber.text.toString()).show()
+				return@setOnLongClickListener true
+			}
+
 		}
 
 		val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -105,7 +108,14 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		placePhotosAdapter.setData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
-		viewBinding.btnPhoneNumber.text = data.phone.replace(",", "\n")
+		if (data.phone.isNotBlank()) data.phone.replace(", ", "\n")
+			.also { viewBinding.btnPhoneNumber.text = it }
+		else {
+			viewBinding.btnPhoneNumber.text = getString(R.string.place_detailed_phone_is_not_specified)
+			viewBinding.btnPhoneNumber.isEnabled = false
+		}
+
+
 	}
 
 	override fun setMarkerOnMap(placeCoords: PlaceCoords, shortTitle: String) {

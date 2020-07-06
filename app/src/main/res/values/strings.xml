@@ -128,9 +128,7 @@
 	<string name="api_clubs" translatable="false">clubs</string>
 	<string name="api_stripclub" translatable="false">strip-club</string>
 	<string name="api_sights" translatable="false">sights</string>
-
-
-
+	<string name="place_detailed_phone_is_not_specified">Phone number is not specified</string>
 
 
 </resources>

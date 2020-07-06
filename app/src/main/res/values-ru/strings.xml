@@ -51,6 +51,8 @@
 	<string name="event_detailed_whole_year">Круглый год</string>
 	<string name="event_detailed_whole_day">Весь день</string>
 
+	<string name="place_detailed_phone_is_not_specified">Номер не указан</string>
+
 	<!-- content descriptions -->
 	<string name="description_category_title_picture">Изображение категории</string>
 	<string name="description_category_item_picture">Изображение элемента</string>
@@ -93,6 +95,7 @@
 	<string name="category_title_clubs">Клубы</string>
 	<string name="category_title_stripclub">Стрип-клубы</string>
 	<string name="category_title_sights">Интересные места</string>
+
 
 
 </resources>
