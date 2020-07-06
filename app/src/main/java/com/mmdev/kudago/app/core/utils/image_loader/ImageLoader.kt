@@ -60,8 +60,8 @@ class ImageLoader : KoinComponent {
 
 		private const val TAG = "ImageLoader"
 		private const val REQUIRED_SIZE = 1000
-		private const val CONNECTION_TIMEOUT = 30000
-		private const val READ_TIMEOUT = 30000
+		private const val CONNECTION_TIMEOUT = 30000 // 30 sec
+		private const val READ_TIMEOUT = 30000 // 30 sec
 		private const val BUFFER_SIZE = 2048
 
 
@@ -80,13 +80,12 @@ class ImageLoader : KoinComponent {
 		}
 	}
 
+
 	private var memoryCache = MemoryCache()
 	private var fileCache: FileCache = FileCache(context)
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
-	private var executorService: ExecutorService = Executors.newFixedThreadPool(3)
+	private var executorService: ExecutorService = Executors.newFixedThreadPool(5)
 	private var handler = Handler(Looper.myLooper()!!)
-
-	private lateinit var conn: HttpURLConnection
 
 	private var bitmapOptions = BitmapFactory.Options()
 	init {
@@ -99,8 +98,6 @@ class ImageLoader : KoinComponent {
 	private var scalingValue: Int = 0
 	private var widthTMP: Int = 0
 	private var heightTMP: Int = 0
-
-	private lateinit var fileInputStream: FileInputStream
 
 	@Synchronized
 	fun load(imageView: ImageView, url: String) {
@@ -120,25 +117,28 @@ class ImageLoader : KoinComponent {
 
 		val b = decodeFile(f)
 		if (b != null) return b
-
-		try {
+		else{
 			val imageUrl = URL(url)
-			conn = imageUrl.openConnection() as HttpURLConnection
-			conn.apply {
-				connectTimeout = CONNECTION_TIMEOUT
-				instanceFollowRedirects = true
-				readTimeout = READ_TIMEOUT
+			try {
+
+				val conn = imageUrl.openConnection() as HttpURLConnection
+				conn.apply {
+					connectTimeout = CONNECTION_TIMEOUT
+					instanceFollowRedirects = true
+					readTimeout = READ_TIMEOUT
+				}
+				val outStream = FileOutputStream(f)
+				copyStream(conn.inputStream, outStream)
+				outStream.close()
+				conn.disconnect()
+				return decodeFile(f)
+			} catch (ex: Throwable) {
+				ex.printStackTrace()
+				if (ex is OutOfMemoryError) memoryCache.clear()
+				return null
 			}
-			val outStream = FileOutputStream(f)
-			copyStream(conn.inputStream, outStream)
-			outStream.close()
-			conn.disconnect()
-			return decodeFile(f)
-		} catch (ex: Throwable) {
-			ex.printStackTrace()
-			if (ex is OutOfMemoryError) memoryCache.clear()
-			return null
 		}
+
 
 	}
 
@@ -149,7 +149,7 @@ class ImageLoader : KoinComponent {
 				val o = BitmapFactory.Options()
 				o.inJustDecodeBounds = true
 
-				fileInputStream = FileInputStream(f)
+				val fileInputStream = FileInputStream(f)
 				BitmapFactory.decodeStream(fileInputStream, null, o)
 				fileInputStream.close()
 
@@ -166,9 +166,9 @@ class ImageLoader : KoinComponent {
 
 				bitmapOptions.inSampleSize = scalingValue
 
-				val fileInputStream = FileInputStream(f)
-				val bitmap = BitmapFactory.decodeStream(fileInputStream, null, bitmapOptions)
-				fileInputStream.close()
+				val stream2 = FileInputStream(f)
+				val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
+				stream2.close()
 				return bitmap
 			}
 		} catch (e: FileNotFoundException) {

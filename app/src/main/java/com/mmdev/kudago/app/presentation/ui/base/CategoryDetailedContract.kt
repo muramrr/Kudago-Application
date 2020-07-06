@@ -27,6 +27,8 @@ interface CategoryDetailedContract {
 
 	interface View<T: BaseEntity>  {
 
+		fun setData(data: List<T>)
+
 		fun updateData(data: List<T>)
 
 		fun showEmptyList()

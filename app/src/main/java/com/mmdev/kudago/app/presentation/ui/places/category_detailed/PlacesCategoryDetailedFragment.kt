@@ -102,10 +102,14 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 
 	}
 
-	override fun updateData(data: List<PlaceEntity>) {
+	override fun setData(data: List<PlaceEntity>) {
 		categoryDetailedAdapter.setData(data)
 		viewBinding.tvEmptyList.visibility = View.INVISIBLE
 		viewBinding.ivEmptyList.visibility = View.INVISIBLE
+	}
+
+	override fun updateData(data: List<PlaceEntity>) {
+		categoryDetailedAdapter.updateData(data)
 	}
 
 	override fun showEmptyList() {

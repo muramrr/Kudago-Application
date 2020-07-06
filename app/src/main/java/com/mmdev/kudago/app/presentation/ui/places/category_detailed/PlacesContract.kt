@@ -29,11 +29,7 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
 
 interface PlacesContract  {
 
-	interface View : CategoryDetailedContract.View<PlaceEntity>, IBaseView {
-
-		override fun updateData(data: List<PlaceEntity>)
-
-	}
+	interface View : CategoryDetailedContract.View<PlaceEntity>, IBaseView
 
 	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
 

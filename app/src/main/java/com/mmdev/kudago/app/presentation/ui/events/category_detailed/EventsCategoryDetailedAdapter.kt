@@ -30,9 +30,10 @@ import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
  * This is the documentation block about the class
  */
 
-class EventsCategoryDetailedAdapter(private var data: List<EventEntity> = emptyList()):
+class EventsCategoryDetailedAdapter(private val eventsList: MutableList<EventEntity> = mutableListOf()):
 		BaseAdapter<EventEntity>() {
 
+	private var startPos = 0
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		EventsCategoryDetailedViewHolder(
@@ -41,13 +42,18 @@ class EventsCategoryDetailedAdapter(private var data: List<EventEntity> = emptyL
 				                                         false)
 		)
 
-	override fun getItemCount(): Int = data.size
-	override fun getItem(position: Int) = data[position]
-
+	override fun getItemCount(): Int = eventsList.size
+	override fun getItem(position: Int) = eventsList[position]
 
 	override fun setData(data: List<EventEntity>){
-		this.data = data
-		notifyDataSetChanged()
+		eventsList.addAll(data)
+		notifyItemRangeInserted(startPos, data.size)
+	}
+
+	fun updateData(data: List<EventEntity>) {
+		startPos = eventsList.size
+		eventsList.addAll(data)
+		notifyItemRangeInserted(startPos, data.size)
 	}
 
 

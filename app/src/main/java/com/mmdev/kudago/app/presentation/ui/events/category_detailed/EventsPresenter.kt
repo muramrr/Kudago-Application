@@ -17,7 +17,6 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
-import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
@@ -31,24 +30,24 @@ class EventsPresenter (private val repository: IEventsRepository) :
 		BasePresenter<EventsContract.View>(),
 		EventsContract.Presenter {
 
-	private var eventsList: MutableList<EventEntity> = mutableListOf()
+
 
 	override fun loadFirstCategoryEntities(category: String) {
 		launch {
 			withContext(backgroundContext) { repository.loadFirstEvents(category) }?.let {
-				eventsList = it.results.toMutableList()
-				if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
-				else getLinkedView()?.showEmptyList()
-			}
+				with(it.results) {
+					if (isNotEmpty()) getLinkedView()?.setData(this)
+					else getLinkedView()?.showEmptyList()
+				}
 
+			}
 		}
 	}
 
 	override fun loadMore() {
 		launch {
 			withContext(backgroundContext) { repository.loadMoreEvents() }?.let {
-				eventsList.addAll(it.results)
-				getLinkedView()?.updateData(eventsList)
+				getLinkedView()?.updateData(it.results)
 			}
 
 		}

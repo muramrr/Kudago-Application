@@ -30,9 +30,10 @@ import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = emptyList()):
+class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEntity> = mutableListOf()):
 		BaseAdapter<PlaceEntity>() {
 
+	private var startPos = 0
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		PlacesCategoryDetailedViewHolder(
@@ -41,13 +42,19 @@ class PlacesCategoryDetailedAdapter (private var data: List<PlaceEntity> = empty
 				                                    false)
 		)
 
-	override fun getItemCount(): Int = data.size
-	override fun getItem(position: Int) = data[position]
+	override fun getItemCount(): Int = placesList.size
+	override fun getItem(position: Int) = placesList[position]
 
 
 	override fun setData(data: List<PlaceEntity>){
-		this.data = data
-		notifyDataSetChanged()
+		placesList.addAll(data)
+		notifyItemRangeInserted(startPos, data.size)
+	}
+
+	fun updateData(data: List<PlaceEntity>) {
+		startPos = placesList.size
+		placesList.addAll(data)
+		notifyItemRangeInserted(startPos, data.size)
 	}
 
 

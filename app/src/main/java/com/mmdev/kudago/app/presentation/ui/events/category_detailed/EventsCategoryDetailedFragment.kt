@@ -64,8 +64,6 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 			presenter.loadFirstCategoryEntities(receivedCategoryString)
 		}
 
-
-
 	}
 
 	override fun setupViews() {
@@ -103,10 +101,14 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 
 	}
 
-	override fun updateData(data: List<EventEntity>) {
+	override fun setData(data: List<EventEntity>) {
 		categoryDetailedAdapter.setData(data)
 		viewBinding.tvEmptyList.visibility = View.INVISIBLE
 		viewBinding.ivEmptyList.visibility = View.INVISIBLE
+	}
+
+	override fun updateData(data: List<EventEntity>) {
+		categoryDetailedAdapter.updateData(data)
 	}
 
 	override fun showEmptyList() {

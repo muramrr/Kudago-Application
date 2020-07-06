@@ -28,11 +28,7 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
 
 interface EventsContract  {
 
-	interface View : CategoryDetailedContract.View<EventEntity>, IBaseView {
-
-		override fun updateData(data: List<EventEntity>)
-
-	}
+	interface View : CategoryDetailedContract.View<EventEntity>, IBaseView
 
 	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
 
