@@ -24,6 +24,10 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
+import com.mmdev.kudago.app.core.utils.CoroutineDispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.*
@@ -33,6 +37,7 @@ import java.util.*
 import java.util.Collections.synchronizedMap
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
 
 /**
  * @param REQUIRED_SIZE depends on image size which will be loaded (lower value - lower image quality)
@@ -42,7 +47,10 @@ import java.util.concurrent.Executors
 
 
 
-class ImageLoader : KoinComponent {
+class ImageLoader : KoinComponent, CoroutineScope by CoroutineScope(CoroutineDispatchers.mainDispatcher()) {
+
+	override val coroutineContext: CoroutineContext
+		get() = CoroutineDispatchers.ioDispatcher()
 
 	private val context: Context by inject()
 	companion object {
@@ -107,8 +115,15 @@ class ImageLoader : KoinComponent {
 		else queuePhoto(url, imageView)
 	}
 
+	@Synchronized
+	fun preload(url: String) {
+		if (memoryCache[url] != null) return
+		else executorService.submit(ImagePreload(url))
+	}
+
 	private fun queuePhoto(url: String, imageView: ImageView) {
-		val p = PhotoToLoad(url, imageView)
+		val p = ImageToLoad(url, imageView)
+		//startLoading(p)
 		executorService.submit(PhotosLoader(p))
 	}
 
@@ -183,20 +198,31 @@ class ImageLoader : KoinComponent {
 		return null
 	}
 
-	private data class PhotoToLoad(val url: String, val imageView: ImageView)
+	private fun startLoading(imageToLoad: ImageToLoad) {
+		if (imageViewReused(imageToLoad)) return
+		launch {
+			loadedBitmap = withContext(CoroutineDispatchers.ioDispatcher()){
+				getBitmap(imageToLoad.url)
+			}
+			loadedBitmap?.let { memoryCache.put(imageToLoad.url, it) }
 
-	private inner class PhotosLoader(val photoToLoad: PhotoToLoad) : Runnable {
+
+		}
+		updateImageView(loadedBitmap, imageToLoad)
+	}
+
+	private inner class PhotosLoader(val imageToLoad: ImageToLoad) : Runnable {
 
 		override fun run() {
 			try {
-				if (imageViewReused(photoToLoad)) return
+				if (imageViewReused(imageToLoad)) return
 
-				loadedBitmap = getBitmap(photoToLoad.url)
-				loadedBitmap?.let { memoryCache.put(photoToLoad.url, it) }
+				loadedBitmap = getBitmap(imageToLoad.url)
+				loadedBitmap?.let { memoryCache.put(imageToLoad.url, it) }
 
-				if (imageViewReused(photoToLoad)) return
+				if (imageViewReused(imageToLoad)) return
 
-				handler.post(BitmapDisplayer(loadedBitmap, photoToLoad))
+				handler.post(BitmapDisplayer(loadedBitmap, imageToLoad))
 			} catch (th: Throwable) {
 				th.printStackTrace()
 			}
@@ -204,17 +230,35 @@ class ImageLoader : KoinComponent {
 		}
 	}
 
-	private fun imageViewReused(photoToLoad: PhotoToLoad): Boolean {
-		val tag = imageViews[photoToLoad.imageView]
-		return tag == null || tag != photoToLoad.url
+	private inner class ImagePreload(val imageToLoadUrl: String) : Runnable {
+
+		override fun run() {
+			try {
+				loadedBitmap = getBitmap(imageToLoadUrl)
+				loadedBitmap?.let { memoryCache.put(imageToLoadUrl, it) }
+
+			} catch (th: Throwable) {
+				th.printStackTrace()
+			}
+
+		}
 	}
 
-	private inner class BitmapDisplayer(val bitmap: Bitmap?, val photoToLoad: PhotoToLoad) :
+	private fun imageViewReused(imageToLoad: ImageToLoad): Boolean {
+		val tag = imageViews[imageToLoad.imageView]
+		return tag == null || tag != imageToLoad.url
+	}
+
+	private fun updateImageView(bitmap: Bitmap?, imageToLoad: ImageToLoad) {
+		if (imageViewReused(imageToLoad)) return
+		bitmap?.run { imageToLoad.imageView.setImageBitmap(this) }
+	}
+
+	private inner class BitmapDisplayer(val bitmap: Bitmap?, val imageToLoad: ImageToLoad) :
 			Runnable {
 		override fun run() {
-			if (imageViewReused(photoToLoad)) return
 
-			bitmap?.let { photoToLoad.imageView.setImageBitmap(it) }
+			updateImageView(bitmap, imageToLoad)
 
 		}
 	}

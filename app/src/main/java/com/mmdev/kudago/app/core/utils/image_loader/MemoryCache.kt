@@ -40,7 +40,7 @@ class MemoryCache {
 
 	private fun setLimit(new_limit: Long) {
 		if (limit<new_limit) limit = new_limit
-		Log.i(TAG, "MemoryCache will use up to " + limit / 1024.0 / 1024.0 + "MB")
+		Log.i(TAG, "$TAG will use up to " + limit / 1024.0 / 1024.0 + "MB")
 	}
 
 	operator fun get(id: String): Bitmap? {
@@ -67,7 +67,7 @@ class MemoryCache {
 	}
 
 	private fun checkSize() {
-		Log.i(TAG, "cache size=" + size + " length=" + cache.size)
+		Log.i(TAG, "$TAG size=" + size + " length=" + cache.size)
 		if (size > limit) {
 			val iter = cache.entries.iterator()
 			while (iter.hasNext()) {
@@ -76,7 +76,7 @@ class MemoryCache {
 
 				if (size <= limit) break
 			}
-			Log.i(TAG, "Clean cache. New size " + cache.size)
+			Log.i(TAG, "Clean $TAG. New size " + cache.size)
 		}
 	}
 

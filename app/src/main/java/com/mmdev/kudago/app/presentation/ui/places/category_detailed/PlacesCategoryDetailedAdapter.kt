@@ -25,6 +25,7 @@ import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
+import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
 
 /**
  * This is the documentation block about the class
@@ -48,13 +49,20 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 
 	override fun setData(data: List<PlaceEntity>){
 		placesList.addAll(data)
+		//prefetchData(data)
 		notifyItemRangeInserted(startPos, data.size)
 	}
 
 	fun updateData(data: List<PlaceEntity>) {
 		startPos = placesList.size
 		placesList.addAll(data)
+		prefetchData(data)
 		notifyItemRangeInserted(startPos, data.size)
+	}
+
+	private fun prefetchData(data: List<PlaceEntity>) {
+		val prefetcher = ImagePrefetcher(data.map { it.images[0].image })
+		prefetcher.prefetch()
 	}
 
 
