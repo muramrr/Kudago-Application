@@ -147,16 +147,16 @@ class ImageLoader : KoinComponent {
 		try {
 
 			if (f.exists()) {
-				val o = BitmapFactory.Options()
-				o.inJustDecodeBounds = true
+				// First decode with inJustDecodeBounds=true to check dimensions
+				bitmapOptions.inJustDecodeBounds = true
 
 				val fileInputStream = FileInputStream(f)
-				BitmapFactory.decodeStream(fileInputStream, null, o)
+				BitmapFactory.decodeStream(fileInputStream, null, bitmapOptions)
 					.also { fileInputStream.close() }
 
 
-				widthTMP = o.outWidth
-				heightTMP = o.outHeight
+				widthTMP = bitmapOptions.outWidth
+				heightTMP = bitmapOptions.outHeight
 				scalingValue = 1
 				while (true) {
 					if (widthTMP / 2 < REQUIRED_SIZE || heightTMP / 2 < REQUIRED_SIZE) break
@@ -167,6 +167,7 @@ class ImageLoader : KoinComponent {
 				}
 
 				bitmapOptions.inSampleSize = scalingValue
+				bitmapOptions.inJustDecodeBounds = false
 
 				val stream2 = FileInputStream(f)
 				val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
