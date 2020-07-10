@@ -18,8 +18,9 @@
 package com.mmdev.kudago.app.core.utils.image_loader.cache.memory
 
 import android.graphics.Bitmap
-import android.util.Log
 import com.mmdev.kudago.app.core.utils.image_loader.cache.Cache
+import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
+import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 
 /**
  * A memory [Cache] implantation that holds references to a limited number of values.
@@ -50,10 +51,13 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 	fun getBitmapPool() = bitmapPool
 
 	override fun get(key: String): Bitmap? {
-		return bitmapLruCache.get(key)
+		val bitmap = bitmapLruCache.get(key)
+		logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $bitmap")
+		return bitmap
 	}
 
 	override fun put(key: String, value: Bitmap) {
+		logDebug(TAG, "Put to memory cache ${key.md5()}")
 		bitmapLruCache.put(key, value)
 	}
 
@@ -66,9 +70,9 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 	}
 
 	override fun clear() {
-		Log.i(TAG, "Clear memory: ${size()} mb")
+		logDebug(TAG, "Clear memory: ${size()} mb")
 		bitmapLruCache.evictAll()
-		Log.i(TAG, "Clear bitmap pool: ${bitmapPool.size} elements")
+		logDebug(TAG, "Clear bitmap pool: ${bitmapPool.size} elements")
 		bitmapPool.clear()
 	}
 

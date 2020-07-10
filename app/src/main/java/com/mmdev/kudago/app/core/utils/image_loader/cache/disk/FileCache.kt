@@ -18,16 +18,41 @@
 package com.mmdev.kudago.app.core.utils.image_loader.cache.disk
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.IOException
 
 /**
  * FileCache
+ * @param REQUIRED_SIZE depends on image size which will be loaded (lower value - lower image quality)
+ * to take off limits of image size, look at [decodeFile] function
  */
 
 class FileCache(context: Context) {
 
-	private var cacheDir: File? = null
+	companion object {
+		private const val TAG = "DiskCache"
 
+		// depends on image size which will be loaded (lower value - lower image quality)
+		private const val REQUIRED_SIZE = 1000
+	}
+
+
+	private var bitmapOptions = BitmapFactory.Options()
+	init {
+		bitmapOptions.apply { inPreferredConfig = Bitmap.Config.RGB_565 }
+	}
+	private var scalingValue: Int = 0
+	private var widthTMP: Int = 0
+	private var heightTMP: Int = 0
+
+
+
+
+	private var cacheDir: File? = null
 	init {
 		cacheDir = context.cacheDir
 		if (!cacheDir!!.exists()) cacheDir!!.mkdirs()
@@ -51,5 +76,45 @@ class FileCache(context: Context) {
 	fun clear() {
 		val files = cacheDir!!.listFiles() ?: return
 		for (f in files) f.delete()
+	}
+
+	fun decodeFile(f: File): Bitmap? {
+		try {
+
+			if (f.exists()) {
+				// First decode with inJustDecodeBounds=true to check dimensions
+				bitmapOptions.inJustDecodeBounds = true
+
+				val fileInputStream = FileInputStream(f)
+				BitmapFactory.decodeStream(fileInputStream, null, bitmapOptions)
+					.also { fileInputStream.close() }
+
+
+				widthTMP = bitmapOptions.outWidth
+				heightTMP = bitmapOptions.outHeight
+				scalingValue = 1
+				while (true) {
+					if (widthTMP / 2 < REQUIRED_SIZE || heightTMP / 2 < REQUIRED_SIZE) break
+
+					widthTMP /= 2
+					heightTMP /= 2
+					scalingValue *= 2
+				}
+
+				bitmapOptions.inSampleSize = scalingValue
+				bitmapOptions.inJustDecodeBounds = false
+
+				val stream2 = FileInputStream(f)
+				val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
+				stream2.close()
+				return bitmap
+			}
+		} catch (e: FileNotFoundException) {
+			e.printStackTrace()
+		} catch (e: IOException) {
+			e.printStackTrace()
+		}
+
+		return null
 	}
 }

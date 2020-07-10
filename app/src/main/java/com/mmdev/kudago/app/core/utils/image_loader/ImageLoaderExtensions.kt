@@ -15,18 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common.utils
+package com.mmdev.kudago.app.core.utils.image_loader
 
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import android.widget.ImageView
 
-/**
- * This is the documentation block about the class
- */
+fun ImageView.load(url: String) = ImageLoader.get().load(url, this)
 
-class ImagePrefetcher (private val imagesUrl: List<String>) {
-
-	fun prefetch(){
-		imagesUrl.forEach { ImageLoader.get().preload(url = it) }
-	}
-
-}
+internal fun logDebug(tag: String, message: String) = ImageLoader.debug.logger.log(tag, message)

@@ -15,18 +15,17 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common.utils
+package com.mmdev.kudago.app.core.utils.image_loader.common
 
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.BuildConfig
 
-/**
- * This is the documentation block about the class
- */
+internal interface DebugConfig {
 
-class ImagePrefetcher (private val imagesUrl: List<String>) {
+	val enabled: Boolean
+	val logger: MyLogger
 
-	fun prefetch(){
-		imagesUrl.forEach { ImageLoader.get().preload(url = it) }
+	object Default : DebugConfig {
+		override val enabled: Boolean = BuildConfig.DEBUG
+		override val logger: MyLogger = if (enabled) MyLogger.Debug else MyLogger.Default
 	}
-
 }

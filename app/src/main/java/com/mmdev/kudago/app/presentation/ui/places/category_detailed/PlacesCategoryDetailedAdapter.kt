@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
@@ -49,7 +49,7 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 
 	override fun setData(data: List<PlaceEntity>){
 		placesList.addAll(data)
-		//prefetchData(data)
+		prefetchData(data)
 		notifyItemRangeInserted(startPos, data.size)
 	}
 
@@ -77,8 +77,7 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 			//needed to clear recycler views that has already loaded image previously
 			viewBinding.ivImageHolder.setImageResource(R.drawable.placeholder)
 			//loading image from url
-			ImageLoader.get()
-				.load(viewBinding.ivImageHolder, item.images[0].image)
+			viewBinding.ivImageHolder.load(item.images[0].image)
 		}
 
 

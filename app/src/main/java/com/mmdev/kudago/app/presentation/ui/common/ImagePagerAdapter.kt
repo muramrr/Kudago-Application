@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemImagePagerBinding
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 
@@ -50,8 +50,7 @@ class ImagePagerAdapter (private var data: List<String> = emptyList()) :
 
 		override fun bind(item: String) {
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
-			ImageLoader.get()
-				.load(viewBinding.ivPhoto, item)
+			viewBinding.ivPhoto.load(item)
 		}
 
 

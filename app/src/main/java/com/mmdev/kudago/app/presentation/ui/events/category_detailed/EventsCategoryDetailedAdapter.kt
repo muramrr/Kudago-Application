@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
@@ -68,8 +68,7 @@ class EventsCategoryDetailedAdapter(private val eventsList: MutableList<EventEnt
 			//needed to clear recycler views that has already loaded image previously
 			viewBinding.ivImageHolder.setImageResource(R.drawable.placeholder)
 			//loading image from url
-			ImageLoader.get()
-				.load(viewBinding.ivImageHolder, item.images[0].image)
+			viewBinding.ivImageHolder.load(item.images[0].image)
 		}
 
 

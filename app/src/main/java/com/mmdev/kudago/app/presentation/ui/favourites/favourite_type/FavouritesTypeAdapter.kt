@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
@@ -57,10 +57,7 @@ class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList
 		@ExperimentalStdlibApi
 		override fun bind(item: FavouriteEntity){
 			viewBinding.tvTitle.text = item.favouriteTitle.capitalizeRu()
-			viewBinding.ivImageHolder.run {
-				ImageLoader.get()
-					.load(this, item.favouriteMainPictureUrl)
-			}
+			viewBinding.ivImageHolder.load(item.favouriteMainPictureUrl)
 		}
 
 	}
