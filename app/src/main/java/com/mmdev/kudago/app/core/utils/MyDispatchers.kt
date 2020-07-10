@@ -24,11 +24,11 @@ import kotlinx.coroutines.Dispatchers
  * This is the documentation block about the class
  */
 
-object CoroutineDispatchers {
+object MyDispatchers {
 
-	fun ioDispatcher(): CoroutineDispatcher = Dispatchers.IO
-	fun defaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
-	fun mainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-	fun nconfinedDispatcher(): CoroutineDispatcher = Dispatchers.Unconfined
+	fun io(): CoroutineDispatcher = Dispatchers.IO
+	fun default(): CoroutineDispatcher = Dispatchers.Default
+	fun main(): CoroutineDispatcher = Dispatchers.Main
+	fun unconfined(): CoroutineDispatcher = Dispatchers.Unconfined
 
 }
