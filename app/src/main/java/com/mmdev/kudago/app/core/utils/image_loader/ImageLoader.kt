@@ -25,6 +25,8 @@ import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
 import com.mmdev.kudago.app.core.utils.CoroutineDispatchers
+import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
+import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.MemoryCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,6 +68,8 @@ class ImageLoader : KoinComponent, CoroutineScope by CoroutineScope(CoroutineDis
 
 		}
 
+
+
 		private const val TAG = "ImageLoader"
 		private const val REQUIRED_SIZE = 1000
 		private const val CONNECTION_TIMEOUT = 30000 // 30 sec
@@ -89,7 +93,7 @@ class ImageLoader : KoinComponent, CoroutineScope by CoroutineScope(CoroutineDis
 	}
 
 
-	private var memoryCache = MemoryCache()
+	private var memoryCache = MemoryCache.newInstance()
 	private var fileCache: FileCache = FileCache(context)
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
 	private var executorService: ExecutorService = Executors.newFixedThreadPool(5)
@@ -110,14 +114,14 @@ class ImageLoader : KoinComponent, CoroutineScope by CoroutineScope(CoroutineDis
 	@Synchronized
 	fun load(imageView: ImageView, url: String) {
 		imageViews[imageView] = url
-		bitmapFromMemoryCache = memoryCache[url]
+		bitmapFromMemoryCache = memoryCache.get(url)
 		if (bitmapFromMemoryCache != null) imageView.setImageBitmap(bitmapFromMemoryCache)
 		else queuePhoto(url, imageView)
 	}
 
 	@Synchronized
 	fun preload(url: String) {
-		if (memoryCache[url] != null) return
+		if (memoryCache.get(url) != null) return
 		else executorService.submit(ImagePreload(url))
 	}
 
