@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.core.utils.image_loader.cache.memory
 
 import android.graphics.Bitmap
 import android.util.LruCache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
+import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToKilobytes
 
 /**
  * Bitmap cache that holds strong references to a limited number of values. Each time
@@ -36,7 +36,7 @@ internal class BitmapLruCache (size: Int, private val bitmapPool: BitmapMemoryPo
 		LruCache<String, Bitmap>(size) {
 
 	override fun sizeOf(key: String, value: Bitmap): Int {
-		return value.allocationByteCount.bytesToMegabytes()
+		return value.allocationByteCount.bytesToKilobytes()
 	}
 
 	override fun entryRemoved(evicted: Boolean, key: String?, oldValue: Bitmap?, newValue: Bitmap?) {

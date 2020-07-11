@@ -19,6 +19,7 @@ package com.mmdev.kudago.app.core.utils.image_loader.cache.memory
 
 import android.graphics.Bitmap
 import com.mmdev.kudago.app.core.utils.image_loader.cache.Cache
+import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToKilobytes
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 
@@ -34,7 +35,7 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 	companion object {
 		private const val TAG = "MemoryCache"
 
-		private val MEMORY_CACHE_SIZE = ((Runtime.getRuntime().maxMemory() / 8) / 1024).toInt()
+		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8).bytesToKilobytes()
 
 		/**
 		 * Creates a new [MemoryCache] object.
@@ -48,12 +49,12 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 		}
 	}
 
-	fun getBitmapPool() = bitmapPool
 
 	override fun get(key: String): Bitmap? {
-		val bitmap = bitmapLruCache.get(key)
-		logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $bitmap")
-		return bitmap
+		return bitmapLruCache.get(key).also {
+			logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $it")
+		}
+
 	}
 
 	override fun put(key: String, value: Bitmap) {
@@ -61,9 +62,7 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 		bitmapLruCache.put(key, value)
 	}
 
-	override fun size(): Long {
-		return bitmapLruCache.size().toLong() / 1024
-	}
+	override fun size(): Int = bitmapLruCache.size() / 1024
 
 	override fun evict(key: String) {
 		bitmapLruCache.remove(key)

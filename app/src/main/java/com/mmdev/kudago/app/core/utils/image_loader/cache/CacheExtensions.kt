@@ -20,11 +20,13 @@ package com.mmdev.kudago.app.core.utils.image_loader.cache
 import java.math.BigInteger
 import java.security.MessageDigest
 
+internal fun Int.bytesToKilobytes(): Int = (this / 1024)
 
+internal fun Long.bytesToKilobytes(): Int = (this / 1024).toInt()
 
-internal fun Int.bytesToMegabytes(): Int { return this / 1024 / 1024 }
+internal fun Int.bytesToMegabytes(): Int = ( this / 1024 / 1024 )
 
-internal fun Long.bytesToMegabytes(): Int { return this.toInt() / 1024 / 1024 }
+internal fun Long.bytesToMegabytes(): Int = (this / 1024 / 1024).toInt()
 
 /**
  * Hash a string to an MD5.

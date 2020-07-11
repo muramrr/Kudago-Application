@@ -21,6 +21,7 @@ import android.graphics.Bitmap
 import android.net.TrafficStats
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
+import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 import java.io.FileOutputStream
 import java.io.IOException
@@ -67,51 +68,41 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		fun newInstance(fileCache: FileCache): BitmapDownloader = BitmapDownloader(fileCache)
 	}
 
+	private val fileDecoder = FileDecoder()
+
 	/**
-	 * Check if file exists on disk cache
-	 *
-	 * else Download an image using its url and decode it to the given width and height.
+	 * Download an image using its url and decode it to the given width and height.
 	 *
 	 * @param url image url to download.
 	 * @return image as [Bitmap] if success, otherwise null.
 	 */
 	fun download(url: String): Bitmap? {
-		//get from file cache
+		//new file on disk cache
 		val f = fileCache.getFile(url)
 
-		//decode cache file
-		val b = fileCache.decodeFile(f)
-		if (b != null) {
-			logDebug(TAG, "Using image from disk cache: ${url.md5()}")
-			return b
-		}
+		logDebug(TAG, "downloading $url as ${url.md5()}")
 
-		//download otherwise
-		else{
-			logDebug(TAG, "downloading $url as ${url.md5()}")
-
-			var urlConnection: HttpURLConnection? = null
-			return try {
-				TrafficStats.setThreadStatsTag(USER_REQUEST_TAG)
-				val imageUrl = URL(url)
-				urlConnection = imageUrl.openConnection() as HttpURLConnection
-				urlConnection.apply {
-					connectTimeout = CONNECTION_TIMEOUT
-					instanceFollowRedirects = true
-					readTimeout = READ_TIMEOUT
-				}
-				val outStream = FileOutputStream(f)
-				copyStream(urlConnection.inputStream, outStream)
-				outStream.close()
-				urlConnection.disconnect()
-				return fileCache.decodeFile(f)
-			} catch (ex: IOException) {
-				logDebug(TAG, "Error while downloading $this \n $ex")
-				null
-			} finally {
-				urlConnection?.disconnect()
-				TrafficStats.clearThreadStatsTag()
+		var urlConnection: HttpURLConnection? = null
+		return try {
+			TrafficStats.setThreadStatsTag(USER_REQUEST_TAG)
+			val imageUrl = URL(url)
+			urlConnection = imageUrl.openConnection() as HttpURLConnection
+			urlConnection.apply {
+				connectTimeout = CONNECTION_TIMEOUT
+				instanceFollowRedirects = true
+				readTimeout = READ_TIMEOUT
 			}
+			val outStream = FileOutputStream(f)
+			copyStream(urlConnection.inputStream, outStream)
+			outStream.close()
+			urlConnection.disconnect()
+			return fileDecoder.decodeFile(f)
+		} catch (ex: IOException) {
+			logDebug(TAG, "Error while downloading $this \n $ex")
+			null
+		} finally {
+			urlConnection?.disconnect()
+			TrafficStats.clearThreadStatsTag()
 		}
 
 	}

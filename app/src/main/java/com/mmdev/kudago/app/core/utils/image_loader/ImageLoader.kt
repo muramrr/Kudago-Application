@@ -22,7 +22,6 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import com.mmdev.kudago.app.core.utils.MyDispatchers
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.MemoryCache
 import com.mmdev.kudago.app.core.utils.image_loader.common.DebugConfig
 import com.mmdev.kudago.app.core.utils.image_loader.common.MyLogger
@@ -92,19 +91,16 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 		memoryCache.get(url)?.let {
 			imageView.setImageBitmap(it)
-			logDebug(TAG, "Updating from memory cache: ${url.md5()}")
+//			logDebug(TAG, "Updating from memory cache: ${url.md5()}")
 			return
 		}
 
 		queuePhoto(url, imageView)
-		logDebug(TAG, "Image ${url.md5()} in memory cache is not found. Image in queue.")
 	}
 
 	fun preload(url: String) {
 		launch {
 			bitmapDownloader.preDownload(url)
-			logDebug(TAG, "Preloading on ${Thread.currentThread().name}")
-
 		}
 	}
 
@@ -123,12 +119,20 @@ class ImageLoader : KoinComponent, CoroutineScope {
 	}
 
 	private fun getBitmap(url: String): Bitmap? {
-		return bitmapDownloader.download(url)?.also { memoryCache.put(url, it) }
+		return try {
+			fileCache.getBitmapFromDiskCache(url) ?:
+			bitmapDownloader.download(url)?.also { memoryCache.put(url, it) }
+		} catch (e: OutOfMemoryError) {
+			e.printStackTrace()
+			memoryCache.clear()
+			getBitmap(url)
+		}
 	}
 
 	private fun imageViewReused(imageToLoad: ImageToLoad): Boolean {
-		val tag = imageViews[imageToLoad.imageView]
-		return tag == null || tag != imageToLoad.url
+		val associatedUrl = imageViews[imageToLoad.imageView]
+		//logDebug(TAG, "${imageViews.size}")
+		return associatedUrl == null || associatedUrl != imageToLoad.url
 	}
 
 	private fun updateImageView(bitmap: Bitmap?, imageToLoad: ImageToLoad) {

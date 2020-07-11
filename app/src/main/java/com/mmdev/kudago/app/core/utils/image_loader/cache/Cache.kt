@@ -53,5 +53,5 @@ interface Cache<Key : Any, Value : Any> {
 	 *
 	 * @return cache current size in bytes.
 	 */
-	fun size(): Long
+	fun size(): Int
 }

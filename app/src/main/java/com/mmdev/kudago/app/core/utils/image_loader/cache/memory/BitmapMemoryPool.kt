@@ -26,6 +26,7 @@ import java.lang.ref.SoftReference
  *
  * @param bitmapsSet a set to hold soft references to bitmaps.
  */
+
 internal class BitmapMemoryPool(private val bitmapsSet: MutableSet<SoftReference<Bitmap>>) {
 
 	companion object {
