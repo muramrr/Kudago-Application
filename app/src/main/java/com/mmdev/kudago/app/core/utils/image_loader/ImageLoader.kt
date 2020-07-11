@@ -125,6 +125,7 @@ class ImageLoader : KoinComponent, CoroutineScope {
 		} catch (e: OutOfMemoryError) {
 			e.printStackTrace()
 			memoryCache.clear()
+			System.gc()
 			getBitmap(url)
 		}
 	}
