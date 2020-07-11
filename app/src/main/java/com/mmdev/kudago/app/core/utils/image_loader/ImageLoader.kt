@@ -19,24 +19,30 @@ package com.mmdev.kudago.app.core.utils.image_loader
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.os.Handler
-import android.os.Looper
 import android.widget.ImageView
+import com.mmdev.kudago.app.core.utils.MyDispatchers
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.MemoryCache
 import com.mmdev.kudago.app.core.utils.image_loader.common.DebugConfig
 import com.mmdev.kudago.app.core.utils.image_loader.common.MyLogger
 import com.mmdev.kudago.app.core.utils.image_loader.network.BitmapDownloader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
 import java.util.Collections.synchronizedMap
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
 
 
-class ImageLoader : KoinComponent {
+class ImageLoader : KoinComponent, CoroutineScope {
+
+	override val coroutineContext: CoroutineContext
+		get() = Dispatchers.IO
+
 
 	private val context: Context by inject()
 
@@ -74,76 +80,50 @@ class ImageLoader : KoinComponent {
 
 	}
 
-
 	private val memoryCache = MemoryCache.newInstance()
 	private val fileCache = FileCache(context)
 	private val bitmapDownloader = BitmapDownloader.newInstance(fileCache)
+
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
-	private var executorService: ExecutorService = Executors.newFixedThreadPool(5)
-	private var handler = Handler(Looper.myLooper()!!)
 
 
-	private var bitmapFromMemoryCache: Bitmap? = null
-	private var loadedBitmap: Bitmap? = null
-
-
-
-	@Synchronized
 	fun load(url: String, imageView: ImageView) {
 		imageViews[imageView] = url
-		bitmapFromMemoryCache = memoryCache.get(url)
-		if (bitmapFromMemoryCache != null) {
-			imageView.setImageBitmap(bitmapFromMemoryCache)
+
+		memoryCache.get(url)?.let {
+			imageView.setImageBitmap(it)
 			logDebug(TAG, "Updating from memory cache: ${url.md5()}")
+			return
 		}
-		else {
-			queuePhoto(url, imageView)
-			logDebug(TAG, "Image ${url.md5()} in memory cache is not found. Image in queue.")
-		}
+
+		queuePhoto(url, imageView)
+		logDebug(TAG, "Image ${url.md5()} in memory cache is not found. Image in queue.")
 	}
 
-	@Synchronized
 	fun preload(url: String) {
-		executorService.submit(ImagePreload(url))
+		launch {
+			bitmapDownloader.preDownload(url)
+			logDebug(TAG, "Preloading on ${Thread.currentThread().name}")
+
+		}
 	}
 
 	private fun queuePhoto(url: String, imageView: ImageView) {
 		val p = ImageToLoad(url, imageView)
-		executorService.submit(PhotosLoader(p))
-	}
-
-	private fun getBitmap(url: String): Bitmap? {
-		return bitmapDownloader.download(url)?.also { memoryCache.put(url, it) }
-	}
-
-
-	private inner class PhotosLoader(val imageToLoad: ImageToLoad) : Runnable {
-
-		override fun run() {
-			try {
-				if (imageViewReused(imageToLoad)) return
-
-				loadedBitmap = getBitmap(imageToLoad.url)
-
-				if (imageViewReused(imageToLoad)) return
-
-
-				//post to update ui
-				handler.post(BitmapDisplayer(loadedBitmap, imageToLoad))
-			} catch (th: Throwable) {
-				th.printStackTrace()
+		if (imageViewReused(p)) {
+			logDebug(TAG, "ImageView reusing")
+			return
+		}
+		launch (MyDispatchers.main()) {
+			withContext(MyDispatchers.io()) { getBitmap(url) }?.let {
+				updateImageView(it, p)
 			}
 
 		}
 	}
 
-	private inner class ImagePreload(val imageToLoadUrl: String) : Runnable {
-
-		override fun run() {
-
-			bitmapDownloader.preDownload(imageToLoadUrl)
-
-		}
+	private fun getBitmap(url: String): Bitmap? {
+		return bitmapDownloader.download(url)?.also { memoryCache.put(url, it) }
 	}
 
 	private fun imageViewReused(imageToLoad: ImageToLoad): Boolean {
@@ -154,15 +134,6 @@ class ImageLoader : KoinComponent {
 	private fun updateImageView(bitmap: Bitmap?, imageToLoad: ImageToLoad) {
 		if (imageViewReused(imageToLoad)) return
 		bitmap?.run { imageToLoad.imageView.setImageBitmap(this) }
-	}
-
-	private inner class BitmapDisplayer(val bitmap: Bitmap?, val imageToLoad: ImageToLoad) :
-			Runnable {
-		override fun run() {
-
-			updateImageView(bitmap, imageToLoad)
-
-		}
 	}
 
 	fun getFileCacheSize() = fileCache.getFileCacheSizeUsed()

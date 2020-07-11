@@ -82,7 +82,7 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		//decode cache file
 		val b = fileCache.decodeFile(f)
 		if (b != null) {
-			logDebug(TAG, "Get from disk cache: ${url.md5()}")
+			logDebug(TAG, "Using image from disk cache: ${url.md5()}")
 			return b
 		}
 
@@ -121,7 +121,7 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		val f = fileCache.getFile(url)
 		if (f.exists()) return
 		else {
-			logDebug(TAG, "Preloading ${url.md5()}")
+			logDebug(TAG, "Predownloading ${url.md5()}")
 			download(url)
 		}
 	}
