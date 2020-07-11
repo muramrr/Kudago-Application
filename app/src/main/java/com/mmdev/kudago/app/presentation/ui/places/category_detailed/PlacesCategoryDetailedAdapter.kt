@@ -49,7 +49,6 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 
 	override fun setData(data: List<PlaceEntity>){
 		placesList.addAll(data)
-		prefetchData(data)
 		notifyItemRangeInserted(startPos, data.size)
 	}
 

@@ -25,6 +25,7 @@ import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.events.EventEntity
 import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
+import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
 
 /**
  * This is the documentation block about the class
@@ -52,8 +53,14 @@ class EventsCategoryDetailedAdapter(private val eventsList: MutableList<EventEnt
 
 	fun updateData(data: List<EventEntity>) {
 		startPos = eventsList.size
+		prefetchData(data)
 		eventsList.addAll(data)
 		notifyItemRangeInserted(startPos, data.size)
+	}
+
+	private fun prefetchData(data: List<EventEntity>) {
+		val prefetcher = ImagePrefetcher(data.map { it.images[0].image })
+		prefetcher.prefetch()
 	}
 
 
