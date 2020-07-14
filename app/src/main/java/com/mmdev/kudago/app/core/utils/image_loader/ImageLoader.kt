@@ -27,7 +27,6 @@ import com.mmdev.kudago.app.core.utils.image_loader.common.DebugConfig
 import com.mmdev.kudago.app.core.utils.image_loader.common.MyLogger
 import com.mmdev.kudago.app.core.utils.image_loader.network.BitmapDownloader
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
@@ -40,7 +39,7 @@ import kotlin.coroutines.CoroutineContext
 class ImageLoader : KoinComponent, CoroutineScope {
 
 	override val coroutineContext: CoroutineContext
-		get() = Dispatchers.IO
+		get() = MyDispatchers.io()
 
 
 	private val context: Context by inject()
@@ -88,26 +87,24 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	fun load(url: String, imageView: ImageView) {
 		imageViews[imageView] = url
-
 		memoryCache.get(url)?.let {
 			imageView.setImageBitmap(it)
+
 //			logDebug(TAG, "Updating from memory cache: ${url.md5()}")
 			return
-		}
-
-		queuePhoto(url, imageView)
+		} ?: queuePhoto(url, imageView)
 	}
 
 	fun preload(url: String) {
 		launch {
-			bitmapDownloader.preDownload(url)
+			bitmapDownloader.preDownload(url)?.also { memoryCache.put(url, it) }
 		}
 	}
 
 	private fun queuePhoto(url: String, imageView: ImageView) {
 		val p = ImageToLoad(url, imageView)
 		if (imageViewReused(p)) {
-			logDebug(TAG, "ImageView reusing")
+			logDebug(TAG, "ImageView reused")
 			return
 		}
 		launch (MyDispatchers.main()) {
@@ -121,24 +118,28 @@ class ImageLoader : KoinComponent, CoroutineScope {
 	private fun getBitmap(url: String): Bitmap? {
 		return try {
 			fileCache.getBitmapFromDiskCache(url) ?:
-			bitmapDownloader.download(url)?.also { memoryCache.put(url, it) }
+			bitmapDownloader.downloadAndDecode(url)?.also { memoryCache.put(url, it) }
 		} catch (e: OutOfMemoryError) {
-			e.printStackTrace()
+			logDebug(TAG, "Out of memory error, init gc & memory cache clear")
 			memoryCache.clear()
 			System.gc()
+			logDebug(TAG, "Trying to load again...")
 			getBitmap(url)
 		}
 	}
 
 	private fun imageViewReused(imageToLoad: ImageToLoad): Boolean {
 		val associatedUrl = imageViews[imageToLoad.imageView]
-		//logDebug(TAG, "${imageViews.size}")
+		//logDebug(TAG, "trying reuse ${associatedUrl?.md5()}")
 		return associatedUrl == null || associatedUrl != imageToLoad.url
 	}
 
 	private fun updateImageView(bitmap: Bitmap?, imageToLoad: ImageToLoad) {
 		if (imageViewReused(imageToLoad)) return
-		bitmap?.run { imageToLoad.imageView.setImageBitmap(this) }
+		bitmap?.run {
+			imageToLoad.imageView.setImageBitmap(this)
+			imageViews[imageToLoad.imageView] = imageToLoad.url
+		}
 	}
 
 	fun getFileCacheSize() = fileCache.getFileCacheSizeUsed()

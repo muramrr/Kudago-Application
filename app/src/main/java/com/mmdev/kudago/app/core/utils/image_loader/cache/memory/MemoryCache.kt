@@ -18,51 +18,67 @@
 package com.mmdev.kudago.app.core.utils.image_loader.cache.memory
 
 import android.graphics.Bitmap
+import android.util.LruCache
+import androidx.core.graphics.BitmapCompat
 import com.mmdev.kudago.app.core.utils.image_loader.cache.Cache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToKilobytes
+import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 
 /**
- * A memory [Cache] implantation that holds references to a limited number of values.
+ * A memory cache which uses a least-recently used eviction policy.
  *
- * @param bitmapPool bitmap pool to hold references to bitmaps.
- * @param bitmapLruCache bitmap LRU cache.
  */
-internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
-                            private val bitmapLruCache: BitmapLruCache) : Cache<String, Bitmap> {
+internal class MemoryCache : Cache<String, Bitmap> {
 
 	companion object {
 		private const val TAG = "MemoryCache"
 
-		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8).bytesToKilobytes()
+		//cache size in bytes
+		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8)
 
 		/**
 		 * Creates a new [MemoryCache] object.
 		 */
 		@JvmStatic
-		fun newInstance(bitmapPool: BitmapMemoryPool = BitmapMemoryPool.newInstance(),
-		                size: Int = MEMORY_CACHE_SIZE): MemoryCache {
+		fun newInstance(): MemoryCache = MemoryCache().also {
+			logDebug(TAG, "Memory cache initiated with size ${MEMORY_CACHE_SIZE.bytesToMegabytes()} Mb") }
 
-			val bitmapLruCache = BitmapLruCache(size, bitmapPool)
-			return MemoryCache(bitmapPool, bitmapLruCache)
-		}
+		// Create a cache with a given maximum size in bytes.
+		private val bitmapLruCache =
+			object : LruCache<String, BitmapAndSize>(MEMORY_CACHE_SIZE.toInt()) {
+				override fun sizeOf(key: String, value: BitmapAndSize): Int = value.byteCount
+			}
 	}
 
 
 	override fun get(key: String): Bitmap? {
-		return bitmapLruCache.get(key).also {
+		return bitmapLruCache[key]?.bitmap.also {
 			logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $it")
 		}
 
 	}
 
 	override fun put(key: String, value: Bitmap) {
-		logDebug(TAG, "Put to memory cache ${key.md5()}")
-		bitmapLruCache.put(key, value)
+		val byteCount = BitmapCompat.getAllocationByteCount(value).bytesToMegabytes()
+		// If the bitmap is too big for the cache, don't even attempt to store it. Doing so will cause
+		// the cache to be cleared. Instead just evict an existing element with the same key if it
+		// exists.
+		if (byteCount > maxSize()) {
+			bitmapLruCache.remove(key)
+			logDebug(TAG, "Too big image ${key.md5()} " +
+			              "with size $byteCount " +
+			              "to store in memory cache ${maxSize()}")
+			return
+		}
+		bitmapLruCache.put(key, BitmapAndSize(value, byteCount)).also {
+			logDebug(TAG, "Put to memory cache ${key.md5()}")
+		}
 	}
 
-	override fun size(): Int = bitmapLruCache.size() / 1024
+	private fun maxSize(): Int = bitmapLruCache.maxSize()
+
+	override fun size(): Int = bitmapLruCache.size()
 
 	override fun evict(key: String) {
 		bitmapLruCache.remove(key)
@@ -71,8 +87,11 @@ internal class MemoryCache (private val bitmapPool: BitmapMemoryPool,
 	override fun clear() {
 		logDebug(TAG, "Clear memory: ${size()} mb")
 		bitmapLruCache.evictAll()
-		logDebug(TAG, "Clear bitmap pool: ${bitmapPool.size} elements")
-		bitmapPool.clear()
 	}
+
+	private data class BitmapAndSize(
+		val bitmap: Bitmap,
+		val byteCount: Int
+	)
 
 }

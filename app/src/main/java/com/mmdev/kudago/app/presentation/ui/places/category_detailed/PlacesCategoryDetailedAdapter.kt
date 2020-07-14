@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
@@ -74,7 +73,7 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
 			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			//needed to clear recycler views that has already loaded image previously
-			viewBinding.ivImageHolder.setImageResource(R.drawable.placeholder)
+			viewBinding.ivImageHolder.setImageResource(0)
 			//loading image from url
 			viewBinding.ivImageHolder.load(item.images[0].image)
 		}

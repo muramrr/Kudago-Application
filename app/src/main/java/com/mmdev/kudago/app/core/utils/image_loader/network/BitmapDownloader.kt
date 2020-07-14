@@ -47,6 +47,8 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		private const val BUFFER_SIZE = 2048
 
 
+		// Inspired by Guava's ByteStreams.copy()
+		// google.github.io/guava/releases/19.0/api/docs/src-html/com/google/common/io/ByteStreams.html#line.103
 		fun copyStream(inputStream: InputStream, outputStream: OutputStream) {
 			try {
 				val bytes = ByteArray(BUFFER_SIZE)
@@ -76,13 +78,15 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 	 * @param url image url to download.
 	 * @return image as [Bitmap] if success, otherwise null.
 	 */
-	fun download(url: String): Bitmap? {
-		//new file on disk cache
-		val f = fileCache.getFile(url)
+	fun downloadAndDecode(url: String): Bitmap? {
+		//new file on disk cache (temp)
+		val diskCacheFile = fileCache.getFile(url)
 
 		logDebug(TAG, "downloading $url as ${url.md5()}")
 
 		var urlConnection: HttpURLConnection? = null
+		var bitmap: Bitmap? = null
+		var tempOutputStream: OutputStream? = null
 		return try {
 			TrafficStats.setThreadStatsTag(USER_REQUEST_TAG)
 			val imageUrl = URL(url)
@@ -92,29 +96,40 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 				instanceFollowRedirects = true
 				readTimeout = READ_TIMEOUT
 			}
-			val outStream = FileOutputStream(f)
-			copyStream(urlConnection.inputStream, outStream)
-			outStream.close()
+			tempOutputStream = FileOutputStream(diskCacheFile)
+			copyStream(urlConnection.inputStream, tempOutputStream)
+			tempOutputStream.close()
 			urlConnection.disconnect()
-			return fileDecoder.decodeFile(f)
+			bitmap = fileDecoder.decodeFile(diskCacheFile)
+			return bitmap
 		} catch (ex: IOException) {
 			logDebug(TAG, "Error while downloading $this \n $ex")
+			diskCacheFile.delete()
+			bitmap?.recycle()
 			null
 		} finally {
+			tempOutputStream?.close()
 			urlConnection?.disconnect()
 			TrafficStats.clearThreadStatsTag()
 		}
 
 	}
 
-	fun preDownload(url: String) {
-		//get from file cache
-		val f = fileCache.getFile(url)
-		if (f.exists()) return
-		else {
-			logDebug(TAG, "Predownloading ${url.md5()}")
-			download(url)
+	fun preDownload(url: String): Bitmap? {
+		var preloadedBitmap: Bitmap?
+		return try {
+			preloadedBitmap = fileCache.getBitmapFromDiskCache(url)
+			if (preloadedBitmap != null) preloadedBitmap
+			else {
+				preloadedBitmap = downloadAndDecode(url)
+				logDebug(TAG, "Predownloading ${url.md5()}")
+				preloadedBitmap
+			}
+		} catch (t: Throwable){
+			logDebug(TAG, "Error predownloading : ${t.localizedMessage}")
+			null
 		}
+
 	}
 
 

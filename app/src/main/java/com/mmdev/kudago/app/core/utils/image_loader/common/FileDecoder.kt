@@ -1,3 +1,20 @@
+/*
+ *
+ * Copyright (c) 2020. Andrii Kovalchuk
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.mmdev.kudago.app.core.utils.image_loader.common
 
 import android.graphics.Bitmap
@@ -32,16 +49,20 @@ class FileDecoder {
 	private var widthTMP: Int = 0
 	private var heightTMP: Int = 0
 
+	private var decodedBitmap : Bitmap? = null
+
 
 	fun decodeFile(f: File): Bitmap? {
+		var tempStream: FileInputStream? = null
+		var finalStream: FileInputStream? = null
 		try {
 
 			// First decode with inJustDecodeBounds=true to check dimensions
 			bitmapOptions.inJustDecodeBounds = true
 
-			val fileInputStream = FileInputStream(f)
-			BitmapFactory.decodeStream(fileInputStream, null, bitmapOptions)
-				.also { fileInputStream.close() }
+			tempStream = FileInputStream(f)
+			BitmapFactory.decodeStream(tempStream, null, bitmapOptions)
+				.also { tempStream.close() }
 
 
 			widthTMP = bitmapOptions.outWidth
@@ -58,21 +79,25 @@ class FileDecoder {
 			bitmapOptions.inSampleSize = scalingValue
 			bitmapOptions.inJustDecodeBounds = false
 
-			val stream2 = FileInputStream(f)
-			val bitmap = BitmapFactory.decodeStream(stream2, null, bitmapOptions)
-			stream2.close()
+			finalStream = FileInputStream(f)
+			decodedBitmap = BitmapFactory.decodeStream(finalStream, null, bitmapOptions)
+			finalStream.close()
 
-			return bitmap
+			return decodedBitmap
 
 
 		} catch (e: FileNotFoundException) {
 			logDebug(TAG, "Decoding error: ${e.localizedMessage}")
 			e.printStackTrace()
+			return null
 		} catch (e: IOException) {
 			e.printStackTrace()
+			return null
+		} finally {
+			tempStream?.close()
+			finalStream?.close()
 		}
 
-		return null
 	}
 
 }

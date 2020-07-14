@@ -40,8 +40,6 @@ internal class BitmapLruCache (size: Int, private val bitmapPool: BitmapMemoryPo
 	}
 
 	override fun entryRemoved(evicted: Boolean, key: String?, oldValue: Bitmap?, newValue: Bitmap?) {
-		oldValue?.let { bitmap ->
-			bitmapPool.put(bitmap)
-		}
+		oldValue?.let { bitmap -> bitmapPool.put(bitmap) }
 	}
 }

@@ -41,15 +41,22 @@ class FileCache(context: Context) {
 		if (!cacheDir!!.exists()) cacheDir!!.mkdirs()
 	}
 
+	private var bitmapFromCache: Bitmap? = null
+
 	fun getFile(url: String): File = File(cacheDir, url.hashCode().toString())
 
 	fun getBitmapFromDiskCache(url: String) : Bitmap? {
 		val f = getFile(url)
 		return if (f.exists()) {
-			logDebug(TAG, "Get from disk cache: ${url.md5()}")
-			fileDecoder.decodeFile(f)
+
+			bitmapFromCache = fileDecoder.decodeFile(f)
+			logDebug(TAG, "Get from disk cache: ${url.md5()}, result = $bitmapFromCache")
+			bitmapFromCache
 		}
-		else null
+		else {
+			bitmapFromCache?.recycle()
+			null
+		}
 	}
 
 	fun getFileCacheSizeUsed(): Int {
