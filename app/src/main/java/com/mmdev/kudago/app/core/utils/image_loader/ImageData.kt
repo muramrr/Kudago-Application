@@ -18,9 +18,15 @@
 package com.mmdev.kudago.app.core.utils.image_loader
 
 import android.widget.ImageView
+import java.lang.ref.WeakReference
 
 /**
  * This is the documentation block about the class
  */
 
-internal data class ImageToLoad(val url: String, val imageView: ImageView)
+internal data class ImageData(val url: String, val imageView: ImageView) {
+	private val weakReference: WeakReference<ImageView> = WeakReference(imageView)
+
+	fun getWeakImageView(): ImageView? = weakReference.get()
+
+}

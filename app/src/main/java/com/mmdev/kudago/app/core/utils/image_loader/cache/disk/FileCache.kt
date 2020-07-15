@@ -21,20 +21,21 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
+import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
+
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 import java.io.File
 
 
-class FileCache(context: Context) {
+internal class FileCache(context: Context) {
 
 	companion object {
 		private const val TAG = "DiskCache"
-
 	}
 
 
-	private val fileDecoder = FileDecoder()
+	//private val fileDecoder = FileDecoder()
 	private var cacheDir: File? = null
 	init {
 		cacheDir = context.cacheDir
@@ -45,11 +46,11 @@ class FileCache(context: Context) {
 
 	fun getFile(url: String): File = File(cacheDir, url.hashCode().toString())
 
-	fun getBitmapFromDiskCache(url: String) : Bitmap? {
+	fun getBitmapFromDiskCache(url: String, bitmapPool: BitmapPool) : Bitmap? {
 		val f = getFile(url)
 		return if (f.exists()) {
 
-			bitmapFromCache = fileDecoder.decodeFile(f)
+			bitmapFromCache = FileDecoder.decodeAndScaleFile(f, bitmapPool)
 			logDebug(TAG, "Get from disk cache: ${url.md5()}, result = $bitmapFromCache")
 			bitmapFromCache
 		}

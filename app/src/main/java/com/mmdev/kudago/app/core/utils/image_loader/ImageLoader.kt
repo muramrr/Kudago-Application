@@ -78,6 +78,7 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	}
 
+
 	private val memoryCache = MemoryCache.newInstance()
 	private val fileCache = FileCache(context)
 	private val bitmapDownloader = BitmapDownloader.newInstance(fileCache)
@@ -87,29 +88,32 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	fun load(url: String, imageView: ImageView) {
 		imageViews[imageView] = url
-		memoryCache.get(url)?.let {
-			imageView.setImageBitmap(it)
-
-//			logDebug(TAG, "Updating from memory cache: ${url.md5()}")
-			return
-		} ?: queuePhoto(url, imageView)
+		memoryCache.get(url)?.let { imageView.setImageBitmap(it) } ?: queuePhoto(url, imageView)
 	}
 
 	fun preload(url: String) {
 		launch {
-			bitmapDownloader.preDownload(url)?.also { memoryCache.put(url, it) }
+			bitmapDownloader.preDownload(url, memoryCache)//?.also { memoryCache.put(url, it) }
 		}
 	}
 
 	private fun queuePhoto(url: String, imageView: ImageView) {
-		val p = ImageToLoad(url, imageView)
-		if (imageViewReused(p)) {
+		val imageData = ImageData(url, imageView)
+		//needed to clear recycler views that has already loaded image previously
+		imageView.setImageResource(0)
+		if (imageViewReused(imageData)) {
 			logDebug(TAG, "ImageView reused")
 			return
 		}
 		launch (MyDispatchers.main()) {
+			// Check if image already downloaded
+			if (imageViewReused(imageData)) return@launch
+			// Download image from web url
 			withContext(MyDispatchers.io()) { getBitmap(url) }?.let {
-				updateImageView(it, p)
+
+				if (imageViewReused(imageData)) return@launch
+				updateImageView(it, imageData)
+				memoryCache.put(url, it)
 			}
 
 		}
@@ -117,8 +121,8 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	private fun getBitmap(url: String): Bitmap? {
 		return try {
-			fileCache.getBitmapFromDiskCache(url) ?:
-			bitmapDownloader.downloadAndDecode(url)?.also { memoryCache.put(url, it) }
+			fileCache.getBitmapFromDiskCache(url, memoryCache) ?:
+			bitmapDownloader.downloadAndDecode(url, memoryCache)
 		} catch (e: OutOfMemoryError) {
 			logDebug(TAG, "Out of memory error, init gc & memory cache clear")
 			memoryCache.clear()
@@ -128,18 +132,24 @@ class ImageLoader : KoinComponent, CoroutineScope {
 		}
 	}
 
-	private fun imageViewReused(imageToLoad: ImageToLoad): Boolean {
-		val associatedUrl = imageViews[imageToLoad.imageView]
-		//logDebug(TAG, "trying reuse ${associatedUrl?.md5()}")
-		return associatedUrl == null || associatedUrl != imageToLoad.url
+	// Used for avoiding collisions with reusable imageViews or multiple loads
+	private fun imageViewReused(imageData: ImageData): Boolean {
+		val associatedUrl = imageViews[imageData.imageView]
+		// Check is url exist in relationsMap and equals to url from holder
+		return associatedUrl == null || associatedUrl != imageData.url
 	}
 
-	private fun updateImageView(bitmap: Bitmap?, imageToLoad: ImageToLoad) {
-		if (imageViewReused(imageToLoad)) return
-		bitmap?.run {
-			imageToLoad.imageView.setImageBitmap(this)
-			imageViews[imageToLoad.imageView] = imageToLoad.url
+	private fun updateImageView(bitmap: Bitmap?, imageData: ImageData) {
+		if (!imageViewReused(imageData)){
+			// Remove relation for avoiding multiple loads
+			imageViews.remove(imageData.getWeakImageView())
+
+			// Show bitmap on UI
+			bitmap?.let {
+				imageData.getWeakImageView()?.setImageBitmap(it)
+			}
 		}
+
 	}
 
 	fun getFileCacheSize() = fileCache.getFileCacheSizeUsed()

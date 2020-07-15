@@ -14,33 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-apply plugin: 'com.github.ben-manes.versions'
 
-buildscript {
-	ext.kotlin_version = '1.3.72'
-	repositories {
-		google()
-		jcenter()
+package com.mmdev.kudago.app.core.utils.image_loader.cache.memory
 
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:4.0.1'
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
-		classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-		classpath 'com.github.ben-manes:gradle-versions-plugin:0.28.0'
-	}
-}
 
-allprojects {
-	repositories {
-		google()
-		jcenter()
-		mavenCentral()
-		maven { url "https://jitpack.io" }
-	}
-}
+/**
+ * This is the documentation block about the class
+ */
 
-task clean(type: Delete) {
-	delete rootProject.buildDir
+interface BitmapPool {
+
+	fun getReusableBitmap(options: BitmapFactory.Options): Bitmap?
+
 }

@@ -72,8 +72,6 @@ class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEn
 		override fun bind(item: PlaceEntity) {
 			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
 			else viewBinding.tvTitle.text = item.title.capitalizeRu()
-			//needed to clear recycler views that has already loaded image previously
-			viewBinding.ivImageHolder.setImageResource(0)
 			//loading image from url
 			viewBinding.ivImageHolder.load(item.images[0].image)
 		}

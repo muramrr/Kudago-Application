@@ -21,6 +21,7 @@ import android.graphics.Bitmap
 import android.net.TrafficStats
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
+import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 import java.io.FileOutputStream
@@ -70,7 +71,6 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		fun newInstance(fileCache: FileCache): BitmapDownloader = BitmapDownloader(fileCache)
 	}
 
-	private val fileDecoder = FileDecoder()
 
 	/**
 	 * Download an image using its url and decode it to the given width and height.
@@ -78,7 +78,7 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 	 * @param url image url to download.
 	 * @return image as [Bitmap] if success, otherwise null.
 	 */
-	fun downloadAndDecode(url: String): Bitmap? {
+	fun downloadAndDecode(url: String, bitmapPool: BitmapPool): Bitmap? {
 		//new file on disk cache (temp)
 		val diskCacheFile = fileCache.getFile(url)
 
@@ -100,7 +100,7 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 			copyStream(urlConnection.inputStream, tempOutputStream)
 			tempOutputStream.close()
 			urlConnection.disconnect()
-			bitmap = fileDecoder.decodeFile(diskCacheFile)
+			bitmap = FileDecoder.decodeAndScaleFile(diskCacheFile, bitmapPool)
 			return bitmap
 		} catch (ex: IOException) {
 			logDebug(TAG, "Error while downloading $this \n $ex")
@@ -115,13 +115,13 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 
 	}
 
-	fun preDownload(url: String): Bitmap? {
+	fun preDownload(url: String, bitmapPool: BitmapPool): Bitmap? {
 		var preloadedBitmap: Bitmap?
 		return try {
-			preloadedBitmap = fileCache.getBitmapFromDiskCache(url)
+			preloadedBitmap = fileCache.getBitmapFromDiskCache(url, bitmapPool)
 			if (preloadedBitmap != null) preloadedBitmap
 			else {
-				preloadedBitmap = downloadAndDecode(url)
+				preloadedBitmap = downloadAndDecode(url, bitmapPool)
 				logDebug(TAG, "Predownloading ${url.md5()}")
 				preloadedBitmap
 			}
