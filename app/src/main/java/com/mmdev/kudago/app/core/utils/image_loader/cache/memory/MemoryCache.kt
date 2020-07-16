@@ -107,12 +107,9 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 	// This method iterates through the reusable bitmaps, looking for one
 	// to use for inBitmap:
 	override fun getReusableBitmap(options: BitmapFactory.Options): Bitmap? {
-		reusableBitmaps.takeIf { it.isNotEmpty()
-			.also {
-				logDebug(TAG, "Searching for reusable bitmap")
-			}
-		}?.let { reusableBitmaps ->
+		reusableBitmaps.takeIf { it.isNotEmpty() }?.let { reusableBitmaps ->
 			synchronized(reusableBitmaps) {
+				logDebug(TAG, "Searching for reusable bitmap...")
 				val iterator: MutableIterator<SoftReference<Bitmap>> = reusableBitmaps.iterator()
 				while (iterator.hasNext()) {
 					iterator.next().get()?.let { item ->
@@ -144,8 +141,11 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 		if (targetOptions.inSampleSize < 1) targetOptions.inSampleSize = 1
 		val width = targetOptions.outWidth / targetOptions.inSampleSize
 		val height = targetOptions.outHeight / targetOptions.inSampleSize
-		val byteCount: Int = width * height * bytesPerPixel(Bitmap.Config.RGB_565)
-		return byteCount <= allocationByteCount
+		val byteCount: Int = width * height * bytesPerPixel(config)
+		return (byteCount <= allocationByteCount).also {
+			logDebug(TAG, "Can use for inBitmap option = $it with $byteCount size " +
+			              "and allocated $allocationByteCount")
+		}
 	}
 
 	/**
