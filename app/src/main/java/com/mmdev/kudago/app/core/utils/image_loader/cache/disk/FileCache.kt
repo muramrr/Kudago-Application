@@ -18,12 +18,7 @@
 package com.mmdev.kudago.app.core.utils.image_loader.cache.disk
 
 import android.content.Context
-import android.graphics.Bitmap
 import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
-import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
-import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
-import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
-
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 import java.io.File
 
@@ -42,23 +37,9 @@ internal class FileCache(context: Context) {
 		if (!cacheDir!!.exists()) cacheDir!!.mkdirs()
 	}
 
-	private var bitmapFromCache: Bitmap? = null
 
 	fun getFile(url: String): File = File(cacheDir, url.hashCode().toString())
 
-	fun getBitmapFromDiskCache(url: String, bitmapPool: BitmapPool) : Bitmap? {
-		val f = getFile(url)
-		return if (f.exists()) {
-
-			bitmapFromCache = FileDecoder.decodeAndScaleFile(f, bitmapPool)
-			logDebug(TAG, "Get from disk cache: ${url.md5()}, result = $bitmapFromCache")
-			bitmapFromCache
-		}
-		else {
-			bitmapFromCache?.recycle()
-			null
-		}
-	}
 
 	fun getFileCacheSizeUsed(): Int {
 		var size: Long = 0
@@ -72,7 +53,7 @@ internal class FileCache(context: Context) {
 	fun clear() {
 		val files = cacheDir!!.listFiles() ?: return
 		for (f in files) f.delete()
-		logDebug(TAG, "Clear memory: ${getFileCacheSizeUsed()} mb")
+		logDebug(TAG, "Clear disk: ${getFileCacheSizeUsed()} mb")
 	}
 
 

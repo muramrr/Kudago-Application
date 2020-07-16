@@ -37,8 +37,8 @@ object FileDecoder {
 
 	// depends on image size which will be loaded (lower value - lower image quality)
 	private const val REQUIRED_SIZE = 500
-	private const val REQUIRED_HEIGHT = 500
-	private const val REQUIRED_WIDTH = 500
+	private const val REQUIRED_HEIGHT = 400
+	private const val REQUIRED_WIDTH = 400
 
 	fun decodeAndScaleFile(f: File, bitmapPool: BitmapPool,
 	                       reqWidth: Int = REQUIRED_WIDTH,
@@ -52,11 +52,9 @@ object FileDecoder {
 			BitmapFactory.decodeFile(filePath, bitmapOptions)
 
 			// Calculate inSampleSize
-			bitmapOptions.inSampleSize =
-				if (reqHeight > 0 && reqWidth > 0) calculateInSampleSize(bitmapOptions, reqWidth, reqHeight)
-				else 1
+			bitmapOptions.inSampleSize = calculateInSampleSize(bitmapOptions, reqWidth, reqHeight)
 
-			addInBitmapOptions(bitmapOptions, bitmapPool)
+			addToOptionsInBitmap(bitmapOptions, bitmapPool)
 
 			bitmapOptions.inJustDecodeBounds = false
 			BitmapFactory.decodeFile(filePath, bitmapOptions)
@@ -72,7 +70,7 @@ object FileDecoder {
 
 	}
 
-	private fun addInBitmapOptions(options: BitmapFactory.Options, bitmapPool: BitmapPool) {
+	private fun addToOptionsInBitmap(options: BitmapFactory.Options, bitmapPool: BitmapPool) {
 		// inBitmap only works with mutable bitmaps, so force the decoder to
 		// return mutable bitmaps.
 		options.inMutable = true
@@ -84,21 +82,19 @@ object FileDecoder {
 	}
 
 	private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
-		// Raw height and width of image
-		val height = options.outHeight
-		val width = options.outWidth
-		var inSampleSize = 1
-		if (height > reqHeight || width > reqWidth) {
-			val halfHeight = height / 2
-			val halfWidth = width / 2
+		var widthTMP = options.outWidth
+		var heightTMP = options.outHeight
 
-			// Calculate the largest inSampleSize value that is a power of 2 and keeps both
-			// height and width larger than the requested height and width.
-			while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
-				inSampleSize *= 2
-			}
+		var downScalingValue = 1
+		while (true) {
+			if (widthTMP / 2 < reqWidth || heightTMP / 2 < reqHeight) break
+
+			widthTMP /= 2
+			heightTMP /= 2
+			downScalingValue *= 2
 		}
-		return inSampleSize
+
+		return downScalingValue.also { logDebug(TAG, "Sample size calculated = $it") }
 	}
 
 

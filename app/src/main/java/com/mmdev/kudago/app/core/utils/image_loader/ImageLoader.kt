@@ -22,8 +22,10 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import com.mmdev.kudago.app.core.utils.MyDispatchers
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
+import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.MemoryCache
 import com.mmdev.kudago.app.core.utils.image_loader.common.DebugConfig
+import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
 import com.mmdev.kudago.app.core.utils.image_loader.common.MyLogger
 import com.mmdev.kudago.app.core.utils.image_loader.network.BitmapDownloader
 import kotlinx.coroutines.CoroutineScope
@@ -81,7 +83,7 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	private val memoryCache = MemoryCache.newInstance()
 	private val fileCache = FileCache(context)
-	private val bitmapDownloader = BitmapDownloader.newInstance(fileCache)
+	private val bitmapDownloader = BitmapDownloader.newInstance()
 
 	private val imageViews = synchronizedMap(WeakHashMap<ImageView, String>())
 
@@ -93,7 +95,11 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	fun preload(url: String) {
 		launch {
-			bitmapDownloader.preDownload(url, memoryCache)//?.also { memoryCache.put(url, it) }
+			val cacheFile = fileCache.getFile(url)
+			if (cacheFile.exists()) return@launch
+			else bitmapDownloader.preDownload(url, cacheFile, memoryCache).also {
+				it?.let { bitmap -> memoryCache.put(url, bitmap) }
+			}
 		}
 	}
 
@@ -121,16 +127,26 @@ class ImageLoader : KoinComponent, CoroutineScope {
 
 	private fun getBitmap(url: String): Bitmap? {
 		return try {
-			fileCache.getBitmapFromDiskCache(url, memoryCache) ?:
-			bitmapDownloader.downloadAndDecode(url, memoryCache)
+			val cacheFile = fileCache.getFile(url)
+			//check if exists and decode
+			//download if not exists
+			if (cacheFile.exists()) {
+				val bitmap = FileDecoder.decodeAndScaleFile(cacheFile, memoryCache)
+				bitmap.also {
+					logDebug(TAG, "Get from disk cache ${url.md5()}, result = $it")
+				} ?: bitmapDownloader.downloadDecodeCache(url, cacheFile, memoryCache)
+			}
+			else bitmapDownloader.downloadDecodeCache(url, cacheFile, memoryCache)
+
 		} catch (e: OutOfMemoryError) {
 			logDebug(TAG, "Out of memory error, init gc & memory cache clear")
 			memoryCache.clear()
 			System.gc()
 			logDebug(TAG, "Trying to load again...")
-			getBitmap(url)
+			null
 		}
 	}
+
 
 	// Used for avoiding collisions with reusable imageViews or multiple loads
 	private fun imageViewReused(imageData: ImageData): Boolean {

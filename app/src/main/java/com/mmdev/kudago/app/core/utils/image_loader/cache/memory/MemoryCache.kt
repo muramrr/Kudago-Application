@@ -21,7 +21,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.LruCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.Cache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
 import java.lang.ref.SoftReference
@@ -35,11 +34,11 @@ import java.util.Collections.synchronizedSet
  */
 internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
+
 	companion object {
 		private const val TAG = "MemoryCache"
 
-		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8)
-
+		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8) / 1024
 
 		/**
 		 * Creates a new [MemoryCache] object.
@@ -49,25 +48,26 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
 			return MemoryCache()
 				.also {
-					logDebug(TAG, "Memory cache initiated with size ${MEMORY_CACHE_SIZE.bytesToMegabytes()} Mb")
+					logDebug(TAG, "Memory cache initiated with size ${MEMORY_CACHE_SIZE/1024} Mb")
 				}
 		}
 
-		private val bitmapLruCache = object : LruCache<String, Bitmap>(MEMORY_CACHE_SIZE.toInt()) {
+	}
 
-			override fun entryRemoved(evicted: Boolean, key: String?, oldValue: Bitmap,
-			                          newValue: Bitmap) {
+	//a set to hold soft references to bitmaps.
+	private var reusableBitmaps = synchronizedSet(HashSet<SoftReference<Bitmap>>())
 
-				if (oldValue.isMutable && !oldValue.isRecycled)
-					bitmapsPool.add(SoftReference(oldValue))
+	private val bitmapLruCache = object : LruCache<String, Bitmap>(MEMORY_CACHE_SIZE.toInt()) {
 
+		override fun entryRemoved(evicted: Boolean, key: String?, oldValue: Bitmap?,
+		                          newValue: Bitmap?) {
+			oldValue?.let {
+				if (it.isMutable && !it.isRecycled) reusableBitmaps.add(SoftReference(oldValue))
 			}
 
-			//override fun sizeOf(key: String, value: Bitmap): Int = value.allocationByteCount
 		}
-
-		//a set to hold soft references to bitmaps.
-		private val bitmapsPool: MutableSet<SoftReference<Bitmap>> = synchronizedSet(HashSet())
+		// The cache size will be measured in kilobytes rather than number of items.
+		override fun sizeOf(key: String, value: Bitmap): Int = value.allocationByteCount/1024
 	}
 
 
@@ -80,13 +80,13 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
 	override fun put(key: String, value: Bitmap) {
 		bitmapLruCache.put(key, value).also {
-			logDebug(TAG, "Put to memory cache ${key.md5()}")
+			//logDebug(TAG, "Put to memory cache ${key.md5()}")
 		}
 	}
 
-	override fun size(): Int = bitmapLruCache.size()
+	override fun size(): Int = bitmapLruCache.size()/1024 //in megabytes
 
-	private fun bitmapsPoolSize() = bitmapsPool.size
+	private fun bitmapsPoolSize() = reusableBitmaps.size
 
 	override fun evict(key: String) {
 		bitmapLruCache.remove(key)
@@ -96,7 +96,7 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 		logDebug(TAG, "Clear memory: ${size()} mb")
 		bitmapLruCache.evictAll()
 		logDebug(TAG, "Clear bitmap pool: ${bitmapsPoolSize()} elements")
-		bitmapsPool.clear()
+		reusableBitmaps.clear()
 	}
 
 
@@ -104,33 +104,34 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 	 * @param options - populated [BitmapFactory.Options]
 	 * @return Bitmap that case be used for inBitmap
 	 */
-	// This method iterates through the reusable bitmaps, looking for one to use for inBitmap:
+	// This method iterates through the reusable bitmaps, looking for one
+	// to use for inBitmap:
 	override fun getReusableBitmap(options: BitmapFactory.Options): Bitmap? {
-		var bitmap: Bitmap? = null
-		if (bitmapsPool.isNotEmpty()) {
-			synchronized(bitmapsPool) {
-				val iterator: MutableIterator<SoftReference<Bitmap>> = bitmapsPool.iterator()
-				var item: Bitmap?
+		reusableBitmaps.takeIf { it.isNotEmpty()
+			.also {
+				logDebug(TAG, "Searching for reusable bitmap")
+			}
+		}?.let { reusableBitmaps ->
+			synchronized(reusableBitmaps) {
+				val iterator: MutableIterator<SoftReference<Bitmap>> = reusableBitmaps.iterator()
 				while (iterator.hasNext()) {
-					item = iterator.next().get()
-					if (item != null && item.isMutable) {
-						// Check to see it the item can be used for inBitmap.
-						if (item.canUseForInBitmap(options)) {
-							bitmap = item
-
-							// Remove from reusable set so it can't be used again.
+					iterator.next().get()?.let { item ->
+						if (item.isMutable) {
+							// Check to see it the item can be used for inBitmap.
+							if (item.canUseForInBitmap(options)) {
+								// Remove from reusable set so it can't be used again.
+								iterator.remove()
+								return item
+							}
+						} else {
+							// Remove from the set if the reference has been cleared.
 							iterator.remove()
-							break
 						}
 					}
-					// Remove from the set if the reference has been cleared.
-					else iterator.remove()
 				}
 			}
 		}
-		logDebug(TAG, "bitmap reused = ${bitmap != null}")
-		logDebug(TAG, "bitmap pool size = ${bitmapsPool.size}")
-		return bitmap
+		return null
 	}
 
 	/**
@@ -143,7 +144,7 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 		if (targetOptions.inSampleSize < 1) targetOptions.inSampleSize = 1
 		val width = targetOptions.outWidth / targetOptions.inSampleSize
 		val height = targetOptions.outHeight / targetOptions.inSampleSize
-		val byteCount: Int = width * height * bytesPerPixel(config)
+		val byteCount: Int = width * height * bytesPerPixel(Bitmap.Config.RGB_565)
 		return byteCount <= allocationByteCount
 	}
 

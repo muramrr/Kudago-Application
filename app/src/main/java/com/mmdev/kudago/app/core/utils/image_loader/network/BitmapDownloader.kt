@@ -19,15 +19,11 @@ package com.mmdev.kudago.app.core.utils.image_loader.network
 
 import android.graphics.Bitmap
 import android.net.TrafficStats
-import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
 import com.mmdev.kudago.app.core.utils.image_loader.logDebug
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -35,7 +31,7 @@ import java.net.URL
  * Utility class to download an image using its URL.
  */
 
-internal class BitmapDownloader (private val fileCache: FileCache) {
+internal class BitmapDownloader{
 
 	companion object {
 		private const val TAG = "BitmapDownloader"
@@ -68,7 +64,7 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 		 * Creates a new [BitmapDownloader] object.
 		 */
 		@JvmStatic
-		fun newInstance(fileCache: FileCache): BitmapDownloader = BitmapDownloader(fileCache)
+		fun newInstance(): BitmapDownloader = BitmapDownloader()
 	}
 
 
@@ -78,15 +74,14 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 	 * @param url image url to download.
 	 * @return image as [Bitmap] if success, otherwise null.
 	 */
-	fun downloadAndDecode(url: String, bitmapPool: BitmapPool): Bitmap? {
+	fun downloadDecodeCache(url: String, cacheFile: File, bitmapPool: BitmapPool): Bitmap? {
 		//new file on disk cache (temp)
-		val diskCacheFile = fileCache.getFile(url)
-
-		logDebug(TAG, "downloading $url as ${url.md5()}")
-
+		val tempFile = File(cacheFile.path + "TEMP")
 		var urlConnection: HttpURLConnection? = null
-		var bitmap: Bitmap? = null
+
 		var tempOutputStream: OutputStream? = null
+		var cacheOutputStream: OutputStream? = null
+
 		return try {
 			TrafficStats.setThreadStatsTag(USER_REQUEST_TAG)
 			val imageUrl = URL(url)
@@ -96,36 +91,43 @@ internal class BitmapDownloader (private val fileCache: FileCache) {
 				instanceFollowRedirects = true
 				readTimeout = READ_TIMEOUT
 			}
-			tempOutputStream = FileOutputStream(diskCacheFile)
-			copyStream(urlConnection.inputStream, tempOutputStream)
-			tempOutputStream.close()
-			urlConnection.disconnect()
-			bitmap = FileDecoder.decodeAndScaleFile(diskCacheFile, bitmapPool)
+			tempOutputStream = FileOutputStream(tempFile)
+			copyStream(urlConnection.inputStream, tempOutputStream).also {
+				logDebug(TAG, "downloading $url as ${url.md5()}")
+			}
+
+			// Decode and scale image to reduce memory consumption
+			val bitmap = FileDecoder.decodeAndScaleFile(tempFile, bitmapPool)
+
+			cacheOutputStream = FileOutputStream(cacheFile)
+
+			bitmap?.compress(Bitmap.CompressFormat.PNG, 100, cacheOutputStream)
+
 			return bitmap
 		} catch (ex: IOException) {
 			logDebug(TAG, "Error while downloading $this \n $ex")
-			diskCacheFile.delete()
-			bitmap?.recycle()
+			// Remove cached file if something go wrong
+			cacheFile.delete()
+//			bitmap?.recycle()
 			null
 		} finally {
 			tempOutputStream?.close()
+			cacheOutputStream?.close()
 			urlConnection?.disconnect()
+			tempFile.delete()
 			TrafficStats.clearThreadStatsTag()
 		}
 
 	}
 
-	fun preDownload(url: String, bitmapPool: BitmapPool): Bitmap? {
-		var preloadedBitmap: Bitmap?
+	fun preDownload(url: String, cacheFile: File, bitmapPool: BitmapPool): Bitmap? {
+
 		return try {
-			preloadedBitmap = fileCache.getBitmapFromDiskCache(url, bitmapPool)
-			if (preloadedBitmap != null) preloadedBitmap
-			else {
-				preloadedBitmap = downloadAndDecode(url, bitmapPool)
+			downloadDecodeCache(url, cacheFile, bitmapPool).also {
 				logDebug(TAG, "Predownloading ${url.md5()}")
-				preloadedBitmap
 			}
-		} catch (t: Throwable){
+		}
+		catch (t: Throwable){
 			logDebug(TAG, "Error predownloading : ${t.localizedMessage}")
 			null
 		}
