@@ -17,7 +17,7 @@
 
 <resources>
 
-	<string name="app_name" translatable="false">Kudago-App</string>
+	<string name="app_name" translatable="false">Куда пойти?</string>
 
 	<!-- bottom navigation -->
 	<string name="bottom_navigation_places">Places</string>

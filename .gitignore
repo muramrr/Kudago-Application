@@ -42,3 +42,4 @@ build
 *~
 *.swp
 bfg.jar
+/store_media
