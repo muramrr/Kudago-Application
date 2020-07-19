@@ -62,6 +62,7 @@
 				android:text=""
 				android:textAlignment="center"
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+				android:textColor="@android:color/black"
 				app:drawableStartCompat="@drawable/ic_rubles_24dp"
 
 

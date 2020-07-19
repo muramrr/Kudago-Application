@@ -39,6 +39,9 @@
 	<string name="event_detailed_whole_year">Whole year</string>
 	<string name="event_detailed_whole_day">All day long</string>
 
+	<string name="place_detailed_phone_is_not_specified">Phone number is not specified</string>
+	<string name="place_detailed_phone">Phone</string>
+
 	<string name="favourite_tab_events">Events</string>
 	<string name="favourite_tab_places">Places</string>
 	<string name="favourites_empty_hint">No favourites added</string>
@@ -128,7 +131,8 @@
 	<string name="api_clubs" translatable="false">clubs</string>
 	<string name="api_stripclub" translatable="false">strip-club</string>
 	<string name="api_sights" translatable="false">sights</string>
-	<string name="place_detailed_phone_is_not_specified">Phone number is not specified</string>
+
+
 
 
 </resources>
