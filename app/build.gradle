@@ -20,7 +20,27 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
+// Create a variable called propertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def propertiesFile = rootProject.file("local.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def properties = new Properties()
+
+// Load your properties file into the keystoreProperties object.
+properties.load(new FileInputStream(propertiesFile))
+
 android {
+	signingConfigs {
+		release {
+			storeFile file(properties['storeFile'])
+			storePassword properties['storePassword']
+			keyAlias properties['keyAlias']
+			keyPassword properties['keyPassword']
+		}
+	}
+
 	//compileSdkVersion 'android-R'
 	compileSdkVersion 29
 
@@ -39,6 +59,7 @@ android {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.release
 		}
 	}
 
