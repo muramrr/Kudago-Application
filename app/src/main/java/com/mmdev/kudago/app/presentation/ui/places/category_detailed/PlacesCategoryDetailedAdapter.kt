@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
 
@@ -30,46 +30,93 @@ import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedAdapter (private val placesList: MutableList<PlaceEntity> = mutableListOf()):
-		BaseAdapter<PlaceEntity>() {
-
+class PlacesCategoryDetailedAdapter(
+	private var data: MutableList<PlaceEntity> = mutableListOf()
+): BaseRecyclerAdapter<PlaceEntity>() {
+	
+	private companion object{
+		private const val FIRST_POS = 0
+		private const val OPTIMAL_ITEMS_COUNT = 40
+	}
 	private var startPos = 0
-
+	private var itemsLoaded = 0
+	
+	private var scrollToTopListener: (() -> Unit)? = null
+	private var scrollToBottomListener: (() -> Unit)? = null
+	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		PlacesCategoryDetailedViewHolder(
-				ItemCategoryDetailedBinding.inflate(LayoutInflater.from(parent.context),
-				                                    parent,
-				                                    false)
+			ItemCategoryDetailedBinding.inflate(
+				LayoutInflater.from(parent.context),
+				parent,
+				false
+			)
 		)
 
-	override fun getItemCount(): Int = placesList.size
-	override fun getItem(position: Int) = placesList[position]
-
-
-	override fun setData(data: List<PlaceEntity>){
-		placesList.addAll(data)
-		notifyItemRangeInserted(startPos, data.size)
+	override fun getItemCount(): Int = data.size
+	override fun getItem(position: Int) = data[position]
+	
+	
+	fun setInitData(data: List<PlaceEntity>) {
+		this.data.clear()
+		startPos = FIRST_POS
+		this.data.addAll(data)
+		itemsLoaded = data.size
+		notifyDataSetChanged()
 	}
-
-	fun updateData(data: List<PlaceEntity>) {
-		startPos = placesList.size
-		placesList.addAll(data)
-		prefetchData(data)
-		notifyItemRangeInserted(startPos, data.size)
+	
+	
+	fun insertPreviousData(topData: List<PlaceEntity>) {
+		data.addAll(FIRST_POS, topData)
+		notifyItemRangeInserted(FIRST_POS, topData.size)
+		
+		if (data.size > OPTIMAL_ITEMS_COUNT) {
+			val shouldBeRemovedCount = data.size - OPTIMAL_ITEMS_COUNT
+			data = data.dropLast(shouldBeRemovedCount).toMutableList()
+			itemsLoaded -= shouldBeRemovedCount
+			notifyItemRangeRemoved((data.size - 1), shouldBeRemovedCount)
+		}
+	}
+	
+	
+	fun insertNextData(bottomData: List<PlaceEntity>) {
+		startPos = data.size
+		data.addAll(bottomData)
+		itemsLoaded += bottomData.size
+		notifyItemRangeInserted(startPos, bottomData.size)
+		if (data.size > OPTIMAL_ITEMS_COUNT) {
+			val shouldBeRemovedCount = data.size - OPTIMAL_ITEMS_COUNT
+			data = data.drop(shouldBeRemovedCount).toMutableList()
+			notifyItemRangeRemoved(FIRST_POS, shouldBeRemovedCount)
+		}
 	}
 
 	private fun prefetchData(data: List<PlaceEntity>) {
 		val prefetcher = ImagePrefetcher(data.map { it.images[0].image })
 		prefetcher.prefetch()
 	}
-
-
-	inner class PlacesCategoryDetailedViewHolder(private val viewBinding: ItemCategoryDetailedBinding):
-			BaseViewHolder<PlaceEntity>(viewBinding.root) {
-
-
-		@ExperimentalStdlibApi
+	
+	
+	
+	fun setToTopScrollListener(listener: () -> Unit) {
+		scrollToTopListener = listener
+	}
+	
+	fun setToBottomScrollListener(listener: () -> Unit) {
+		scrollToBottomListener = listener
+	}
+	
+	inner class PlacesCategoryDetailedViewHolder(
+		private val viewBinding: ItemCategoryDetailedBinding
+	) : BaseViewHolder<PlaceEntity>(viewBinding.root) {
+		
 		override fun bind(item: PlaceEntity) {
+			if ((data.size - 6) > 4 && adapterPosition == (data.size - 6))
+				scrollToBottomListener?.invoke()
+			
+			if (itemsLoaded > data.size && adapterPosition == 6)
+				scrollToTopListener?.invoke()
+			
 			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
 			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			//loading image from url

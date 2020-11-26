@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
  * This is the documentation block about the class
  */
 
-class FavouritesTypePresenter (private val repository: IFavouritesRepository) :
+class FavouritesTypePresenter(private val repository: IFavouritesRepository) :
 		BasePresenter<FavouritesTypeContract.View>(),
 		FavouritesTypeContract.Presenter {
 

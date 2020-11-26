@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.data.api
 
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.EventsResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -31,13 +30,15 @@ import retrofit2.http.Query
 interface EventsApi {
 
 	@GET("events/?fields=id,title,short_title,images&text_format=plain")
-	suspend fun getEventsListAsync(@Query("actual_since") timestamp: Long,
-	                               @Query("categories") category: String,
-	                               @Query("location") location: String,
-	                               @Query("page") page: Int = 1): Response<EventsResponse>
+	suspend fun getEventsList(
+		@Query("actual_since") timestamp: Long,
+		@Query("categories") category: String,
+		@Query("location") location: String,
+		@Query("page") page: Int = 1
+	): EventsResponse
 
 	@GET("events/{id}/?fields=id,title,short_title," +
 	     "body_text,description,images,dates,price,is_free")
-	suspend fun getEventDetailsAsync(@Path("id") id: Int): EventDetailedEntity
+	suspend fun getEventDetails(@Path("id") id: Int): EventDetailedEntity
 
 }

@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.events
 
 import androidx.core.os.bundleOf
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
 import com.mmdev.kudago.app.presentation.ui.base.CategoriesFragment
 
@@ -59,8 +59,8 @@ class EventsCategoriesFragment : CategoriesFragment() {
 			                    icon = R.drawable.ic_ic_events_other_24dp,
 			                    apiIdentifier = getString(R.string.api_other)))
 
-	override fun adapterItemClick(): BaseAdapter.OnItemClickListener<AdapterCategoryItem> =
-		object : BaseAdapter.OnItemClickListener<AdapterCategoryItem>{
+	override fun adapterItemClick(): BaseRecyclerAdapter.OnItemClickListener<AdapterCategoryItem> =
+		object : BaseRecyclerAdapter.OnItemClickListener<AdapterCategoryItem>{
 
 			override fun onItemClick(item: AdapterCategoryItem, position: Int) {
 				val category = bundleOf(CATEGORY_KEY to item.apiIdentifier,

@@ -41,14 +41,13 @@ android {
 		}
 	}
 
-	//compileSdkVersion 'android-R'
-	compileSdkVersion 29
+	compileSdkVersion 30
 
 	defaultConfig {
 		applicationId "com.mmdev.kudago.app"
 		minSdkVersion 21
 		//targetSdkVersion 'R'
-		targetSdkVersion 29
+		targetSdkVersion 30
 		versionCode 1
 		versionName "1.0"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -90,27 +89,26 @@ android {
 
 dependencies {
 
-	def lifecycle_version = "2.3.0-alpha05"
-	def koin_version = "2.1.5"
-	def navigation_version = "2.3.0"
+	def lifecycle_version = "2.3.0-beta01"
+	def koin_version = "2.2.0"
+	def navigation_version = "2.3.1"
 	def retrofit2_version = "2.9.0"
-	def kotlinCoroutines_version = "1.3.7"
-	def room_version = "2.3.0-alpha01"
+	def kotlinCoroutines_version = "1.4.1"
+	def room_version = "2.3.0-alpha03"
 	
 
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 	//core
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-	implementation 'androidx.core:core-ktx:1.5.0-alpha01'
-	implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+	implementation 'androidx.core:core-ktx:1.5.0-alpha05'
 	implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 	implementation "com.github.yandextaxitech:binaryprefs:1.0.1"
 
 	//ui
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
-	implementation 'com.google.android.material:material:1.3.0-alpha01'
+	implementation 'androidx.constraintlayout:constraintlayout:2.1.0-alpha1'
+	implementation 'com.google.android.material:material:1.3.0-alpha04'
 
 	//di
 	implementation "org.koin:koin-android:$koin_version"
@@ -121,6 +119,7 @@ dependencies {
 
 	//network
 	implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+	implementation "com.squareup.okhttp3:logging-interceptor:4.10.0-RC1"
 	implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
 	//Kotlin Coroutines
@@ -148,9 +147,9 @@ dependencies {
 	def mockito_version = "3.3.3"
 	testImplementation "org.mockito:mockito-core:$mockito_version"
 	testImplementation "org.mockito:mockito-inline:$mockito_version"
-	testImplementation 'junit:junit:4.13'
-	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+	testImplementation 'junit:junit:4.13.1'
+	androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
 }

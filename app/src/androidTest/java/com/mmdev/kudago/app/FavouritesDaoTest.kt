@@ -18,14 +18,13 @@
 package com.mmdev.kudago.app
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.db.FavouritesDao
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.modules.roomTestModule
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

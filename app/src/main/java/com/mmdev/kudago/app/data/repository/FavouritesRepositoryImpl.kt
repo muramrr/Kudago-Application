@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.data.favourites
+package com.mmdev.kudago.app.data.repository
 
-import androidx.annotation.WorkerThread
-import com.mmdev.kudago.app.data.favourites.db.FavouritesDao
+import com.mmdev.kudago.app.data.BaseRepository
+import com.mmdev.kudago.app.data.db.FavouritesDao
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import kotlinx.coroutines.Dispatchers
@@ -28,32 +28,31 @@ import kotlinx.coroutines.withContext
  * another approach coroutines getters
  */
 
-class FavouritesRepositoryImpl (private val favouritesDao: FavouritesDao): IFavouritesRepository {
+class FavouritesRepositoryImpl(
+	private val favouritesDao: FavouritesDao
+): BaseRepository(), IFavouritesRepository {
 
-
-	@WorkerThread
+	
 	override suspend fun addToFavourite(favouriteEntity: FavouriteEntity) =
 		withContext(Dispatchers.IO) {
 			favouritesDao.insertFavourite(favouriteEntity)
 		}
 
-	@WorkerThread
+	
 	override suspend fun deleteFromFavourites(favouriteEntity: FavouriteEntity) =
 		withContext(Dispatchers.IO) {
 			favouritesDao.deleteFavourite(favouriteEntity)
 		}
 
-	@WorkerThread
+	
 	override suspend fun getFavouritePlaces(): List<FavouriteEntity> =
 		withContext(Dispatchers.IO) {
 			favouritesDao.getFavouritePlaces()
 		}
 
-	@WorkerThread
+	
 	override suspend fun getFavouriteEvents(): List<FavouriteEntity> =
 		withContext(Dispatchers.IO) {
 			favouritesDao.getFavouriteEvents()
 		}
-
-
 }

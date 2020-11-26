@@ -38,6 +38,6 @@ val PresentersModule = module {
 
 	factory { FavouritesTypePresenter(repository = get()) }
 
-	factory { SettingsPresenter(settingsWrapper = get()) }
+	factory { SettingsPresenter(settings = get()) }
 
 }

@@ -20,5 +20,3 @@ package com.mmdev.kudago.app.core.utils.image_loader
 import android.widget.ImageView
 
 fun ImageView.load(url: String) = ImageLoader.get().load(url, this)
-
-internal fun logDebug(tag: String, message: String) = ImageLoader.debug.logger.log(tag, message)

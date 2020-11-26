@@ -21,8 +21,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.*
 
 object ThemeHelper {
-
-
+	
 	fun applyTheme(theme: ThemeMode) {
 
 		when (theme) {

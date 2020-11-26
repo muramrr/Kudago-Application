@@ -20,7 +20,7 @@ package com.mmdev.kudago.app.presentation.ui.base
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
 
 
@@ -28,22 +28,24 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCatego
  * This is the documentation block about the class
  */
 
-class CategoriesAdapter (private val data: List<AdapterCategoryItem>) :
-
-		BaseAdapter<AdapterCategoryItem>() {
+class CategoriesAdapter(
+	private val data: List<AdapterCategoryItem>
+) : BaseRecyclerAdapter<AdapterCategoryItem>() {
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
-		PlacesCategoriesViewHolder(ItemCategoryBinding
-			                           .inflate(LayoutInflater.from(parent.context),
-			                                    parent,
-			                                    false)
+		PlacesCategoriesViewHolder(
+			ItemCategoryBinding.inflate(
+				LayoutInflater.from(parent.context),
+				parent,
+				false
+			)
 		)
 
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
-	override fun setData(data: List<AdapterCategoryItem>) {}
+	override fun updateData(data: List<AdapterCategoryItem>) {}
 
 
 
@@ -60,8 +62,10 @@ class CategoriesAdapter (private val data: List<AdapterCategoryItem>) :
 
 	}
 
-	data class AdapterCategoryItem(val title: String = "",
-	                               val icon: Int = 0,
-	                               val apiIdentifier: String = "")
+	data class AdapterCategoryItem(
+		val title: String = "",
+		val icon: Int = 0,
+		val apiIdentifier: String = ""
+	)
 
 }

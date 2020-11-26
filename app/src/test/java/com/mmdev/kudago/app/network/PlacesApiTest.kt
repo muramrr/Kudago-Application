@@ -69,7 +69,7 @@ class PlacesApiTest {
 
 			mockWebServer.mockHttpResponse(body)
 
-			val response = service.getPlacesListAsync(1, "", "")
+			val response = service.getPlacesList(1, "", "")
 
 			assertNotEquals(0, response.results.size)
 			assertTrue(response.results[0].id == 31235)

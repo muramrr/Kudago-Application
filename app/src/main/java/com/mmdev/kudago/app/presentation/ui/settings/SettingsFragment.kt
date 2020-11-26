@@ -23,8 +23,6 @@ import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
 import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import org.koin.android.ext.android.inject
 
@@ -61,9 +59,11 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		val cacheSize = { clearCacheString + imageLoader.getFileCacheSize() + " Mb" }
 
 		viewBinding.layoutSettingsEditCity.applySystemWindowInsets(applyTop = true)
-		val adapter = ArrayAdapter(requireContext(),
-		                           android.R.layout.simple_dropdown_item_1line,
-		                           cityList.values.toMutableList())
+		val adapter = ArrayAdapter(
+			requireContext(),
+			android.R.layout.simple_dropdown_item_1line,
+			cityList.values.toMutableList()
+		)
 		viewBinding.dropSettingsEditCity.apply {
 			setAdapter(adapter)
 
@@ -87,7 +87,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		viewBinding.switchDarkTheme.isChecked = presenter.getForceDarkTheme()
 
 		viewBinding.switchDarkTheme.setOnCheckedChangeListener { _, b ->
-			presenter.setForceDarkTheme(b)
+			presenter.toggleDarkTheme(b)
 		}
 	}
 
@@ -103,11 +103,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 
 	override fun setCityIsNotChosen() {
 		viewBinding.dropSettingsEditCity.setText(getString(R.string.settings_city_is_not_chosen), false)
-	}
-
-	override fun updateTheme(themeMode: ThemeMode) {
-		ThemeHelper.applyTheme(themeMode)
-		navController.navigateUp()
 	}
 
 	override fun showClearedToast() = showToast(getString(R.string.toast_successfully_cleared_favourites))

@@ -16,36 +16,34 @@
   ~ limitations under the License.
   -->
 
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
 	android:layout_width="match_parent"
-	android:layout_height="400dp"
+	android:layout_height="wrap_content"
 
-	app:cardBackgroundColor="@android:color/transparent"
 	app:cardCornerRadius="8dp"
 
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<ImageView
-		android:id="@+id/ivImageHolder"
+	<ImageView android:id="@+id/ivImageHolder"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="400dp"
 		android:scaleType="centerCrop"
-		android:contentDescription="@string/description_category_item_picture" />
+		android:contentDescription="@string/description_category_item_picture"
+		/>
 
 
-	<ImageView
-		android:id="@+id/ivImageBottomGradient"
+	<ImageView android:id="@+id/ivImageBottomGradient"
 		android:layout_width="match_parent"
 		android:layout_height="100dp"
 		android:layout_gravity="bottom"
 		android:scaleType="centerCrop"
 		android:src="@drawable/gradient_transparent"
-		tools:ignore="ContentDescription" />
+		tools:ignore="ContentDescription"
+		/>
 
-	<TextView
-		android:id="@+id/tvTitle"
+	<TextView android:id="@+id/tvTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center|bottom"
@@ -54,9 +52,9 @@
 		android:ellipsize="end"
 
 		android:text="@string/default_title"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+		android:textAppearance="?textAppearanceSubtitle1"
 		android:textColor="@android:color/white"
 		/>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

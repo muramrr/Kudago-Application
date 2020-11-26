@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 
@@ -55,6 +55,6 @@ abstract class CategoriesFragment : BaseFragment(R.layout.fragment_categories_li
 
 	abstract fun setupAdapterList(): List<CategoriesAdapter.AdapterCategoryItem>
 
-	abstract fun adapterItemClick() : BaseAdapter.OnItemClickListener<CategoriesAdapter.AdapterCategoryItem>
+	abstract fun adapterItemClick() : BaseRecyclerAdapter.OnItemClickListener<CategoriesAdapter.AdapterCategoryItem>
 
 }

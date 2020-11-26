@@ -19,13 +19,11 @@
 <MotionScene
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
+	
 
 	<Transition
-		app:constraintSetEnd="@id/collapsed"
 		app:constraintSetStart="@id/expanded"
+		app:constraintSetEnd="@id/collapsed"
 		app:motionInterpolator="linear">
 
 		<OnSwipe
@@ -45,7 +43,7 @@
 				app:framePosition="95"
 				app:motionTarget="@id/toolbarDetailed">
 				<CustomAttribute
-					app:attributeName="backgroundColor"
+					app:attributeName="BackgroundColor"
 					app:customColorValue="@android:color/transparent"
 					/>
 			</KeyAttribute>
@@ -57,88 +55,28 @@
 
 
 	<ConstraintSet android:id="@+id/expanded">
-
-		<Constraint android:id="@+id/vpPhotos"
-			android:layout_width="0dp"
-			android:layout_height="400dp"
-
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintBottom_toTopOf="@id/scrollContainer"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			/>
-
-
-		<Constraint android:id="@+id/toolbarDetailed"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:minHeight="?attr/actionBarSize"
-
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			>
-
-			<CustomAttribute
-				app:attributeName="backgroundColor"
-				app:customColorValue="@android:color/transparent"
-				/>
-
-		</Constraint>
-
-
 		<!-- "toolbar" title -->
 		<Constraint android:id="@+id/tvToolbarTitle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-
 			android:layout_marginStart="16dp"
 			android:layout_marginBottom="16dp"
-
+			
 			android:scaleX="1.0"
 			android:scaleY="1.0"
-
+			
 			app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"
 			app:layout_constraintStart_toStartOf="parent"
 			>
-
+			
 			<CustomAttribute
-				app:attributeName="textColor"
+				app:attributeName="TextColor"
 				app:customColorValue="@android:color/white"
 				/>
-
+		
 		</Constraint>
-
-		<Constraint
-			android:id="@+id/scrollContainer"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-
-			app:layout_constraintTop_toBottomOf="@id/vpPhotos"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintBottom_toTopOf="@id/fabAddRemoveFavourites"
-			/>
-
-		<Constraint
-			android:id="@+id/tlDotsIndicator"
-			android:layout_width="0dp"
-			android:layout_height="10dp"
-			android:layout_marginBottom="8dp"
-
-			android:background="@null"
-
-			android:alpha="1"
-
-			app:layout_constraintBottom_toBottomOf="@id/vpPhotos"
-			app:layout_constraintEnd_toEndOf="@id/vpPhotos"
-			app:layout_constraintStart_toStartOf="@id/vpPhotos"
-			/>
-
+		
 	</ConstraintSet>
-
-
-
 
 
 	<ConstraintSet android:id="@+id/collapsed">
@@ -167,20 +105,18 @@
 			app:layout_constraintStart_toStartOf="@id/vpPhotos"
 			/>
 
-
 		<Constraint android:id="@+id/toolbarDetailed"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:minHeight="?attr/actionBarSize"
-
+			
+			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
 			>
 
 			<CustomAttribute
-				app:attributeName="backgroundColor"
-				app:customColorValue="@color/colorPrimary"
+				app:attributeName="BackgroundColor"
+				app:customColorValue="?colorPrimary"
 				/>
 
 		</Constraint>
@@ -202,7 +138,7 @@
 			>
 
 			<CustomAttribute
-				app:attributeName="textColor"
+				app:attributeName="TextColor"
 				app:customColorValue="@color/colorOnPrimary"
 				/>
 

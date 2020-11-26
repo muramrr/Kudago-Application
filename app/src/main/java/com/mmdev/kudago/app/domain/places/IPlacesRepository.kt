@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.domain.places
 
-import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.domain.core.SimpleResult
 
 /**
  * Places commands interface
@@ -25,14 +25,16 @@ import com.mmdev.kudago.app.domain.core.ResultState
 
 interface IPlacesRepository {
 
-	suspend fun addPlaceToFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit>
+	suspend fun addPlaceToFavouritesList(placeDetailedEntity: PlaceDetailedEntity): SimpleResult<Unit>
 
-	suspend fun loadFirstPlaces(category: String): PlacesResponse?
+	suspend fun loadFirstPlaces(city: String, category: String): SimpleResult<PlacesResponse>
+	
+	suspend fun loadPreviousPlaces(): SimpleResult<PlacesResponse>
+	
+	suspend fun loadNextPlaces(): SimpleResult<PlacesResponse>
 
-	suspend fun loadMorePlaces(): PlacesResponse?
+	suspend fun getPlaceDetails(id: Int): SimpleResult<PlaceDetailedEntity>
 
-	suspend fun getPlaceDetails(id: Int): ResultState<PlaceDetailedEntity>
-
-	suspend fun removePlaceFromFavouritesList(placeDetailedEntity: PlaceDetailedEntity): ResultState<Unit>
+	suspend fun removePlaceFromFavouritesList(placeDetailedEntity: PlaceDetailedEntity): SimpleResult<Unit>
 
 }

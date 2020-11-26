@@ -29,8 +29,11 @@ import kotlin.coroutines.CoroutineContext
  * Base Presenter feature - for coroutines jobs
  */
 
-abstract class BasePresenter<V: IBaseView> : IBasePresenter<V>,
-                                             CoroutineScope by CoroutineScope(MyDispatchers.main()) {
+abstract class BasePresenter<V: IBaseView> :
+		IBasePresenter<V>,
+		CoroutineScope by CoroutineScope(MyDispatchers.main()) {
+	
+	protected val TAG = "mylogs_${javaClass.simpleName}"
 
 	private val parentJob: Job = SupervisorJob()
 

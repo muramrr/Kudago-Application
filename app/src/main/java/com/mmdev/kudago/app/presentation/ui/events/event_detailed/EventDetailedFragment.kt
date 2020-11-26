@@ -28,8 +28,8 @@ import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentDetailedEventBinding
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.UIEventDate
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
@@ -42,7 +42,7 @@ import org.koin.android.ext.android.inject
  */
 
 class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
-                              EventDetailedContract.View {
+		EventDetailedContract.View {
 
 	private val viewBinding by viewBinding(FragmentDetailedEventBinding::bind)
 
@@ -54,12 +54,11 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 
 	private var receivedEventId = 0
-	companion object {
+	private companion object {
 		private const val EVENT_ID_KEY = "EVENT_ID"
 	}
 
 
-	@ExperimentalStdlibApi
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -70,22 +69,10 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	}
 
-	//open in third party
-//	val sendIntent: Intent = Intent().apply {
-//		action = Intent.ACTION_SEND
-//		putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-//		type = "text/plain"
-//	}
-//
-//	val shareIntent = Intent.createChooser(sendIntent, null)
-//	startActivity(shareIntent)
-
 	override fun setupViews() {
-		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
-		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
-
-		viewBinding.toolbarNavigation.setOnClickListener { navController.navigateUp() }
-
+		viewBinding.motionLayout.applySystemWindowInsets(applyTop = true)
+		viewBinding.btnToolbarNavigation.setOnClickListener { navController.navigateUp() }
+		
 		viewBinding.vpPhotos.apply {
 			adapter = eventsPhotosAdapter
 		}
@@ -100,12 +87,14 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 		}
 
-		datesAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<UIEventDate> {
+		datesAdapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener<UIEventDate> {
 			override fun onItemClick(item: UIEventDate, position: Int) {
 				if (item.startInMillis > System.currentTimeMillis()) {
-					val intent = setupCalendarIntent(item.startInMillis,
-					                                 item.endInMillis,
-					                                 datesAdapter.eventTitle)
+					val intent = setupCalendarIntent(
+						item.startInMillis,
+						item.endInMillis,
+						datesAdapter.eventTitle
+					)
 					startActivity(intent)
 				}
 			}
@@ -117,9 +106,8 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 	}
 
 
-	@ExperimentalStdlibApi
 	override fun updateData(data: EventDetailedEntity) {
-		eventsPhotosAdapter.setData(data.images.map { it.image })
+		eventsPhotosAdapter.updateData(data.images.map { it.image })
 		with(data.short_title.capitalizeRu()){
 			viewBinding.tvToolbarTitle.text = this
 			datesAdapter.eventTitle = this
@@ -135,7 +123,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 	}
 
 	override fun setEventDateTime(eventDates: List<UIEventDate>) {
-		datesAdapter.setData(eventDates)
+		datesAdapter.updateData(eventDates)
 	}
 
 	override fun setRemoveTextFab() {
@@ -155,8 +143,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 			.apply {
 				data = CalendarContract.Events.CONTENT_URI
 				putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)
-				if (endMillis != 0L)
-					putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
+				if (endMillis != 0L) putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
 				putExtra(CalendarContract.Events.TITLE, eventTitle)
 				putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
 				putExtra(CalendarContract.Events.STATUS, 1)

@@ -26,18 +26,26 @@
 	<action
 		android:id="@+id/action_global_placesCategoriesFragment"
 		app:destination="@id/mainBottomNavPlaces"
+		app:enterAnim="@anim/fragment_fade_enter"
+		app:exitAnim="@anim/fragment_fade_exit"
 		/>
 
 	<action android:id="@+id/action_global_eventsFragment"
 		app:destination="@id/mainBottomNavEvents"
+		app:enterAnim="@anim/fragment_fade_enter"
+		app:exitAnim="@anim/fragment_fade_exit"
 		/>
 
 	<action android:id="@+id/action_global_favourites"
 		app:destination="@id/mainBottomNavFavourites"
+		app:enterAnim="@anim/fragment_fade_enter"
+		app:exitAnim="@anim/fragment_fade_exit"
 		/>
 
 	<action android:id="@+id/action_global_settingsFragment"
 		app:destination="@id/mainBottomNavSettings"
+		app:enterAnim="@anim/fragment_fade_enter"
+		app:exitAnim="@anim/fragment_fade_exit"
 		/>
 
 
@@ -50,7 +58,10 @@
 		>
 
 		<action android:id="@+id/action_placesCategories_to_placesCategoryDetailed"
-			app:destination="@id/placesCategoryDetailedFragment">
+			app:destination="@id/placesCategoryDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="CATEGORY" />
 
@@ -65,7 +76,10 @@
 		>
 
 		<action android:id="@+id/action_eventsCategories_to_eventsCategoryDetailed"
-			app:destination="@id/eventsCategoryDetailedFragment">
+			app:destination="@id/eventsCategoryDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="CATEGORY" />
 
@@ -80,13 +94,19 @@
 		>
 
 		<action android:id="@+id/action_favourites_to_placeDetailed"
-			app:destination="@id/placeDetailedFragment" >
+			app:destination="@id/placeDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="PLACE_ID" />
 		</action>
 
 		<action android:id="@+id/action_favourites_to_eventDetailed"
-			app:destination="@id/eventDetailedFragment" >
+			app:destination="@id/eventDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="EVENT_ID" />
 		</action>
@@ -108,7 +128,10 @@
 			app:argType="string" />
 
 		<action android:id="@+id/action_categoryDetailed_to_placeDetailed"
-			app:destination="@id/placeDetailedFragment" >
+			app:destination="@id/placeDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="PLACE_ID" />
 		</action>
@@ -124,7 +147,10 @@
 			app:argType="string" />
 
 		<action android:id="@+id/action_eventsCategoryDetailed_to_eventDetailed"
-			app:destination="@id/eventDetailedFragment" >
+			app:destination="@id/eventDetailedFragment"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			>
 
 			<argument android:name="EVENT_ID" />
 		</action>

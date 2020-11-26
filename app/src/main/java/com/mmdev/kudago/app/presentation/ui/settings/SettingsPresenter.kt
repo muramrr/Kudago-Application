@@ -17,10 +17,9 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import com.mmdev.kudago.app.core.KudagoApp
 import com.mmdev.kudago.app.data.settings.SettingsImpl
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.DARK_MODE
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.DEFAULT_MODE
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -28,37 +27,34 @@ import kotlinx.coroutines.withContext
  * This is the documentation block about the class
  */
 
-class SettingsPresenter (private val settingsWrapper: SettingsImpl) :
+class SettingsPresenter (private val settings: SettingsImpl) :
 		BasePresenter<SettingsContract.View>(),
 		SettingsContract.Presenter {
 
 	override fun clearFavourites() {
 		launch {
 			withContext(backgroundContext) {
-				settingsWrapper.clearFavourites()
+				settings.clearFavourites()
 			}
 			getLinkedView()?.showClearedToast()
 		}
 	}
 
 	override fun getCity() {
-		settingsWrapper.readCity().run {
+		KudagoApp.city.run {
 			if (this.isNotBlank()) getLinkedView()?.updateDisplayingCity(this)
 			else getLinkedView()?.setCityIsNotChosen()
 		}
 	}
 
 	override fun setCity(city: String) {
-		settingsWrapper.changeCity(city)
+		KudagoApp.city = city
 	}
 
-	override fun setForceDarkTheme(darkMode: Boolean) {
-		settingsWrapper.saveDarkThemeProperty(darkMode).also {
-			if (darkMode) getLinkedView()?.updateTheme(DARK_MODE)
-			else getLinkedView()?.updateTheme(DEFAULT_MODE)
-		}
+	override fun toggleDarkTheme(darkTheme: Boolean) {
+		KudagoApp.darkTheme = darkTheme
 	}
 
-	override fun getForceDarkTheme(): Boolean = settingsWrapper.readDarkThemeProperty()
+	override fun getForceDarkTheme(): Boolean = KudagoApp.darkTheme
 
 }

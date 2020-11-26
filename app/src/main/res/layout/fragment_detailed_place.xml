@@ -16,8 +16,7 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/motionLayout"
+<androidx.constraintlayout.motion.widget.MotionLayout android:id="@+id/motionLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:clipChildren="false"
@@ -25,21 +24,56 @@
 	app:layoutDescription="@xml/collapsing_toolbar_scene"
 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
-
-	<androidx.core.widget.NestedScrollView
-		android:id="@+id/scrollContainer"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+	
+	<!-- photos container -->
+	<androidx.viewpager2.widget.ViewPager2 android:id="@+id/vpPhotos"
 		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:overScrollMode="never"
-
-		app:layout_constraintBottom_toTopOf="@id/fabAddRemoveFavourites"
+		android:layout_height="400dp"
+		android:background="@null"
+		
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/vpPhotos">
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/scrollContainer"
+		/>
+	
+	<com.google.android.material.tabs.TabLayout android:id="@+id/tlDotsIndicator"
+		android:layout_width="0dp"
+		android:layout_height="10dp"
+		android:layout_gravity="bottom"
+		android:layout_marginBottom="8dp"
+		
+		android:background="@null"
+		
+		app:tabBackground="@drawable/tab_dot_unselected_state"
+		app:tabGravity="center"
+		app:tabIndicator="@drawable/tab_dot_selection_indicator"
+		
+		app:tabIndicatorColor="@color/colorSecondaryLight"
+		app:tabIndicatorGravity="center"
+		app:tabMaxWidth="12dp"
+		
+		android:alpha="1"
+		
+		app:layout_constraintBottom_toBottomOf="@id/vpPhotos"
+		app:layout_constraintEnd_toEndOf="@id/vpPhotos"
+		app:layout_constraintStart_toStartOf="@id/vpPhotos"
+		/>
+	
+	<androidx.core.widget.NestedScrollView android:id="@+id/scrollContainer"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		android:overScrollMode="never"
+		
+		app:layout_constraintTop_toBottomOf="@id/vpPhotos"
+		app:layout_constraintBottom_toTopOf="@id/fabAddRemoveFavourites"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		>
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
@@ -180,101 +214,62 @@
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 	</androidx.core.widget.NestedScrollView>
-
-	<!-- photos container -->
-	<androidx.viewpager2.widget.ViewPager2
-		android:id="@+id/vpPhotos"
-		android:layout_width="0dp"
-		android:layout_height="400dp"
-		android:background="@null"
-
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintBottom_toTopOf="@id/scrollContainer"
-		/>
-
-	<com.google.android.material.tabs.TabLayout
-		android:id="@+id/tlDotsIndicator"
-		android:layout_width="0dp"
-		android:layout_height="10dp"
-		android:layout_gravity="bottom"
-		android:layout_marginBottom="8dp"
-
-		android:background="@null"
-
-		app:tabBackground="@drawable/tab_dot_unselected_state"
-		app:tabGravity="center"
-		app:tabIndicator="@drawable/tab_dot_selection_indicator"
-
-		app:tabIndicatorColor="@color/colorSecondaryLight"
-		app:tabIndicatorGravity="center"
-		app:tabMaxWidth="12dp"
-
-		app:layout_constraintBottom_toBottomOf="@id/vpPhotos"
-		app:layout_constraintEnd_toEndOf="@id/vpPhotos"
-		app:layout_constraintStart_toStartOf="@id/vpPhotos"
-		/>
-
+	
+	
 	<!-- "toolbar" collapsed background -->
-	<com.google.android.material.appbar.MaterialToolbar
-		android:id="@+id/toolbarDetailed"
+	<com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbarDetailed"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:minHeight="?attr/actionBarSize"
-		android:paddingTop="4dp"
-		android:paddingBottom="4dp"
-
-		android:elevation="0dp"
-
 		android:background="@android:color/transparent"
-
+		
+		android:elevation="0dp"
+		
 		app:contentInsetStart="0dp"
-
-		app:layout_constraintEnd_toEndOf="parent"
+		
+		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" >
-
-
+		app:layout_constraintEnd_toEndOf="parent"
+		
+		>
+		
+		
 		<com.google.android.material.button.MaterialButton
-			android:id="@+id/toolbarNavigation"
+			android:id="@+id/btnToolbarNavigation"
 			android:layout_width="48dp"
 			android:layout_height="48dp"
 			android:layout_marginStart="4dp"
-
+			
 			app:icon="@drawable/ic_arrow_back_24dp"
-
+			
 			style="@style/My.Widget.App.MaterialButton.IconOnly.Rounded"
-
+			
 			/>
-
+	
 	</com.google.android.material.appbar.MaterialToolbar>
-
+	
 	<!-- "toolbar" title -->
-	<com.google.android.material.textview.MaterialTextView
-		android:id="@+id/tvToolbarTitle"
+	<com.google.android.material.textview.MaterialTextView android:id="@+id/tvToolbarTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
-		android:layout_marginEnd="16dp"
-		android:paddingTop="8dp"
-
+		android:layout_marginBottom="16dp"
+		
 		android:gravity="start|center_vertical"
-
+		
 		android:ellipsize="end"
 		android:maxLines="1"
-		android:textAlignment="textStart"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+		android:textAppearance="?textAppearanceHeadline6"
 		android:textColor="@android:color/white"
 		android:textSize="30sp"
 		android:text=""
-
-		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
-		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
-		app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
-		app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
+		
+		android:scaleX="1.0"
+		android:scaleY="1.0"
+		
+		app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"
+		app:layout_constraintStart_toStartOf="parent"
 		/>
-
+	
 	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 		android:id="@+id/fabAddRemoveFavourites"
 		android:layout_height="wrap_content"

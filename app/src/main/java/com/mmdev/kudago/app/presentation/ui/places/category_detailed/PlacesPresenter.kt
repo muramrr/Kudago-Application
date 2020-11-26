@@ -18,6 +18,8 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 
+import com.mmdev.kudago.app.core.KudagoApp
+import com.mmdev.kudago.app.core.utils.log.logError
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
@@ -28,32 +30,56 @@ import kotlinx.coroutines.withContext
  * This is the documentation block about the class
  */
 
-class PlacesPresenter (private val repository: IPlacesRepository) :
+class PlacesPresenter(private val repository: IPlacesRepository) :
 		BasePresenter<PlacesContract.View>(),
 		PlacesContract.Presenter {
 
-	override fun loadFirstCategoryEntities(category: String) {
+	override fun loadFirst(category: String) {
 		launch {
-			withContext(backgroundContext) { repository.loadFirstPlaces(category) }?.let {
-				with(it.results){
-					if (isNotEmpty()) getLinkedView()?.setData(this)
-					else getLinkedView()?.showEmptyList()
+			withContext(backgroundContext) {
+				repository.loadFirstPlaces(KudagoApp.city, category)
+			}.fold(
+				success = {
+					getLinkedView()?.dataInit(it.results)
+					
+					if (it.results.isNotEmpty()) getLinkedView()?.hideEmptyListIndicator()
+					else getLinkedView()?.showEmptyListIndicator()
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-
-			}
-
+			)
 		}
-
 	}
-
-	override fun loadMore() {
+	
+	override fun loadPrevious() {
 		launch {
-			withContext(backgroundContext) { repository.loadMorePlaces() }?.let {
-				getLinkedView()?.updateData(it.results)
-			}
-
+			withContext(backgroundContext) {
+				repository.loadPreviousPlaces()
+			}.fold(
+				success = {
+					getLinkedView()?.dataLoadedPrevious(it.results)
+				},
+				failure = {
+					logError(TAG, "${it.message}")
+				}
+			)
 		}
 	}
-
-
+	
+	override fun loadNext() {
+		launch {
+			withContext(backgroundContext) {
+				repository.loadNextPlaces()
+			}.fold(
+				success = {
+					getLinkedView()?.dataLoadedNext(it.results)
+				},
+				failure = {
+					logError(TAG, "${it.message}")
+				}
+			)
+		}
+	}
+	
 }

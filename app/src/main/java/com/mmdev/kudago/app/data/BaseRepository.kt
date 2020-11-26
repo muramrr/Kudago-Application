@@ -17,51 +17,34 @@
 
 package com.mmdev.kudago.app.data
 
-import android.util.Log
-import com.ironz.binaryprefs.Preferences
+import androidx.annotation.WorkerThread
+import com.mmdev.kudago.app.core.utils.log.logError
+import com.mmdev.kudago.app.core.utils.log.logWarn
 import com.mmdev.kudago.app.domain.core.ResultState
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import retrofit2.Response
-import java.io.IOException
+import com.mmdev.kudago.app.domain.core.SimpleResult
 
 /**
  * This is the documentation block about the class
  */
 
-open class BaseRepository: KoinComponent {
-
-	private val prefs: Preferences by inject()
-
-
-	protected fun getCity() = prefs.getString("CITY_KEY", "")!!
-
-
-	suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>,
-	                                  errorMessage: String): T? {
-
-		val result : ResultState<T> = safeApiResult(call, errorMessage)
-		var data : T? = null
-
-		when(result) {
-			is ResultState.Success -> data = result.data
-			is ResultState.Error -> {
-				Log.d("BaseRepository", "$errorMessage & Exception - ${result.exception}")
+@WorkerThread
+abstract class BaseRepository {
+	
+	protected val TAG = "mylogs_${javaClass.simpleName}"
+	
+	protected inline fun <T> safeCall(TAG: String, call: () -> T): SimpleResult<T> =
+		try {
+			val result = call.invoke()
+			if (result != null) ResultState.success(result)
+			else {
+				logWarn(TAG, "Safe call returns null")
+				ResultState.failure(NullPointerException("Data is null"))
 			}
 		}
-
-
-		return data
-
-	}
-
-	private suspend fun <T: Any> safeApiResult(call: suspend ()-> Response<T>,
-	                                           errorMessage: String) : ResultState<T>{
-		val response = call.invoke()
-		if(response.isSuccessful) return ResultState.Success(response.body()!!)
-
-		return ResultState.Error(IOException("Error Occurred during getting safe Api result, Custom ERROR - $errorMessage"))
-	}
+		catch (t: Throwable) {
+			logError(TAG, "${t.message}")
+			ResultState.Failure(t)
+		}
 
 	protected fun compareId(id1: Int, id2: Int) : Boolean = id1 == id2
 }

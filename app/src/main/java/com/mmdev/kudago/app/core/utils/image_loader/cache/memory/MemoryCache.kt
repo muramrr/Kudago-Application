@@ -21,8 +21,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.LruCache
 import com.mmdev.kudago.app.core.utils.image_loader.cache.Cache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
-import com.mmdev.kudago.app.core.utils.image_loader.logDebug
+import com.mmdev.kudago.app.core.utils.log.logDebug
 import java.lang.ref.SoftReference
 import java.util.Collections.synchronizedSet
 
@@ -32,11 +31,11 @@ import java.util.Collections.synchronizedSet
  * @param bitmapPool bitmap pool to hold references to bitmaps.
  * @param bitmapLruCache bitmap LRU cache.
  */
-internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
+class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
-
+	private val TAG = "mylogs_${javaClass.simpleName}"
+	
 	companion object {
-		private const val TAG = "MemoryCache"
 
 		private val MEMORY_CACHE_SIZE = (Runtime.getRuntime().maxMemory() / 8) / 1024
 
@@ -46,10 +45,9 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 		@JvmStatic
 		fun newInstance(): MemoryCache {
 
-			return MemoryCache()
-				.also {
-					logDebug(TAG, "Memory cache initiated with size ${MEMORY_CACHE_SIZE/1024} Mb")
-				}
+			return MemoryCache().also {
+				logDebug(it.javaClass, "Memory cache initiated with size ${MEMORY_CACHE_SIZE/1024} Mb")
+			}
 		}
 
 	}
@@ -59,8 +57,9 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
 	private val bitmapLruCache = object : LruCache<String, Bitmap>(MEMORY_CACHE_SIZE.toInt()) {
 
-		override fun entryRemoved(evicted: Boolean, key: String?, oldValue: Bitmap?,
-		                          newValue: Bitmap?) {
+		override fun entryRemoved(
+			evicted: Boolean, key: String?, oldValue: Bitmap?, newValue: Bitmap?
+		) {
 			oldValue?.let {
 				if (it.isMutable && !it.isRecycled) reusableBitmaps.add(SoftReference(oldValue))
 			}
@@ -73,7 +72,7 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 
 	override fun get(key: String): Bitmap? {
 		return bitmapLruCache.get(key).also {
-			logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $it")
+			//logDebug(TAG, "Trying to get ${key.md5()} from memory cache, result = $it")
 		}
 
 	}
@@ -109,7 +108,7 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 	override fun getReusableBitmap(options: BitmapFactory.Options): Bitmap? {
 		reusableBitmaps.takeIf { it.isNotEmpty() }?.let { reusableBitmaps ->
 			synchronized(reusableBitmaps) {
-				logDebug(TAG, "Searching for reusable bitmap...")
+				//logDebug(TAG, "Searching for reusable bitmap...")
 				val iterator: MutableIterator<SoftReference<Bitmap>> = reusableBitmaps.iterator()
 				while (iterator.hasNext()) {
 					iterator.next().get()?.let { item ->
@@ -142,10 +141,7 @@ internal class MemoryCache : Cache<String, Bitmap> , BitmapPool {
 		val width = targetOptions.outWidth / targetOptions.inSampleSize
 		val height = targetOptions.outHeight / targetOptions.inSampleSize
 		val byteCount: Int = width * height * bytesPerPixel(config)
-		return (byteCount <= allocationByteCount).also {
-			logDebug(TAG, "Can use for inBitmap option = $it with $byteCount size " +
-			              "and allocated $allocationByteCount")
-		}
+		return (byteCount <= allocationByteCount)
 	}
 
 	/**

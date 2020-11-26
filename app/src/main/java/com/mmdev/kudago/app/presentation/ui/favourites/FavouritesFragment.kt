@@ -39,7 +39,7 @@ class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
 		viewBinding.tabLayoutContainer.applySystemWindowInsets(applyTop = true)
 
 		viewBinding.viewPagerContainer.apply {
-			adapter = FavouritesPagerAdapter(childFragmentManager, lifecycle)
+			adapter = FavouritesPagerAdapter(this@FavouritesFragment)
 		}
 
 		TabLayoutMediator(viewBinding.tabLayoutContainer,

@@ -15,17 +15,25 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.core.utils.image_loader.common
+package com.mmdev.kudago.app.data.db
 
-import com.mmdev.kudago.app.BuildConfig
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
-internal interface DebugConfig {
 
-	val enabled: Boolean
-	val logger: MyLogger
+/**
+ * This is the documentation block about the class
+ */
 
-	object Default : DebugConfig {
-		override val enabled: Boolean = BuildConfig.DEBUG
-		override val logger: MyLogger = if (enabled) MyLogger.Debug else MyLogger.Default
-	}
+@Database(entities = [
+	FavouriteEntity::class
+ ],
+          version = 1,
+          exportSchema = false)
+
+abstract class FavouritesRoomDatabase: RoomDatabase() {
+
+	abstract fun getFavouritesDao(): FavouritesDao
+	
 }

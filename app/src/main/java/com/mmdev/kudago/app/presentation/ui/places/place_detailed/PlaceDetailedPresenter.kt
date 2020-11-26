@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
-import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.core.utils.log.logError
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
  * This is the documentation block about the class
  */
 
-class PlaceDetailedPresenter (private val repository: IPlacesRepository):
+class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 		BasePresenter<PlaceDetailedContract.View>(),
 		PlaceDetailedContract.Presenter {
 
@@ -38,12 +38,11 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 
 	override fun addOrRemovePlaceToFavourites() {
 		launch {
-			val result = withContext(coroutineContext) {
+			withContext(coroutineContext) {
 				if (isAdded) repository.removePlaceFromFavouritesList(placeDetailedEntity)
 				else repository.addPlaceToFavouritesList(placeDetailedEntity)
-			}
-			when (result) {
-				is ResultState.Success -> {
+			}.fold(
+				success = {
 					isAdded = if (isAdded){
 						getLinkedView()?.showSuccessDeletedToast()
 						false
@@ -53,37 +52,38 @@ class PlaceDetailedPresenter (private val repository: IPlacesRepository):
 						true
 					}
 					handleFabState(isAdded)
-
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
-			}
+			)
 
 		}
 	}
 
-	@ExperimentalStdlibApi
 	override fun loadPlaceDetailsById(id: Int) {
 		launch {
-			val result = withContext(coroutineContext) {
+			withContext(coroutineContext) {
 				repository.getPlaceDetails(id)
-			}
-			when (result) {
-				is ResultState.Success -> {
-					placeDetailedEntity = result.data
-					getLinkedView()?.updateData(placeDetailedEntity)
-					getLinkedView()?.setMarkerOnMap(placeDetailedEntity.coords,
-					                                placeDetailedEntity.short_title)
-					handleFabState(placeDetailedEntity.isAddedToFavourites)
-
-					isAdded = placeDetailedEntity.isAddedToFavourites
+			}.fold(
+				success = {
+					placeDetailedEntity = it
+					getLinkedView()?.updateData(it)
+					getLinkedView()?.setMarkerOnMap(
+						it.coords,
+						it.short_title
+					)
+					
+					getLinkedView()?.updateData(it)
+					
+					handleFabState(it.isAddedToFavourites)
+					
+					isAdded = it.isAddedToFavourites
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
-			}
-
+			)
 		}
 	}
 

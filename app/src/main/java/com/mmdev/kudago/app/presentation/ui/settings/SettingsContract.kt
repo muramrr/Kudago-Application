@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.presentation.ui.settings
 
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode
 
 
 /**
@@ -36,12 +35,9 @@ interface SettingsContract {
 		fun updateDisplayingCity(city: String)
 
 		fun setCityIsNotChosen()
-
-		fun updateTheme(themeMode: ThemeMode)
 	}
 
-	interface Presenter :
-			IBasePresenter<View> {
+	interface Presenter : IBasePresenter<View> {
 
 		fun clearFavourites()
 
@@ -49,7 +45,7 @@ interface SettingsContract {
 
 		fun setCity(city: String)
 
-		fun setForceDarkTheme(darkMode: Boolean)
+		fun toggleDarkTheme(darkTheme: Boolean)
 
 		fun getForceDarkTheme(): Boolean
 

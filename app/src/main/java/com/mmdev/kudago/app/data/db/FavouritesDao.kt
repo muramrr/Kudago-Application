@@ -15,10 +15,14 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.data.favourites.db
+package com.mmdev.kudago.app.data.db
 
 import androidx.annotation.VisibleForTesting
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 

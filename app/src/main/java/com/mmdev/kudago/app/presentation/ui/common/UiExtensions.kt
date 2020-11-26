@@ -39,7 +39,6 @@ private val ruLocale = Locale("ru")
 fun Context.showToast(toastText: String = "") =
 	Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
 
-@ExperimentalStdlibApi
 fun String.capitalizeRu() = this.capitalize(ruLocale)
 
 /**

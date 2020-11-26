@@ -22,8 +22,12 @@ import android.net.TrafficStats
 import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
-import com.mmdev.kudago.app.core.utils.image_loader.logDebug
-import java.io.*
+import com.mmdev.kudago.app.core.utils.log.logDebug
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -31,10 +35,12 @@ import java.net.URL
  * Utility class to download an image using its URL.
  */
 
-internal class BitmapDownloader{
-
+class BitmapDownloader{
+	
+	private val TAG = "mylogs_${javaClass.simpleName}"
+	
 	companion object {
-		private const val TAG = "BitmapDownloader"
+		
 
 		private const val USER_REQUEST_TAG = 0xF00D
 		private const val CONNECTION_TIMEOUT = 30000 // 30 sec
@@ -93,7 +99,7 @@ internal class BitmapDownloader{
 			}
 			tempOutputStream = FileOutputStream(tempFile)
 			copyStream(urlConnection.inputStream, tempOutputStream).also {
-				logDebug(TAG, "downloading $url as ${url.md5()}")
+				//logDebug(TAG, "downloading $url as ${url.md5()}")
 			}
 
 			// Decode and scale image to reduce memory consumption

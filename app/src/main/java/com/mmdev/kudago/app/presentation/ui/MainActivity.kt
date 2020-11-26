@@ -17,6 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -24,24 +25,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-
+		
 		window.apply {
-			clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 			addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-			decorView.systemUiVisibility =
-				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-						View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-			//status bar and navigation bar colors assigned in style file
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+				setDecorFitsSystemWindows(false)
+			}
+			else {
+				decorView.systemUiVisibility =
+					View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+				//status bar and navigation bar colors assigned in style file
+			}
 		}
 
 		super.onCreate(savedInstanceState)
-
-
+		
+		mainBottomNavigation.applySystemWindowInsets(applyBottom = true)
+		
 		//set night icons
 		if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_bottom_nav_places_night_24dp)
@@ -51,9 +57,7 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
 		}
 
 		val navController = findNavController(R.id.mainFlowFragment)
-		//mainBottomNavigation.setupWithNavController(navController)
 
-		//launchSingleTop doesn't work, so here is solution
 		mainBottomNavigation.setOnNavigationItemSelectedListener {
 			val previousItem = mainBottomNavigation.selectedItemId
 			val nextItem = it.itemId

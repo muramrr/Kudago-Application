@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
-import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.core.utils.log.logError
 import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
@@ -38,12 +38,11 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 
 	override fun addOrRemoveEventToFavourites() {
 		launch {
-			val result = withContext(coroutineContext) {
+			withContext(coroutineContext) {
 				if (isAdded) repository.removeEventFromFavouritesList(eventDetailedEntity)
 				else repository.addEventToFavouritesList(eventDetailedEntity)
-			}
-			when (result) {
-				is ResultState.Success -> {
+			}.fold(
+				success = {
 					isAdded = if (isAdded){
 						getLinkedView()?.showSuccessDeletedToast()
 						false
@@ -53,36 +52,34 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 						true
 					}
 					handleFabState(isAdded)
-
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
-			}
+			)
 
 		}
 	}
 
-	@ExperimentalStdlibApi
 	override fun loadEventDetailsById(id: Int) {
 		launch {
-			val result = withContext(coroutineContext) {
+			withContext(coroutineContext) {
 				repository.getEventDetails(id)
-			}
-			when (result) {
-				is ResultState.Success -> {
-					eventDetailedEntity = result.data
-					getLinkedView()?.updateData(eventDetailedEntity)
-					getLinkedView()?.setEventDateTime(eventDetailedEntity.mapToUIEventDateList())
-
-					handleFabState(eventDetailedEntity.isAddedToFavourites)
-
-					isAdded = eventDetailedEntity.isAddedToFavourites
+			}.fold(
+				success = {
+					eventDetailedEntity = it
+					getLinkedView()?.updateData(it)
+					getLinkedView()?.setEventDateTime(it.mapToUIEventDateList())
+					
+					handleFabState(it.isAddedToFavourites)
+					
+					isAdded = it.isAddedToFavourites
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-				is ResultState.Error -> {
-					result.exception.printStackTrace()
-				}
-			}
+			)
+			
 		}
 	}
 
@@ -90,7 +87,5 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		if (added) getLinkedView()?.setRemoveTextFab()
 		else getLinkedView()?.setAddTextFab()
 	}
-
-
 
 }

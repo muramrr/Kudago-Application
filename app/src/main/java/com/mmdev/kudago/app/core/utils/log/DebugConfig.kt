@@ -15,35 +15,22 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
+package com.mmdev.kudago.app.core.utils.log
 
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
-import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
-import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
+import com.mmdev.kudago.app.BuildConfig
 
 /**
- * This is the documentation block about the class
+ * Own solution for logging operations
+ * Good enough to not use Timber or any other third-party loggers
  */
 
-interface FavouritesTypeContract {
+interface DebugConfig {
 
-	interface View : IBaseView {
+	val isEnabled: Boolean
+	val logger: MyLogger
 
-		fun updateData(data: List<FavouriteEntity>)
-
-		fun showEmptyFavourites()
-
+	object Default : DebugConfig {
+		override val isEnabled: Boolean = BuildConfig.DEBUG
+		override val logger: MyLogger = if (isEnabled) MyLogger.Debug else MyLogger.Default
 	}
-
-	interface Presenter : IBasePresenter<View> {
-
-		fun deleteFromFavourites(favouriteEntity: FavouriteEntity)
-
-		fun loadFavouritePlaces()
-
-		fun loadFavouriteEvents()
-
-	}
-
-
 }

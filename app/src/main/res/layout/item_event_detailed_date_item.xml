@@ -23,30 +23,26 @@
 	android:layout_marginBottom="4dp"
 
 	app:contentPadding="16dp"
-	app:cardCornerRadius="10dp"
-	app:cardElevation="1dp"
+	app:cardCornerRadius="8dp"
 
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	>
 
-	<com.google.android.material.textview.MaterialTextView
-		android:id="@+id/tvDetailedDate"
+	<com.google.android.material.textview.MaterialTextView android:id="@+id/tvDetailedDate"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-
+		
+		android:drawableStart="@drawable/ic_calendar_24dp"
 		android:drawablePadding="8dp"
 		android:paddingBottom="32dp"
 
 		android:text=""
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-
-		app:drawableStartCompat="@drawable/ic_calendar_24dp"
-
+		android:textAppearance="?textAppearanceHeadline6"
+		
 		/>
 
-	<com.google.android.material.textview.MaterialTextView
-		android:id="@+id/tvDetailedTime"
+	<com.google.android.material.textview.MaterialTextView android:id="@+id/tvDetailedTime"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:layout_gravity="bottom"
@@ -54,7 +50,7 @@
 		android:paddingEnd="0dp"
 
 		android:text=""
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+		android:textAppearance="?textAppearanceSubtitle1"
 		/>
 
 </com.google.android.material.card.MaterialCardView>

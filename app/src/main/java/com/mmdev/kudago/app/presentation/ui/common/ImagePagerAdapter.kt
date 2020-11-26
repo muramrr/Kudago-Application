@@ -21,24 +21,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemImagePagerBinding
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 
 
-class ImagePagerAdapter (private var data: List<String> = emptyList()) :
-		BaseAdapter<String>(){
+class ImagePagerAdapter(
+	private var data: List<String> = emptyList()
+) : BaseRecyclerAdapter<String>(){
 
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		PlacesCategoryDetailedViewHolder(
-				ItemImagePagerBinding.inflate(LayoutInflater.from(parent.context),
-				                                         parent,
-				                                         false)
+			ItemImagePagerBinding.inflate(
+				LayoutInflater.from(parent.context),
+				parent,
+				false
+			)
 		)
 
 	override fun getItem(position: Int) = data[position]
 	override fun getItemCount() = data.size
 
-	override fun setData(data: List<String>){
+	override fun updateData(data: List<String>){
 		this.data = data
 		notifyDataSetChanged()
 	}
@@ -46,13 +49,11 @@ class ImagePagerAdapter (private var data: List<String> = emptyList()) :
 
 	inner class PlacesCategoryDetailedViewHolder (private val viewBinding: ItemImagePagerBinding):
 			BaseViewHolder<String>(viewBinding.root) {
-
-
+		
 		override fun bind(item: String) {
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)
 			viewBinding.ivPhoto.load(item)
 		}
-
 
 	}
 }

@@ -46,8 +46,7 @@ interface PlaceDetailedContract {
 
 	}
 
-	interface Presenter :
-			IBasePresenter<View> {
+	interface Presenter : IBasePresenter<View> {
 
 		fun addOrRemovePlaceToFavourites()
 

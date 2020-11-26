@@ -26,8 +26,8 @@ import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.custom.LinearItemDecoration
 import org.koin.android.ext.android.inject
@@ -89,7 +89,7 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 			addItemDecoration(LinearItemDecoration())
 		}
 
-		mFavouritesAdapter.setOnItemClickListener(object : BaseAdapter
+		mFavouritesAdapter.setOnItemClickListener(object : BaseRecyclerAdapter
 		                                                   .OnItemClickListener<FavouriteEntity> {
 
 			override fun onItemClick(item: FavouriteEntity, position: Int) {
@@ -107,7 +107,7 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	}
 
 	override fun updateData(data: List<FavouriteEntity>) {
-		mFavouritesAdapter.setData(data)
+		mFavouritesAdapter.updateData(data)
 		viewBinding.rvFavouritesList.visibility = View.VISIBLE
 		viewBinding.tvEmptyFavourites.visibility = View.INVISIBLE
 	}

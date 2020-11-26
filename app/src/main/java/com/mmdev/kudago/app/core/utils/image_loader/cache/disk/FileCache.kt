@@ -19,16 +19,14 @@ package com.mmdev.kudago.app.core.utils.image_loader.cache.disk
 
 import android.content.Context
 import com.mmdev.kudago.app.core.utils.image_loader.cache.bytesToMegabytes
-import com.mmdev.kudago.app.core.utils.image_loader.logDebug
+import com.mmdev.kudago.app.core.utils.log.logDebug
 import java.io.File
 
 
-internal class FileCache(context: Context) {
+class FileCache(context: Context) {
 
-	companion object {
-		private const val TAG = "DiskCache"
-	}
-
+	private val TAG = "mylogs_${javaClass.simpleName}"
+	
 
 	//private val fileDecoder = FileDecoder()
 	private var cacheDir: File? = null

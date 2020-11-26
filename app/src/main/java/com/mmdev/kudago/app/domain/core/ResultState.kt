@@ -18,34 +18,27 @@
 package com.mmdev.kudago.app.domain.core
 
 /**
- * Possible results in usecase
+ * Primary used to define bounds between network and ui states
  */
 
-sealed class ResultState<out T : Any> {
+typealias SimpleResult<T> = ResultState<T, Throwable>
 
-	/**
-	 * A state of [data] which shows that we know there is still an update to come.
-	 */
-	class Loading<out T: Any>(val data: T) : ResultState<T>(){
-		override fun getState() = STATE.Loading
+sealed class ResultState<out T, out E> {
+	
+	data class Success<out T>(val data: T) :  ResultState<T, Nothing>()
+	
+	data class Failure<out E>(val error: E) : ResultState<Nothing, E>()
+	
+	companion object {
+		fun <T> success(data: T) = Success(data)
+		fun <E> failure(error: E) = Failure(error)
 	}
-
-	/**
-	 * A state that shows the [data] is the last known update.
-	 */
-	class Success<out T : Any>(val data: T) : ResultState<T>() {
-		override fun getState() = STATE.Success
-	}
-
-	/**
-	 * A state to show a [Throwable] is thrown.
-	 */
-	class Error<out T: Any>(val exception: Throwable, val data: T? = null) : ResultState<T>(){
-		override fun getState() = STATE.Error
-	}
-
-	abstract fun getState(): STATE
-
-	enum class STATE { Loading, Success, Error}
-
+	
+	inline fun <C> fold(success: (T) -> C,
+	                    failure: (E) -> C): C =
+		when (this) {
+			is Success -> success(data)
+			is Failure -> failure(error)
+		}
+	
 }

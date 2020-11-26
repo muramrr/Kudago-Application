@@ -22,35 +22,40 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemEventDetailedDateItemBinding
 import com.mmdev.kudago.app.domain.events.UIEventDate
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedDatesAdapter(private var data: List<UIEventDate> = emptyList()): BaseAdapter<UIEventDate>() {
+class EventDetailedDatesAdapter(
+	private var data: List<UIEventDate> = emptyList()
+): BaseRecyclerAdapter<UIEventDate>() {
 
 	var eventTitle: String = ""
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 		EventsCategoryDetailedViewHolder(
-				ItemEventDetailedDateItemBinding.inflate(LayoutInflater.from(parent.context),
-				                                              parent,
-				                                              false)
+			ItemEventDetailedDateItemBinding.inflate(
+				LayoutInflater.from(parent.context),
+				parent,
+				false
+			)
 		)
 
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
 
-	override fun setData(data: List<UIEventDate>){
+	override fun updateData(data: List<UIEventDate>){
 		this.data = data
 		notifyDataSetChanged()
 	}
 
 
-	inner class EventsCategoryDetailedViewHolder (private val viewBinding: ItemEventDetailedDateItemBinding):
-			BaseViewHolder<UIEventDate>(viewBinding.root) {
+	inner class EventsCategoryDetailedViewHolder(
+		private val viewBinding: ItemEventDetailedDateItemBinding
+	): BaseViewHolder<UIEventDate>(viewBinding.root) {
 
 
 		override fun bind(item: UIEventDate) {

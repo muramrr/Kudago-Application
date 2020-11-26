@@ -30,23 +30,27 @@ import java.util.*
  * Events response - list of EventItem received from api call
  */
 
-data class EventEntity (override val id: Int = 0,
-                        override val title: String = "",
-                        override val short_title: String = "",
-                        override val images: List<ImageEntity> = emptyList()) : BaseEntity
+data class EventEntity (
+	override val id: Int = 0,
+	override val title: String = "",
+	override val short_title: String = "",
+	override val images: List<ImageEntity> = emptyList()
+) : BaseEntity
 
 data class EventsResponse (val results: List<EventEntity> = emptyList())
 
-data class EventDetailedEntity (override val id: Int = 0,
-                                override var title: String = "",
-                                override var short_title: String = "",
-                                override val body_text: String = "",
-                                override val description: String = "",
-                                override val images: List<ImageEntity> = emptyList(),
-                                val dates: List<EventDate> = emptyList(),
-                                val price: String = "",
-                                val is_free: Boolean = false,
-                                override var isAddedToFavourites: Boolean = false): BaseDetailedEntity {
+data class EventDetailedEntity (
+	override val id: Int = 0,
+	override var title: String = "",
+	override var short_title: String = "",
+	override val body_text: String = "",
+    override val description: String = "",
+    override val images: List<ImageEntity> = emptyList(),
+    val dates: List<EventDate> = emptyList(),
+    val price: String = "",
+    val is_free: Boolean = false,
+    override var isAddedToFavourites: Boolean = false
+): BaseDetailedEntity {
 
 
 	fun mapToUIEventDateList(): List<UIEventDate> {
@@ -58,11 +62,13 @@ data class EventDetailedEntity (override val id: Int = 0,
 	}
 
 	override fun mapToFavourite(): FavouriteEntity {
-		return FavouriteEntity(favouriteId = id,
-		                       favouriteDescription = description,
-		                       favouriteTitle = short_title,
-		                       favouriteType = FavouriteType.EVENT.name,
-		                       favouriteMainPictureUrl = images[0].image)
+		return FavouriteEntity(
+			favouriteId = id,
+			favouriteDescription = description,
+			favouriteTitle = short_title,
+			favouriteType = FavouriteType.EVENT.name,
+			favouriteMainPictureUrl = images[0].image
+		)
 	}
 
 }
@@ -73,7 +79,7 @@ data class EventDate(val start: Long = 0, val end: Long = 0) {
 	fun mapToUIEventDate() : UIEventDate {
 
 		val timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
-		val dateFormatter = SimpleDateFormat("EEE, dd MMMM, YYYY", Locale.getDefault())
+		val dateFormatter = SimpleDateFormat("EEE, dd MMMM, yyyy", Locale.getDefault())
 
 		//check if start is defined correctly
 		var fStart: Date? = null
@@ -106,9 +112,13 @@ data class EventDate(val start: Long = 0, val end: Long = 0) {
 }
 
 //event date which we want to see in ui
-data class UIEventDate(val startDate: String = "", val startTime: String = "",
-                       val endDate: String? = null, val endTime: String? = null,
-                       val startInMillis: Long = 0, val endInMillis: Long = 0) {
+data class UIEventDate(
+	val startDate: String = "",
+	val startTime: String = "",
+	val endDate: String? = null,
+	val endTime: String? = null,
+	val startInMillis: Long = 0,
+	val endInMillis: Long = 0) {
 
 	fun getDate(): String {
 		if (endDate != null )

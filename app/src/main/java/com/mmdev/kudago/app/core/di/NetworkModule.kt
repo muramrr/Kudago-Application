@@ -17,8 +17,13 @@
 
 package com.mmdev.kudago.app.core.di
 
+import com.mmdev.kudago.app.core.KudagoApp
 import com.mmdev.kudago.app.data.api.EventsApi
 import com.mmdev.kudago.app.data.api.PlacesApi
+import okhttp3.Interceptor
+import okhttp3.Interceptor.Companion.invoke
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,11 +38,33 @@ val NetworkModule = module {
 	single { providePlacesApi(retrofit = get()) }
 }
 
-fun provideRetrofit(): Retrofit =
-	Retrofit.Builder()
-		.baseUrl(KUDAGO_BASE_URL)
-		.addConverterFactory(GsonConverterFactory.create())
+private fun provideRetrofit(): Retrofit = Retrofit.Builder().apply {
+	baseUrl(KUDAGO_BASE_URL)
+	addConverterFactory(GsonConverterFactory.create())
+	if (KudagoApp.debug.isEnabled) client(okHttpClient)
+}.build()
+
+private fun provideEventsApi(retrofit: Retrofit): EventsApi = retrofit.create(EventsApi::class.java)
+private fun providePlacesApi(retrofit: Retrofit): PlacesApi = retrofit.create(PlacesApi::class.java)
+
+private val okHttpClient: OkHttpClient
+	get() = OkHttpClient.Builder()
+		.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+		.addInterceptor(baseInterceptor)
 		.build()
 
-fun provideEventsApi(retrofit: Retrofit): EventsApi = retrofit.create(EventsApi::class.java)
-fun providePlacesApi(retrofit: Retrofit): PlacesApi = retrofit.create(PlacesApi::class.java)
+private val baseInterceptor: Interceptor = invoke { chain ->
+	val newUrl = chain
+		.request()
+		.url
+		.newBuilder()
+		.build()
+	
+	val request = chain
+		.request()
+		.newBuilder()
+		.url(newUrl)
+		.build()
+	
+	return@invoke chain.proceed(request)
+}

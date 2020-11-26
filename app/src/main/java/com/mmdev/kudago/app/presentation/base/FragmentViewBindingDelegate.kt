@@ -34,9 +34,10 @@ import kotlin.reflect.KProperty
  * Kotlin Delegated Property in use
  */
 
-class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment,
-                                                   val viewBindingFactory: (View) -> T) :
-		ReadOnlyProperty<Fragment, T> {
+class FragmentViewBindingDelegate<T : ViewBinding>(
+	val fragment: Fragment,
+	val viewBindingFactory: (View) -> T
+) : ReadOnlyProperty<Fragment, T> {
 
 	private var binding: T? = null
 

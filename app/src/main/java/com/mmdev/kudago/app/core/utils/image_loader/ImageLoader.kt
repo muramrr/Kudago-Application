@@ -22,49 +22,32 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import com.mmdev.kudago.app.core.utils.MyDispatchers
 import com.mmdev.kudago.app.core.utils.image_loader.cache.disk.FileCache
-import com.mmdev.kudago.app.core.utils.image_loader.cache.md5
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.MemoryCache
-import com.mmdev.kudago.app.core.utils.image_loader.common.DebugConfig
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder
-import com.mmdev.kudago.app.core.utils.image_loader.common.MyLogger
 import com.mmdev.kudago.app.core.utils.image_loader.network.BitmapDownloader
+import com.mmdev.kudago.app.core.utils.log.logDebug
+import com.mmdev.kudago.app.core.utils.log.logError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
 import java.util.Collections.synchronizedMap
 import kotlin.coroutines.CoroutineContext
 
 
 class ImageLoader : KoinComponent, CoroutineScope {
-
+	
+	private val TAG = "mylogs_${javaClass.simpleName}"
+	
 	override val coroutineContext: CoroutineContext
 		get() = MyDispatchers.io()
-
 
 	private val context: Context by inject()
 
 	companion object {
-		private const val TAG = "ImageLoader"
-
-		@Volatile
-		internal var debug: DebugConfig = DebugConfig.Default
-
-		/**
-		 * Enable or disable [ImageLoader] debug mode.
-		 *
-		 * @param enabled enable the debug mode.
-		 * @param logger logging implementation.
-		 */
-		fun debugMode(enabled: Boolean, logger: MyLogger) {
-			debug = object: DebugConfig {
-				override val enabled = enabled
-				override val logger = logger
-			}
-		}
-
+		
 		@Volatile
 		private var INSTANCE: ImageLoader? = null
 
@@ -72,8 +55,9 @@ class ImageLoader : KoinComponent, CoroutineScope {
 		fun get(): ImageLoader {
 
 			return INSTANCE ?: ImageLoader().also {
+				logDebug(it.javaClass, "One Instance initiated and running")
 				INSTANCE = it
-				logDebug(TAG, "One Instance initiated and running")
+				
 			}
 
 		}
@@ -133,13 +117,13 @@ class ImageLoader : KoinComponent, CoroutineScope {
 			if (cacheFile.exists()) {
 				val bitmap = FileDecoder.decodeAndScaleFile(cacheFile, memoryCache)
 				bitmap.also {
-					logDebug(TAG, "Get from disk cache ${url.md5()}, result = $it")
+				//	logDebug(TAG, "Get from disk cache ${url.md5()}, result = $it")
 				} ?: bitmapDownloader.downloadDecodeCache(url, cacheFile, memoryCache)
 			}
 			else bitmapDownloader.downloadDecodeCache(url, cacheFile, memoryCache)
 
 		} catch (e: OutOfMemoryError) {
-			logDebug(TAG, "Out of memory error, init gc & memory cache clear")
+			logError(TAG, "Out of memory error, init gc & memory cache clear")
 			memoryCache.clear()
 			System.gc()
 			logDebug(TAG, "Trying to load again...")

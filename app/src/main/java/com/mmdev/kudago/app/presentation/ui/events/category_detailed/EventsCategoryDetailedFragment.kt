@@ -22,12 +22,13 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.core.utils.log.logDebug
+import com.mmdev.kudago.app.core.utils.log.logInfo
 import com.mmdev.kudago.app.databinding.FragmentCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.events.EventEntity
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.common.EndlessRecyclerViewScrollListener
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
 import org.koin.android.ext.android.inject
@@ -36,8 +37,9 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_detailed),
-                                      EventsContract.View {
+class EventsCategoryDetailedFragment:
+		BaseFragment(R.layout.fragment_category_detailed),
+		EventsContract.View {
 
 	private val viewBinding by viewBinding(FragmentCategoryDetailedBinding::bind)
 
@@ -45,9 +47,18 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 
 	private var receivedCategoryString = ""
 	private var receivedTitleString = ""
-	private val categoryDetailedAdapter = EventsCategoryDetailedAdapter()
+	private val mAdapter = EventsCategoryDetailedAdapter().apply {
+		setToBottomScrollListener {
+			logDebug(TAG, "invoked to load next page")
+			presenter.loadNext()
+		}
+		setToTopScrollListener {
+			logDebug(TAG, "invoked to load previous page")
+			presenter.loadPrevious()
+		}
+	}
 
-	companion object {
+	private companion object {
 
 		private const val EVENT_ID_KEY = "EVENT_ID"
 		private const val CATEGORY_KEY = "CATEGORY"
@@ -61,7 +72,7 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 		arguments?.let {
 			receivedCategoryString = it.getString(CATEGORY_KEY, "")
 			receivedTitleString = it.getString(TITLE_KEY, "")
-			presenter.loadFirstCategoryEntities(receivedCategoryString)
+			presenter.loadFirst(receivedCategoryString)
 		}
 
 	}
@@ -73,46 +84,46 @@ class EventsCategoryDetailedFragment: BaseFragment(R.layout.fragment_category_de
 			setNavigationOnClickListener { navController.navigateUp() }
 		}
 
-		val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 		viewBinding.rvDetailedCategory.apply {
-			adapter = categoryDetailedAdapter
-			layoutManager = gridLayoutManager
+			setHasFixedSize(true)
+			adapter = mAdapter
+			layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 			addItemDecoration(GridItemDecoration())
-
-			addOnScrollListener(object: EndlessRecyclerViewScrollListener(gridLayoutManager) {
-				override fun onLoadMore(page: Int, totalItemsCount: Int) {
-
-					if (gridLayoutManager.findLastCompletelyVisibleItemPosition() <= totalItemsCount - 4) {
-						presenter.loadMore()
-					}
-
-				}
-			})
 		}
 
-		categoryDetailedAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<EventEntity> {
+		mAdapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener<EventEntity> {
 
 			override fun onItemClick(item: EventEntity, position: Int) {
 				val eventId = bundleOf(EVENT_ID_KEY to item.id)
-				navController.navigate(R.id.action_eventsCategoryDetailed_to_eventDetailed,
-				                             eventId)
+				navController.navigate(
+					R.id.action_eventsCategoryDetailed_to_eventDetailed,
+					eventId
+				)
 			}
 		})
 
 	}
-
-	override fun setData(data: List<EventEntity>) {
-		categoryDetailedAdapter.setData(data)
+	
+	override fun dataInit(data: List<EventEntity>) {
+		logInfo(TAG, "init data size = ${data.size}")
+		mAdapter.setInitData(data)
+	}
+	
+	override fun dataLoadedPrevious(data: List<EventEntity>) {
+		logInfo(TAG, "loaded previous size = ${data.size}")
+		mAdapter.insertPreviousData(data)
+	}
+	
+	override fun dataLoadedNext(data: List<EventEntity>) {
+		logInfo(TAG, "loaded next size = ${data.size}")
+		mAdapter.insertNextData(data)
+	}
+	
+	override fun hideEmptyListIndicator() {
 		viewBinding.tvEmptyList.visibility = View.INVISIBLE
-		viewBinding.ivEmptyList.visibility = View.INVISIBLE
 	}
 
-	override fun updateData(data: List<EventEntity>) {
-		categoryDetailedAdapter.updateData(data)
-	}
-
-	override fun showEmptyList() {
-		viewBinding.ivEmptyList.visibility = View.VISIBLE
+	override fun showEmptyListIndicator() {
 		viewBinding.tvEmptyList.visibility = View.VISIBLE
 	}
 

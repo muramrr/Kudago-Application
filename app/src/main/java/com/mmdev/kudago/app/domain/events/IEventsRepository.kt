@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.domain.events
 
-import com.mmdev.kudago.app.domain.core.ResultState
+import com.mmdev.kudago.app.domain.core.SimpleResult
 
 /**
  * Events commands interface
@@ -25,14 +25,16 @@ import com.mmdev.kudago.app.domain.core.ResultState
 
 interface IEventsRepository {
 
-	suspend fun addEventToFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit>
+	suspend fun addEventToFavouritesList(eventDetailedEntity: EventDetailedEntity): SimpleResult<Unit>
 
-	suspend fun loadFirstEvents(category: String): EventsResponse?
+	suspend fun loadFirstEvents(city: String, category: String): SimpleResult<EventsResponse>
+	
+	suspend fun loadPreviousEvents(): SimpleResult<EventsResponse>
 
-	suspend fun loadMoreEvents(): EventsResponse?
+	suspend fun loadNextEvents(): SimpleResult<EventsResponse>
 
-	suspend fun getEventDetails(id: Int): ResultState<EventDetailedEntity>
+	suspend fun getEventDetails(id: Int): SimpleResult<EventDetailedEntity>
 
-	suspend fun removeEventFromFavouritesList(eventDetailedEntity: EventDetailedEntity): ResultState<Unit>
+	suspend fun removeEventFromFavouritesList(eventDetailedEntity: EventDetailedEntity): SimpleResult<Unit>
 
 }

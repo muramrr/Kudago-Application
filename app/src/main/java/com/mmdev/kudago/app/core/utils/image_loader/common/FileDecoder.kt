@@ -21,7 +21,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.mmdev.kudago.app.core.utils.image_loader.cache.memory.BitmapPool
 import com.mmdev.kudago.app.core.utils.image_loader.common.FileDecoder.decodeAndScaleFile
-import com.mmdev.kudago.app.core.utils.image_loader.logDebug
+import com.mmdev.kudago.app.core.utils.log.logError
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -33,7 +33,7 @@ import java.io.IOException
  */
 object FileDecoder {
 
-	private const val TAG = "FileDecoder"
+	private const val TAG = "mylogs_FileDecoder"
 
 	// depends on image size which will be loaded (lower value - lower image quality)
 	private const val REQUIRED_SIZE = 500
@@ -60,7 +60,7 @@ object FileDecoder {
 			BitmapFactory.decodeFile(filePath, bitmapOptions)
 
 		} catch (e: FileNotFoundException) {
-			logDebug(TAG, "Decoding error: ${e.localizedMessage}")
+			logError(TAG, "Decoding error: ${e.localizedMessage}")
 			e.printStackTrace()
 			null
 		} catch (e: IOException) {
@@ -94,7 +94,9 @@ object FileDecoder {
 			downScalingValue *= 2
 		}
 
-		return downScalingValue.also { logDebug(TAG, "Sample size calculated = $it") }
+		return downScalingValue.also {
+			//logDebug(TAG, "Sample size calculated = $it")
+		}
 	}
 
 

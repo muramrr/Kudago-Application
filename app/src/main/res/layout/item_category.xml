@@ -16,49 +16,37 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-
+<LinearLayout
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:padding="8dp"
+	
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	>
-
-
+	
 	<ImageView
 		android:id="@+id/ivCategoryIcon"
 		android:layout_width="56dp"
 		android:layout_height="56dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginBottom="8dp"
 		android:layout_marginEnd="16dp"
-		android:layout_marginStart="16dp"
+		android:layout_marginStart="8dp"
 		android:src="@drawable/ic_places_clubs_24dp"
-
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@id/tvCategoryTitle"
 
 		android:contentDescription="@string/description_category_title_picture"
 		/>
 
 	<com.google.android.material.textview.MaterialTextView
 		android:id="@+id/tvCategoryTitle"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginEnd="16dp"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginEnd="8dp"
 
 		android:gravity="start|center_vertical"
 
 		android:text="@string/app_name"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+		android:textAppearance="?textAppearanceSubtitle1"
 
-		app:layout_constraintStart_toEndOf="@id/ivCategoryIcon"
-		app:layout_constraintTop_toTopOf="@id/ivCategoryIcon"
-		app:layout_constraintBottom_toBottomOf="@id/ivCategoryIcon"
-		app:layout_constraintEnd_toEndOf="parent"
 		/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -17,6 +17,9 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
+import com.mmdev.kudago.app.core.KudagoApp
+import com.mmdev.kudago.app.core.utils.log.logError
+import com.mmdev.kudago.app.core.utils.log.logInfo
 import com.mmdev.kudago.app.domain.events.IEventsRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
@@ -29,29 +32,56 @@ import kotlinx.coroutines.withContext
 class EventsPresenter (private val repository: IEventsRepository) :
 		BasePresenter<EventsContract.View>(),
 		EventsContract.Presenter {
-
-
-
-	override fun loadFirstCategoryEntities(category: String) {
+	
+	override fun loadFirst(category: String) {
+		logInfo(TAG, "invoked to load first events")
 		launch {
-			withContext(backgroundContext) { repository.loadFirstEvents(category) }?.let {
-				with(it.results) {
-					if (isNotEmpty()) getLinkedView()?.setData(this)
-					else getLinkedView()?.showEmptyList()
+			withContext(backgroundContext) {
+				repository.loadFirstEvents(KudagoApp.city, category)
+			}.fold(
+				success = {
+					getLinkedView()?.dataInit(it.results)
+					
+					if (it.results.isNotEmpty()) getLinkedView()?.hideEmptyListIndicator()
+					else getLinkedView()?.showEmptyListIndicator()
+				},
+				failure = {
+					logError(TAG, "${it.message}")
 				}
-
-			}
+			)
 		}
 	}
-
-	override fun loadMore() {
+	
+	override fun loadPrevious() {
+		logInfo(TAG, "invoked to load previous events")
 		launch {
-			withContext(backgroundContext) { repository.loadMoreEvents() }?.let {
-				getLinkedView()?.updateData(it.results)
-			}
-
+			withContext(backgroundContext) {
+				repository.loadPreviousEvents()
+			}.fold(
+				success = {
+					getLinkedView()?.dataLoadedPrevious(it.results)
+				},
+				failure = {
+					logError(TAG, "${it.message}")
+				}
+			)
 		}
 	}
-
+	
+	override fun loadNext() {
+		logInfo(TAG, "invoked to load next events")
+		launch {
+			withContext(backgroundContext) {
+				repository.loadNextEvents()
+			}.fold(
+				success = {
+					getLinkedView()?.dataLoadedNext(it.results)
+				},
+				failure = {
+					logError(TAG, "${it.message}")
+				}
+			)
+		}
+	}
 
 }

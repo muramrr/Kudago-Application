@@ -55,12 +55,11 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 
 
 	private var receivedPlaceId = 0
-	companion object {
+	private companion object {
 		private const val PLACE_ID_KEY = "PLACE_ID"
 	}
 
 
-	@ExperimentalStdlibApi
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -74,10 +73,9 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 	}
 
 	override fun setupViews() {
-		viewBinding.toolbarDetailed.applySystemWindowInsets(applyTop = true)
-		viewBinding.tvToolbarTitle.applySystemWindowInsets(applyTop = true)
+		viewBinding.motionLayout.applySystemWindowInsets(applyTop = true)
 
-		viewBinding.toolbarNavigation.setOnClickListener { navController.navigateUp() }
+		viewBinding.btnToolbarNavigation.setOnClickListener { navController.navigateUp() }
 
 		viewBinding.vpPhotos.apply {
 			adapter = placePhotosAdapter
@@ -100,12 +98,13 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		mapFragment.getMapAsync { googleMap -> mGoogleMap = googleMap }
 
 
-		viewBinding.fabAddRemoveFavourites.setOnClickListener { presenter.addOrRemovePlaceToFavourites() }
+		viewBinding.fabAddRemoveFavourites.setOnClickListener {
+			presenter.addOrRemovePlaceToFavourites()
+		}
 	}
 
-	@ExperimentalStdlibApi
 	override fun updateData(data: PlaceDetailedEntity) {
-		placePhotosAdapter.setData(data.images.map { it.image })
+		placePhotosAdapter.updateData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
 		if (data.phone.isNotBlank()) data.phone.replace(", ", "\n")
@@ -139,16 +138,16 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 
 	private fun buildDialog(phone: String): AlertDialog {
 		val dialog = requireContext().showMaterialAlertDialogChooser(
-				arrayOf("Call", "Copy", "Cancel"),
-				listOf(
-						{
-					       val callIntent = Intent(Intent.ACTION_DIAL)
-					       callIntent.data = Uri.parse("tel:$phone")
-					       startActivity(callIntent)
-						},
-				       { viewBinding.btnPhoneNumber.performClick() },
-				       { }
-				)
+			arrayOf("Call", "Copy", "Cancel"),
+			listOf(
+				{
+			       val callIntent = Intent(Intent.ACTION_DIAL)
+			       callIntent.data = Uri.parse("tel:$phone")
+			       startActivity(callIntent)
+				},
+				{ viewBinding.btnPhoneNumber.performClick() },
+				{ }
+			)
 		)
 		val params = dialog.window?.attributes
 		params?.gravity = Gravity.BOTTOM

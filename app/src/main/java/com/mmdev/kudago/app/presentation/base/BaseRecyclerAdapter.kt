@@ -24,13 +24,13 @@ import androidx.recyclerview.widget.RecyclerView
  * This is the documentation block about the class
  */
 
-abstract class BaseAdapter<T>: RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder<T>>() {
+abstract class BaseRecyclerAdapter<T>: RecyclerView.Adapter<BaseRecyclerAdapter<T>.BaseViewHolder<T>>() {
 
 
 
 	abstract fun getItem(position: Int): T
 
-	abstract fun setData(data: List<T>)
+	open fun updateData(data: List<T>) {}
 
 	override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) =
 		holder.bind(getItem(position))
@@ -49,8 +49,7 @@ abstract class BaseAdapter<T>: RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolde
 		fun onItemClick(item: T, position: Int)
 	}
 
-	open inner class BaseViewHolder<T>(bindingRoot: View):
-			RecyclerView.ViewHolder(bindingRoot){
+	open inner class BaseViewHolder<T>(bindingRoot: View): RecyclerView.ViewHolder(bindingRoot){
 
 		init {
 			mClickListener?.let { listener ->

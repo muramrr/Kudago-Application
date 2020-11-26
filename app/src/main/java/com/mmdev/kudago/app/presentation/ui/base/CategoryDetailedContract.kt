@@ -25,13 +25,17 @@ import com.mmdev.kudago.app.domain.core.entity.BaseEntity
 
 interface CategoryDetailedContract {
 
-	interface View<T: BaseEntity>  {
-
-		fun setData(data: List<T>)
-
-		fun updateData(data: List<T>)
-
-		fun showEmptyList()
+	interface View<T: BaseEntity> {
+		
+		fun dataInit(data: List<T>)
+		
+		fun dataLoadedPrevious(data: List<T>)
+		
+		fun dataLoadedNext(data: List<T>)
+		
+		fun hideEmptyListIndicator()
+		
+		fun showEmptyListIndicator()
 
 		fun showLoading()
 
@@ -39,11 +43,13 @@ interface CategoryDetailedContract {
 
 	}
 
-	interface Presenter  {
+	interface Presenter {
 
-		fun loadFirstCategoryEntities(category: String)
-
-		fun loadMore()
+		fun loadFirst(category: String)
+		
+		fun loadPrevious()
+		
+		fun loadNext()
 
 	}
 

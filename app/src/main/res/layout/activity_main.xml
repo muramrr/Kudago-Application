@@ -16,48 +16,43 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-
+<LinearLayout android:id="@+id/mainContainer"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-
+	android:orientation="vertical"
+	
+	tools:context=".presentation.ui.MainActivity"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	>
-
+	
 	<fragment
 		android:id="@+id/mainFlowFragment"
-		android:name="androidx.navigation.fragment.NavHostFragment"
-		android:layout_width="0dp"
+		android:layout_width="match_parent"
 		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:name="androidx.navigation.fragment.NavHostFragment"
+		
 		app:defaultNavHost="true"
 		app:navGraph="@navigation/main_navigation"
 		tools:ignore="FragmentTagUsage"
-
-		app:layout_constraintBottom_toTopOf="@id/mainBottomNavigation"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		/>
-
+	
+	
 	<com.google.android.material.bottomnavigation.BottomNavigationView
 		android:id="@+id/mainBottomNavigation"
-		android:layout_width="0dp"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-
+		app:elevation="1dp"
+		
 		app:itemTextColor="@color/bottom_nav_tint"
 		app:itemIconTint="@color/bottom_nav_tint"
 		app:menu="@menu/main_bottom_navigation"
 		app:labelVisibilityMode="labeled"
-
+		
 		style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/mainFlowFragment"
 		/>
 
+</LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>

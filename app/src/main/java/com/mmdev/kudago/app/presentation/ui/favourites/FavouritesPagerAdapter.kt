@@ -17,8 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites
 
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.FavouritesTypeFragment
@@ -28,8 +27,7 @@ import com.mmdev.kudago.app.presentation.ui.favourites.favourite_type.Favourites
  * This is the documentation block about the class
  */
 
-class FavouritesPagerAdapter (fm: FragmentManager, lifecycle: Lifecycle) :
-		FragmentStateAdapter(fm, lifecycle) {
+class FavouritesPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 
 
 	override fun createFragment(position: Int) =

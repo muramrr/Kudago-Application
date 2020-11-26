@@ -24,13 +24,11 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	>
 
-	<androidx.appcompat.widget.Toolbar
+	<com.google.android.material.appbar.MaterialToolbar
 		android:id="@+id/toolbarCategoryTitle"
-
 		android:layout_height="wrap_content"
 		android:layout_width="0dp"
 
-		android:minHeight="?attr/actionBarSize"
 		app:navigationIcon="@drawable/ic_arrow_back_24dp"
 		app:title="@string/default_title"
 
@@ -39,7 +37,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 
-		style="@style/Widget.MaterialComponents.Toolbar"
 		/>
 
 
@@ -64,6 +61,8 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 
+		android:drawableBottom="@drawable/ic_sad_face_24dp"
+		
 		android:text="@string/category_detailed_empty_list"
 		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
 		android:textAlignment="center"
@@ -74,22 +73,6 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/toolbarCategoryTitle"
-		/>
-
-	<ImageView
-		android:id="@+id/ivEmptyList"
-		android:layout_height="120dp"
-		android:layout_width="120dp"
-		android:layout_marginTop="32dp"
-
-		android:contentDescription="@string/description_sad_face_image"
-		android:src="@drawable/ic_sad_face_24dp"
-		android:visibility="invisible"
-
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvEmptyList"
-		app:layout_constraintStart_toStartOf="parent"
-
 		/>
 
 

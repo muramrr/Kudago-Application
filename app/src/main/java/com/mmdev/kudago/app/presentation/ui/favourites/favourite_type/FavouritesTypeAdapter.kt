@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
-import com.mmdev.kudago.app.presentation.base.BaseAdapter
+import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 
 
@@ -30,31 +30,33 @@ import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
  * This is the documentation block about the class
  */
 
-class FavouritesTypeAdapter (private var data: List<FavouriteEntity> = emptyList()) :
-		BaseAdapter<FavouriteEntity>() {
+class FavouritesTypeAdapter(
+	private var data: List<FavouriteEntity> = emptyList()
+) : BaseRecyclerAdapter<FavouriteEntity>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder =
-		FavouritesViewHolder(ItemCategoryDetailedBinding
-			                           .inflate(LayoutInflater.from(parent.context),
-			                                    parent,
-			                                    false)
+		FavouritesViewHolder(
+			ItemCategoryDetailedBinding.inflate(
+				LayoutInflater.from(parent.context),
+				parent,
+				false
+			)
 		)
 
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
 
-	override fun setData(data: List<FavouriteEntity>){
+	override fun updateData(data: List<FavouriteEntity>){
 		this.data = data
 		notifyDataSetChanged()
 	}
 
 
-	inner class FavouritesViewHolder(private val viewBinding: ItemCategoryDetailedBinding):
-			BaseViewHolder<FavouriteEntity>(viewBinding.root) {
-
-
-		@ExperimentalStdlibApi
+	inner class FavouritesViewHolder(
+		private val viewBinding: ItemCategoryDetailedBinding
+	): BaseViewHolder<FavouriteEntity>(viewBinding.root) {
+		
 		override fun bind(item: FavouriteEntity){
 			viewBinding.tvTitle.text = item.favouriteTitle.capitalizeRu()
 			viewBinding.ivImageHolder.load(item.favouriteMainPictureUrl)
