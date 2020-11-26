@@ -20,7 +20,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:padding="8dp"
+	android:padding="16dp"
 	
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	>
@@ -30,7 +30,6 @@
 		android:layout_width="56dp"
 		android:layout_height="56dp"
 		android:layout_marginEnd="16dp"
-		android:layout_marginStart="8dp"
 		android:src="@drawable/ic_places_clubs_24dp"
 
 		android:contentDescription="@string/description_category_title_picture"
@@ -40,9 +39,8 @@
 		android:id="@+id/tvCategoryTitle"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginEnd="8dp"
 
-		android:gravity="start|center_vertical"
+		android:gravity="center_vertical"
 
 		android:text="@string/app_name"
 		android:textAppearance="?textAppearanceSubtitle1"

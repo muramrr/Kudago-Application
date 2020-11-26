@@ -53,6 +53,12 @@
 
 	<string name="place_detailed_phone_is_not_specified">Номер не указан</string>
 	<string name="place_detailed_phone">Телефон</string>
+	<string name="place_detailed_phone_copy_formatter">Скопировано: %s</string>
+	<string-array name="place_detailed_phone_dialog_items">
+		<item>Позвонить</item>
+		<item>Скопировать</item>
+		<item>Отмена</item>
+	</string-array>
 
 	<!-- content descriptions -->
 	<string name="description_category_title_picture">Изображение категории</string>

@@ -37,12 +37,10 @@ class PlacesRepositoryImpl(
 
 	//current time
 	private val unixTime = System.currentTimeMillis() / 1000L
-	private var page = 1
-		private set(value) {
-			field = if (value < 1) 1
-			else value
-		}
-
+	
+	private var firstPageInPool = 1
+	private var lastPageInPool = 1
+	
 	private var category = ""
 	private var city = ""
 
@@ -59,10 +57,10 @@ class PlacesRepositoryImpl(
 	): SimpleResult<PlacesResponse> {
 		this.city = city
 		this.category = category
-		page = 1
 		return safeCall(TAG) { placesApi.getPlacesList(unixTime, category, city) }.fold(
 			success = {
-				page++
+				firstPageInPool = 1
+				lastPageInPool = 1
 				ResultState.success(it)
 			},
 			failure = {
@@ -72,27 +70,27 @@ class PlacesRepositoryImpl(
 	}
 	
 	override suspend fun loadPreviousPlaces(): SimpleResult<PlacesResponse> = safeCall(TAG) {
-		placesApi.getPlacesList(unixTime, category, city, page)
+		placesApi.getPlacesList(unixTime, category, city, firstPageInPool - 1)
 	}.fold(
 		success = {
-			page--
+			firstPageInPool--
+			if (firstPageInPool > 0) lastPageInPool--
 			ResultState.success(it)
 		},
 		failure = {
-			page++
 			ResultState.failure(it)
 		}
 	)
 
 	override suspend fun loadNextPlaces(): SimpleResult<PlacesResponse> = safeCall(TAG) {
-		placesApi.getPlacesList(unixTime, category, city, page)
+		placesApi.getPlacesList(unixTime, category, city, lastPageInPool + 1)
 	}.fold(
 		success = {
-			page++
+			lastPageInPool++
+			if (lastPageInPool > 2) firstPageInPool++
 			ResultState.success(it)
 		},
 		failure = {
-			page--
 			ResultState.failure(it)
 		}
 	)

@@ -32,10 +32,10 @@
 	<com.google.android.material.textview.MaterialTextView android:id="@+id/tvDetailedDate"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
+		android:paddingBottom="32dp"
 		
 		android:drawableStart="@drawable/ic_calendar_24dp"
 		android:drawablePadding="8dp"
-		android:paddingBottom="32dp"
 
 		android:text=""
 		android:textAppearance="?textAppearanceHeadline6"

@@ -41,7 +41,7 @@
 
 		android:text="@string/favourites_empty_hint"
 		android:textAlignment="center"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+		android:textAppearance="?textAppearanceHeadline4"
 		android:visibility="invisible"
 
 		/>

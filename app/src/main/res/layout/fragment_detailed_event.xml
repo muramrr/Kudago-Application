@@ -87,18 +87,16 @@
 				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:background="@drawable/rounded_corners"
-				android:elevation="1dp"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
+				android:paddingVertical="16dp"
+				android:paddingHorizontal="8dp"
+				
+				android:drawableStart="@drawable/ic_rubles_24dp"
 
 				android:text=""
 				android:textAlignment="center"
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+				android:textAppearance="?textAppearanceHeadline6"
 				android:textColor="@android:color/black"
-				app:drawableStartCompat="@drawable/ic_rubles_24dp"
-
+				
 
 				app:layout_constraintTop_toTopOf="@id/guidelineTop"
 				app:layout_constraintBottom_toTopOf="@id/tvDetailedAboutHeader"
@@ -112,13 +110,11 @@
 				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:labelFor="@id/tvDetailedAbout"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
-
+				android:paddingVertical="16dp"
+				android:paddingHorizontal="8dp"
+				
 				android:text="@string/detailed_about_header"
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+				android:textAppearance="?textAppearanceHeadline5"
 
 				app:layout_constraintTop_toBottomOf="@id/tvPrice"
 				app:layout_constraintBottom_toTopOf="@id/tvDetailedAbout"
@@ -132,8 +128,6 @@
 				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:lineSpacingExtra="10sp"
-
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -164,8 +158,8 @@
 				android:id="@+id/guidelineTop"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				app:layout_constraintGuide_begin="8dp"
 				android:orientation="horizontal"
+				app:layout_constraintGuide_begin="8dp"
 				/>
 			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
@@ -188,8 +182,8 @@
 				android:id="@+id/guidelineBottom"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				app:layout_constraintGuide_end="8dp"
 				android:orientation="horizontal"
+				app:layout_constraintGuide_end="8dp"
 				/>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
@@ -229,23 +223,19 @@
 	<com.google.android.material.textview.MaterialTextView android:id="@+id/tvToolbarTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginEnd="16dp"
+		android:layout_marginHorizontal="16dp"
 
 		android:gravity="start|center_vertical"
 
 		android:ellipsize="end"
 		android:maxLines="1"
-		android:textAlignment="textStart"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+		android:textAppearance="?textAppearanceHeadline6"
 		android:textColor="@android:color/white"
 		android:textSize="30sp"
 		android:text=""
-
-		app:layout_constraintTop_toTopOf="@id/toolbarDetailed"
-		app:layout_constraintStart_toStartOf="@id/toolbarDetailed"
-		app:layout_constraintEnd_toEndOf="@id/toolbarDetailed"
-		app:layout_constraintBottom_toBottomOf="@id/toolbarDetailed"
+		
+		app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"
+		app:layout_constraintStart_toStartOf="parent"
 		/>
 
 	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -255,14 +245,8 @@
 		android:layout_margin="16dp"
 
 		android:text=""
-		android:textAlignment="center"
 		android:textAllCaps="false"
-		android:textColor="@color/colorOnSecondaryDark"
-		android:textSize="14sp"
-
-		app:elevation="@null"
-
-		style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+		android:textColor="?colorOnSecondary"
 
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"

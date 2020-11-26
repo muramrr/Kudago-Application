@@ -22,8 +22,8 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.core.utils.log.MyLogger.Debug.info
 import com.mmdev.kudago.app.core.utils.log.logDebug
+import com.mmdev.kudago.app.core.utils.log.logInfo
 import com.mmdev.kudago.app.databinding.FragmentCategoryDetailedBinding
 import com.mmdev.kudago.app.domain.places.PlaceEntity
 import com.mmdev.kudago.app.presentation.base.BaseFragment
@@ -105,17 +105,17 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 	}
 	
 	override fun dataInit(data: List<PlaceEntity>) {
-		info(TAG, "init data size = ${data.size}")
+		logInfo(TAG, "init data size = ${data.size}")
 		mAdapter.setInitData(data)
 	}
 	
 	override fun dataLoadedPrevious(data: List<PlaceEntity>) {
-		info(TAG, "loaded previous size = ${data.size}")
+		logInfo(TAG, "loaded previous size = ${data.size}")
 		mAdapter.insertPreviousData(data)
 	}
 	
 	override fun dataLoadedNext(data: List<PlaceEntity>) {
-		info(TAG, "loaded next size = ${data.size}")
+		logInfo(TAG, "loaded next size = ${data.size}")
 		mAdapter.insertNextData(data)
 	}
 	

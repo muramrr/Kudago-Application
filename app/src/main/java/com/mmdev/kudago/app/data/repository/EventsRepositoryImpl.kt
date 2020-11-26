@@ -38,11 +38,9 @@ class EventsRepositoryImpl(
 	
 	//current time
 	private val unixTime = System.currentTimeMillis() / 1000L
-	private var page = 1
-		private set(value) {
-			field = if (value < 1) 1
-			else value
-		}
+	
+	private var firstPageInPool = 1
+	private var lastPageInPool = 1
 
 	private var category = ""
 	private var city = ""
@@ -61,10 +59,10 @@ class EventsRepositoryImpl(
 		logInfo(TAG, "Loading first events")
 		this.city = city
 		this.category = category
-		page = 1
 		return safeCall(TAG) { eventsApi.getEventsList(unixTime, category, city) }.fold(
 			success = {
-				page++
+				firstPageInPool = 1
+				lastPageInPool = 1
 				ResultState.success(it)
 			},
 			failure = {
@@ -74,29 +72,27 @@ class EventsRepositoryImpl(
 	}
 	
 	override suspend fun loadPreviousEvents(): SimpleResult<EventsResponse> = safeCall(TAG) {
-		logInfo(TAG, "Loading previous events, page = $page")
-		eventsApi.getEventsList(unixTime, category, city, page)
+		eventsApi.getEventsList(unixTime, category, city, firstPageInPool - 1)
 	}.fold(
 		success = {
-			page--
+			firstPageInPool--
+			if (firstPageInPool > 0) lastPageInPool--
 			ResultState.success(it)
 		},
 		failure = {
-			page++
 			ResultState.failure(it)
 		}
 	)
 	
 	override suspend fun loadNextEvents(): SimpleResult<EventsResponse> = safeCall(TAG) {
-		logInfo(TAG, "Loading next events, page = $page")
-		eventsApi.getEventsList(unixTime, category, city, page)
+		eventsApi.getEventsList(unixTime, category, city, lastPageInPool + 1)
 	}.fold(
 		success = {
-			page++
+			lastPageInPool++
+			if (lastPageInPool > 2) firstPageInPool++
 			ResultState.success(it)
 		},
 		failure = {
-			page--
 			ResultState.failure(it)
 		}
 	)

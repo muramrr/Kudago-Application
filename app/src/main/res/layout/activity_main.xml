@@ -50,8 +50,6 @@
 		app:itemIconTint="@color/bottom_nav_tint"
 		app:menu="@menu/main_bottom_navigation"
 		app:labelVisibilityMode="labeled"
-		
-		style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
 		/>
 
 </LinearLayout>

@@ -21,70 +21,30 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.mmdev.kudago.app.R
 import java.util.*
 
-/**
- * This is the documentation block about the class
- */
-
-private val ruLocale = Locale("ru")
+fun View.getStringRes(@StringRes id: Int) = resources.getString(id)
 
 fun Context.showToast(toastText: String = "") =
 	Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
 
-fun String.capitalizeRu() = this.capitalize(ruLocale)
+fun String.capitalizeRu() = this.capitalize(Locale("ru"))
 
-/**
- * Param:  textView, text to clip from textView, context
- */
-fun TextView.attachClickToCopyText(context: Context) {
+fun TextView.attachClickToCopyText(context: Context, @StringRes formatter: Int) {
 	this.setOnClickListener {
-		val textToClip = this.text.toString()
+		val copiedText = this.text.toString()
 		val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-		val clip = ClipData.newPlainText(textToClip, this.text)
+		val clip = ClipData.newPlainText(copiedText, this.text)
 		clipboard.setPrimaryClip(clip)
-		Snackbar.make(this, "Copied $textToClip", Snackbar.LENGTH_SHORT).show()
+		Snackbar.make(this, getStringRes(formatter).format(copiedText), Snackbar.LENGTH_SHORT).show()
 	}
 }
-
-fun Context.buildMaterialAlertDialog(title: String, message: String,
-                                     positiveText: String?,
-                                     positiveClick: () -> Unit?,
-                                     negativeText: String?,
-                                     negativeClick: () -> Unit?,
-                                     neutralText: String?,
-                                     neutralClick: () -> Unit?): MaterialAlertDialogBuilder =
-	MaterialAlertDialogBuilder(this)
-		.setTitle(title)
-		.setMessage(message)
-		.setPositiveButton(positiveText) { dialog, _ ->
-			positiveClick()
-			dialog.dismiss()
-		}
-		.setNegativeButton(negativeText) { dialog, _ ->
-			negativeClick()
-			dialog.dismiss()
-		}
-		.setNeutralButton(neutralText) { dialog, _ ->
-			neutralClick()
-			dialog.dismiss()
-		}
-
-fun Context.showMaterialAlertDialogChooser(items: Array<String>,
-                                          clicks: List<()->Unit>): AlertDialog =
-	MaterialAlertDialogBuilder(this, R.style.My_MaterialAlertDialog)
-		.setItems(items) {
-			_, itemIndex ->
-			clicks[itemIndex]()
-		}
-		.create()
 
 fun TextView.setHtmlText(source: String) {
 	this.text = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT)

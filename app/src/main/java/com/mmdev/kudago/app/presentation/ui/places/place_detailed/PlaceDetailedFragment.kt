@@ -27,9 +27,11 @@ import com.google.android.libraries.maps.GoogleMap
 import com.google.android.libraries.maps.SupportMapFragment
 import com.google.android.libraries.maps.model.LatLng
 import com.google.android.libraries.maps.model.MarkerOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.R.style
 import com.mmdev.kudago.app.databinding.FragmentDetailedPlaceBinding
 import com.mmdev.kudago.app.domain.places.PlaceCoords
 import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
@@ -86,7 +88,7 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		}.attach()
 
 		viewBinding.btnPhoneNumber.apply {
-			attachClickToCopyText(requireContext())
+			attachClickToCopyText(requireContext(), R.string.place_detailed_phone_copy_formatter)
 			setOnLongClickListener {
 				buildDialog(viewBinding.btnPhoneNumber.text.toString()).show()
 				return@setOnLongClickListener true
@@ -137,18 +139,25 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
 
 	private fun buildDialog(phone: String): AlertDialog {
-		val dialog = requireContext().showMaterialAlertDialogChooser(
-			arrayOf("Call", "Copy", "Cancel"),
-			listOf(
-				{
-			       val callIntent = Intent(Intent.ACTION_DIAL)
-			       callIntent.data = Uri.parse("tel:$phone")
-			       startActivity(callIntent)
-				},
-				{ viewBinding.btnPhoneNumber.performClick() },
-				{ }
-			)
-		)
+		
+		val dialog = MaterialAlertDialogBuilder(requireContext(), style.My_MaterialAlertDialog)
+			.setItems(resources.getStringArray(R.array.place_detailed_phone_dialog_items)) { _, itemIndex ->
+				when(itemIndex) {
+					0 -> {
+						val callIntent = Intent(Intent.ACTION_DIAL)
+						callIntent.data = Uri.parse("tel:$phone")
+						startActivity(callIntent)
+					}
+					1 -> {
+						viewBinding.btnPhoneNumber.performClick()
+					}
+					2 -> {
+					
+					}
+				}
+			}
+			.create()
+		
 		val params = dialog.window?.attributes
 		params?.gravity = Gravity.BOTTOM
 		return dialog

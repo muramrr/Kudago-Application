@@ -110,7 +110,7 @@ class EventsCategoryDetailedAdapter(
 
 
 		override fun bind(item: EventEntity) {
-			if ((data.size - 6) > 4 && adapterPosition == (data.size - 6))
+			if (adapterPosition > 10 && adapterPosition == (data.size - 6))
 				scrollToBottomListener?.invoke()
 			
 			if (itemsLoaded > data.size && adapterPosition == 6)

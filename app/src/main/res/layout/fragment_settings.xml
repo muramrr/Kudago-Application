@@ -68,13 +68,9 @@
 
 		android:padding="24dp"
 		android:text="@string/settings_btn_clear_cache"
-		android:textAlignment="center"
 		android:textAllCaps="false"
-		android:textAppearance="@android:style/TextAppearance.Material.Button"
-
+		
 		app:cornerRadius="12dp"
-
-		style="@style/Widget.MaterialComponents.Button"
 
 		app:layout_constraintBottom_toTopOf="@id/btnClearFavourites"
 		app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -89,13 +85,9 @@
 
 		android:padding="24dp"
 		android:text="@string/settings_btn_clear_favourites"
-		android:textAlignment="center"
 		android:textAllCaps="false"
-		android:textAppearance="@android:style/TextAppearance.Material.Button"
-
+	
 		app:cornerRadius="12dp"
-
-		style="@style/Widget.MaterialComponents.Button"
 
 		app:layout_constraintBottom_toTopOf="@id/containerSwitchDarkTheme"
 		app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -105,14 +97,12 @@
 	<com.google.android.material.card.MaterialCardView
 		android:id="@+id/containerSwitchDarkTheme"
 		android:layout_width="0dp"
-		android:layout_height="100dp"
-		android:layout_marginTop="24dp"
+		android:layout_height="92dp"
+		android:layout_marginTop="28dp"
 
-		app:cardBackgroundColor="@color/colorPrimary"
+		app:cardBackgroundColor="?colorPrimary"
 		app:cardCornerRadius="12dp"
 		app:contentPadding="24dp"
-
-		style="@style/Widget.MaterialComponents.CardView"
 
 		app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 		app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -125,8 +115,7 @@
 
 			android:text="@string/settings_switch_force_dark_theme"
 			android:textAllCaps="false"
-			android:textAppearance="@android:style/TextAppearance.Material.Button"
-
+			android:textAppearance="?textAppearanceButton"
 			/>
 
 	</com.google.android.material.card.MaterialCardView>

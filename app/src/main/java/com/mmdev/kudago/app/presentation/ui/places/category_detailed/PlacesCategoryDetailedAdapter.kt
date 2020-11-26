@@ -69,7 +69,6 @@ class PlacesCategoryDetailedAdapter(
 	fun insertPreviousData(topData: List<PlaceEntity>) {
 		data.addAll(FIRST_POS, topData)
 		notifyItemRangeInserted(FIRST_POS, topData.size)
-		
 		if (data.size > OPTIMAL_ITEMS_COUNT) {
 			val shouldBeRemovedCount = data.size - OPTIMAL_ITEMS_COUNT
 			data = data.dropLast(shouldBeRemovedCount).toMutableList()
@@ -111,7 +110,7 @@ class PlacesCategoryDetailedAdapter(
 	) : BaseViewHolder<PlaceEntity>(viewBinding.root) {
 		
 		override fun bind(item: PlaceEntity) {
-			if ((data.size - 6) > 4 && adapterPosition == (data.size - 6))
+			if (adapterPosition > 10 && adapterPosition == (data.size - 6))
 				scrollToBottomListener?.invoke()
 			
 			if (itemsLoaded > data.size && adapterPosition == 6)

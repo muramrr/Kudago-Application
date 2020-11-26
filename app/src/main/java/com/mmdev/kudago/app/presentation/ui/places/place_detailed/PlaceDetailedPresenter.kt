@@ -74,8 +74,6 @@ class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 						it.short_title
 					)
 					
-					getLinkedView()?.updateData(it)
-					
 					handleFabState(it.isAddedToFavourites)
 					
 					isAdded = it.isAddedToFavourites

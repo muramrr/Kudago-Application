@@ -86,14 +86,12 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:labelFor="@id/tvDetailedAbout"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
+				android:paddingVertical="16dp"
+				android:paddingHorizontal="8dp"
 
 				android:text="@string/detailed_about_header"
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-
+				android:textAppearance="?textAppearanceHeadline5"
+				
 				app:layout_constraintTop_toTopOf="@id/guidelineTop"
 				app:layout_constraintBottom_toTopOf="@id/tvDetailedAbout"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -105,8 +103,6 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:lineSpacingExtra="10sp"
-
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
 
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -121,14 +117,12 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:labelFor="@id/btnPhoneNumber"
-				android:paddingTop="16dp"
-				android:paddingBottom="16dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
+				android:paddingVertical="16dp"
+				android:paddingHorizontal="8dp"
 
 				android:text="@string/place_detailed_phone"
-				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-
+				android:textAppearance="?textAppearanceHeadline5"
+				
 				app:layout_constraintTop_toBottomOf="@id/tvDetailedAbout"
 				app:layout_constraintBottom_toTopOf="@id/btnPhoneNumber"
 				app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -140,13 +134,9 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:padding="24dp"
-
-				android:textSize="16sp"
-
-				app:icon="@drawable/ic_baseline_phone_24dp"
-				app:iconPadding="-24dp"
-
+				
 				app:cornerRadius="16dp"
+				app:icon="@drawable/ic_baseline_phone_24dp"
 
 				app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberHeader"
 				app:layout_constraintBottom_toTopOf="@id/cvContainerMap"
@@ -166,8 +156,7 @@
 				app:layout_constraintStart_toStartOf="@id/guidelineStart"
 				app:layout_constraintBottom_toBottomOf="@id/guidelineBottom">
 
-				<fragment
-					android:id="@+id/map"
+				<fragment android:id="@+id/map"
 					android:layout_width="match_parent"
 					android:layout_height="300dp"
 					app:cameraZoom="14"
@@ -184,8 +173,8 @@
 				android:id="@+id/guidelineTop"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				app:layout_constraintGuide_begin="8dp"
 				android:orientation="horizontal"
+				app:layout_constraintGuide_begin="8dp"
 				/>
 			<!-- left margin -->
 			<androidx.constraintlayout.widget.Guideline
@@ -208,8 +197,8 @@
 				android:id="@+id/guidelineBottom"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				app:layout_constraintGuide_end="8dp"
 				android:orientation="horizontal"
+				app:layout_constraintGuide_end="8dp"
 				/>
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -263,9 +252,6 @@
 		android:textSize="30sp"
 		android:text=""
 		
-		android:scaleX="1.0"
-		android:scaleY="1.0"
-		
 		app:layout_constraintBottom_toTopOf="@id/tlDotsIndicator"
 		app:layout_constraintStart_toStartOf="parent"
 		/>
@@ -277,15 +263,9 @@
 		android:layout_margin="16dp"
 
 		android:text=""
-		android:textAlignment="center"
 		android:textAllCaps="false"
-		android:textColor="@color/colorOnSecondaryDark"
-		android:textSize="14sp"
-
-		app:elevation="@null"
-
-		style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-
+		android:textColor="?colorOnSecondary"
+		
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"
 		/>
