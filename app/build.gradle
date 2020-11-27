@@ -45,10 +45,9 @@ android {
 	defaultConfig {
 		applicationId "com.mmdev.kudago.app"
 		minSdkVersion 21
-		//targetSdkVersion 'R'
 		targetSdkVersion 30
-		versionCode 1
-		versionName "1.0"
+		versionCode 11
+		versionName "1.1"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		//testInstrumentationRunner "com.mmdev.kudago.app.KoinTestRunner"
 	}
