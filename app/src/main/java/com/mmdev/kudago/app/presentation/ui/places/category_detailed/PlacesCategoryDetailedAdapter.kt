@@ -19,10 +19,11 @@ package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.core.utils.image_loader.load
+import coil.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceBaseInfo
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
 
@@ -31,8 +32,8 @@ import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
  */
 
 class PlacesCategoryDetailedAdapter(
-	private var data: MutableList<PlaceEntity> = mutableListOf()
-): BaseRecyclerAdapter<PlaceEntity>() {
+	private var data: MutableList<PlaceBaseInfo> = mutableListOf()
+): BaseRecyclerAdapter<PlaceBaseInfo>() {
 	
 	private companion object{
 		private const val FIRST_POS = 0
@@ -57,7 +58,7 @@ class PlacesCategoryDetailedAdapter(
 	override fun getItem(position: Int) = data[position]
 	
 	
-	fun setInitData(data: List<PlaceEntity>) {
+	fun setInitData(data: List<PlaceBaseInfo>) {
 		this.data.clear()
 		startPos = FIRST_POS
 		this.data.addAll(data)
@@ -66,7 +67,7 @@ class PlacesCategoryDetailedAdapter(
 	}
 	
 	
-	fun insertPreviousData(topData: List<PlaceEntity>) {
+	fun insertPreviousData(topData: List<PlaceBaseInfo>) {
 		data.addAll(FIRST_POS, topData)
 		notifyItemRangeInserted(FIRST_POS, topData.size)
 		if (data.size > OPTIMAL_ITEMS_COUNT) {
@@ -78,7 +79,7 @@ class PlacesCategoryDetailedAdapter(
 	}
 	
 	
-	fun insertNextData(bottomData: List<PlaceEntity>) {
+	fun insertNextData(bottomData: List<PlaceBaseInfo>) {
 		startPos = data.size
 		data.addAll(bottomData)
 		itemsLoaded += bottomData.size
@@ -90,7 +91,7 @@ class PlacesCategoryDetailedAdapter(
 		}
 	}
 
-	private fun prefetchData(data: List<PlaceEntity>) {
+	private fun prefetchData(data: List<PlaceBaseInfo>) {
 		val prefetcher = ImagePrefetcher(data.map { it.images[0].image })
 		prefetcher.prefetch()
 	}
@@ -107,9 +108,17 @@ class PlacesCategoryDetailedAdapter(
 	
 	inner class PlacesCategoryDetailedViewHolder(
 		private val viewBinding: ItemCategoryDetailedBinding
-	) : BaseViewHolder<PlaceEntity>(viewBinding.root) {
+	) : BaseViewHolder<PlaceBaseInfo>(viewBinding) {
 		
-		override fun bind(item: PlaceEntity) {
+		init {
+			mClickListener?.let { listener ->
+				itemView.setOnClickListener {
+					listener.invoke(it, adapterPosition, getItem(adapterPosition))
+				}
+			}
+		}
+		
+		override fun bind(item: PlaceBaseInfo) {
 			if (adapterPosition > 10 && adapterPosition == (data.size - 6))
 				scrollToBottomListener?.invoke()
 			
@@ -119,7 +128,9 @@ class PlacesCategoryDetailedAdapter(
 			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
 			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			//loading image from url
-			viewBinding.ivImageHolder.load(item.images[0].image)
+			viewBinding.ivImageHolder.load(item.images[0].image) {
+				crossfade(true)
+			}
 		}
 
 

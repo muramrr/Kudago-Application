@@ -59,21 +59,35 @@
 	<com.google.android.material.textview.MaterialTextView
 		android:id="@+id/tvEmptyList"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
+		android:padding="8dp"
 
-		android:drawableBottom="@drawable/ic_sad_face_24dp"
+		android:drawablePadding="64dp"
+		android:drawableBottom="@drawable/ic_sad_face_100"
 		
 		android:text="@string/category_detailed_empty_list"
-		android:textAppearance="?textAppearanceHeadline4"
+		android:textAppearance="?textAppearanceHeadline5"
 		android:textAlignment="center"
 		android:visibility="invisible"
 
-		app:layout_constraintVertical_bias="0.3"
+		app:layout_constraintVertical_bias="0.4"
+		app:layout_constraintTop_toBottomOf="@id/toolbarCategoryTitle"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/toolbarCategoryTitle"
 		/>
 
+	<include layout="@layout/layout_loading"
+		android:id="@+id/loading"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		
+		android:visibility="invisible"
+		
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

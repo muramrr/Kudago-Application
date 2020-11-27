@@ -21,8 +21,4 @@ package com.mmdev.kudago.app.presentation.base.mvp
  * This is the documentation block about the class
  */
 
-interface IBaseView {
-
-	fun showToast(toastText: String)
-
-}
+interface IBaseView

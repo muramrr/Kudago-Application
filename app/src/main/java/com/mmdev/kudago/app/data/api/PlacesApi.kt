@@ -17,8 +17,7 @@
 
 package com.mmdev.kudago.app.data.api
 
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.domain.places.PlacesResponse
+import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -38,6 +37,6 @@ interface PlacesApi {
 	): PlacesResponse
 
 	@GET("places/{id}/?fields=id,title,short_title,body_text,description,images,phone,coords")
-	suspend fun getPlaceDetails(@Path("id") id: Int): PlaceDetailedEntity
+	suspend fun getPlaceDetails(@Path("id") id: Int): PlaceDetailedInfo
 
 }

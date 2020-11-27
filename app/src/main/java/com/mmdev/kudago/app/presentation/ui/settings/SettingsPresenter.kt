@@ -36,14 +36,14 @@ class SettingsPresenter (private val settings: SettingsImpl) :
 			withContext(backgroundContext) {
 				settings.clearFavourites()
 			}
-			getLinkedView()?.showClearedToast()
+			attachedView?.showClearedToast()
 		}
 	}
 
 	override fun getCity() {
 		KudagoApp.city.run {
-			if (this.isNotBlank()) getLinkedView()?.updateDisplayingCity(this)
-			else getLinkedView()?.setCityIsNotChosen()
+			if (this.isNotBlank()) attachedView?.updateDisplayingCity(this)
+			else attachedView?.setCityIsNotChosen()
 		}
 	}
 

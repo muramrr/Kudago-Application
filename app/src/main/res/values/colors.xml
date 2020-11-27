@@ -38,7 +38,7 @@
 
 	<!-- "On" colors-->
 	<color name="colorOnPrimary">#000000</color>
-	<color name="colorOnSecondary">#000000</color>
+	<color name="colorOnSecondary">#FFFFFF</color>
 	<color name="colorOnSecondaryDark">#FFFFFF</color>
 	<color name="colorOnBackground">#000000</color>
 	<color name="colorOnError">#FFFFFF</color>
@@ -52,6 +52,7 @@
 
 	<color name="bottom_nav_checked_tint">#000000</color>
 	<color name="bottom_nav_default">#FF000000</color>
-
+	
+	<color name="loading_background">#D9000000</color>
 
 </resources>

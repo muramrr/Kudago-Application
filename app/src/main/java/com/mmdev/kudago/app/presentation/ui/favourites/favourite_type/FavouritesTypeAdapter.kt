@@ -19,10 +19,11 @@ package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.core.utils.image_loader.load
+import coil.load
+import com.mmdev.kudago.app.data.db.FavouriteEntity
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 
 
@@ -55,11 +56,21 @@ class FavouritesTypeAdapter(
 
 	inner class FavouritesViewHolder(
 		private val viewBinding: ItemCategoryDetailedBinding
-	): BaseViewHolder<FavouriteEntity>(viewBinding.root) {
+	): BaseViewHolder<FavouriteEntity>(viewBinding) {
+		
+		init {
+			mClickListener?.let { listener ->
+				itemView.setOnClickListener {
+					listener.invoke(it, adapterPosition, getItem(adapterPosition))
+				}
+			}
+		}
 		
 		override fun bind(item: FavouriteEntity){
 			viewBinding.tvTitle.text = item.favouriteTitle.capitalizeRu()
-			viewBinding.ivImageHolder.load(item.favouriteMainPictureUrl)
+			viewBinding.ivImageHolder.load(item.favouriteMainPictureUrl) {
+				crossfade(true)
+			}
 		}
 
 	}

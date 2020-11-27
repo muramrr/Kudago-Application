@@ -17,10 +17,10 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceBaseInfo
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
+import com.mmdev.kudago.app.presentation.ui.categories.CategoryDetailedContract
 
 
 /**
@@ -29,7 +29,7 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
 
 interface PlacesContract  {
 
-	interface View : CategoryDetailedContract.View<PlaceEntity>, IBaseView
+	interface View : CategoryDetailedContract.View<PlaceBaseInfo>, IBaseView
 
 	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
 

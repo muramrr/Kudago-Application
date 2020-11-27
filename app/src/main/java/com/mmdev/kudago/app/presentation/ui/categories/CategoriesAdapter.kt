@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.base
+package com.mmdev.kudago.app.presentation.ui.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.databinding.ItemCategoryBinding
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
-import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 
 
 /**
@@ -29,10 +29,9 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCatego
  */
 
 class CategoriesAdapter(
-	private val data: List<AdapterCategoryItem>
-) : BaseRecyclerAdapter<AdapterCategoryItem>() {
-
-
+	private val data: List<CategoryData>
+) : BaseRecyclerAdapter<CategoryData>() {
+	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesCategoriesViewHolder =
 		PlacesCategoriesViewHolder(
 			ItemCategoryBinding.inflate(
@@ -45,15 +44,21 @@ class CategoriesAdapter(
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 
-	override fun updateData(data: List<AdapterCategoryItem>) {}
 
-
+	
 
 	inner class PlacesCategoriesViewHolder(private val viewBinding: ItemCategoryBinding):
-			BaseViewHolder<AdapterCategoryItem>(viewBinding.root) {
+			BaseViewHolder<CategoryData>(viewBinding) {
+		
+		init {
+			mClickListener?.let { listener ->
+				itemView.setOnClickListener {
+					listener.invoke(it, adapterPosition, getItem(adapterPosition))
+				}
+			}
+		}
 
-
-		override fun bind(item: AdapterCategoryItem){
+		override fun bind(item: CategoryData){
 
 			viewBinding.tvCategoryTitle.text = item.title
 			viewBinding.ivCategoryIcon.setImageResource(item.icon)
@@ -62,10 +67,6 @@ class CategoriesAdapter(
 
 	}
 
-	data class AdapterCategoryItem(
-		val title: String = "",
-		val icon: Int = 0,
-		val apiIdentifier: String = ""
-	)
+	
 
 }

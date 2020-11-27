@@ -34,21 +34,22 @@ class EventsPresenter (private val repository: IEventsRepository) :
 		EventsContract.Presenter {
 	
 	override fun loadFirst(category: String) {
-		logInfo(TAG, "invoked to load first events")
 		launch {
+			attachedView?.showLoading()
 			withContext(backgroundContext) {
 				repository.loadFirstEvents(KudagoApp.city, category)
 			}.fold(
 				success = {
-					getLinkedView()?.dataInit(it.results)
+					attachedView?.dataInit(it.results)
 					
-					if (it.results.isNotEmpty()) getLinkedView()?.hideEmptyListIndicator()
-					else getLinkedView()?.showEmptyListIndicator()
+					if (it.results.isNotEmpty()) attachedView?.hideEmptyListIndicator()
+					else attachedView?.showEmptyListIndicator()
 				},
 				failure = {
 					logError(TAG, "${it.message}")
 				}
 			)
+			attachedView?.hideLoading()
 		}
 	}
 	
@@ -59,7 +60,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 				repository.loadPreviousEvents()
 			}.fold(
 				success = {
-					getLinkedView()?.dataLoadedPrevious(it.results)
+					attachedView?.dataLoadedPrevious(it.results)
 				},
 				failure = {
 					logError(TAG, "${it.message}")
@@ -75,7 +76,7 @@ class EventsPresenter (private val repository: IEventsRepository) :
 				repository.loadNextEvents()
 			}.fold(
 				success = {
-					getLinkedView()?.dataLoadedNext(it.results)
+					attachedView?.dataLoadedNext(it.results)
 				},
 				failure = {
 					logError(TAG, "${it.message}")

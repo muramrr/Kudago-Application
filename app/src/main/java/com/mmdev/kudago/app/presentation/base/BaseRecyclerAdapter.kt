@@ -24,44 +24,22 @@ import androidx.recyclerview.widget.RecyclerView
  * This is the documentation block about the class
  */
 
-abstract class BaseRecyclerAdapter<T>: RecyclerView.Adapter<BaseRecyclerAdapter<T>.BaseViewHolder<T>>() {
-
-
-
-	abstract fun getItem(position: Int): T
-
-	open fun updateData(data: List<T>) {}
+abstract class BaseRecyclerAdapter<T>: RecyclerView.Adapter<BaseViewHolder<T>>() {
 
 	override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) =
 		holder.bind(getItem(position))
 
 //	override fun onFailedToRecycleView(holder: BaseViewHolder<T>): Boolean { return true }
-
-	private var mClickListener: OnItemClickListener<T>? = null
-
+	
+	abstract fun getItem(position: Int): T
+	
+	open fun updateData(data: List<T>) {}
+	
+	protected var mClickListener: ((view: View, position: Int, item: T) -> Unit)? = null
+	
 	// allows clicks events to be caught
-	fun setOnItemClickListener(itemClickListener: OnItemClickListener<T>) {
-		mClickListener = itemClickListener
+	open fun setOnItemClickListener(listener: (view: View, position: Int, item: T) -> Unit) {
+		mClickListener = listener
 	}
-
-	// parent fragment will override this method to respond to click events
-	interface OnItemClickListener<T> {
-		fun onItemClick(item: T, position: Int)
-	}
-
-	open inner class BaseViewHolder<T>(bindingRoot: View): RecyclerView.ViewHolder(bindingRoot){
-
-		init {
-			mClickListener?.let { listener ->
-				bindingRoot.setOnClickListener {
-					listener.onItemClick(getItem(adapterPosition), adapterPosition)
-				}
-			}
-
-		}
-
-		open fun bind(item: T) {}
-
-	}
-
+	
 }

@@ -24,7 +24,7 @@ package com.mmdev.kudago.app.presentation.base.mvp
  * @param V View for the presenter
  */
 
-interface IBasePresenter<V: IBaseView> {
+interface IBasePresenter<in V: IBaseView> {
 
 	/**
 	 * Called when view attached to presenter
@@ -36,6 +36,6 @@ interface IBasePresenter<V: IBaseView> {
 	/**
 	 * Called when view is detached from presenter
 	 */
-	fun onClear()
+	fun unlinkView()
 
 }

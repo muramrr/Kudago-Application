@@ -17,10 +17,9 @@
 
 package com.mmdev.kudago.app.adapters
 
-import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter
-import com.mmdev.kudago.app.presentation.ui.base.CategoriesAdapter.AdapterCategoryItem
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import com.mmdev.kudago.app.presentation.ui.categories.CategoriesAdapter
+import com.mmdev.kudago.app.presentation.ui.categories.CategoryData
+import org.junit.Assert.*
 import org.junit.Test
 
 /**
@@ -36,14 +35,15 @@ class CategoriesAdapterTest {
 
 		assertNotEquals(0, adapter.itemCount)
 
-		adapter = CategoriesAdapter(listOf(AdapterCategoryItem(title = "first"),
-		                                   AdapterCategoryItem(title = "second")))
+		adapter = CategoriesAdapter(listOf(
+			CategoryData(title = "first"),
+			CategoryData(title = "second")))
 		assertEquals(2, adapter.itemCount)
 	}
 
 	@Test
 	fun getItem() {
-		adapter = CategoriesAdapter(listOf(AdapterCategoryItem(title = "first")))
+		adapter = CategoriesAdapter(listOf(CategoryData(title = "first")))
 		assertEquals("first", adapter.getItem(0).title)
 	}
 }

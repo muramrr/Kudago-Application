@@ -36,19 +36,21 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 
 	override fun loadFirst(category: String) {
 		launch {
+			attachedView?.showLoading()
 			withContext(backgroundContext) {
 				repository.loadFirstPlaces(KudagoApp.city, category)
 			}.fold(
 				success = {
-					getLinkedView()?.dataInit(it.results)
+					attachedView?.dataInit(it.results)
 					
-					if (it.results.isNotEmpty()) getLinkedView()?.hideEmptyListIndicator()
-					else getLinkedView()?.showEmptyListIndicator()
+					if (it.results.isNotEmpty()) attachedView?.hideEmptyListIndicator()
+					else attachedView?.showEmptyListIndicator()
 				},
 				failure = {
 					logError(TAG, "${it.message}")
 				}
 			)
+			attachedView?.hideLoading()
 		}
 	}
 	
@@ -58,7 +60,7 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 				repository.loadPreviousPlaces()
 			}.fold(
 				success = {
-					getLinkedView()?.dataLoadedPrevious(it.results)
+					attachedView?.dataLoadedPrevious(it.results)
 				},
 				failure = {
 					logError(TAG, "${it.message}")
@@ -73,7 +75,7 @@ class PlacesPresenter(private val repository: IPlacesRepository) :
 				repository.loadNextPlaces()
 			}.fold(
 				success = {
-					getLinkedView()?.dataLoadedNext(it.results)
+					attachedView?.dataLoadedNext(it.results)
 				},
 				failure = {
 					logError(TAG, "${it.message}")

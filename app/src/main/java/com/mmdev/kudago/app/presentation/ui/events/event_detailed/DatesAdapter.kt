@@ -21,16 +21,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.ItemEventDetailedDateItemBinding
-import com.mmdev.kudago.app.domain.events.UIEventDate
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedDatesAdapter(
-	private var data: List<UIEventDate> = emptyList()
-): BaseRecyclerAdapter<UIEventDate>() {
+class DatesAdapter(
+	private var data: List<EventDateUi> = emptyList()
+): BaseRecyclerAdapter<EventDateUi>() {
 
 	var eventTitle: String = ""
 
@@ -47,7 +47,7 @@ class EventDetailedDatesAdapter(
 	override fun getItem(position: Int) = data[position]
 
 
-	override fun updateData(data: List<UIEventDate>){
+	override fun updateData(data: List<EventDateUi>){
 		this.data = data
 		notifyDataSetChanged()
 	}
@@ -55,10 +55,18 @@ class EventDetailedDatesAdapter(
 
 	inner class EventsCategoryDetailedViewHolder(
 		private val viewBinding: ItemEventDetailedDateItemBinding
-	): BaseViewHolder<UIEventDate>(viewBinding.root) {
+	): BaseViewHolder<EventDateUi>(viewBinding) {
+		
+		init {
+			mClickListener?.let { listener ->
+				itemView.setOnClickListener {
+					listener.invoke(it, adapterPosition, getItem(adapterPosition))
+				}
+			}
+		}
 
 
-		override fun bind(item: UIEventDate) {
+		override fun bind(item: EventDateUi) {
 			if (item.getDate().isNotBlank()) {
 				viewBinding.tvDetailedDate.text = item.getDate()
 			}

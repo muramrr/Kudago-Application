@@ -20,12 +20,13 @@ package com.mmdev.kudago.app.data.repository
 import com.mmdev.kudago.app.core.utils.log.logInfo
 import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.EventsApi
+import com.mmdev.kudago.app.data.api.EventsResponse
 import com.mmdev.kudago.app.data.db.FavouritesDao
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.core.SimpleResult
-import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.domain.events.EventsResponse
 import com.mmdev.kudago.app.domain.events.IEventsRepository
+import com.mmdev.kudago.app.domain.events.data.EventDetailedInfo
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 
 /**
  * [IEventsRepository] implementation
@@ -47,9 +48,9 @@ class EventsRepositoryImpl(
 	
 
 	override suspend fun addEventToFavouritesList(
-		eventDetailedEntity: EventDetailedEntity
+		eventDetailedInfo: EventDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.insertFavourite(eventDetailedEntity.mapToFavourite())
+		favouritesDao.insertFavourite(eventDetailedInfo.mapToFavourite())
 	}
 
 	override suspend fun loadFirstEvents(
@@ -98,7 +99,7 @@ class EventsRepositoryImpl(
 	)
 	
 
-	override suspend fun getEventDetails(id: Int): SimpleResult<EventDetailedEntity> = safeCall(TAG) {
+	override suspend fun getEventDetails(id: Int): SimpleResult<EventDetailedInfo> = safeCall(TAG) {
 		eventsApi.getEventDetails(id)
 	}.fold(
 		success = {
@@ -107,7 +108,7 @@ class EventsRepositoryImpl(
 			else
 				if (it.title.isBlank() && it.short_title.isNotBlank())
 					it.title = it.short_title
-			val isFavourite = favouritesDao.getFavouriteEvent(id)?.mapToEventDetailedEntity()
+			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.EVENT.name, id)?.mapToEventDetailedEntity()
 			isFavourite?.let { entity ->
 				entity.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) }
 			}
@@ -119,9 +120,9 @@ class EventsRepositoryImpl(
 	)
 
 	override suspend fun removeEventFromFavouritesList(
-		eventDetailedEntity: EventDetailedEntity
+		eventDetailedInfo: EventDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.deleteFavourite(eventDetailedEntity.mapToFavourite())
+		favouritesDao.deleteFavourite(eventDetailedInfo.mapToFavourite())
 	}
 
 

@@ -17,7 +17,6 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 
@@ -114,8 +113,8 @@ dependencies {
 	implementation "org.koin:koin-android:$koin_version"
 	implementation "org.koin:koin-core:$koin_version"
 
-//	//picasso
-//	implementation 'com.squareup.picasso:picasso:2.71828'
+	//coil (temporary
+	implementation "io.coil-kt:coil:1.1.0"
 
 	//network
 	implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -152,4 +151,5 @@ dependencies {
 	androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
+	debugImplementation "com.squareup.leakcanary:leakcanary-android:2.5"
 }

@@ -15,8 +15,18 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.core.entity
+package com.mmdev.kudago.app.domain.places.data
 
-//image url
-//do not change because it is api declaration
-data class ImageEntity (val image: String = "")
+import com.mmdev.kudago.app.domain.core.base.DataBaseInfo
+import com.mmdev.kudago.app.domain.core.base.ImageEntity
+
+/**
+ * Contains base info about place
+ */
+
+data class PlaceBaseInfo(
+	val id: Int = 0,
+	val title: String = "",
+	val short_title: String = "",
+	val images: List<ImageEntity> = emptyList()
+): DataBaseInfo

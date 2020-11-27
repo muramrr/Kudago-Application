@@ -19,10 +19,11 @@ package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mmdev.kudago.app.core.utils.image_loader.load
+import coil.load
 import com.mmdev.kudago.app.databinding.ItemCategoryDetailedBinding
-import com.mmdev.kudago.app.domain.events.EventEntity
+import com.mmdev.kudago.app.domain.events.data.EventBaseInfo
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
 
@@ -31,8 +32,8 @@ import com.mmdev.kudago.app.presentation.ui.common.utils.ImagePrefetcher
  */
 
 class EventsCategoryDetailedAdapter(
-	private var data: MutableList<EventEntity> = mutableListOf()
-): BaseRecyclerAdapter<EventEntity>() {
+	private var data: MutableList<EventBaseInfo> = mutableListOf()
+): BaseRecyclerAdapter<EventBaseInfo>() {
 	
 	private companion object{
 		private const val FIRST_POS = 0
@@ -56,7 +57,7 @@ class EventsCategoryDetailedAdapter(
 	override fun getItemCount(): Int = data.size
 	override fun getItem(position: Int) = data[position]
 	
-	fun setInitData(data: List<EventEntity>) {
+	fun setInitData(data: List<EventBaseInfo>) {
 		this.data.clear()
 		startPos = FIRST_POS
 		this.data.addAll(data)
@@ -65,7 +66,7 @@ class EventsCategoryDetailedAdapter(
 	}
 	
 	
-	fun insertPreviousData(topData: List<EventEntity>) {
+	fun insertPreviousData(topData: List<EventBaseInfo>) {
 		data.addAll(FIRST_POS, topData)
 		notifyItemRangeInserted(FIRST_POS, topData.size)
 		
@@ -78,7 +79,7 @@ class EventsCategoryDetailedAdapter(
 	}
 	
 	
-	fun insertNextData(bottomData: List<EventEntity>) {
+	fun insertNextData(bottomData: List<EventBaseInfo>) {
 		startPos = data.size
 		data.addAll(bottomData)
 		itemsLoaded += bottomData.size
@@ -90,7 +91,7 @@ class EventsCategoryDetailedAdapter(
 		}
 	}
 
-	private fun prefetchData(data: List<EventEntity>) {
+	private fun prefetchData(data: List<EventBaseInfo>) {
 		val prefetcher = ImagePrefetcher(data.map { it.images[0].image })
 		prefetcher.prefetch()
 	}
@@ -106,10 +107,17 @@ class EventsCategoryDetailedAdapter(
 	
 	
 	inner class EventsCategoryDetailedViewHolder (private val viewBinding: ItemCategoryDetailedBinding):
-			BaseViewHolder<EventEntity>(viewBinding.root) {
+			BaseViewHolder<EventBaseInfo>(viewBinding) {
+		
+		init {
+			mClickListener?.let { listener ->
+				itemView.setOnClickListener {
+					listener.invoke(it, adapterPosition, getItem(adapterPosition))
+				}
+			}
+		}
 
-
-		override fun bind(item: EventEntity) {
+		override fun bind(item: EventBaseInfo) {
 			if (adapterPosition > 10 && adapterPosition == (data.size - 6))
 				scrollToBottomListener?.invoke()
 			
@@ -119,7 +127,9 @@ class EventsCategoryDetailedAdapter(
 			if (item.short_title.isNotBlank()) viewBinding.tvTitle.text = item.short_title.capitalizeRu()
 			else viewBinding.tvTitle.text = item.title.capitalizeRu()
 			//loading image from url
-			viewBinding.ivImageHolder.load(item.images[0].image)
+			viewBinding.ivImageHolder.load(item.images[0].image) {
+				crossfade(true)
+			}
 		}
 
 

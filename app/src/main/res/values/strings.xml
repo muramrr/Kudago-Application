@@ -26,7 +26,7 @@
 	<string name="bottom_navigation_settings">Settings</string>
 
 	<!-- ui strings -->
-	<string name="category_detailed_empty_list">Sorry\nCan\'t find anything in this category</string>
+	<string name="category_detailed_empty_list">Can\'t find anything in this category</string>
 
 	<string name="detailed_about_header">About</string>
 	<string name="detailed_fab_add_text">Add to favourites</string>
@@ -44,9 +44,9 @@
 	<string name="place_detailed_phone_copy_formatter">Copied: %s</string>
 	
 	<string-array name="place_detailed_phone_dialog_items">
-		<item>Позвонить</item>
-		<item>Скопировать</item>
-		<item>Отмена</item>
+		<item>Call</item>
+		<item>Copy</item>
+		<item>Cancel</item>
 	</string-array>
 
 	<string name="favourite_tab_events">Events</string>

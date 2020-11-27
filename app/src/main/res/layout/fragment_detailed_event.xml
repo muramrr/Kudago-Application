@@ -87,6 +87,7 @@
 				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:background="@drawable/rounded_corners"
+				android:elevation="1dp"
 				android:paddingVertical="16dp"
 				android:paddingHorizontal="8dp"
 				

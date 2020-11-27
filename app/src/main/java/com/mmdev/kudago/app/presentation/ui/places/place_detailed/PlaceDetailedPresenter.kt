@@ -19,7 +19,7 @@ package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
 import com.mmdev.kudago.app.core.utils.log.logError
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,23 +32,23 @@ class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 		BasePresenter<PlaceDetailedContract.View>(),
 		PlaceDetailedContract.Presenter {
 
-	private lateinit var placeDetailedEntity: PlaceDetailedEntity
+	private lateinit var placeDetailedInfo: PlaceDetailedInfo
 
 	private var isAdded = false
 
 	override fun addOrRemovePlaceToFavourites() {
 		launch {
 			withContext(coroutineContext) {
-				if (isAdded) repository.removePlaceFromFavouritesList(placeDetailedEntity)
-				else repository.addPlaceToFavouritesList(placeDetailedEntity)
+				if (isAdded) repository.removePlaceFromFavouritesList(placeDetailedInfo)
+				else repository.addPlaceToFavouritesList(placeDetailedInfo)
 			}.fold(
 				success = {
 					isAdded = if (isAdded){
-						getLinkedView()?.showSuccessDeletedToast()
+						attachedView?.showSuccessDeletedToast()
 						false
 					}
 					else {
-						getLinkedView()?.showSuccessAddedToast()
+						attachedView?.showSuccessAddedToast()
 						true
 					}
 					handleFabState(isAdded)
@@ -67,9 +67,9 @@ class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 				repository.getPlaceDetails(id)
 			}.fold(
 				success = {
-					placeDetailedEntity = it
-					getLinkedView()?.updateData(it)
-					getLinkedView()?.setMarkerOnMap(
+					placeDetailedInfo = it
+					attachedView?.updateData(it)
+					attachedView?.setMarkerOnMap(
 						it.coords,
 						it.short_title
 					)
@@ -86,7 +86,7 @@ class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 	}
 
 	private fun handleFabState(added: Boolean) {
-		if (added) getLinkedView()?.setRemoveTextFab()
-		else getLinkedView()?.setAddTextFab()
+		if (added) attachedView?.setRemoveTextFab()
+		else attachedView?.setAddTextFab()
 	}
 }

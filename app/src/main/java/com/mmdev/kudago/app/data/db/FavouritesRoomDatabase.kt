@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 
 /**

@@ -17,8 +17,7 @@
 
 package com.mmdev.kudago.app.data.api
 
-import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.domain.events.EventsResponse
+import com.mmdev.kudago.app.domain.events.data.EventDetailedInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -39,6 +38,6 @@ interface EventsApi {
 
 	@GET("events/{id}/?fields=id,title,short_title," +
 	     "body_text,description,images,dates,price,is_free")
-	suspend fun getEventDetails(@Path("id") id: Int): EventDetailedEntity
+	suspend fun getEventDetails(@Path("id") id: Int): EventDetailedInfo
 
 }

@@ -19,12 +19,13 @@ package com.mmdev.kudago.app.data.repository
 
 import com.mmdev.kudago.app.data.BaseRepository
 import com.mmdev.kudago.app.data.api.PlacesApi
+import com.mmdev.kudago.app.data.api.PlacesResponse
 import com.mmdev.kudago.app.data.db.FavouritesDao
 import com.mmdev.kudago.app.domain.core.ResultState
 import com.mmdev.kudago.app.domain.core.SimpleResult
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.domain.places.IPlacesRepository
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
-import com.mmdev.kudago.app.domain.places.PlacesResponse
+import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
 
 /**
  * [IPlacesRepository] implementation
@@ -46,9 +47,9 @@ class PlacesRepositoryImpl(
 
 
 	override suspend fun addPlaceToFavouritesList(
-		placeDetailedEntity: PlaceDetailedEntity
+		placeDetailedInfo: PlaceDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.insertFavourite(placeDetailedEntity.mapToFavourite())
+		favouritesDao.insertFavourite(placeDetailedInfo.mapToFavourite())
 	}
 
 	override suspend fun loadFirstPlaces(
@@ -95,7 +96,7 @@ class PlacesRepositoryImpl(
 		}
 	)
 
-	override suspend fun getPlaceDetails(id: Int): SimpleResult<PlaceDetailedEntity> = safeCall(TAG) {
+	override suspend fun getPlaceDetails(id: Int): SimpleResult<PlaceDetailedInfo> = safeCall(TAG) {
 		placesApi.getPlaceDetails(id)
 	}.fold(
 		success = {
@@ -105,7 +106,7 @@ class PlacesRepositoryImpl(
 				if (it.title.isBlank() && it.short_title.isNotBlank())
 					it.title = it.short_title
 			//check if this place is saved to favourites
-			val isFavourite = favouritesDao.getFavouritePlace(id)?.mapToPlaceDetailedEntity()
+			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.PLACE.name, id)?.mapToPlaceDetailedEntity()
 			isFavourite?.let { entity ->
 				entity.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) }
 			}
@@ -116,9 +117,9 @@ class PlacesRepositoryImpl(
 		}
 	)
 	override suspend fun removePlaceFromFavouritesList(
-		placeDetailedEntity: PlaceDetailedEntity
+		placeDetailedInfo: PlaceDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.deleteFavourite(placeDetailedEntity.mapToFavourite())
+		favouritesDao.deleteFavourite(placeDetailedInfo.mapToFavourite())
 	}
 
 }

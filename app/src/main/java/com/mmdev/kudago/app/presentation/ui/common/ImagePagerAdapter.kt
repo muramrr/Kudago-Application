@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import com.mmdev.kudago.app.core.utils.image_loader.load
 import com.mmdev.kudago.app.databinding.ItemImagePagerBinding
 import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
+import com.mmdev.kudago.app.presentation.base.BaseViewHolder
 
 
 class ImagePagerAdapter(
@@ -48,7 +49,7 @@ class ImagePagerAdapter(
 
 
 	inner class PlacesCategoryDetailedViewHolder (private val viewBinding: ItemImagePagerBinding):
-			BaseViewHolder<String>(viewBinding.root) {
+			BaseViewHolder<String>(viewBinding) {
 		
 		override fun bind(item: String) {
 			//Picasso.get().load(item.images[0].image).into(viewBinding.ivImageHolder)

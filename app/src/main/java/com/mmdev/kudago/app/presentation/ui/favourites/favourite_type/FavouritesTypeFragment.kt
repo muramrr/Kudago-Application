@@ -18,17 +18,17 @@
 package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmdev.kudago.app.R
+import com.mmdev.kudago.app.data.db.FavouriteEntity
 import com.mmdev.kudago.app.databinding.FragmentFavouritesTypeListBinding
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.custom.LinearItemDecoration
 import org.koin.android.ext.android.inject
 
@@ -39,14 +39,14 @@ import org.koin.android.ext.android.inject
  * create an instance of this fragment.
  */
 
-class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_list),
-                               FavouritesTypeContract.View {
+class FavouritesTypeFragment : BaseFragment<FragmentFavouritesTypeListBinding>(
+	R.layout.fragment_favourites_type_list
+), FavouritesTypeContract.View {
 
-	private val viewBinding by viewBinding(FragmentFavouritesTypeListBinding::bind)
 
 	override val presenter: FavouritesTypePresenter by inject()
 
-	private val mFavouritesAdapter = FavouritesTypeAdapter()
+	private val mAdapter = FavouritesTypeAdapter()
 
 	private var receivedFavouriteType = ""
 
@@ -72,6 +72,12 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 		}
 
 	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentFavouritesTypeListBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
 
 	override fun onStart() {
 		super.onStart()
@@ -84,30 +90,25 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	override fun setupViews() {
 
 		viewBinding.rvFavouritesList.apply {
-			adapter = mFavouritesAdapter
+			adapter = mAdapter
 			layoutManager = LinearLayoutManager(this.context)
 			addItemDecoration(LinearItemDecoration())
 		}
 
-		mFavouritesAdapter.setOnItemClickListener(object : BaseRecyclerAdapter
-		                                                   .OnItemClickListener<FavouriteEntity> {
-
-			override fun onItemClick(item: FavouriteEntity, position: Int) {
-				if (item.favouriteType == FavouriteType.EVENT.name) {
-					val id = bundleOf(EVENT_ID_KEY to item.favouriteId)
-					navController.navigate(R.id.action_favourites_to_eventDetailed, id)
-				}
-				else {
-					val id = bundleOf(PLACE_ID_KEY to item.favouriteId)
-					navController.navigate(R.id.action_favourites_to_placeDetailed, id)
-				}
-
+		mAdapter.setOnItemClickListener { view, position, item ->
+			if (item.favouriteType == FavouriteType.EVENT.name) {
+				val id = bundleOf(EVENT_ID_KEY to item.favouriteId)
+				navController.navigate(R.id.action_favourites_to_eventDetailed, id)
 			}
-		})
+			else {
+				val id = bundleOf(PLACE_ID_KEY to item.favouriteId)
+				navController.navigate(R.id.action_favourites_to_placeDetailed, id)
+			}
+		}
 	}
 
 	override fun updateData(data: List<FavouriteEntity>) {
-		mFavouritesAdapter.updateData(data)
+		mAdapter.updateData(data)
 		viewBinding.rvFavouritesList.visibility = View.VISIBLE
 		viewBinding.tvEmptyFavourites.visibility = View.INVISIBLE
 	}
@@ -115,6 +116,11 @@ class FavouritesTypeFragment : BaseFragment(R.layout.fragment_favourites_type_li
 	override fun showEmptyFavourites() {
 		viewBinding.tvEmptyFavourites.visibility = View.VISIBLE
 		viewBinding.rvFavouritesList.visibility = View.INVISIBLE
+	}
+	
+	override fun onDestroyView() {
+		viewBinding.rvFavouritesList.adapter = null
+		super.onDestroyView()
 	}
 
 }

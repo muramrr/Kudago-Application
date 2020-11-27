@@ -24,9 +24,8 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
@@ -46,18 +45,20 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
 		super.onCreate(savedInstanceState)
 		
-		mainBottomNavigation.applySystemWindowInsets(applyBottom = true)
+		val mainBottomNavigation = findViewById<BottomNavigationView>(R.id.mainBottomNavigation)
 		
 		//set night icons
 		if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-			mainBottomNavigation.menu.getItem(0).setIcon(R.drawable.ic_bottom_nav_places_night_24dp)
-			mainBottomNavigation.menu.getItem(1).setIcon(R.drawable.ic_bottom_nav_events_night_24dp)
-			mainBottomNavigation.menu.getItem(2).setIcon(R.drawable.ic_bottom_nav_favourites_night_24dp)
-			mainBottomNavigation.menu.getItem(3).setIcon(R.drawable.ic_bottom_nav_settings_night_24dp)
+			mainBottomNavigation.menu.apply {
+				getItem(0).setIcon(R.drawable.ic_bottom_nav_places_night_24dp)
+				getItem(1).setIcon(R.drawable.ic_bottom_nav_events_night_24dp)
+				getItem(2).setIcon(R.drawable.ic_bottom_nav_favourites_night_24dp)
+				getItem(3).setIcon(R.drawable.ic_bottom_nav_settings_night_24dp)
+			}
 		}
 
 		val navController = findNavController(R.id.mainFlowFragment)
-
+		
 		mainBottomNavigation.setOnNavigationItemSelectedListener {
 			val previousItem = mainBottomNavigation.selectedItemId
 			val nextItem = it.itemId

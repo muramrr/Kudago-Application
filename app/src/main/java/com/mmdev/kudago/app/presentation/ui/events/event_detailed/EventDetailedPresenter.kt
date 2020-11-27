@@ -18,11 +18,14 @@
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
 import com.mmdev.kudago.app.core.utils.log.logError
-import com.mmdev.kudago.app.domain.events.EventDetailedEntity
 import com.mmdev.kudago.app.domain.events.IEventsRepository
+import com.mmdev.kudago.app.domain.events.data.EventDate
+import com.mmdev.kudago.app.domain.events.data.EventDetailedInfo
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * This is the documentation block about the class
@@ -32,23 +35,23 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 		BasePresenter<EventDetailedContract.View>(),
 		EventDetailedContract.Presenter {
 
-	private lateinit var eventDetailedEntity: EventDetailedEntity
+	private lateinit var eventDetailedInfo: EventDetailedInfo
 
 	private var isAdded = false
 
 	override fun addOrRemoveEventToFavourites() {
 		launch {
 			withContext(coroutineContext) {
-				if (isAdded) repository.removeEventFromFavouritesList(eventDetailedEntity)
-				else repository.addEventToFavouritesList(eventDetailedEntity)
+				if (isAdded) repository.removeEventFromFavouritesList(eventDetailedInfo)
+				else repository.addEventToFavouritesList(eventDetailedInfo)
 			}.fold(
 				success = {
 					isAdded = if (isAdded){
-						getLinkedView()?.showSuccessDeletedToast()
+						attachedView?.showSuccessDeletedToast()
 						false
 					}
 					else {
-						getLinkedView()?.showSuccessAddedToast()
+						attachedView?.showSuccessAddedToast()
 						true
 					}
 					handleFabState(isAdded)
@@ -67,9 +70,9 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 				repository.getEventDetails(id)
 			}.fold(
 				success = {
-					eventDetailedEntity = it
-					getLinkedView()?.updateData(it)
-					getLinkedView()?.setEventDateTime(it.mapToUIEventDateList())
+					eventDetailedInfo = it
+					attachedView?.updateData(it)
+					attachedView?.setEventDateTime(mapEventDatesToUi(it))
 					
 					handleFabState(it.isAddedToFavourites)
 					
@@ -84,8 +87,54 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 	}
 
 	private fun handleFabState(added: Boolean) {
-		if (added) getLinkedView()?.setRemoveTextFab()
-		else getLinkedView()?.setAddTextFab()
+		if (added) attachedView?.setRemoveTextFab()
+		else attachedView?.setAddTextFab()
+	}
+	
+	private fun mapEventDatesToUi(input: EventDetailedInfo): List<EventDateUi> {
+		return input.dates
+			//filter dates which end value bigger than current time
+			.filter{ eventDate -> eventDate.end > System.currentTimeMillis() / 1000L }
+			//map filtered items
+			.map{ eventDate -> mapToUIEventDate(eventDate) }
+	}
+	
+	private fun mapToUIEventDate(input: EventDate) : EventDateUi {
+		
+		val timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
+		val dateFormatter = SimpleDateFormat("EEE, dd MMMM, yyyy", Locale.getDefault())
+		
+		//check if start is defined correctly
+		var fStart: Date? = null
+		if (input.start != -62135433000) //03.01.0001
+			fStart = Date(input.start * 1000L)
+		
+		//check if end is defined correctly
+		var fEnd: Date? = null
+		if (input.end != 253370754000) //01.01.9999
+			fEnd = Date(input.end * 1000L)
+		
+		return when {
+			//both are properly defined
+			fStart != null && fEnd != null -> EventDateUi(
+				dateFormatter.format(fStart),
+				timeFormatter.format(fStart),
+				dateFormatter.format(fEnd),
+				timeFormatter.format(fEnd),
+				fStart.time, fEnd.time
+			)
+			
+			//end is undefined
+			fStart != null && fEnd == null -> EventDateUi(
+				startDate = dateFormatter.format(fStart),
+				startTime = timeFormatter.format(fStart),
+				startInMillis = fStart.time
+			)
+			
+			//start & end is undefined
+			else -> EventDateUi()
+		}
+		
 	}
 
 }

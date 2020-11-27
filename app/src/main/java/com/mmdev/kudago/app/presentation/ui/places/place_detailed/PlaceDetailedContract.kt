@@ -17,8 +17,8 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
-import com.mmdev.kudago.app.domain.places.PlaceCoords
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceCoords
+import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
@@ -42,7 +42,7 @@ interface PlaceDetailedContract {
 
 		fun setMarkerOnMap(placeCoords: PlaceCoords, shortTitle: String)
 
-		fun updateData(data: PlaceDetailedEntity)
+		fun updateData(data: PlaceDetailedInfo)
 
 	}
 

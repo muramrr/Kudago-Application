@@ -17,41 +17,53 @@
 
 package com.mmdev.kudago.app.presentation.ui.places.place_detailed
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.libraries.maps.CameraUpdateFactory
 import com.google.android.libraries.maps.GoogleMap
 import com.google.android.libraries.maps.SupportMapFragment
 import com.google.android.libraries.maps.model.LatLng
 import com.google.android.libraries.maps.model.MarkerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.R.style
 import com.mmdev.kudago.app.databinding.FragmentDetailedPlaceBinding
-import com.mmdev.kudago.app.domain.places.PlaceCoords
-import com.mmdev.kudago.app.domain.places.PlaceDetailedEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceCoords
+import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.viewBinding
-import com.mmdev.kudago.app.presentation.ui.common.*
+import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
+import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
+import com.mmdev.kudago.app.presentation.ui.common.setHtmlText
+import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
-                             PlaceDetailedContract.View {
-
-	private val viewBinding by viewBinding(FragmentDetailedPlaceBinding::bind)
+class PlaceDetailedFragment: BaseFragment<FragmentDetailedPlaceBinding>(
+	R.layout.fragment_detailed_place
+), PlaceDetailedContract.View {
 
 	override val presenter: PlaceDetailedPresenter by inject()
 
 	private val placePhotosAdapter = ImagePagerAdapter()
+	
+	private val phoneNumbersAdapter = PhoneAdapter()
 
 	private lateinit var mGoogleMap: GoogleMap
 
@@ -64,15 +76,19 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
-
+		
 		arguments?.let {
 			receivedPlaceId = it.getInt(PLACE_ID_KEY)
+			presenter.loadPlaceDetailsById(receivedPlaceId)
 		}
-
-		presenter.loadPlaceDetailsById(receivedPlaceId)
-
+		
 	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentDetailedPlaceBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
 
 	override fun setupViews() {
 		viewBinding.motionLayout.applySystemWindowInsets(applyTop = true)
@@ -87,33 +103,38 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 			_: TabLayout.Tab, _: Int -> //do nothing
 		}.attach()
 
-		viewBinding.btnPhoneNumber.apply {
-			attachClickToCopyText(requireContext(), R.string.place_detailed_phone_copy_formatter)
-			setOnLongClickListener {
-				buildDialog(viewBinding.btnPhoneNumber.text.toString()).show()
-				return@setOnLongClickListener true
-			}
-
+		viewBinding.rvPhoneNumbers.apply {
+			setHasFixedSize(true)
+			adapter = phoneNumbersAdapter
+			layoutManager = LinearLayoutManager(requireContext())
 		}
 
 		val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 		mapFragment.getMapAsync { googleMap -> mGoogleMap = googleMap }
 
 
+		phoneNumbersAdapter.setOnItemClickListener { view, position, item ->
+			buildDialog(item).show()
+		}
+		
 		viewBinding.fabAddRemoveFavourites.setOnClickListener {
 			presenter.addOrRemovePlaceToFavourites()
 		}
 	}
 
-	override fun updateData(data: PlaceDetailedEntity) {
+	override fun updateData(data: PlaceDetailedInfo) {
 		placePhotosAdapter.updateData(data.images.map { it.image })
 		viewBinding.tvToolbarTitle.text = data.short_title.capitalizeRu()
 		viewBinding.tvDetailedAbout.setHtmlText(data.body_text)
-		if (data.phone.isNotBlank()) data.phone.replace(", ", "\n")
-			.also { viewBinding.btnPhoneNumber.text = it }
+		
+		if (data.phone.isNotBlank()) {
+			phoneNumbersAdapter.updateData(data.phone.split(", "))
+		}
 		else {
-			viewBinding.btnPhoneNumber.text = getString(R.string.place_detailed_phone_is_not_specified)
-			viewBinding.btnPhoneNumber.isEnabled = false
+			phoneNumbersAdapter.updateData(
+				listOf(getString(R.string.place_detailed_phone_is_not_specified))
+			)
+			viewBinding.rvPhoneNumbers.isEnabled = false
 		}
 
 
@@ -134,9 +155,9 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_add_text)
 	}
 
-	override fun showSuccessDeletedToast() = showToast(getString(R.string.toast_successfully_removed_favourite))
+	override fun showSuccessDeletedToast() = requireContext().showToast(getString(R.string.toast_successfully_removed_favourite))
 
-	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
+	override fun showSuccessAddedToast() = requireContext().showToast(getString(R.string.toast_successfully_added_favourite))
 
 	private fun buildDialog(phone: String): AlertDialog {
 		
@@ -149,10 +170,17 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 						startActivity(callIntent)
 					}
 					1 -> {
-						viewBinding.btnPhoneNumber.performClick()
+						val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+						val clip = ClipData.newPlainText(phone, phone)
+						clipboard.setPrimaryClip(clip)
+						Snackbar.make(
+							viewBinding.root,
+							getString(R.string.place_detailed_phone_copy_formatter).format(phone),
+							Snackbar.LENGTH_SHORT
+						).show()
 					}
 					2 -> {
-					
+						//dismisses dialog
 					}
 				}
 			}
@@ -162,7 +190,12 @@ class PlaceDetailedFragment: BaseFragment(R.layout.fragment_detailed_place),
 		params?.gravity = Gravity.BOTTOM
 		return dialog
 	}
-
-
+	
+	
+	override fun onDestroyView() {
+		viewBinding.rvPhoneNumbers.adapter = null
+		viewBinding.vpPhotos.adapter = null
+		super.onDestroyView()
+	}
 
 }

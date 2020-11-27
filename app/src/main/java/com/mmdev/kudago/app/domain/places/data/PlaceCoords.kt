@@ -15,42 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.base
-
-import com.mmdev.kudago.app.domain.core.entity.BaseEntity
+package com.mmdev.kudago.app.domain.places.data
 
 /**
- * This is the documentation block about the class
+ * Contains latitude and longitude of retrieved place
  */
 
-interface CategoryDetailedContract {
-
-	interface View<T: BaseEntity> {
-		
-		fun dataInit(data: List<T>)
-		
-		fun dataLoadedPrevious(data: List<T>)
-		
-		fun dataLoadedNext(data: List<T>)
-		
-		fun hideEmptyListIndicator()
-		
-		fun showEmptyListIndicator()
-
-		fun showLoading()
-
-		fun hideLoading()
-
-	}
-
-	interface Presenter {
-
-		fun loadFirst(category: String)
-		
-		fun loadPrevious()
-		
-		fun loadNext()
-
-	}
-
-}
+data class PlaceCoords(val lat: Double = 0.0, val lon: Double = 0.0)

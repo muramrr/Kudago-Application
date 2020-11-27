@@ -17,24 +17,31 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentFavouritesBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 
 /**
  * This is the documentation block about the class
  */
 
-class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
-
-
-	private val viewBinding by viewBinding(FragmentFavouritesBinding::bind)
-
-
+class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>(
+	R.layout.fragment_favourites
+){
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentFavouritesBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
+	
 	override fun setupViews() {
 		viewBinding.tabLayoutContainer.applySystemWindowInsets(applyTop = true)
 
@@ -42,13 +49,20 @@ class FavouritesFragment : BaseFragment(R.layout.fragment_favourites){
 			adapter = FavouritesPagerAdapter(this@FavouritesFragment)
 		}
 
-		TabLayoutMediator(viewBinding.tabLayoutContainer,
-		                  viewBinding.viewPagerContainer) { tab: TabLayout.Tab, position: Int ->
+		TabLayoutMediator(
+			viewBinding.tabLayoutContainer,
+			viewBinding.viewPagerContainer
+		) { tab: TabLayout.Tab, position: Int ->
 			when (position){
 				0 -> tab.text = getString(R.string.favourite_tab_events)
 				1 -> tab.text = getString(R.string.favourite_tab_places)
 			}
 		}.attach()
+	}
+	
+	override fun onDestroyView() {
+		viewBinding.viewPagerContainer.adapter = null
+		super.onDestroyView()
 	}
 
 }

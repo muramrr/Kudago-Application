@@ -19,10 +19,10 @@ package com.mmdev.kudago.app.presentation.base.mvp
 
 
 import com.mmdev.kudago.app.core.utils.MyDispatchers
+import com.mmdev.kudago.app.core.utils.log.logWtf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -42,22 +42,17 @@ abstract class BasePresenter<V: IBaseView> :
 		get() = MyDispatchers.main() + parentJob
 
 	val backgroundContext: CoroutineContext
-		get() = MyDispatchers.io() + parentJob
+		get() = MyDispatchers.io()
 
-	private var attachedView: WeakReference<V>? = null
-
-	protected fun getLinkedView() = attachedView?.get()
+	protected var attachedView: V? = null
 
 	override fun linkView(view: V) {
-		attachedView = WeakReference(view)
+		attachedView = view
 	}
 
-	private fun unlinkView(){
+	override fun unlinkView() {
 		attachedView = null
-	}
-
-	override fun onClear() {
-		unlinkView()
+		logWtf(TAG, "unlink view called, attachedView = $attachedView")
 		// Parent Job cancels all child coroutines.
 		parentJob.cancel()
 	}

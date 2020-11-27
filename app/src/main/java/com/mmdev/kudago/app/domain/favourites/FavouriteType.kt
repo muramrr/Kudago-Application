@@ -15,20 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.core.entity
-
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+package com.mmdev.kudago.app.domain.favourites
 
 /**
- * This is the documentation block about the class
+ * 2 types of favourites
  */
 
-interface BaseDetailedEntity : BaseEntity {
-
-	val body_text: String
-	val description: String
-	var isAddedToFavourites: Boolean
-
-	fun mapToFavourite(): FavouriteEntity
-
-}
+enum class FavouriteType { EVENT, PLACE}

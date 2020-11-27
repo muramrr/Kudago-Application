@@ -18,8 +18,9 @@
 package com.mmdev.kudago.app.data.repository
 
 import com.mmdev.kudago.app.data.BaseRepository
+import com.mmdev.kudago.app.data.db.FavouriteEntity
 import com.mmdev.kudago.app.data.db.FavouritesDao
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.domain.favourites.FavouriteType
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -47,12 +48,12 @@ class FavouritesRepositoryImpl(
 	
 	override suspend fun getFavouritePlaces(): List<FavouriteEntity> =
 		withContext(Dispatchers.IO) {
-			favouritesDao.getFavouritePlaces()
+			favouritesDao.getFavouritesList(FavouriteType.PLACE.name)
 		}
 
 	
 	override suspend fun getFavouriteEvents(): List<FavouriteEntity> =
 		withContext(Dispatchers.IO) {
-			favouritesDao.getFavouriteEvents()
+			favouritesDao.getFavouritesList(FavouriteType.EVENT.name)
 		}
 }

@@ -17,8 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 
-import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.domain.events.UIEventDate
+import com.mmdev.kudago.app.domain.events.data.EventDetailedInfo
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
 
@@ -39,9 +38,9 @@ interface EventDetailedContract {
 
 		fun setAddTextFab()
 
-		fun updateData(data: EventDetailedEntity)
+		fun updateData(data: EventDetailedInfo)
 
-		fun setEventDateTime(eventDates: List<UIEventDate>)
+		fun setEventDateTime(eventDates: List<EventDateUi>)
 
 	}
 

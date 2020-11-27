@@ -20,37 +20,38 @@ package com.mmdev.kudago.app.presentation.ui.events.event_detailed
 import android.content.Intent
 import android.os.Bundle
 import android.provider.CalendarContract
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentDetailedEventBinding
-import com.mmdev.kudago.app.domain.events.EventDetailedEntity
-import com.mmdev.kudago.app.domain.events.UIEventDate
+import com.mmdev.kudago.app.domain.events.data.EventDetailedInfo
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.setHtmlText
+import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 /**
  * This is the documentation block about the class
  */
 
-class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
-		EventDetailedContract.View {
+class EventDetailedFragment : BaseFragment<FragmentDetailedEventBinding>(
+	R.layout.fragment_detailed_event
+), EventDetailedContract.View {
 
-	private val viewBinding by viewBinding(FragmentDetailedEventBinding::bind)
 
 	override val presenter: EventDetailedPresenter by inject()
 
 	private val eventsPhotosAdapter = ImagePagerAdapter()
 
-	private val datesAdapter = EventDetailedDatesAdapter()
+	private val datesAdapter = DatesAdapter()
 
 
 	private var receivedEventId = 0
@@ -68,6 +69,12 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 		}
 
 	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentDetailedEventBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
 
 	override fun setupViews() {
 		viewBinding.motionLayout.applySystemWindowInsets(applyTop = true)
@@ -87,18 +94,16 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 		}
 
-		datesAdapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener<UIEventDate> {
-			override fun onItemClick(item: UIEventDate, position: Int) {
-				if (item.startInMillis > System.currentTimeMillis()) {
-					val intent = setupCalendarIntent(
-						item.startInMillis,
-						item.endInMillis,
-						datesAdapter.eventTitle
-					)
-					startActivity(intent)
-				}
+		datesAdapter.setOnItemClickListener { view, position, item ->
+			if (item.startInMillis > System.currentTimeMillis()) {
+				val intent = setupCalendarIntent(
+					item.startInMillis,
+					item.endInMillis,
+					datesAdapter.eventTitle
+				)
+				startActivity(intent)
 			}
-		})
+		}
 
 		viewBinding.fabAddRemoveFavourites.setOnClickListener {
 			presenter.addOrRemoveEventToFavourites()
@@ -106,7 +111,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 	}
 
 
-	override fun updateData(data: EventDetailedEntity) {
+	override fun updateData(data: EventDetailedInfo) {
 		eventsPhotosAdapter.updateData(data.images.map { it.image })
 		with(data.short_title.capitalizeRu()){
 			viewBinding.tvToolbarTitle.text = this
@@ -122,7 +127,7 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 
 	}
 
-	override fun setEventDateTime(eventDates: List<UIEventDate>) {
+	override fun setEventDateTime(eventDates: List<EventDateUi>) {
 		datesAdapter.updateData(eventDates)
 	}
 
@@ -134,9 +139,9 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_add_text)
 	}
 
-	override fun showSuccessDeletedToast() = showToast(getString(R.string.toast_successfully_removed_favourite))
+	override fun showSuccessDeletedToast() = requireContext().showToast(getString(R.string.toast_successfully_removed_favourite))
 
-	override fun showSuccessAddedToast() = showToast(getString(R.string.toast_successfully_added_favourite))
+	override fun showSuccessAddedToast() = requireContext().showToast(getString(R.string.toast_successfully_added_favourite))
 
 	private fun setupCalendarIntent(startMillis: Long, endMillis: Long, eventTitle: String): Intent =
 		Intent(Intent.ACTION_INSERT)
@@ -148,5 +153,11 @@ class EventDetailedFragment : BaseFragment(R.layout.fragment_detailed_event),
 				putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
 				putExtra(CalendarContract.Events.STATUS, 1)
 			}
-
+	
+	override fun onDestroyView() {
+		viewBinding.rvDetailedDates.adapter = null
+		viewBinding.vpPhotos.adapter = null
+		super.onDestroyView()
+	}
+	
 }

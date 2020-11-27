@@ -103,7 +103,7 @@ class KudagoApp: Application() {
 		super.onCreate()
 		startKoin {
 			androidContext(this@KudagoApp)
-			androidLogger()
+			if (debug.isEnabled) androidLogger()
 			modules(
 				listOf(
 					DatabaseModule,

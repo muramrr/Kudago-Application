@@ -17,10 +17,9 @@
 
 package com.mmdev.kudago.app.adapters
 
-import com.mmdev.kudago.app.domain.events.EventEntity
+import com.mmdev.kudago.app.domain.events.data.EventBaseInfo
 import com.mmdev.kudago.app.presentation.ui.events.category_detailed.EventsCategoryDetailedAdapter
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 /**
@@ -36,14 +35,14 @@ class EventsCategoryDetailedAdapterTest {
 
 		assertEquals(0, adapter.itemCount)
 
-		adapter = EventsCategoryDetailedAdapter(listOf(EventEntity(), EventEntity()))
+		adapter = EventsCategoryDetailedAdapter(mutableListOf(EventBaseInfo(), EventBaseInfo()))
 		assertEquals(2, adapter.itemCount)
 	}
 
 	@Test
 	fun getItem() {
-		adapter = EventsCategoryDetailedAdapter(listOf(EventEntity(), EventEntity()))
-		assertEquals(EventEntity(), adapter.getItem(0))
+		adapter = EventsCategoryDetailedAdapter(mutableListOf(EventBaseInfo(), EventBaseInfo()))
+		assertEquals(EventBaseInfo(), adapter.getItem(0))
 		assertNotEquals(null, adapter.getItem(1))
 	}
 }

@@ -18,17 +18,17 @@
 package com.mmdev.kudago.app.presentation.ui.places.category_detailed
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.core.utils.log.logDebug
 import com.mmdev.kudago.app.core.utils.log.logInfo
 import com.mmdev.kudago.app.databinding.FragmentCategoryDetailedBinding
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceBaseInfo
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.custom.GridItemDecoration
 import org.koin.android.ext.android.inject
@@ -37,10 +37,10 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_detailed),
-    PlacesContract.View {
+class PlacesCategoryDetailedFragment : BaseFragment<FragmentCategoryDetailedBinding>(
+	R.layout.fragment_category_detailed
+), PlacesContract.View {
 
-	private val viewBinding by viewBinding(FragmentCategoryDetailedBinding::bind)
 
 	override val presenter: PlacesPresenter by inject()
 
@@ -76,6 +76,12 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 		}
 
 	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentCategoryDetailedBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
 
 	override fun setupViews() {
 		viewBinding.toolbarCategoryTitle.apply {
@@ -91,30 +97,26 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 			setHasFixedSize(true)
 		}
 
-		mAdapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener<PlaceEntity> {
-
-			override fun onItemClick(item: PlaceEntity, position: Int) {
-				val placeId = bundleOf(PLACE_ID_KEY to item.id)
-				navController.navigate(
-					R.id.action_categoryDetailed_to_placeDetailed,
-					placeId
-				)
-			}
-		})
-
+		mAdapter.setOnItemClickListener { view, position, item ->
+			val placeId = bundleOf(PLACE_ID_KEY to item.id)
+			navController.navigate(
+				R.id.action_categoryDetailed_to_placeDetailed,
+				placeId
+			)
+		}
 	}
 	
-	override fun dataInit(data: List<PlaceEntity>) {
+	override fun dataInit(data: List<PlaceBaseInfo>) {
 		logInfo(TAG, "init data size = ${data.size}")
 		mAdapter.setInitData(data)
 	}
 	
-	override fun dataLoadedPrevious(data: List<PlaceEntity>) {
+	override fun dataLoadedPrevious(data: List<PlaceBaseInfo>) {
 		logInfo(TAG, "loaded previous size = ${data.size}")
 		mAdapter.insertPreviousData(data)
 	}
 	
-	override fun dataLoadedNext(data: List<PlaceEntity>) {
+	override fun dataLoadedNext(data: List<PlaceBaseInfo>) {
 		logInfo(TAG, "loaded next size = ${data.size}")
 		mAdapter.insertNextData(data)
 	}
@@ -127,10 +129,16 @@ class PlacesCategoryDetailedFragment : BaseFragment(R.layout.fragment_category_d
 		viewBinding.tvEmptyList.visibility = View.VISIBLE
 	}
 
-
 	override fun showLoading() {
+		viewBinding.loading.root.visibility = View.VISIBLE
 	}
 
 	override fun hideLoading() {
+		viewBinding.loading.root.visibility = View.INVISIBLE
+	}
+	
+	override fun onDestroyView() {
+		viewBinding.rvDetailedCategory.adapter = null
+		super.onDestroyView()
 	}
 }

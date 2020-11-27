@@ -23,7 +23,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
 
 
 @Dao
@@ -36,17 +35,11 @@ interface FavouritesDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun insertFavourite(favouriteEntity: FavouriteEntity)
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'PLACE'")
-	suspend fun getFavouritePlaces(): List<FavouriteEntity>
+	@Query("SELECT * FROM favourites WHERE favourite_type = :type")
+	suspend fun getFavouritesList(type: String): List<FavouriteEntity>
 
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'PLACE' AND favourite_id = :id")
-	suspend fun getFavouritePlace(id: Int): FavouriteEntity?
-
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'EVENT'")
-	suspend fun getFavouriteEvents(): List<FavouriteEntity>
-
-	@Query(value = "SELECT * FROM favourites WHERE favourite_type = 'EVENT' AND favourite_id = :id")
-	suspend fun getFavouriteEvent(id: Int): FavouriteEntity?
+	@Query("SELECT * FROM favourites WHERE favourite_type = :type AND favourite_id = :id")
+	suspend fun getFavouriteById(type: String, id: Int): FavouriteEntity?
 
 	@Delete
 	suspend fun deleteFavourite(favouriteEntity: FavouriteEntity)

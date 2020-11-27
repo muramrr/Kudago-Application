@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.adapters
 
-import com.mmdev.kudago.app.domain.places.PlaceEntity
+import com.mmdev.kudago.app.domain.places.data.PlaceBaseInfo
 import com.mmdev.kudago.app.presentation.ui.places.category_detailed.PlacesCategoryDetailedAdapter
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -39,14 +39,14 @@ class PlacesCategoryDetailedAdapterTest {
 
 		assertEquals(0, adapter.itemCount)
 
-		adapter = PlacesCategoryDetailedAdapter(listOf(PlaceEntity(), PlaceEntity()))
+		adapter = PlacesCategoryDetailedAdapter(mutableListOf(PlaceBaseInfo(), PlaceBaseInfo()))
 		assertEquals(2, adapter.itemCount)
 	}
 
 	@Test
 	fun getItem() {
-		adapter = PlacesCategoryDetailedAdapter(listOf(PlaceEntity(), PlaceEntity()))
-		assertEquals(PlaceEntity(), adapter.getItem(0))
+		adapter = PlacesCategoryDetailedAdapter(mutableListOf(PlaceBaseInfo(), PlaceBaseInfo()))
+		assertEquals(PlaceBaseInfo(), adapter.getItem(0))
 	}
 
 }

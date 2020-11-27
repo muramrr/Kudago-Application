@@ -19,23 +19,35 @@ package com.mmdev.kudago.app.presentation.base
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.viewbinding.ViewBinding
+import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.common.showToast
 
 /**
  * generic fragment class
  */
 
-abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
+abstract class BaseFragment<Binding : ViewBinding>(
+	@LayoutRes private val layoutId: Int
+) : Fragment(layoutId), IBaseView {
 
 	protected val TAG = "mylogs_" + javaClass.simpleName
 
-	protected open val presenter: IBasePresenter<*>? = null
-
+	protected open val presenter: BasePresenter<*>? = null
+	
+	protected var _binding: Binding? = null
+	
+	protected val viewBinding: Binding
+		get() = _binding ?: throw IllegalStateException(
+			"Trying to access the binding outside of the view lifecycle."
+		)
+	
+	
 	protected lateinit var navController: NavController
 
 	@Suppress("UNCHECKED_CAST")
@@ -44,19 +56,22 @@ abstract class BaseFragment(layoutId: Int = 0) : Fragment(layoutId), IBaseView {
 		navController = findNavController()
 		(presenter as IBasePresenter<IBaseView>?)?.linkView(this)
 	}
-
+	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setupViews()
 	}
-
-	override fun onDestroy() {
-		presenter?.onClear()
-		super.onDestroy()
-	}
-
+	
 	abstract fun setupViews()
 
-	override fun showToast(toastText: String) = requireContext().showToast(toastText)
+	override fun onDestroyView() {
+		_binding = null
+		
+		presenter?.unlinkView()
+		super.onDestroyView()
+	}
+
+	
+
 }
 

@@ -18,9 +18,9 @@
 package com.mmdev.kudago.app
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.mmdev.kudago.app.data.db.FavouriteEntity
 import com.mmdev.kudago.app.data.db.FavouritesDao
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
-import com.mmdev.kudago.app.domain.favourites.FavouriteType
+import com.mmdev.kudago.app.domain.favourites.FavouriteType.*
 import com.mmdev.kudago.app.modules.roomTestModule
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -72,19 +72,19 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create favourite place entity
 		val favouriteEntity =
-			FavouriteEntity(0,"Title",
-			                FavouriteType.PLACE.name,
+			FavouriteEntity(0, "Title",
+			                PLACE.name,
 			                "Description", "")
 
 		// Insert entity
 
 		favouritesDao.insertFavourite(favouriteEntity)
 		// Request one entity per id
-		val requestedEntities = favouritesDao.getFavouritePlaces()
+		val requestedEntities = favouritesDao.getFavouritesList(EVENT.name)
 
 		// compare result
 		assertEquals(listOf(favouriteEntity), requestedEntities)
-		assertTrue(favouritesDao.getFavouriteEvents().isEmpty())
+		assertTrue(favouritesDao.getFavouritesList(EVENT.name).isEmpty())
 	}
 
 	@Test
@@ -92,19 +92,18 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create favourite event entity
 		val favouriteEntity =
-			FavouriteEntity(0,"Title",
-			                FavouriteType.EVENT.name,
+			FavouriteEntity(0, "Title",
+			                EVENT.name,
 			                "Description", "")
 
 		// Insert entity
-
 		favouritesDao.insertFavourite(favouriteEntity)
 		// Request one entity per id
-		val requestedEntities = favouritesDao.getFavouriteEvents()
+		val requestedEntities = favouritesDao.getFavouritesList(EVENT.name)
 
 		// compare result
 		assertEquals(listOf(favouriteEntity), requestedEntities)
-		assertTrue(favouritesDao.getFavouritePlaces().isEmpty())
+		assertTrue(favouritesDao.getFavouritesList(EVENT.name).isEmpty())
 	}
 
 	@Test
@@ -112,17 +111,19 @@ class FavouritesDaoTest : KoinTest {
 
 		// Create casual entity
 		val favouriteEntity =
-			FavouriteEntity(0, "Title",
-			                FavouriteType.EVENT.name,
-			                 "Description",
-			"")
+			FavouriteEntity(
+				0, "Title",
+				EVENT.name,
+				"Description",
+				""
+			)
 
 		// Save entities
 		favouritesDao.insertFavourite(favouriteEntity)
 
 		// compare result
-		assertEquals(listOf(favouriteEntity), favouritesDao.getFavouriteEvents())
-		assertTrue(favouritesDao.getFavouritePlaces().isEmpty())
+		assertEquals(listOf(favouriteEntity), favouritesDao.getFavouritesList(EVENT.name))
+		assertTrue(favouritesDao.getFavouritesList(EVENT.name).isEmpty())
 
 		favouritesDao.deleteFavourite(favouriteEntity)
 

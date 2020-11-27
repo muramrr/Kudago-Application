@@ -17,7 +17,7 @@
 
 package com.mmdev.kudago.app.presentation.ui.favourites.favourite_type
 
-import com.mmdev.kudago.app.domain.favourites.FavouriteEntity
+import com.mmdev.kudago.app.data.db.FavouriteEntity
 import com.mmdev.kudago.app.domain.favourites.IFavouritesRepository
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import kotlinx.coroutines.launch
@@ -37,16 +37,16 @@ class FavouritesTypePresenter(private val repository: IFavouritesRepository) :
 	override fun loadFavouritePlaces () {
 		launch {
 			placesList = repository.getFavouritePlaces().toMutableList()
-			if (placesList.isNotEmpty()) getLinkedView()?.updateData(placesList)
-			else getLinkedView()?.showEmptyFavourites()
+			if (placesList.isNotEmpty()) attachedView?.updateData(placesList)
+			else attachedView?.showEmptyFavourites()
 		}
 	}
 
 	override fun loadFavouriteEvents () {
 		launch {
 			eventsList = repository.getFavouriteEvents().toMutableList()
-			if (eventsList.isNotEmpty()) getLinkedView()?.updateData(eventsList)
-			else getLinkedView()?.showEmptyFavourites()
+			if (eventsList.isNotEmpty()) attachedView?.updateData(eventsList)
+			else attachedView?.showEmptyFavourites()
 		}
 	}
 

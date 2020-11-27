@@ -15,46 +15,60 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.base
+package com.mmdev.kudago.app.presentation.ui.categories
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.databinding.FragmentCategoriesListBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.BaseRecyclerAdapter
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 
 /**
  * This is the documentation block about the class
  */
 
-abstract class CategoriesFragment : BaseFragment(R.layout.fragment_categories_list) {
-
-	private val viewBinding by viewBinding(FragmentCategoriesListBinding::bind)
-
+abstract class CategoriesFragment : BaseFragment<FragmentCategoriesListBinding>(
+	R.layout.fragment_categories_list
+) {
+	
 	protected val CATEGORY_KEY = "CATEGORY"
 	protected val TITLE_KEY = "TITLE"
-
-
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentCategoriesListBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
+	
 	override fun setupViews() {
 		viewBinding.rvCategories.applySystemWindowInsets(applyTop = true)
 
 		val eventsCategoriesAdapter = CategoriesAdapter(setupAdapterList())
 		viewBinding.rvCategories.apply {
 			adapter = eventsCategoriesAdapter
-			layoutManager = LinearLayoutManager(this.context)
-			addItemDecoration(DividerItemDecoration(this.context, RecyclerView.VERTICAL))
+			layoutManager = LinearLayoutManager(requireContext())
+			addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 			setHasFixedSize(true)
 		}
 
-		eventsCategoriesAdapter.setOnItemClickListener(adapterItemClick())
+		eventsCategoriesAdapter.setOnItemClickListener { view, position, item ->
+			adapterItemClick(view, position, item)
+		}
 	}
 
-	abstract fun setupAdapterList(): List<CategoriesAdapter.AdapterCategoryItem>
+	abstract fun setupAdapterList(): List<CategoryData>
 
-	abstract fun adapterItemClick() : BaseRecyclerAdapter.OnItemClickListener<CategoriesAdapter.AdapterCategoryItem>
-
+	abstract fun adapterItemClick(view: View, position: Int, item: CategoryData)
+	
+	override fun onDestroyView() {
+		viewBinding.rvCategories.adapter = null
+		super.onDestroyView()
+	}
+	
 }

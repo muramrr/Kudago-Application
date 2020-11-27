@@ -15,17 +15,24 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.domain.core.entity
+package com.mmdev.kudago.app.presentation.ui.common.custom.components
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.widget.FrameLayout
 
 /**
- * This is the documentation block about the class
+ * Custom parent to intercept all touches events to prevent being clicked any of view that is
+ * showing below this viewGroup
  */
 
-interface BaseEntity {
-
-	val id: Int
-	val title: String
-	val short_title: String
-	val images: List<ImageEntity>
-
+class InterceptLayout(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
+	
+	@SuppressLint("ClickableViewAccessibility")
+	override fun onTouchEvent(event: MotionEvent?): Boolean {
+		return true
+	}
+	
 }

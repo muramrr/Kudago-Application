@@ -17,10 +17,10 @@
 
 package com.mmdev.kudago.app.presentation.ui.events.category_detailed
 
-import com.mmdev.kudago.app.domain.events.EventEntity
+import com.mmdev.kudago.app.domain.events.data.EventBaseInfo
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
-import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
+import com.mmdev.kudago.app.presentation.ui.categories.CategoryDetailedContract
 
 /**
  * This is the documentation block about the class
@@ -28,7 +28,7 @@ import com.mmdev.kudago.app.presentation.ui.base.CategoryDetailedContract
 
 interface EventsContract  {
 
-	interface View : CategoryDetailedContract.View<EventEntity>, IBaseView
+	interface View : CategoryDetailedContract.View<EventBaseInfo>, IBaseView
 
 	interface Presenter : CategoryDetailedContract.Presenter, IBasePresenter<View>
 

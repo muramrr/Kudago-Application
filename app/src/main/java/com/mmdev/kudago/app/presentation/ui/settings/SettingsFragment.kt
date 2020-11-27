@@ -17,13 +17,17 @@
 
 package com.mmdev.kudago.app.presentation.ui.settings
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
 import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
-import com.mmdev.kudago.app.presentation.base.viewBinding
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
+import com.mmdev.kudago.app.presentation.ui.common.showToast
 import org.koin.android.ext.android.inject
 
 
@@ -31,26 +35,37 @@ import org.koin.android.ext.android.inject
  * This is the documentation block about the class
  */
 
-class SettingsFragment : BaseFragment(R.layout.fragment_settings),
-                         SettingsContract.View {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding>(
+	R.layout.fragment_settings
+), SettingsContract.View {
 
-	private val viewBinding by viewBinding(FragmentSettingsBinding::bind)
 
 	override val presenter: SettingsPresenter by inject()
 
 	private lateinit var cityList: Map<String, String>
 
 	private fun getCityList() = mapOf(
-			getString(R.string.city_api_ekb) to getString(R.string.city_human_ekb),
-			getString(R.string.city_api_krasnoyarsk) to getString(R.string.city_human_krasnoyarsk),
-			getString(R.string.city_api_krd) to getString(R.string.city_human_krd),
-			getString(R.string.city_api_kzn) to getString(R.string.city_human_kzn),
-			getString(R.string.city_api_msk) to getString(R.string.city_human_msk),
-			getString(R.string.city_api_nnv) to getString(R.string.city_human_nnv),
-			getString(R.string.city_api_nsk) to getString(R.string.city_human_nsk),
-			getString(R.string.city_api_spb) to getString(R.string.city_human_spb),
-			getString(R.string.city_api_sochi) to getString(R.string.city_human_sochi))
-
+		getString(R.string.city_api_ekb) to getString(R.string.city_human_ekb),
+		getString(R.string.city_api_krasnoyarsk) to getString(R.string.city_human_krasnoyarsk),
+		getString(R.string.city_api_krd) to getString(R.string.city_human_krd),
+		getString(R.string.city_api_kzn) to getString(R.string.city_human_kzn),
+		getString(R.string.city_api_msk) to getString(R.string.city_human_msk),
+		getString(R.string.city_api_nnv) to getString(R.string.city_human_nnv),
+		getString(R.string.city_api_nsk) to getString(R.string.city_human_nsk),
+		getString(R.string.city_api_spb) to getString(R.string.city_human_spb),
+		getString(R.string.city_api_sochi) to getString(R.string.city_human_sochi)
+	)
+	
+	override fun onStart() {
+		super.onStart()
+		presenter.getCity()
+	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View = FragmentSettingsBinding.inflate(inflater, container, false).apply {
+		_binding = this
+	}.root
 
 	override fun setupViews() {
 		cityList = getCityList()
@@ -91,10 +106,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		}
 	}
 
-	override fun onStart() {
-		super.onStart()
-		presenter.getCity()
-	}
+	
 
 	override fun updateDisplayingCity(city: String) {
 		val cityToDisplay = cityList.getValue(city)
@@ -105,5 +117,5 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings),
 		viewBinding.dropSettingsEditCity.setText(getString(R.string.settings_city_is_not_chosen), false)
 	}
 
-	override fun showClearedToast() = showToast(getString(R.string.toast_successfully_cleared_favourites))
+	override fun showClearedToast() = requireContext().showToast(getString(R.string.toast_successfully_cleared_favourites))
 }
