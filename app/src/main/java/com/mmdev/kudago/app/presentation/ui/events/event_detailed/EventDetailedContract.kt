@@ -30,9 +30,9 @@ interface EventDetailedContract {
 
 	interface View : IBaseView {
 
-		fun showSuccessDeletedToast()
+		fun showSuccessDeletedSnack()
 
-		fun showSuccessAddedToast()
+		fun showSuccessAddedSnack()
 
 		fun setRemoveTextFab()
 

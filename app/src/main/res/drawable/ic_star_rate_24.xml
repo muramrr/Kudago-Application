@@ -1,0 +1,27 @@
+<!--
+  ~
+  ~ Copyright (c) 2020. Andrii Kovalchuk
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M14.43,10l-1.47,-4.84c-0.29,-0.95 -1.63,-0.95 -1.91,0L9.57,10H5.12c-0.97,0 -1.37,1.25 -0.58,1.81l3.64,2.6l-1.43,4.61c-0.29,0.93 0.79,1.68 1.56,1.09L12,17.31l3.69,2.81c0.77,0.59 1.85,-0.16 1.56,-1.09l-1.43,-4.61l3.64,-2.6c0.79,-0.57 0.39,-1.81 -0.58,-1.81H14.43z"/>
+</vector>

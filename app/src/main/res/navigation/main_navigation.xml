@@ -28,24 +28,32 @@
 		app:destination="@id/mainBottomNavPlaces"
 		app:enterAnim="@anim/fragment_fade_enter"
 		app:exitAnim="@anim/fragment_fade_exit"
+		app:popExitAnim="@anim/fragment_fade_exit"
+		app:popEnterAnim="@anim/fragment_fade_enter"
 		/>
 
 	<action android:id="@+id/action_global_eventsFragment"
 		app:destination="@id/mainBottomNavEvents"
 		app:enterAnim="@anim/fragment_fade_enter"
 		app:exitAnim="@anim/fragment_fade_exit"
+		app:popExitAnim="@anim/fragment_fade_exit"
+		app:popEnterAnim="@anim/fragment_fade_enter"
 		/>
 
 	<action android:id="@+id/action_global_favourites"
 		app:destination="@id/mainBottomNavFavourites"
 		app:enterAnim="@anim/fragment_fade_enter"
 		app:exitAnim="@anim/fragment_fade_exit"
+		app:popExitAnim="@anim/fragment_fade_exit"
+		app:popEnterAnim="@anim/fragment_fade_enter"
 		/>
 
 	<action android:id="@+id/action_global_settingsFragment"
 		app:destination="@id/mainBottomNavSettings"
 		app:enterAnim="@anim/fragment_fade_enter"
 		app:exitAnim="@anim/fragment_fade_exit"
+		app:popExitAnim="@anim/fragment_fade_exit"
+		app:popEnterAnim="@anim/fragment_fade_enter"
 		/>
 
 
@@ -61,6 +69,8 @@
 			app:destination="@id/placesCategoryDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="CATEGORY" />
@@ -79,6 +89,8 @@
 			app:destination="@id/eventsCategoryDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="CATEGORY" />
@@ -97,6 +109,8 @@
 			app:destination="@id/placeDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="PLACE_ID" />
@@ -106,6 +120,8 @@
 			app:destination="@id/eventDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="EVENT_ID" />
@@ -131,6 +147,8 @@
 			app:destination="@id/placeDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="PLACE_ID" />
@@ -150,6 +168,8 @@
 			app:destination="@id/eventDetailedFragment"
 			app:enterAnim="@anim/fragment_fade_enter"
 			app:exitAnim="@anim/fragment_fade_exit"
+			app:popExitAnim="@anim/fragment_fade_exit"
+			app:popEnterAnim="@anim/fragment_fade_enter"
 			>
 
 			<argument android:name="EVENT_ID" />

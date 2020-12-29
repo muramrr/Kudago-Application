@@ -17,8 +17,6 @@
 
 package com.mmdev.kudago.app.presentation.ui.common
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -36,17 +34,19 @@ fun Context.showToast(toastText: String = "") =
 
 fun String.capitalizeRu() = this.capitalize(Locale("ru"))
 
-fun TextView.attachClickToCopyText(context: Context, @StringRes formatter: Int) {
-	this.setOnClickListener {
-		val copiedText = this.text.toString()
-		val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-		val clip = ClipData.newPlainText(copiedText, this.text)
-		clipboard.setPrimaryClip(clip)
-		Snackbar.make(this, getStringRes(formatter).format(copiedText), Snackbar.LENGTH_SHORT).show()
-	}
-}
-
 fun TextView.setHtmlText(source: String) {
 	this.text = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT)
 	this.movementMethod = LinkMovementMethod.getInstance()
 }
+
+/**
+ * Show a SnackBar with [messageRes] resource
+ */
+fun View.showSnack(@StringRes messageRes: Int, length: Int = Snackbar.LENGTH_SHORT) =
+	Snackbar.make(this, messageRes, length).show()
+
+/**
+ * Show a SnackBar with [message] string
+ */
+fun View.showSnack(message: String, length: Int = Snackbar.LENGTH_SHORT) =
+	Snackbar.make(this, message, length).show()

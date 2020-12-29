@@ -39,7 +39,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.R.style
 import com.mmdev.kudago.app.databinding.FragmentDetailedPlaceBinding
 import com.mmdev.kudago.app.domain.places.data.PlaceCoords
 import com.mmdev.kudago.app.domain.places.data.PlaceDetailedInfo
@@ -48,7 +47,7 @@ import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.setHtmlText
-import com.mmdev.kudago.app.presentation.ui.common.showToast
+import com.mmdev.kudago.app.presentation.ui.common.showSnack
 import org.koin.android.ext.android.inject
 
 /**
@@ -155,13 +154,13 @@ class PlaceDetailedFragment: BaseFragment<FragmentDetailedPlaceBinding>(
 		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_add_text)
 	}
 
-	override fun showSuccessDeletedToast() = requireContext().showToast(getString(R.string.toast_successfully_removed_favourite))
+	override fun showSuccessDeletedSnack() = viewBinding.root.showSnack(getString(R.string.successfully_removed_favourite))
 
-	override fun showSuccessAddedToast() = requireContext().showToast(getString(R.string.toast_successfully_added_favourite))
+	override fun showSuccessAddedSnack() = viewBinding.root.showSnack(getString(R.string.successfully_added_favourite))
 
 	private fun buildDialog(phone: String): AlertDialog {
 		
-		val dialog = MaterialAlertDialogBuilder(requireContext(), style.My_MaterialAlertDialog)
+		val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.My_MaterialAlertDialog)
 			.setItems(resources.getStringArray(R.array.place_detailed_phone_dialog_items)) { _, itemIndex ->
 				when(itemIndex) {
 					0 -> {

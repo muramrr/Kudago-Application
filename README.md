@@ -17,7 +17,7 @@
 * Navigation Component.
 
 
-[![](https://github.com/muramrr/misc/blob/master/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.mmdev.kudago.app)
+[![](https://github.com/muramrr/Kudago-Application/blob/master/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.mmdev.kudago.app)
 
 
 

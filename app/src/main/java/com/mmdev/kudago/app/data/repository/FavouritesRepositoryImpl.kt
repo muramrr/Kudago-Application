@@ -42,7 +42,7 @@ class FavouritesRepositoryImpl(
 	
 	override suspend fun deleteFromFavourites(favouriteEntity: FavouriteEntity) =
 		withContext(Dispatchers.IO) {
-			favouritesDao.deleteFavourite(favouriteEntity)
+			favouritesDao.deleteFavourite(favouriteEntity.favouriteId)
 		}
 
 	

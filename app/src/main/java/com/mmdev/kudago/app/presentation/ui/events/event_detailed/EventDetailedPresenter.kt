@@ -47,11 +47,11 @@ class EventDetailedPresenter (private val repository: IEventsRepository) :
 			}.fold(
 				success = {
 					isAdded = if (isAdded){
-						attachedView?.showSuccessDeletedToast()
+						attachedView?.showSuccessDeletedSnack()
 						false
 					}
 					else {
-						attachedView?.showSuccessAddedToast()
+						attachedView?.showSuccessAddedSnack()
 						true
 					}
 					handleFabState(isAdded)

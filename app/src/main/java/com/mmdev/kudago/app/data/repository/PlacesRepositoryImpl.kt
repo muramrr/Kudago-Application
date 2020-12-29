@@ -100,26 +100,26 @@ class PlacesRepositoryImpl(
 		placesApi.getPlaceDetails(id)
 	}.fold(
 		success = {
+			var placeDetailed = it
 			if (it.short_title.isBlank() && it.title.isNotBlank())
-				it.short_title = it.title
+				placeDetailed = placeDetailed.copy(short_title = it.title)
 			else
 				if (it.title.isBlank() && it.short_title.isNotBlank())
-					it.title = it.short_title
+					placeDetailed = placeDetailed.copy(title = it.short_title)
 			//check if this place is saved to favourites
-			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.PLACE.name, id)?.mapToPlaceDetailedEntity()
-			isFavourite?.let { entity ->
-				entity.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) }
-			}
-			ResultState.success(it)
+			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.PLACE.name, id) != null
+			placeDetailed = placeDetailed.copy(isAddedToFavourites = isFavourite)
+			ResultState.success(placeDetailed)
 		},
 		failure = {
 			ResultState.failure(it)
 		}
 	)
+	
 	override suspend fun removePlaceFromFavouritesList(
 		placeDetailedInfo: PlaceDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.deleteFavourite(placeDetailedInfo.mapToFavourite())
+		favouritesDao.deleteFavourite(placeDetailedInfo.id)
 	}
 
 }

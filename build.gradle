@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
 	ext.kotlin_version = '1.4.20'
@@ -26,9 +25,6 @@ buildscript {
 	dependencies {
 		classpath 'com.android.tools.build:gradle:4.1.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-		classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-		classpath 'com.github.ben-manes:gradle-versions-plugin:0.28.0'
 	}
 }
 

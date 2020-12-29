@@ -52,15 +52,23 @@
 	<string name="favourite_tab_events">Events</string>
 	<string name="favourite_tab_places">Places</string>
 	<string name="favourites_empty_hint">No favourites added</string>
-
+	
+	<string name="settings_city_is_not_chosen">City is not chosen</string>
 	<string name="settings_btn_clear_cache">Clear Cache\n</string>
 	<string name="settings_btn_clear_favourites">Clear Favourites</string>
-	<string name="settings_city_is_not_chosen">City is not chosen</string>
 	<string name="settings_switch_force_dark_theme">Force Dark Theme</string>
+	<string name="settings_btn_rate">Rate the application</string>
+	
+	<string name="dialog_rate_title">Rate the application</string>
+	<string name="dialog_rate_message">Tap a star to rate this app on the PlayMarket</string>
+	<string name="dialog_rate_btn_positive">Rate</string>
+	<string name="dialog_rate_btn_negative">No, thanks</string>
+	<string name="dialog_rate_btn_neutral">Not now</string>
+	<string name="dialog_rate_snack_text">Thank you for your feedback!</string>
 
-	<string name="toast_successfully_added_favourite">Successfully added to favourites</string>
-	<string name="toast_successfully_cleared_favourites">Successfully cleared favourites</string>
-	<string name="toast_successfully_removed_favourite">Successfully removed from favourites</string>
+	<string name="successfully_added_favourite">Added to favourites</string>
+	<string name="successfully_cleared_favourites">Favorites completely cleared</string>
+	<string name="successfully_removed_favourite">Removed from favourites</string>
 
 	<!-- content descriptions -->
 	<string name="description_category_title_picture">Category title picture</string>

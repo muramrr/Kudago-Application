@@ -45,6 +45,4 @@ abstract class BaseRepository {
 			logError(TAG, "${t.message}")
 			ResultState.Failure(t)
 		}
-
-	protected fun compareId(id1: Int, id2: Int) : Boolean = id1 == id2
 }

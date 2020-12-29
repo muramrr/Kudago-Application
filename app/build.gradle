@@ -20,25 +20,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 
-// Create a variable called propertiesFile, and initialize it to your
-// keystore.properties file, in the rootProject folder.
-def propertiesFile = rootProject.file("local.properties")
-
-// Initialize a new Properties() object called keystoreProperties.
-def properties = new Properties()
-
-// Load your properties file into the keystoreProperties object.
-properties.load(new FileInputStream(propertiesFile))
-
 android {
-	signingConfigs {
-		release {
-			storeFile file(properties['storeFile'])
-			storePassword properties['storePassword']
-			keyAlias properties['keyAlias']
-			keyPassword properties['keyPassword']
-		}
-	}
 
 	compileSdkVersion 30
 
@@ -46,8 +28,8 @@ android {
 		applicationId "com.mmdev.kudago.app"
 		minSdkVersion 21
 		targetSdkVersion 30
-		versionCode 11
-		versionName "1.1"
+		versionCode 12
+		versionName "1.2"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		//testInstrumentationRunner "com.mmdev.kudago.app.KoinTestRunner"
 	}
@@ -56,7 +38,6 @@ android {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-			signingConfig signingConfigs.release
 		}
 	}
 
@@ -91,7 +72,7 @@ dependencies {
 	def koin_version = "2.2.0"
 	def navigation_version = "2.3.1"
 	def retrofit2_version = "2.9.0"
-	def kotlinCoroutines_version = "1.4.1"
+	def kotlinCoroutines_version = "1.4.2"
 	def room_version = "2.3.0-alpha03"
 	
 
@@ -141,13 +122,13 @@ dependencies {
 	testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
 	testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutines_version"
 	androidTestImplementation "org.koin:koin-test:$koin_version"
-	testImplementation "com.squareup.okhttp3:mockwebserver:4.7.2"
+	testImplementation "com.squareup.okhttp3:mockwebserver:4.10.0-RC1"
 	def mockito_version = "3.3.3"
 	testImplementation "org.mockito:mockito-core:$mockito_version"
 	testImplementation "org.mockito:mockito-inline:$mockito_version"
 	testImplementation 'junit:junit:4.13.1'
-	androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-	androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+	androidTestImplementation 'androidx.test.ext:junit:1.1.3-alpha02'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0-alpha02'
 
 
 	debugImplementation "com.squareup.leakcanary:leakcanary-android:2.5"

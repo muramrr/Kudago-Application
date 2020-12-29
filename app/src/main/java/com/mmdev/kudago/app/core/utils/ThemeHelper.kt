@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package com.mmdev.kudago.app.presentation.ui.common
+package com.mmdev.kudago.app.core.utils
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.*
+import com.mmdev.kudago.app.core.utils.ThemeHelper.ThemeMode.*
 
 object ThemeHelper {
 	

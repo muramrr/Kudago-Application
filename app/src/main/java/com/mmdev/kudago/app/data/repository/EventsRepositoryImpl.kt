@@ -103,16 +103,16 @@ class EventsRepositoryImpl(
 		eventsApi.getEventDetails(id)
 	}.fold(
 		success = {
+			var eventDetailed = it
 			if (it.short_title.isBlank() && it.title.isNotBlank())
-				it.short_title = it.title
+				eventDetailed = eventDetailed.copy(short_title = it.title)
 			else
 				if (it.title.isBlank() && it.short_title.isNotBlank())
-					it.title = it.short_title
-			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.EVENT.name, id)?.mapToEventDetailedEntity()
-			isFavourite?.let { entity ->
-				entity.run { this.isAddedToFavourites = compareId(this.id, isFavourite.id) }
-			}
-			ResultState.success(it)
+					eventDetailed = eventDetailed.copy(title = it.short_title)
+			//check if this place is saved to favourites
+			val isFavourite = favouritesDao.getFavouriteById(FavouriteType.EVENT.name, id) != null
+			eventDetailed = eventDetailed.copy(isAddedToFavourites = isFavourite)
+			ResultState.success(eventDetailed)
 		},
 		failure = {
 			ResultState.failure(it)
@@ -122,7 +122,7 @@ class EventsRepositoryImpl(
 	override suspend fun removeEventFromFavouritesList(
 		eventDetailedInfo: EventDetailedInfo
 	): SimpleResult<Unit> = safeCall(TAG) {
-		favouritesDao.deleteFavourite(eventDetailedInfo.mapToFavourite())
+		favouritesDao.deleteFavourite(eventDetailedInfo.id)
 	}
 
 

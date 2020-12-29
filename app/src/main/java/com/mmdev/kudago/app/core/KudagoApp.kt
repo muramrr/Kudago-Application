@@ -26,11 +26,11 @@ import com.mmdev.kudago.app.core.di.DatabaseModule
 import com.mmdev.kudago.app.core.di.NetworkModule
 import com.mmdev.kudago.app.core.di.PresentersModule
 import com.mmdev.kudago.app.core.di.RepositoryModule
+import com.mmdev.kudago.app.core.utils.ThemeHelper
+import com.mmdev.kudago.app.core.utils.ThemeHelper.ThemeMode.*
 import com.mmdev.kudago.app.core.utils.log.DebugConfig
 import com.mmdev.kudago.app.core.utils.log.MyLogger
 import com.mmdev.kudago.app.core.utils.log.logDebug
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper
-import com.mmdev.kudago.app.presentation.ui.common.ThemeHelper.ThemeMode.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -51,6 +51,9 @@ class KudagoApp: Application() {
 		private const val DARK_THEME_KEY = "DARK_THEME_KEY"
 		private const val CITY_KEY = "CITY_KEY"
 		
+		private const val NUMBER_OF_INTERACTIONS_KEY = "NUMBER_OF_INTERACTIONS"
+		private const val IS_RATE_DIALOG_AVAILABLE_KEY = "RATE_DIALOG_AVAILABLE"
+		
 		private lateinit var appContext: Context
 		private val prefs: Preferences by lazy {
 			BinaryPreferencesBuilder(appContext).name(PREFERENCES_NAME).build()
@@ -69,15 +72,35 @@ class KudagoApp: Application() {
 			}
 		
 		var city: String = ""
-		 set(value) {
-			 if (field != value) {
-			 	field = value
-				 prefs.edit {
-					 putString(CITY_KEY, value)
-				 }
-			 }
-			
-		 }
+			set(value) {
+				if (field != value) {
+					field = value
+					prefs.edit {
+						putString(CITY_KEY, value)
+					}
+				}
+			}
+		
+		var interactions: Int = 0
+			set(value) {
+				if (field != value) {
+					field = value
+					prefs.edit {
+						putInt(NUMBER_OF_INTERACTIONS_KEY, value)
+					}
+				}
+			}
+		
+		//basically flags if rate dialog was already interacted by forwarding to play market
+		var isRateDialogAvailable: Boolean = true
+			set(value) {
+				if (field != value) {
+					field = value
+					prefs.edit {
+						putBoolean(IS_RATE_DIALOG_AVAILABLE_KEY, value)
+					}
+				}
+			}
 		
 		@Volatile
 		var debug: DebugConfig = DebugConfig.Default
@@ -116,6 +139,8 @@ class KudagoApp: Application() {
 		
 		darkTheme = prefs.getBoolean(DARK_THEME_KEY, false)
 		city = prefs.getString(CITY_KEY, "") ?: ""
+		interactions = prefs.getInt(NUMBER_OF_INTERACTIONS_KEY, 0)
+		isRateDialogAvailable = prefs.getBoolean(IS_RATE_DIALOG_AVAILABLE_KEY, true)
 
 	}
 }

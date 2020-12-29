@@ -36,7 +36,7 @@ class SettingsPresenter (private val settings: SettingsImpl) :
 			withContext(backgroundContext) {
 				settings.clearFavourites()
 			}
-			attachedView?.showClearedToast()
+			attachedView?.showClearedSnack()
 		}
 	}
 

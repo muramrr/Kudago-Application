@@ -18,7 +18,11 @@
 package com.mmdev.kudago.app.presentation.base.mvp
 
 /**
- * This is the documentation block about the class
+ * All fragments will implement this interface
  */
 
-interface IBaseView
+interface IBaseView {
+	
+	fun showRateDialog()
+	
+}

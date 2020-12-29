@@ -18,6 +18,7 @@
 package com.mmdev.kudago.app.presentation.base.mvp
 
 
+import com.mmdev.kudago.app.core.KudagoApp
 import com.mmdev.kudago.app.core.utils.MyDispatchers
 import com.mmdev.kudago.app.core.utils.log.logWtf
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,10 @@ import kotlin.coroutines.CoroutineContext
 abstract class BasePresenter<V: IBaseView> :
 		IBasePresenter<V>,
 		CoroutineScope by CoroutineScope(MyDispatchers.main()) {
+	
+	private companion object {
+		private const val NUMBER_OF_INTERACTIONS_REQUIRED = 100
+	}
 	
 	protected val TAG = "mylogs_${javaClass.simpleName}"
 
@@ -48,6 +53,19 @@ abstract class BasePresenter<V: IBaseView> :
 
 	override fun linkView(view: V) {
 		attachedView = view
+		
+		// check if rate dialog was already interacted by rate 5 stars
+		if (KudagoApp.isRateDialogAvailable) {
+			
+			// logic is simple: if number of saved interactions is bigger or equals to required ->
+			// show DialogRate() and reset the saved counter
+			KudagoApp.interactions++
+			if (KudagoApp.interactions >= NUMBER_OF_INTERACTIONS_REQUIRED) {
+				attachedView?.showRateDialog()
+				KudagoApp.interactions = 0
+			}
+		}
+		
 	}
 
 	override fun unlinkView() {

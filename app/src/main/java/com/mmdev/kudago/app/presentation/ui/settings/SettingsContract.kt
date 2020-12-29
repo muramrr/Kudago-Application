@@ -30,7 +30,7 @@ interface SettingsContract {
 
 	interface View : IBaseView {
 
-		fun showClearedToast()
+		fun showClearedSnack()
 
 		fun updateDisplayingCity(city: String)
 

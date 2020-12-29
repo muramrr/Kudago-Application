@@ -44,11 +44,11 @@ class PlaceDetailedPresenter(private val repository: IPlacesRepository):
 			}.fold(
 				success = {
 					isAdded = if (isAdded){
-						attachedView?.showSuccessDeletedToast()
+						attachedView?.showSuccessDeletedSnack()
 						false
 					}
 					else {
-						attachedView?.showSuccessAddedToast()
+						attachedView?.showSuccessAddedSnack()
 						true
 					}
 					handleFabState(isAdded)

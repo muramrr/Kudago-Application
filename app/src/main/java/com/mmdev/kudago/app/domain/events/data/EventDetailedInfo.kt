@@ -27,15 +27,15 @@ import com.mmdev.kudago.app.domain.favourites.FavouriteType.EVENT
 
 data class EventDetailedInfo (
 	val id: Int = 0,
-	var title: String = "",
-	var short_title: String = "",
+	val title: String = "",
+	val short_title: String = "",
 	val body_text: String = "",
 	val description: String = "",
 	val images: List<ImageEntity> = emptyList(),
 	val dates: List<EventDate> = emptyList(),
 	val price: String = "",
 	val is_free: Boolean = false,
-	var isAddedToFavourites: Boolean = false
+	val isAddedToFavourites: Boolean = false
 ) {
 
 	fun mapToFavourite(): FavouriteEntity {

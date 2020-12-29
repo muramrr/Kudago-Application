@@ -46,7 +46,8 @@
 	<style name="My.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
 
 		<item name="shapeAppearanceOverlay">@style/My.ShapeAppearanceOverlay.Dialog.Rounded</item>
-
+		<item name="colorPrimary">?colorOnPrimary</item>
+		
 	</style>
 
 </resources>

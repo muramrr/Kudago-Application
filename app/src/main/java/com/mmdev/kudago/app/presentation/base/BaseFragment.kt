@@ -27,6 +27,7 @@ import androidx.viewbinding.ViewBinding
 import com.mmdev.kudago.app.presentation.base.mvp.BasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBasePresenter
 import com.mmdev.kudago.app.presentation.base.mvp.IBaseView
+import com.mmdev.kudago.app.presentation.ui.common.DialogRate
 
 /**
  * generic fragment class
@@ -70,8 +71,7 @@ abstract class BaseFragment<Binding : ViewBinding>(
 		presenter?.unlinkView()
 		super.onDestroyView()
 	}
-
 	
-
+	override fun showRateDialog() = DialogRate().show(childFragmentManager, DialogRate::class.java.canonicalName)
 }
 

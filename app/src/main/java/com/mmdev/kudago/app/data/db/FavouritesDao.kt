@@ -19,7 +19,6 @@ package com.mmdev.kudago.app.data.db
 
 import androidx.annotation.VisibleForTesting
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -41,8 +40,8 @@ interface FavouritesDao {
 	@Query("SELECT * FROM favourites WHERE favourite_type = :type AND favourite_id = :id")
 	suspend fun getFavouriteById(type: String, id: Int): FavouriteEntity?
 
-	@Delete
-	suspend fun deleteFavourite(favouriteEntity: FavouriteEntity)
+	@Query("DELETE FROM favourites WHERE favourite_id = :id")
+	suspend fun deleteFavourite(id: Int)
 
 	@Query("DELETE FROM favourites")
 	suspend fun deleteAll()

@@ -27,14 +27,14 @@ import com.mmdev.kudago.app.domain.favourites.FavouriteType.PLACE
 
 data class PlaceDetailedInfo(
 	val id: Int = 0,
-	var title: String = "",
-	var short_title: String = "",
+	val title: String = "",
+	val short_title: String = "",
 	val body_text: String = "",
 	val description: String = "",
 	val images: List<ImageEntity> = emptyList(),
 	val phone: String = "",
 	val coords: PlaceCoords = PlaceCoords(),
-	var isAddedToFavourites: Boolean = false
+	val isAddedToFavourites: Boolean = false
 ) {
 
 	fun mapToFavourite(): FavouriteEntity {

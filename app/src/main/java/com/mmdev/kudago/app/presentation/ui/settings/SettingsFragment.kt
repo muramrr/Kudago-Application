@@ -23,11 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.mmdev.kudago.app.R
-import com.mmdev.kudago.app.core.utils.image_loader.ImageLoader
+import com.mmdev.kudago.app.core.KudagoApp
 import com.mmdev.kudago.app.databinding.FragmentSettingsBinding
 import com.mmdev.kudago.app.presentation.base.BaseFragment
+import com.mmdev.kudago.app.presentation.ui.common.DialogRate
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
-import com.mmdev.kudago.app.presentation.ui.common.showToast
+import com.mmdev.kudago.app.presentation.ui.common.showSnack
 import org.koin.android.ext.android.inject
 
 
@@ -68,11 +69,21 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(
 	}.root
 
 	override fun setupViews() {
-		cityList = getCityList()
-		val imageLoader = ImageLoader.get()
-		val clearCacheString = getString(R.string.settings_btn_clear_cache)
-		val cacheSize = { clearCacheString + imageLoader.getFileCacheSize() + " Mb" }
+	
+//		val imageLoader = ImageLoader.get()
+//		val clearCacheString = getString(R.string.settings_btn_clear_cache)
+//		val cacheSize = { clearCacheString + imageLoader.getFileCacheSize() + " Mb" }
 
+//		viewBinding.btnClearCache.apply {
+//			text = cacheSize.invoke()
+//
+//			setOnClickListener {
+//				imageLoader.clearCache()
+//				this.text = cacheSize.invoke()
+//			}
+//		}
+		
+		cityList = getCityList()
 		viewBinding.layoutSettingsEditCity.applySystemWindowInsets(applyTop = true)
 		val adapter = ArrayAdapter(
 			requireContext(),
@@ -88,21 +99,19 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(
 			}
 		}
 
-		viewBinding.btnClearCache.apply {
-			text = cacheSize.invoke()
 
-			setOnClickListener {
-				imageLoader.clearCache()
-				this.text = cacheSize.invoke()
-			}
-		}
-
+		
 		viewBinding.btnClearFavourites.setOnClickListener { presenter.clearFavourites() }
 
 		viewBinding.switchDarkTheme.isChecked = presenter.getForceDarkTheme()
 
 		viewBinding.switchDarkTheme.setOnCheckedChangeListener { _, b ->
 			presenter.toggleDarkTheme(b)
+		}
+		
+		viewBinding.btnRateApp.setOnClickListener {
+			KudagoApp.interactions = 0 //force reset counter
+			DialogRate().show(childFragmentManager, DialogRate::class.java.canonicalName)
 		}
 	}
 
@@ -117,5 +126,5 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(
 		viewBinding.dropSettingsEditCity.setText(getString(R.string.settings_city_is_not_chosen), false)
 	}
 
-	override fun showClearedToast() = requireContext().showToast(getString(R.string.toast_successfully_cleared_favourites))
+	override fun showClearedSnack() = viewBinding.root.showSnack(getString(R.string.successfully_cleared_favourites))
 }

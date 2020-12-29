@@ -35,7 +35,7 @@ import com.mmdev.kudago.app.presentation.ui.common.ImagePagerAdapter
 import com.mmdev.kudago.app.presentation.ui.common.applySystemWindowInsets
 import com.mmdev.kudago.app.presentation.ui.common.capitalizeRu
 import com.mmdev.kudago.app.presentation.ui.common.setHtmlText
-import com.mmdev.kudago.app.presentation.ui.common.showToast
+import com.mmdev.kudago.app.presentation.ui.common.showSnack
 import org.koin.android.ext.android.inject
 
 /**
@@ -139,9 +139,9 @@ class EventDetailedFragment : BaseFragment<FragmentDetailedEventBinding>(
 		viewBinding.fabAddRemoveFavourites.text = getString(R.string.detailed_fab_add_text)
 	}
 
-	override fun showSuccessDeletedToast() = requireContext().showToast(getString(R.string.toast_successfully_removed_favourite))
+	override fun showSuccessDeletedSnack() = viewBinding.root.showSnack(getString(R.string.successfully_removed_favourite))
 
-	override fun showSuccessAddedToast() = requireContext().showToast(getString(R.string.toast_successfully_added_favourite))
+	override fun showSuccessAddedSnack() = viewBinding.root.showSnack(getString(R.string.successfully_added_favourite))
 
 	private fun setupCalendarIntent(startMillis: Long, endMillis: Long, eventTitle: String): Intent =
 		Intent(Intent.ACTION_INSERT)
